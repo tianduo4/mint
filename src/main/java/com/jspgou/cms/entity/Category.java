@@ -129,7 +129,7 @@
 /*     */ 
 /*     */   public Long[] getBrandIds()
 /*     */   {
-/* 198 */     Set set = getBrands();
+/* 198 */     Set<Brand> set = getBrands();
 /* 199 */     if (set == null) {
 /* 200 */       return null;
 /*     */     }
@@ -166,7 +166,7 @@
 /*     */ 
 /*     */   public Long[] getStandardTypeIds()
 /*     */   {
-/* 251 */     Set set = getStandardType();
+/* 251 */     Set<StandardType> set = getStandardType();
 /* 252 */     if (set == null) {
 /* 253 */       return null;
 /*     */     }

@@ -77,7 +77,7 @@
 /*  83 */     String userMsgType = root.elementText("MsgType");
 /*     */ 
 /*  85 */     String keyword = root.elementTextTrim("Content");
-/*  86 */     String time = new Date().getTime();
+/*  86 */     String time =System.currentTimeMillis()+"";
 /*     */ 
 /*  89 */     String respContent = "no body";
 /*  90 */     String welcome = this.weixinMng.find(SiteUtils.getWebId(request)).getWelcome();

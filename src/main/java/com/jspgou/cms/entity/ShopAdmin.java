@@ -17,7 +17,7 @@
 /*     */ 
 /*     */   public boolean isSuper()
 /*     */   {
-/*  27 */     Set roles = getAdmin().getRoles();
+/*  27 */     Set<Role> roles = getAdmin().getRoles();
 /*  28 */     for (Role role : roles) {
 /*  29 */       if (role.getSuper().booleanValue()) {
 /*  30 */         return true;
@@ -132,7 +132,7 @@
 /* 146 */     json.put("email", getAdmin() == null ? "" : CommonUtils.parseStr(getAdmin().getEmail()));
 /* 147 */     String str = "";
 /* 148 */     if (getAdmin() != null) {
-/* 149 */       Set roles = getAdmin().getRoles();
+/* 149 */       Set<Role> roles = getAdmin().getRoles();
 /* 150 */       if (roles != null) {
 /* 151 */         for (Role role : roles) {
 /* 152 */           str = str + "," + role.getId();

@@ -18,7 +18,6 @@
 /* 38 */     LocaleResolver localeResolver = 
 /* 39 */       RequestContextUtils.getLocaleResolver(request);
 /*    */     Locale locale;
-/*    */     Locale locale;
 /* 41 */     if (localeResolver != null)
 /* 42 */       locale = localeResolver.resolveLocale(request);
 /*    */     else {

@@ -56,13 +56,11 @@
 /*  91 */     if (bi != -1)
 /*     */     {
 /*     */       String pageNoStr;
-/*     */       String pageNoStr;
 /*  93 */       if (mi != -1) {
 /*  94 */         pageNoStr = uri.substring(bi + 1, mi);
 /*     */       }
 /*     */       else
 /*     */       {
-/*     */         String pageNoStr;
 /*  96 */         if (pi != -1)
 /*  97 */           pageNoStr = uri.substring(bi + 1, pi);
 /*     */         else
@@ -160,25 +158,21 @@
 /* 199 */     int pi = uri.indexOf(".");
 /* 200 */     int lastSpt = uri.lastIndexOf("/") + 1;
 /*     */     String url;
-/*     */     String url;
 /* 202 */     if (!StringUtils.isBlank(queryString))
 /* 203 */       url = uri + "?" + queryString;
 /*     */     else
 /* 205 */       url = uri;
-/*     */     String urlFormer;
 /*     */     String urlFormer;
 /* 209 */     if (bi != -1) {
 /* 210 */       urlFormer = uri.substring(lastSpt, bi);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       String urlFormer;
 /* 211 */       if (mi != -1) {
 /* 212 */         urlFormer = uri.substring(lastSpt, mi);
 /*     */       }
 /*     */       else
 /*     */       {
-/*     */         String urlFormer;
 /* 213 */         if (pi != -1)
 /* 214 */           urlFormer = uri.substring(lastSpt, pi);
 /*     */         else
@@ -186,13 +180,11 @@
 /*     */       }
 /*     */     }
 /*     */     String urlLater;
-/*     */     String urlLater;
 /* 220 */     if (mi != -1) {
 /* 221 */       urlLater = url.substring(mi);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       String urlLater;
 /* 222 */       if (pi != -1)
 /* 223 */         urlLater = url.substring(pi);
 /*     */       else

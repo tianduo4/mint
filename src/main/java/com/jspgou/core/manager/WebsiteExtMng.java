@@ -1,6 +1,6 @@
 package com.jspgou.core.manager;
 
-import com.jspgou.core.entity.WebsiteExt.ConfigLogin;
+import com.jspgou.core.entity.WebsiteExt;
 import java.util.Map;
 
 public abstract interface WebsiteExtMng

@@ -60,7 +60,7 @@
 /*  70 */     json.put("dataType", CommonUtils.parseBoolean(Boolean.valueOf(getDataType())));
 /*     */ 
 /*  72 */     if (getStandardSet() != null) {
-/*  73 */       Set standards = getStandardSet();
+/*  73 */       Set<Standard> standards = getStandardSet();
 /*  74 */       JSONArray jsonArray = new JSONArray();
 /*  75 */       for (Standard standard : standards) {
 /*  76 */         JSONObject obj = new JSONObject();

@@ -121,7 +121,6 @@
 /* 129 */       Query query = LuceneProduct.createQuery(queryString, webId, ctgId, brandId, start, end, analyzer);
 /* 130 */       Sort sort = getSort(orderBy);
 /*     */       TopDocs docs;
-/*     */       TopDocs docs;
 /* 132 */       if (sort != null)
 /* 133 */         docs = searcher.search(query, null, pageNo * pageSize, sort);
 /*     */       else {
@@ -130,9 +129,11 @@
 /* 137 */       Pagination p = LuceneProduct.getResult(searcher, docs, pageNo, pageSize);
 /* 138 */       Pagination localPagination1 = p;
 /*     */       return localPagination1;
-/*     */     } finally {
+/*     */     }catch(Exception e){
+               throw e;
+               } finally {
 /* 140 */       searcher.close();
-/* 141 */     }throw localObject;
+/* 141 */     }
 /*     */   }
 /*     */ 
 /*     */   private Sort getSort(int orderBy)
@@ -173,7 +174,6 @@
 /*     */     }
 /* 181 */     if (max < 0)
 /* 182 */       max = 0;
-/*     */     TopDocs docs;
 /*     */     TopDocs docs;
 /* 185 */     if (sort != null)
 /* 186 */       docs = searcher.search(query, null, first + max, sort);

@@ -5,9 +5,9 @@
 /*    */ 
 /*    */ public class ApiUserLogin extends BaseApiUserLogin
 /*    */ {
-/*  8 */   public static Short USER_STATUS_LOGIN = Short.valueOf(1);
-/*  9 */   public static Short USER_STATUS_LOGOUT = Short.valueOf(2);
-/* 10 */   public static Short USER_STATUS_LOGOVERTIME = Short.valueOf(3);
+/*  8 */   public static Short USER_STATUS_LOGIN = Short.valueOf("1");
+/*  9 */   public static Short USER_STATUS_LOGOUT = Short.valueOf("2");
+/* 10 */   public static Short USER_STATUS_LOGOVERTIME = Short.valueOf("3");
 /*    */   private static final long serialVersionUID = 1L;
 /*    */ 
 /*    */   public ApiUserLogin()

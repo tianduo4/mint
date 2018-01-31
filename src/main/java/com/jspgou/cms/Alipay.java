@@ -538,8 +538,8 @@
 /* 726 */       if (bis != null)
 /*     */         try {
 /* 728 */           bis.close();
-/*     */         } catch (IOException e) {
-/* 730 */           e.printStackTrace();
+/*     */         } catch (IOException ex) {
+/* 730 */           ex.printStackTrace();
 /*     */         }
 /*     */     }
 /*     */     finally

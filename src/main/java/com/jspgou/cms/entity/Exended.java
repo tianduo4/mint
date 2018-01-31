@@ -35,7 +35,7 @@
 /*    */ 
 /*    */   public Long[] getProductTypeIds()
 /*    */   {
-/* 53 */     Set set = getProductTypes();
+/* 53 */     Set<ProductType> set = getProductTypes();
 /* 54 */     if (set == null) {
 /* 55 */       return null;
 /*    */     }

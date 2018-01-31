@@ -35,7 +35,7 @@
 /*  31 */     Integer count = this.coreCacheSvc.getWebsiteCount();
 /*     */     int i;
 /*  33 */     if (count == null) {
-/*  34 */       int i = this.dao.countWebsite();
+/*  34 */       i = this.dao.countWebsite();
 /*  35 */       this.coreCacheSvc.putWebsiteCount(new Integer(i).intValue());
 /*     */     } else {
 /*  37 */       i = count.intValue();
@@ -47,7 +47,7 @@
 /*  43 */       if (id != null) {
 /*  44 */         website = findById(id);
 /*     */       } else {
-/*  46 */         Website website = this.dao.getUniqueWebsite();
+/*  46 */         website = this.dao.getUniqueWebsite();
 /*  47 */         this.coreCacheSvc.putWebsiteId(website.getId());
 /*     */       }
 /*  49 */     } else if (i > 1) {
@@ -56,7 +56,7 @@
 /*  51 */       if (id != null) {
 /*  52 */         website = findById(id);
 /*     */       } else {
-/*  54 */         Website website = this.dao.findByDomain(s);
+/*  54 */         website = this.dao.findByDomain(s);
 /*  55 */         if (website != null)
 /*  56 */           this.domainCacheSvc.put(website.getDomain(), website.getDomainAliasArray(), website.getId());
 /*     */       }

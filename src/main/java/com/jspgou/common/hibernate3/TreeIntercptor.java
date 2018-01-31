@@ -61,7 +61,7 @@
 /*     */       {
 /*  64 */         String hql = "select bean." + tree.getRgtName() + " from " + 
 /*  65 */           beanName + " bean where bean.id=:pid";
-/*  66 */         Integer myPosition = 
+/*  66 */          myPosition =
 /*  67 */           Integer.valueOf(((Number)session.createQuery(hql).setParameter(
 /*  67 */           "pid", parentId).uniqueResult()).intValue());
 /*  68 */         String hql1 = "update " + beanName + " bean set bean." + 

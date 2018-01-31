@@ -250,7 +250,7 @@ import org.apache.lucene.search.BooleanClause.Occur;
 /* 203 */       p.getCreateTime(), DateTools.Resolution.MILLISECOND), 
 /* 204 */       Field.Store.YES, Field.Index.NOT_ANALYZED));
 /*     */ 
-/* 207 */     Collection keywords = p.getKeywordArray();
+/* 207 */     Collection<String> keywords = p.getKeywordArray();
 /* 208 */     if (keywords != null) {
 /* 209 */       for (String keyword : keywords) {
 /* 210 */         doc.add(
@@ -258,7 +258,7 @@ import org.apache.lucene.search.BooleanClause.Occur;
 /* 211 */           Field.Index.ANALYZED));
 /*     */       }
 /*     */     }
-/* 214 */     Collection tags = p.getTagArray();
+/* 214 */     Collection<String> tags = p.getTagArray();
 /* 215 */     if (tags != null) {
 /* 216 */       for (String tag : tags) {
 /* 217 */         doc.add(
@@ -272,7 +272,7 @@ import org.apache.lucene.search.BooleanClause.Occur;
 /*     */   public static LuceneProduct createProduct(Document d)
 /*     */   {
 /* 226 */     LuceneProduct p = new LuceneProduct();
-/* 227 */     List list = d.getFields();
+/* 227 */     List<Fieldable> list = d.getFields();
 /*     */ 
 /* 229 */     for (Fieldable f : list) {
 /* 230 */       String name = f.name();

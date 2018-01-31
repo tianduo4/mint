@@ -5,7 +5,8 @@
 /*     */ import com.jspgou.cms.manager.ShopPlugMng;
 /*     */ import com.jspgou.common.file.FileWrap;
 /*     */ import com.jspgou.common.file.FileWrap.FileComparator;
-/*     */ import com.jspgou.common.util.Zipper.FileEntry;
+/*     */ import com.jspgou.common.util.Zipper;
+import com.jspgou.common.util.Zipper.FileEntry;
 /*     */ import com.jspgou.common.web.springmvc.RealPathResolver;
 /*     */ import com.jspgou.core.entity.Website;
 /*     */ import java.io.BufferedReader;

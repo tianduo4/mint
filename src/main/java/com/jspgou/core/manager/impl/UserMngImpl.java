@@ -6,7 +6,8 @@
 /*     */ import com.jspgou.core.entity.EmailSender;
 /*     */ import com.jspgou.core.entity.MessageTemplate;
 /*     */ import com.jspgou.core.entity.User;
-/*     */ import com.jspgou.core.entity.WebsiteExt.ConfigLogin;
+/*     */ import com.jspgou.core.entity.WebsiteExt;
+import com.jspgou.core.entity.WebsiteExt.ConfigLogin;
 /*     */ import com.jspgou.core.manager.UserMng;
 /*     */ import com.jspgou.core.manager.WebsiteExtMng;
 /*     */ import java.io.UnsupportedEncodingException;
@@ -80,24 +81,24 @@
 /*  79 */     sender.setHost(email.getHost());
 /*  80 */     sender.setUsername(email.getUsername());
 /*  81 */     sender.setPassword(email.getPassword());
-/*  82 */     sender.send(new MimeMessagePreparator(email, tpl, to, uid, username, resetKey, resetPwd, base)
-/*     */     {
-/*     */       public void prepare(MimeMessage mimemessage) throws MessagingException, UnsupportedEncodingException
-/*     */       {
-/*  86 */         MimeMessageHelper msg = new MimeMessageHelper(mimemessage, 
-/*  87 */           false, this.val$email.getEncoding());
-/*  88 */         msg.setSubject(this.val$tpl.getSubject());
-/*  89 */         msg.setTo(this.val$to);
-/*  90 */         msg.setFrom(this.val$email.getUsername(), this.val$email.getPersonal());
-/*  91 */         String text = this.val$tpl.getText();
-/*  92 */         text = StringUtils.replace(text, "${uid}", String.valueOf(this.val$uid));
-/*  93 */         text = StringUtils.replace(text, "${username}", this.val$username);
-/*  94 */         text = StringUtils.replace(text, "${activationCode}", this.val$resetKey);
-/*  95 */         text = StringUtils.replace(text, "${resetPwd}", this.val$resetPwd);
-/*  96 */         text = StringUtils.replace(text, "${base}", this.val$base);
-/*  97 */         msg.setText(text, true);
-/*     */       }
-/*     */     });
+///*  82 */     sender.send(new MimeMessagePreparator(email, tpl, to, uid, username, resetKey, resetPwd, base)
+///*     */     {
+///*     */       public void prepare(MimeMessage mimemessage) throws MessagingException, UnsupportedEncodingException
+///*     */       {
+///*  86 */         MimeMessageHelper msg = new MimeMessageHelper(mimemessage,
+///*  87 */           false, this.val$email.getEncoding());
+///*  88 */         msg.setSubject(this.val$tpl.getSubject());
+///*  89 */         msg.setTo(this.val$to);
+///*  90 */         msg.setFrom(this.val$email.getUsername(), this.val$email.getPersonal());
+///*  91 */         String text = this.val$tpl.getText();
+///*  92 */         text = StringUtils.replace(text, "${uid}", String.valueOf(this.val$uid));
+///*  93 */         text = StringUtils.replace(text, "${username}", this.val$username);
+///*  94 */         text = StringUtils.replace(text, "${activationCode}", this.val$resetKey);
+///*  95 */         text = StringUtils.replace(text, "${resetPwd}", this.val$resetPwd);
+///*  96 */         text = StringUtils.replace(text, "${base}", this.val$base);
+///*  97 */         msg.setText(text, true);
+///*     */       }
+///*     */     });  //TODO  注释
 /*     */   }
 /*     */ 
 /*     */   public User resetPassword(Long userId) {

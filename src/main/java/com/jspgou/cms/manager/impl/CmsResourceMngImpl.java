@@ -2,8 +2,7 @@
 /*     */ 
 /*     */ import com.jspgou.cms.manager.CmsResourceMng;
 /*     */ import com.jspgou.common.file.FileWrap;
-/*     */ import com.jspgou.common.file.FileWrap.FileComparator;
-/*     */ import com.jspgou.common.util.Zipper.FileEntry;
+/*     */ import com.jspgou.common.util.Zipper;
 /*     */ import com.jspgou.common.web.springmvc.RealPathResolver;
 /*     */ import com.jspgou.core.entity.Website;
 /*     */ import java.io.BufferedReader;
@@ -57,7 +56,6 @@
 /*  49 */     File parent = new File(this.realPathResolver.get(path));
 /*  50 */     if (parent.exists())
 /*     */     {
-/*     */       File[] files;
 /*     */       File[] files;
 /*  52 */       if (dirAndEditable)
 /*  53 */         files = parent.listFiles(this.filter);

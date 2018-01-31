@@ -99,7 +99,7 @@
 /*     */   }
 /*     */ 
 /*     */   public ProductFashion getProductFashion() {
-/* 160 */     Set set = getFashions();
+/* 160 */     Set<ProductFashion> set = getFashions();
 /* 161 */     for (ProductFashion p : set) {
 /* 162 */       if (p.getIsDefault().booleanValue()) {
 /* 163 */         return p;
@@ -142,7 +142,7 @@
 /*     */ 
 /*     */   public void removeAllTags()
 /*     */   {
-/* 213 */     Set set = getTags();
+/* 213 */     Set<ProductTag> set = getTags();
 /* 214 */     for (ProductTag tag : set) {
 /* 215 */       tag.reduceCount();
 /*     */     }
@@ -151,7 +151,7 @@
 /*     */ 
 /*     */   public Long[] getTagIds()
 /*     */   {
-/* 226 */     Set set = getTags();
+/* 226 */     Set<ProductTag> set = getTags();
 /* 227 */     if (set == null) {
 /* 228 */       return null;
 /*     */     }
@@ -275,7 +275,7 @@
 /*     */ 
 /*     */   public Collection<String> getTagArray()
 /*     */   {
-/* 375 */     Set tags = getTags();
+/* 375 */     Set<ProductTag> tags = getTags();
 /* 376 */     if (tags != null) {
 /* 377 */       List list = new ArrayList(tags.size());
 /* 378 */       for (ProductTag tag : tags) {
@@ -306,7 +306,7 @@
 /*     */ 
 /*     */   public Collection<String> getCategoryNameArray()
 /*     */   {
-/* 408 */     List list = getCategoryList();
+/* 408 */     List<Category> list = getCategoryList();
 /* 409 */     List nameList = new ArrayList(list.size());
 /* 410 */     for (Category c : list) {
 /* 411 */       nameList.add(c.getName());
@@ -316,7 +316,7 @@
 /*     */ 
 /*     */   public Collection<Integer> getCategoryIdArray()
 /*     */   {
-/* 418 */     List list = getCategoryList();
+/* 418 */     List<Category> list = getCategoryList();
 /* 419 */     List nameList = new ArrayList(list.size());
 /* 420 */     for (Category c : list) {
 /* 421 */       nameList.add(c.getId());
@@ -448,7 +448,7 @@
 /*     */ 
 /*     */   public Integer getProductTotalStockCount()
 /*     */   {
-/* 555 */     Set set = getFashions();
+/* 555 */     Set<ProductFashion> set = getFashions();
 /* 556 */     int store = 0;
 /* 557 */     if (set != null) {
 /* 558 */       for (ProductFashion s : set) {
@@ -460,7 +460,7 @@
 /*     */   }
 /*     */ 
 /*     */   public Integer getProductTotalSaleCount() {
-/* 567 */     Set set = getFashions();
+/* 567 */     Set<ProductFashion> set = getFashions();
 /* 568 */     int sale = 0;
 /* 569 */     if (set != null) {
 /* 570 */       for (ProductFashion s : set) {
@@ -507,7 +507,7 @@
 /* 611 */       json.put("text1", CommonUtils.parseStr(getText1()));
 /* 612 */       JSONArray jsonArray = new JSONArray();
 /* 613 */       if (getPictures() != null) {
-/* 614 */         List picture = getPictures();
+/* 614 */         List<ProductPicture> picture = getPictures();
 /* 615 */         for (ProductPicture pic : picture) {
 /* 616 */           jsonArray.put(CommonUtils.parseStr(pic.getPicturePath()));
 /*     */         }
@@ -517,7 +517,7 @@
 /* 621 */       jsonArray = new JSONArray();
 /* 622 */       List discontList = new ArrayList();
 /* 623 */       if (getFashions() != null) {
-/* 624 */         Set productFashion = getFashions();
+/* 624 */         Set<ProductFashion> productFashion = getFashions();
 /* 625 */         for (ProductFashion fashion : productFashion) {
 /* 626 */           JSONObject obj = new JSONObject();
 /* 627 */           obj.put("fashionIds", CommonUtils.parseId(fashion.getId()));

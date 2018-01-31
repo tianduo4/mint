@@ -2,7 +2,7 @@ package com.jspgou.cms.manager;
 
 import com.jspgou.cms.entity.ShopPlug;
 import com.jspgou.common.file.FileWrap;
-import com.jspgou.common.util.Zipper.FileEntry;
+import com.jspgou.common.util.Zipper;
 import com.jspgou.core.entity.Website;
 import java.io.File;
 import java.io.IOException;

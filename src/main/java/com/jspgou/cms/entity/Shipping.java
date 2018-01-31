@@ -24,10 +24,8 @@
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       Double p;
 /*  43 */       if (m == 2)
 /*     */       {
-/*     */         Double p;
 /*  45 */         if (weight.doubleValue() <= 0.0D)
 /*  46 */           p = Double.valueOf(0.0D);
 /*     */         else
@@ -37,7 +35,6 @@
 /*  51 */         throw new RuntimeException("Shipping method not supported: " + m);
 /*     */       }
 /*     */     }
-/*     */     Double p;
 /*  53 */     return p;
 /*     */   }
 /*     */ 

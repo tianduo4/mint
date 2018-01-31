@@ -155,7 +155,7 @@
 /*     */   public void sendText(String access_token, String content) {
 /* 165 */     String sendGetUrl = PropertyUtils.getPropertyValue(new File(this.realPathResolver.get(Constants.JSPGOU_CONFIG)), "weixin.address.send");
 /* 166 */     String url = sendGetUrl + "?access_token=" + access_token;
-/* 167 */     Set openIds = getUsers(access_token);
+/* 167 */     Set<String> openIds = getUsers(access_token);
 /* 168 */     content = filterCharacters(content);
 /*     */ 
 /* 170 */     for (String openId : openIds) {
@@ -172,7 +172,7 @@
 /*     */   {
 /* 182 */     String sendUrl = PropertyUtils.getPropertyValue(new File(this.realPathResolver.get(Constants.JSPGOU_CONFIG)), "weixin.address.send");
 /* 183 */     sendUrl = sendUrl + "?access_token=" + access_token;
-/* 184 */     Set openIds = getUsers(access_token);
+/* 184 */     Set<String> openIds = getUsers(access_token);
 /* 185 */     if (description == null) {
 /* 186 */       description = "";
 /*     */     }

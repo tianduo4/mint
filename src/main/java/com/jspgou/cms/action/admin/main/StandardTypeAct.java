@@ -125,7 +125,8 @@
 /*     */   private void addStandard(StandardType bean, String[] itemName, String[] itemColor, Integer[] itemPriority)
 /*     */   {
 /* 131 */     if (itemName != null) {
-/* 132 */       int i = 0; for (int len = itemName.length; i < len; i++)
+/* 132 */       int i = 0;
+                for (int len = itemName.length; i < len; i++)
 /* 133 */         if (!StringUtils.isBlank(itemName[i])) {
 /* 134 */           Standard item = new Standard();
 /* 135 */           item.setName(itemName[i]);
@@ -149,7 +150,7 @@
 /*     */   }
 /*     */ 
 /*     */   private void updateStandard(StandardType bean, Long[] itemId, String[] itemName, String[] itemColor, Integer[] itemPriority) {
-/* 157 */     Set set = bean.getStandardSet();
+/* 157 */     Set<Standard> set = bean.getStandardSet();
 /* 158 */     if (itemId != null) {
 /* 159 */       for (Standard s : set) {
 /* 160 */         if (!Arrays.asList(itemId).contains(s.getId()))

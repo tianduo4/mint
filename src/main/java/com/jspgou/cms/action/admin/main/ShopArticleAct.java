@@ -43,7 +43,6 @@
 /*  55 */     Website web = SiteUtils.getWeb(request);
 /*  56 */     log.debug("tree path={}", root);
 /*     */     boolean isRoot;
-/*     */     boolean isRoot;
 /*  59 */     if ((StringUtils.isBlank(root)) || ("source".equals(root)))
 /*  60 */       isRoot = true;
 /*     */     else {
@@ -56,7 +55,6 @@
 /*  68 */       ResponseUtils.renderJson(response, "[]");
 /*  69 */       return null;
 /*     */     }
-/*     */     List list;
 /*     */     List list;
 /*  72 */     if (isRoot) {
 /*  73 */       list = this.channelMng.getTopList(web.getId());

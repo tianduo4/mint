@@ -126,7 +126,7 @@
 /*     */ 
 /*     */   public void resetSaleTop()
 /*     */   {
-/*  77 */     List list = getList(null, null, null);
+/*  77 */     List<Product> list = getList(null, null, null);
 /*  78 */     for (Product product : list) {
 /*  79 */       product.setSaleCount(Integer.valueOf(0));
 /*  80 */       update(product);
@@ -135,7 +135,7 @@
 /*     */ 
 /*     */   public void resetProfitTop()
 /*     */   {
-/*  86 */     List list = getList(null, null, null);
+/*  86 */     List<Product> list = getList(null, null, null);
 /*  87 */     for (Product product : list) {
 /*  88 */       product.setLiRun(Double.valueOf(0.0D));
 /*  89 */       update(product);
@@ -150,7 +150,6 @@
 /*     */   @Transactional(readOnly=true)
 /*     */   public Pagination getPage(Long webId, Integer ctgId, String productName, String brandName, Integer status, Boolean isRecommend, Boolean isSpecial, Boolean isHotsale, Boolean isNewProduct, Long typeId, Double startSalePrice, Double endSalePrice, Integer startStock, Integer endStock, int pageNo, int pageSize)
 /*     */   {
-/*     */     Pagination page;
 /*     */     Pagination page;
 /* 105 */     if (ctgId != null)
 /* 106 */       page = this.dao.getPageByCategory(ctgId, productName, brandName, status, 
@@ -184,14 +183,12 @@
 /*     */   public Pagination getPageForTag(Long webId, Integer ctgId, Long tagId, Boolean isRecommend, Boolean isSpecial, int pageNo, int pageSize)
 /*     */   {
 /*     */     Pagination page;
-/*     */     Pagination page;
 /* 139 */     if (tagId != null) {
 /* 140 */       page = this.dao.getPageByTag(tagId, ctgId, isRecommend, isSpecial, 
 /* 141 */         pageNo, pageSize, true);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       Pagination page;
 /* 143 */       if (ctgId != null)
 /* 144 */         page = this.dao.getPageByCategory(ctgId, null, null, Integer.valueOf(Product.ON_SALE_STATUS), isRecommend, isSpecial, 
 /* 145 */           null, null, null, null, null, null, null, pageNo, pageSize, true);
@@ -212,13 +209,11 @@
 /*     */   public Pagination getPageForTagChannel(String brandId, Long webId, Integer ctgId, Long tagId, Boolean isRecommend, String[] names, String[] values, Boolean isSpecial, int orderBy, Double startPrice, Double endPrice, int pageNo, int pageSize)
 /*     */   {
 /*     */     Pagination page;
-/*     */     Pagination page;
 /* 164 */     if (tagId != null) {
 /* 165 */       page = this.dao.getPageByTag(tagId, ctgId, isRecommend, isSpecial, pageNo, pageSize, true);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       Pagination page;
 /* 167 */       if (ctgId != null)
 /* 168 */         page = this.dao.getPageByCategoryChannel(brandId, ctgId, isRecommend, names, values, isSpecial, orderBy, startPrice, endPrice, pageNo, pageSize, true);
 /*     */       else {
@@ -554,8 +549,8 @@
 /*     */   {
 /* 516 */     Product[] beans = new Product[ids.length];
 /* 517 */     int i = 0;
-/*     */     List clist;
-/*     */     List consultList;
+/*     */     List<Collect> clist;
+/*     */     List<Consult> consultList;
 /* 517 */     for (int len = ids.length; i < len; i++) {
 /* 518 */       this.cartItemMng.deleteByProductId(ids[i]);
 /* 519 */       clist = this.collectMng.findByProductId(ids[i]);
@@ -566,7 +561,7 @@
 /* 524 */       for (Consult consult : consultList) {
 /* 525 */         this.consultMng.deleteById(consult.getId());
 /*     */       }
-/* 527 */       List psList = this.productStandardMng.findByProductId(ids[i]);
+/* 527 */       List<ProductStandard> psList = this.productStandardMng.findByProductId(ids[i]);
 /* 528 */       for (ProductStandard ps : psList) {
 /* 529 */         this.productStandardMng.deleteById(ps.getId());
 /*     */       }
@@ -673,7 +668,7 @@
 /*     */   public Integer getTotalStore(Long productId)
 /*     */   {
 /* 635 */     Product bean = this.dao.findById(productId);
-/* 636 */     Set set = bean.getFashions();
+/* 636 */     Set<ProductFashion> set = bean.getFashions();
 /* 637 */     Integer store = Integer.valueOf(0);
 /* 638 */     if (set != null) {
 /* 639 */       for (ProductFashion f : set) {

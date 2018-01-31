@@ -21,7 +21,7 @@
 /*    */   @Transactional(readOnly=true)
 /*    */   public Map<String, String> getMap()
 /*    */   {
-/* 24 */     List list = this.dao.getList();
+/* 24 */     List<WebsiteExt> list = this.dao.getList();
 /* 25 */     Map map = new HashMap(list.size());
 /* 26 */     for (WebsiteExt websiteExt : list) {
 /* 27 */       map.put(websiteExt.getId(), websiteExt.getValue());

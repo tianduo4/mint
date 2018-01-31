@@ -59,7 +59,7 @@
 /*     */       else {
 /*  63 */         ShopAdmin admin = CmsThreadVariable.getAdminUser();
 /*  64 */         Pagination pagination = this.messageMng.getPage(admin.getId(), pageNo.intValue(), pageSize.intValue());
-/*  65 */         List mess = pagination.getList();
+/*  65 */         List<Message> mess =(List<Message>) pagination.getList();
 /*  66 */         JSONArray jsons = new JSONArray();
 /*  67 */         for (Message mes : mess) {
 /*  68 */           jsons.add(mes.converToJson());
@@ -94,7 +94,7 @@
 /* 105 */         Pagination pagination = this.receiverMessageMng.getPage(admin.getId(), 
 /* 106 */           admin.getAdmin().getUser().getId(), title, sendBeginTime, sendEndTime, status, 
 /* 107 */           Integer.valueOf(3), Boolean.valueOf(false), SimplePage.cpn(pageNo), CookieUtils.getPageSize(request));
-/* 108 */         List remess = pagination.getList();
+/* 108 */         List<ReceiverMessage> remess =(List<ReceiverMessage> ) pagination.getList();
 /* 109 */         JSONArray jsons = new JSONArray();
 /* 110 */         for (ReceiverMessage remes : remess) {
 /* 111 */           jsons.add(remes.converToJson());

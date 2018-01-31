@@ -24,7 +24,6 @@
 /*     */   protected T get(ID id, boolean lock)
 /*     */   {
 /*     */     Object entity;
-/*     */     Object entity;
 /*  46 */     if (lock)
 /*  47 */       entity = getSession().get(getEntityClass(), id, 
 /*  48 */         LockMode.PESSIMISTIC_WRITE);

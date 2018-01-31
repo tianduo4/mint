@@ -51,7 +51,7 @@
 /*  77 */     return total;
 /*     */   }
 /*     */   public Double getTotalSubtotal() {
-/*  80 */     Set items = getItems();
+/*  80 */     Set<CartItem> items = getItems();
 /*  81 */     Double total = Double.valueOf(0.0D);
 /*  82 */     if (items != null) {
 /*  83 */       for (CartItem item : items) {
@@ -81,7 +81,7 @@
 /*     */ 
 /*     */   public int getTotalScore()
 /*     */   {
-/* 116 */     Set items = getItems();
+/* 116 */     Set<CartItem> items = getItems();
 /* 117 */     int score = 0;
 /* 118 */     if (items != null) {
 /* 119 */       for (CartItem item : items) {
@@ -93,7 +93,7 @@
 /*     */ 
 /*     */   public int calTotalGift()
 /*     */   {
-/* 131 */     Set items = getGifts();
+/* 131 */     Set<CartGift> items = getGifts();
 /* 132 */     int count = 0;
 /* 133 */     if (items != null) {
 /* 134 */       for (CartGift item : items) {
@@ -192,7 +192,7 @@
 /*     */ 
 /*     */   public CartItem findItem(Long productId, PopularityGroup popularityGroup)
 /*     */   {
-/* 249 */     Set items = getItems();
+/* 249 */     Set<CartItem> items = getItems();
 /* 250 */     if ((items != null) && (items.size() > 0)) {
 /* 251 */       if (popularityGroup != null) {
 /* 252 */         for (CartItem item : items) {
@@ -213,7 +213,7 @@
 /* 267 */     return null;
 /*     */   }
 /*     */   public CartItem findItemfashion(Long productFashId, PopularityGroup popularityGroup) {
-/* 270 */     Set items = getItems();
+/* 270 */     Set<CartItem> items = getItems();
 /* 271 */     if ((items != null) && (items.size() > 0)) {
 /* 272 */       if (popularityGroup != null) {
 /* 273 */         for (CartItem item : items) {
@@ -237,7 +237,7 @@
 /*     */   }
 /*     */ 
 /*     */   public CartGift findGift(Long giftId) {
-/* 294 */     Set gifts = getGifts();
+/* 294 */     Set<CartGift> gifts = getGifts();
 /* 295 */     if ((gifts != null) && (gifts.size() > 0)) {
 /* 296 */       for (CartGift gift : gifts) {
 /* 297 */         if (gift.getGift().getId().equals(giftId)) {
@@ -272,7 +272,7 @@
 /*     */ 
 /*     */   public List<PopularityGroup> getPopularits() {
 /* 328 */     List list = new ArrayList();
-/* 329 */     Set items = getItems();
+/* 329 */     Set<CartItem> items = getItems();
 /* 330 */     if (items != null) {
 /* 331 */       for (CartItem item : items) {
 /* 332 */         if ((item.getPopularityGroup() == null) || 

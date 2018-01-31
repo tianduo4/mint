@@ -180,7 +180,6 @@
 /* 267 */     if (this.child != null)
 /* 268 */       return this.child;
 /*     */     File[] files;
-/*     */     File[] files;
 /* 271 */     if (this.filter == null)
 /* 272 */       files = getFile().listFiles();
 /*     */     else {

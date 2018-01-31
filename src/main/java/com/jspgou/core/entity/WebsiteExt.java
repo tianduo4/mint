@@ -49,10 +49,13 @@
 /*    */ 
 /*    */     public void setErrorInterval(Integer errorInterval)
 /*    */     {
-/* 58 */       if (errorInterval != null)
+/* 58 */       if (errorInterval != null){
+
 /* 59 */         getAttr().put(LOGIN_ERROR_INTERVAL, errorInterval.toString());
-/*    */       else
+              }
+/*    */       else{
 /* 61 */         getAttr().put(LOGIN_ERROR_INTERVAL, null);
+               }
 /*    */     }
 /*    */ 
 /*    */     public Integer getErrorTimes()
@@ -67,10 +70,12 @@
 /*    */ 
 /*    */     public void setErrorTimes(Integer errorTimes)
 /*    */     {
-/* 76 */       if (errorTimes != null)
+/* 76 */       if (errorTimes != null){
 /* 77 */         getAttr().put(LOGIN_ERROR_TIMES, errorTimes.toString());
-/*    */       else
+              }
+/*    */       else{
 /* 79 */         getAttr().put(LOGIN_ERROR_TIMES, null);
+               }
 /*    */     }
 /*    */   }
 /*    */ }

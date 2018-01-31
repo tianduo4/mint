@@ -34,7 +34,6 @@
 /*     */   public Pagination getPageForTag(Long webId, Long channelId, int pageNo, int pageSize)
 /*     */   {
 /*     */     Pagination page;
-/*     */     Pagination page;
 /*  39 */     if (channelId != null)
 /*  40 */       page = this.dao.getPageByChannel(channelId, pageNo, pageSize, true);
 /*     */     else {
@@ -45,7 +44,6 @@
 /*     */ 
 /*     */   public List<ShopArticle> getListForTag(Long webId, Integer channelId, int firstResult, int maxResults)
 /*     */   {
-/*     */     List list;
 /*     */     List list;
 /*  51 */     if (channelId != null)
 /*  52 */       list = this.dao.getListByChannel(channelId, firstResult, maxResults, 
