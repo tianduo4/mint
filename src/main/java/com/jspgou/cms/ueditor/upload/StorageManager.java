@@ -73,7 +73,7 @@
 /*     */ 
 /*     */   private static File getTmpFile() {
 /*  79 */     File tmpDir = FileUtils.getTempDirectory();
-/*  80 */     String tmpFileName = (Math.random() * 10000.0D).replace(".", "");
+/*  80 */     String tmpFileName = (Math.random() * 10000.0D)+"".replace(".", "");
 /*  81 */     return new File(tmpDir, tmpFileName);
 /*     */   }
 /*     */ 

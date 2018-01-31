@@ -41,7 +41,7 @@
 /*  49 */         message = "\"param error\"";
 /*     */       } else {
 /*  51 */         Pagination pagination = this.manager.getPage(SimplePage.cpn(pageNo), pageSize.intValue());
-/*  52 */         List apiAccounts = pagination.getList();
+/*  52 */         List<ApiAccount> apiAccounts =(List<ApiAccount>)pagination.getList();
 /*  53 */         JSONArray jsons = new JSONArray();
 /*  54 */         for (ApiAccount api : apiAccounts) {
 /*  55 */           jsons.add(api.converToJson());

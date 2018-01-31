@@ -52,7 +52,7 @@
 /*     */     }
 /*  61 */     Iterator iterator = query.iterate();
 /*  62 */     if (iterator.hasNext()) {
-/*  63 */       allPage = Integer.valueOf(Integer.parseInt(iterator.next()));
+/*  63 */       allPage = Integer.valueOf(Integer.parseInt((String)iterator.next()));
 /*     */     }
 /*  65 */     return allPage;
 /*     */   }

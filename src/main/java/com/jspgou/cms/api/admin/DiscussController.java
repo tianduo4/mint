@@ -43,7 +43,7 @@
 /*  50 */         message = "\"param error\"";
 /*     */       } else {
 /*  52 */         Pagination pagination = this.manager.getPage(null, null, null, userName, productName, startTime, endTime, pageNo.intValue(), pageSize.intValue(), true);
-/*  53 */         List discussList = pagination.getList();
+/*  53 */         List<Discuss> discussList =(List<Discuss>) pagination.getList();
 /*  54 */         JSONArray jsons = new JSONArray();
 /*  55 */         for (Discuss discuss : discussList) {
 /*  56 */           jsons.add(discuss.converToJson());

@@ -66,17 +66,16 @@
 /* 66 */     if (errors.hasErrors()) {
 /* 67 */       return errors.showErrorPage(model);
 /*    */     }
+/*    */       WebserviceAuth[] bean;
 /*    */     try
 /*    */     {
 /* 71 */       bean = this.manager.deleteByIds(ids);
 /*    */     }
 /*    */     catch (Exception e)
 /*    */     {
-/*    */       WebserviceAuth[] bean;
 /* 73 */       errors.addErrorString(this.productMng.getTipFile("Please.and.user.operation"));
 /* 74 */       return errors.showErrorPage(model);
 /*    */     }
-/*    */     WebserviceAuth[] bean;
 /* 76 */     return list(pageNo, request, model);
 /*    */   }
 /*    */ 

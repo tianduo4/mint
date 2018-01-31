@@ -196,7 +196,7 @@
 /*     */   public void sendVedio(String access_token, String title, String description, String media_id) {
 /* 206 */     String sendGetUrl = PropertyUtils.getPropertyValue(new File(this.realPathResolver.get(Constants.JSPGOU_CONFIG)), "weixin.address.send");
 /* 207 */     String url = sendGetUrl + "?access_token=" + access_token;
-/* 208 */     Set openIds = getUsers(access_token);
+/* 208 */     Set<String> openIds = getUsers(access_token);
 /* 209 */     if (description == null) {
 /* 210 */       description = "";
 /*     */     }

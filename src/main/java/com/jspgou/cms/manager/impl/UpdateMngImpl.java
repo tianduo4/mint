@@ -252,7 +252,6 @@
 /*     */         int len;
 /* 208 */         while ((len = in.read(buf1)) > 0)
 /*     */         {
-/*     */           int len;
 /* 209 */           out.write(buf1, 0, len);
 /*     */         }
 /* 211 */         in.close();

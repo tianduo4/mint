@@ -46,7 +46,7 @@
 /*  57 */         message = "\"param error\"";
 /*     */       } else {
 /*  59 */         Pagination pagination = this.manager.getPage(SimplePage.cpn(pageNo), pageSize.intValue());
-/*  60 */         List webserviceAuthList = pagination.getList();
+/*  60 */         List<WebserviceAuth> webserviceAuthList = (List<WebserviceAuth> )pagination.getList();
 /*  61 */         JSONArray jsons = new JSONArray();
 /*  62 */         for (WebserviceAuth webserviceAuth : webserviceAuthList) {
 /*  63 */           jsons.add(webserviceAuth.converToJson());

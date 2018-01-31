@@ -204,7 +204,7 @@
 /* 176 */     Website web = SiteUtils.getWeb(request);
 /* 177 */     JSONArray arr = new JSONArray();
 /* 178 */     if (parentId != null) {
-/* 179 */       List clist = this.categoryMng.getChildList(web.getId(), parentId);
+/* 179 */       List<Category> clist = this.categoryMng.getChildList(web.getId(), parentId);
 /* 180 */       if (clist.size() >= 0)
 /*     */       {
 /* 182 */         for (Category t : clist) {
@@ -481,7 +481,7 @@
 /*     */     try
 /*     */     {
 /* 479 */       if (bean.getCategory().getColorsize().booleanValue()) {
-/* 480 */         Set pfList = bean.getFashions();
+/* 480 */         Set<ProductFashion> pfList = bean.getFashions();
 /*     */ 
 /* 482 */         if (fashId != null) {
 /* 483 */           for (ProductFashion ps : pfList)

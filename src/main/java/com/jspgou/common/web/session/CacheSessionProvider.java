@@ -57,7 +57,7 @@
 /*  70 */       .getAttribute("_current_session");
 /*     */     String root;
 /*  72 */     if (session == null) {
-/*  73 */       String root = request.getRequestedSessionId();
+/*  73 */        root = request.getRequestedSessionId();
 /*  74 */       if ((root != null) && (root.length() == 32)) {
 /*  75 */         session = this.sessionCache.getSession(root);
 /*     */       }

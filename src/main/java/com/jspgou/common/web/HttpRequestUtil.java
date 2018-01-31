@@ -65,7 +65,6 @@
 /*    */       int l;
 /* 87 */       while ((l = is.read(buff)) != -1)
 /*    */       {
-/*    */         int l;
 /* 88 */         result = result + new String(buff, 0, l, encoding);
 /*    */       }
 /*    */     }

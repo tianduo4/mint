@@ -14,7 +14,7 @@
 /*     */   {
 /*  12 */     StringBuilder sbJsonBody = new StringBuilder();
 /*  13 */     sbJsonBody.append("{");
-/*  14 */     Set keySet = body.keySet();
+/*  14 */     Set<String> keySet = body.keySet();
 /*  15 */     int count = 0;
 /*  16 */     int size = keySet.size();
 /*  17 */     for (String key : keySet) {

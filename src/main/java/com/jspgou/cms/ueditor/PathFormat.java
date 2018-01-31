@@ -98,7 +98,7 @@
 /*     */ 
 /*     */   private static String getTimestamp()
 /*     */   {
-/* 110 */     return System.currentTimeMillis();
+/* 110 */     return System.currentTimeMillis()+"";
 /*     */   }
 /*     */ 
 /*     */   private static String getFullYear() {
@@ -136,7 +136,7 @@
 /*     */ 
 /* 146 */     length = Integer.parseInt(pattern);
 /*     */ 
-/* 148 */     return Math.random().replace(".", "").substring(0, length);
+/* 148 */     return Math.random()+"".replace(".", "").substring(0, length);
 /*     */   }
 /*     */ 
 /*     */   public static void main(String[] args)

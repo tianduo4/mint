@@ -59,11 +59,13 @@
 /*    */   public ProductTag[] deleteByIds(Long[] ids)
 /*    */   {
 /* 62 */     ProductTag[] beans = new ProductTag[ids.length];
-/* 63 */     int i = 0; for (int len = ids.length; i < len; i++) {
+/* 63 */     int i = 0;
+            for (int len = ids.length; i < len; i++) {
 /* 64 */       beans[i] = findById(ids[i]);
 /*    */     }
 /* 66 */     this.productMng.deleteTagAssociation(beans);
-/* 67 */     int i = 0; for (int len = ids.length; i < len; i++) {
+/* 67 */      i = 0;
+             for (int len = ids.length; i < len; i++) {
 /* 68 */       beans[i] = this.dao.deleteById(ids[i]);
 /*    */     }
 /* 70 */     return beans;

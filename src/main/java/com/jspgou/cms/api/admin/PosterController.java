@@ -31,7 +31,7 @@
 /*  37 */     int code = 200;
 /*     */     try {
 /*  39 */       JSONArray jsons = new JSONArray();
-/*  40 */       List lists = this.posterMng.getPage();
+/*  40 */       List<Poster> lists = this.posterMng.getPage();
 /*  41 */       for (Poster poster : lists) {
 /*  42 */         jsons.add(poster.converToJson());
 /*     */       }

@@ -61,7 +61,7 @@
 /*     */   {
 /*  63 */     Updater updater = new Updater(bean);
 /*  64 */     Exended entity = this.dao.updateByUpdater(updater);
-/*  65 */     Set types = entity.getProductTypes();
+/*  65 */     Set<ProductType> types = entity.getProductTypes();
 /*  66 */     for (ProductType type : types) {
 /*  67 */       type.removeFromExendeds(entity);
 /*     */     }

@@ -65,7 +65,7 @@
 /*     */       } else {
 /*  73 */         Pagination pagination = this.shopMemberMng.getPage(CmsThreadVariable.getSite().getId(), 
 /*  74 */           SimplePage.cpn(pageNo), pageSize.intValue(), username);
-/*  75 */         List members = pagination.getList();
+/*  75 */         List<ShopMember> members = (List<ShopMember>)pagination.getList();
 /*  76 */         JSONArray jsons = new JSONArray();
 /*  77 */         for (ShopMember member : members) {
 /*  78 */           jsons.add(member.converToJson());
@@ -227,7 +227,7 @@
 /* 277 */         for (int i = 0; i < str.length; i++) {
 /* 278 */           id[i] = Long.valueOf(Long.parseLong(str[i]));
 /*     */         }
-/* 280 */         List orders = this.orderMng.findListByIds(id);
+/* 280 */         List<Object[]> orders = this.orderMng.findListByIds(id);
 /* 281 */         if ((orders != null) && (orders.size() > 0)) {
 /* 282 */           code = 205;
 /* 283 */           message = "\"delete error\"";

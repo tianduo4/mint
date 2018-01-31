@@ -93,9 +93,10 @@ import com.jspgou.common.file.FileWrap.FileComparator;
 /*  91 */       return null;
 /*     */     try
 /*     */     {
-/*  94 */       return FileUtils.readFileToString(this.file, "UTF-8"); } catch (IOException e) {
-/*     */     }
+/*  94 */       return FileUtils.readFileToString(this.file, "UTF-8"); }
+              catch (IOException e) {
 /*  96 */     throw new RuntimeException(e);
+/*     */     }
 /*     */   }
 /*     */ 
 /*     */   public long getLastModified()

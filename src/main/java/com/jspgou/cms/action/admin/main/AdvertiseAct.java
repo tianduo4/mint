@@ -69,7 +69,7 @@
 /*     */ 
 /*     */   @RequestMapping({"/advertise/o_save.do"})
 /*     */   public String save(Advertise bean, Integer adspaceId, HttpServletRequest request, ModelMap model) {
-/*  72 */     Map attr = RequestUtils1.getRequestMap(request, "attr_");
+/*  72 */     Map<String, String> attr = RequestUtils1.getRequestMap(request, "attr_");
 /*     */ 
 /*  74 */     Set<String> toRemove = new HashSet();
 /*  75 */     for (Map.Entry entry : attr.entrySet()) {
@@ -88,9 +88,9 @@
 /*     */   @RequestMapping({"/advertise/o_update.do"})
 /*     */   public String update(Integer queryAdspaceId, Boolean queryEnabled, Advertise bean, Integer adspaceId, Integer pageNo, HttpServletRequest request, ModelMap model)
 /*     */   {
-/*  92 */     Map attr = RequestUtils1.getRequestMap(request, "attr_");
+/*  92 */     Map<String, String> attr = RequestUtils1.getRequestMap(request, "attr_");
 /*     */ 
-/*  94 */     Set toRemove = new HashSet();
+/*  94 */     Set<String> toRemove = new HashSet();
 /*  95 */     for (Map.Entry entry : attr.entrySet()) {
 /*  96 */       if (StringUtils.isBlank((String)entry.getValue())) {
 /*  97 */         toRemove.add((String)entry.getKey());

@@ -89,7 +89,6 @@
 /*     */         }
 /*  91 */         Number myPositionNumber = (Number)session.createQuery(hql)
 /*  92 */           .uniqueResult();
-/*     */         Integer myPosition;
 /*  94 */         if (myPositionNumber == null)
 /*  95 */           myPosition = Integer.valueOf(1);
 /*     */         else {
@@ -161,7 +160,7 @@
 /* 167 */       Object[] currPosition = (Object[])session.createQuery(hql)
 /* 168 */         .setParameter("id", currParent.getId()).uniqueResult();
 /* 169 */       int currParentLft = ((Number)currPosition[0]).intValue();
-/* 170 */       Integer currParentRgt = Integer.valueOf(((Number)currPosition[1]).intValue());
+/* 170 */        currParentRgt = Integer.valueOf(((Number)currPosition[1]).intValue());
 /* 171 */       log.debug("current parent lft={} rgt={}", Integer.valueOf(currParentLft), 
 /* 172 */         currParentRgt);
 /*     */ 

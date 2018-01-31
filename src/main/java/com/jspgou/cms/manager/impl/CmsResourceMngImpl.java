@@ -305,11 +305,12 @@
 /* 372 */       if (!entry.isDirectory()) {
 /* 373 */         name = entry.getName();
 /* 374 */         String filename = name;
-/* 375 */         if (!filename.endsWith(readFileName)) continue; String line;
+/* 375 */         if (!filename.endsWith(readFileName)) continue;
+                 String line;
 /*     */         try { is = zip.getInputStream(entry);
 /* 378 */           reader = new InputStreamReader(is);
 /* 379 */           in = new BufferedReader(reader);
-/* 380 */           String line = in.readLine();
+/* 380 */            line = in.readLine();
 /* 381 */           while (StringUtils.isNotBlank(line)) {
 /* 382 */             buff.append(line);
 /* 383 */             line = in.readLine();

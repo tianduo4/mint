@@ -110,7 +110,7 @@
 /*     */   }
 /*     */ 
 /*     */   public StandardType updateStandard(StandardType bean, Long[] itemId, String[] itemName, String[] itemColor, Integer[] itemPriority) {
-/* 113 */     Set set = bean.getStandardSet();
+/* 113 */     Set<Standard> set = bean.getStandardSet();
 /* 114 */     if (itemId != null) {
 /* 115 */       for (Standard s : set) {
 /* 116 */         if (!Arrays.asList(itemId).contains(s.getId()))

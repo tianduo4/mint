@@ -219,7 +219,6 @@
 /*     */       String inStr;
 /* 228 */       while ((inStr = br.readLine()) != null)
 /*     */       {
-/*     */         String inStr;
 /* 229 */         sb.append(inStr + "\r\n");
 /*     */       }
 /* 231 */       outStr = sb.toString();

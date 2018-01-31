@@ -51,7 +51,7 @@
 /*  59 */         message = "\"param error\"";
 /*     */       } else {
 /*  61 */         Pagination pagination = this.manager.getPage(SiteUtils.getWebId(request), parentId, SimplePage.cpn(pageNo), pageSize.intValue());
-/*  62 */         List menus = pagination.getList();
+/*  62 */         List<WeixinMenu> menus = (List<WeixinMenu> )pagination.getList();
 /*  63 */         JSONArray jsons = new JSONArray();
 /*  64 */         for (WeixinMenu menu : menus) {
 /*  65 */           jsons.add(menu.converToJson());

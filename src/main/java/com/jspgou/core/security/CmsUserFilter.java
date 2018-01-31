@@ -19,7 +19,6 @@
 /* 22 */     HttpServletRequest request = (HttpServletRequest)req;
 /* 23 */     HttpServletResponse response = (HttpServletResponse)resp;
 /*    */     String loginUrl;
-/*    */     String loginUrl;
 /* 28 */     if (request.getRequestURI().startsWith(request.getContextPath() + getAdminPrefix()))
 /* 29 */       loginUrl = getAdminLogin();
 /*    */     else {

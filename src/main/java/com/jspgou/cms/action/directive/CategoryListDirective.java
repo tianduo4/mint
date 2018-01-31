@@ -30,7 +30,6 @@
 /*    */   {
 /* 41 */     Long webId = getWebId(params);
 /*    */     Website web;
-/*    */     Website web;
 /* 43 */     if (webId == null)
 /* 44 */       web = getWeb(env, params, this.websiteMng);
 /*    */     else {
@@ -41,10 +40,8 @@
 /*    */     }
 /* 51 */     Integer parentId = DirectiveUtils.getInt("parentId", params);
 /*    */     List list;
-/*    */     List list;
 /* 53 */     if (parentId != null) {
 /* 54 */       Category category = this.categoryMng.findById(parentId);
-/*    */       List list;
 /* 55 */       if (category != null)
 /* 56 */         list = new ArrayList(category.getChild());
 /*    */       else

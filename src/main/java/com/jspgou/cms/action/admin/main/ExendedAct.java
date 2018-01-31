@@ -132,7 +132,7 @@
 /*     */ 
 /*     */   private void updateExendedItems(Exended bean, Long[] itemId, String[] itemName)
 /*     */   {
-/* 141 */     Set set = bean.getItems();
+/* 141 */     Set<ExendedItem> set = bean.getItems();
 /* 142 */     if (itemId != null) {
 /* 143 */       for (ExendedItem e : set) {
 /* 144 */         if (!Arrays.asList(itemId).contains(e.getId()))

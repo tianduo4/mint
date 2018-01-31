@@ -87,19 +87,16 @@
 /* 125 */     int mi = uri.indexOf("-");
 /* 126 */     int pi = uri.indexOf(".");
 /*     */     String pathStr;
-/*     */     String pathStr;
 /* 129 */     if (bi != -1) {
 /* 130 */       pathStr = uri.substring(0, bi);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       String pathStr;
 /* 131 */       if (mi != -1) {
 /* 132 */         pathStr = uri.substring(0, mi);
 /*     */       }
 /*     */       else
 /*     */       {
-/*     */         String pathStr;
 /* 133 */         if (pi != -1)
 /* 134 */           pathStr = uri.substring(0, pi);
 /*     */         else
@@ -124,13 +121,12 @@
 /* 159 */     if (mi != -1)
 /*     */     {
 /*     */       String paramStr;
-/*     */       String paramStr;
 /* 161 */       if (pi != -1)
 /* 162 */         paramStr = uri.substring(mi, pi);
 /*     */       else {
 /* 164 */         paramStr = uri.substring(mi);
 /*     */       }
-/* 166 */       String[] params = new String[StringUtils.countMatches(paramStr, "-")];
+/* 166 */       params = new String[StringUtils.countMatches(paramStr, "-")];
 /* 167 */       int fromIndex = 1;
 /* 168 */       int nextIndex = 0;
 /* 169 */       int i = 0;

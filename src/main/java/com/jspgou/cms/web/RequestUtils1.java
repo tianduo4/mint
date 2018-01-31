@@ -43,7 +43,7 @@
 /*     */ 
 /*     */   public static Map<String, Object> getQueryParams(HttpServletRequest request)
 /*     */   {
-/*     */     Map map;
+/*     */     Map<String, String[]> map;
 /*  68 */     if (request.getMethod().equalsIgnoreCase("POST")) {
 /*  69 */       map = request.getParameterMap();
 /*     */     }

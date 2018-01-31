@@ -231,7 +231,7 @@
 /*     */ 
 /*     */   private static class SingletonHolder
 /*     */   {
-/*  48 */     private static final HttpClientUtil INSTANCE = new HttpClientUtil(null);
+/*  48 */     private static final HttpClientUtil INSTANCE = new HttpClientUtil();
 /*     */   }
 /*     */ }
 
