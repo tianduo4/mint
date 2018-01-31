@@ -1,14 +1,24 @@
 /*     */ package com.jspgou.cms.entity;
 /*     */ 
 /*     */ import com.jspgou.cms.api.CommonUtils;
-/*     */ import com.jspgou.cms.entity.base.BaseProductType;
-/*     */ import com.jspgou.core.entity.Website;
-/*     */ import java.io.File;
-/*     */ import java.io.FilenameFilter;
-/*     */ import java.util.HashSet;
-/*     */ import java.util.Set;
-/*     */ import org.json.JSONException;
-/*     */ import org.json.JSONObject;
+import com.jspgou.cms.entity.base.BaseProductType;
+import com.jspgou.core.entity.Website;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.HashSet;
+import java.util.Set;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ public class ProductType extends BaseProductType
 /*     */ {
@@ -42,12 +52,14 @@
 /*     */   public static String[] getTpls(String realDir, String relPath, String prefix)
 /*     */   {
 /*  91 */     File dir = new File(realDir);
-/*  92 */     File[] files = dir.listFiles(new FilenameFilter(prefix)
+///*  92 */     File[] files = dir.listFiles(new FilenameFilter(prefix) //TODO
+    File[] files = dir.listFiles(new FilenameFilter()
 /*     */     {
 /*     */       public boolean accept(File dir, String name)
 /*     */       {
 /*  96 */         name = name.substring(0, name.indexOf("."));
-/*  97 */         return name.endsWith(ProductType.this);
+///*  97 */         return name.endsWith(ProductType.this);
+                     return false; //TODO
 /*     */       }
 /*     */     });
 /* 100 */     int len = files.length;

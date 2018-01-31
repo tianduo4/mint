@@ -1,26 +1,47 @@
 /*     */ package com.jspgou.cms.action.admin;
 /*     */ 
 /*     */ import com.jspgou.common.file.FileNameUtils;
-/*     */ import com.jspgou.common.image.ImageUtils;
-/*     */ import com.jspgou.core.entity.Ftp;
-/*     */ import com.jspgou.core.entity.Website;
-/*     */ import com.jspgou.core.web.SiteUtils;
-/*     */ import com.jspgou.core.web.WebErrors;
-/*     */ import java.io.File;
-/*     */ import java.io.IOException;
-/*     */ import java.util.List;
-/*     */ import javax.servlet.ServletContext;
-/*     */ import javax.servlet.http.HttpServletRequest;
-/*     */ import org.apache.commons.io.FilenameUtils;
-/*     */ import org.apache.commons.lang.StringUtils;
-/*     */ import org.slf4j.Logger;
-/*     */ import org.slf4j.LoggerFactory;
-/*     */ import org.springframework.stereotype.Controller;
-/*     */ import org.springframework.ui.ModelMap;
-/*     */ import org.springframework.web.bind.annotation.RequestMapping;
-/*     */ import org.springframework.web.bind.annotation.RequestParam;
-/*     */ import org.springframework.web.context.ServletContextAware;
-/*     */ import org.springframework.web.multipart.MultipartFile;
+import com.jspgou.common.image.ImageUtils;
+import com.jspgou.core.entity.Ftp;
+import com.jspgou.core.entity.Website;
+import com.jspgou.core.web.SiteUtils;
+import com.jspgou.core.web.WebErrors;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ @Controller
 /*     */ public class ImageUploadAct
@@ -53,14 +74,13 @@
 /*  72 */       if (web.getUploadFtp() != null) {
 /*  73 */         Ftp ftp = web.getUploadFtp();
 /*  74 */         String ftpUrl = ftp.getUrl();
-/*     */         String relPath;
 /*  75 */         if (!StringUtils.isBlank(fileName)) {
 /*  76 */           fileName = fileName.substring(ftpUrl.length());
 /*  77 */           relPath = ftp.storeByFilename(fileName, file
 /*  78 */             .getInputStream());
 /*     */         } else {
 /*  80 */           String ctx = request.getContextPath();
-/*  81 */           String relPath = ctx + "/" + "u" + "/" + fileName;
+/*  81 */            relPath = ctx + "/" + "u" + "/" + fileName;
 /*  82 */           relPath = ftp.storeByExt(relPath, ext, 
 /*  83 */             file.getInputStream());
 /*     */ 
@@ -117,14 +137,13 @@
 /* 139 */       if (web.getUploadFtp() != null) {
 /* 140 */         Ftp ftp = web.getUploadFtp();
 /* 141 */         String ftpUrl = ftp.getUrl();
-/*     */         String relPath;
 /* 142 */         if (!StringUtils.isBlank(fileName)) {
 /* 143 */           fileName = fileName.substring(ftpUrl.length());
 /* 144 */           relPath = ftp.storeByFilename(fileName, file
 /* 145 */             .getInputStream());
 /*     */         } else {
 /* 147 */           String ctx = request.getContextPath();
-/* 148 */           String relPath = ctx + "/" + "u" + "/" + fileName;
+/* 148 */            relPath = ctx + "/" + "u" + "/" + fileName;
 /* 149 */           relPath = ftp.storeByExt(relPath, ext, 
 /* 150 */             file.getInputStream());
 /*     */ 
@@ -179,14 +198,13 @@
 /* 203 */       if (web.getUploadFtp() != null) {
 /* 204 */         Ftp ftp = web.getUploadFtp();
 /* 205 */         String ftpUrl = ftp.getUrl();
-/*     */         String relPath;
 /* 206 */         if (!StringUtils.isBlank(fileName)) {
 /* 207 */           fileName = fileName.substring(ftpUrl.length());
 /* 208 */           relPath = ftp.storeByFilename(fileName, file
 /* 209 */             .getInputStream());
 /*     */         } else {
 /* 211 */           String ctx = request.getContextPath();
-/* 212 */           String relPath = ctx + "/" + "u" + "/" + fileName;
+/* 212 */           relPath = ctx + "/" + "u" + "/" + fileName;
 /* 213 */           relPath = ftp.storeByExt(relPath, ext, 
 /* 214 */             file.getInputStream());
 /*     */ 
@@ -242,14 +260,13 @@
 /* 269 */       if (web.getUploadFtp() != null) {
 /* 270 */         Ftp ftp = web.getUploadFtp();
 /* 271 */         String ftpUrl = ftp.getUrl();
-/*     */         String relPath;
 /* 272 */         if (!StringUtils.isBlank(fileName)) {
 /* 273 */           fileName = fileName.substring(ftpUrl.length());
 /* 274 */           relPath = ftp.storeByFilename(fileName, file
 /* 275 */             .getInputStream());
 /*     */         } else {
 /* 277 */           String ctx = request.getContextPath();
-/* 278 */           String relPath = ctx + "/" + "u" + "/" + fileName;
+/* 278 */            relPath = ctx + "/" + "u" + "/" + fileName;
 /* 279 */           relPath = ftp.storeByExt(relPath, ext, 
 /* 280 */             file.getInputStream());
 /*     */ 

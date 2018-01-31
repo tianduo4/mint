@@ -1,24 +1,43 @@
 /*     */ package com.jspgou.cms.api.admin;
 /*     */ 
 /*     */ import com.jspgou.cms.api.ApiResponse;
-/*     */ import com.jspgou.cms.api.ApiValidate;
-/*     */ import com.jspgou.cms.api.ExceptionUtil;
-/*     */ import com.jspgou.cms.entity.CustomerService;
-/*     */ import com.jspgou.cms.manager.CustomerServiceMng;
-/*     */ import com.jspgou.cms.web.SignValidate;
-/*     */ import com.jspgou.common.page.Pagination;
-/*     */ import com.jspgou.common.page.SimplePage;
-/*     */ import com.jspgou.common.web.ResponseUtils;
-/*     */ import com.jspgou.core.web.WebErrors;
-/*     */ import java.util.List;
-/*     */ import javax.servlet.http.HttpServletRequest;
-/*     */ import javax.servlet.http.HttpServletResponse;
-/*     */ import net.sf.json.JSONArray;
-/*     */ import net.sf.json.JSONObject;
-/*     */ import org.apache.commons.lang.StringUtils;
-/*     */ import org.springframework.beans.factory.annotation.Autowired;
-/*     */ import org.springframework.stereotype.Controller;
-/*     */ import org.springframework.web.bind.annotation.RequestMapping;
+import com.jspgou.cms.api.ApiValidate;
+import com.jspgou.cms.api.ExceptionUtil;
+import com.jspgou.cms.entity.CustomerService;
+import com.jspgou.cms.manager.CustomerServiceMng;
+import com.jspgou.cms.web.SignValidate;
+import com.jspgou.common.page.Pagination;
+import com.jspgou.common.page.SimplePage;
+import com.jspgou.common.web.ResponseUtils;
+import com.jspgou.core.web.WebErrors;
+import net.sf.json.JSONArray;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ @Controller
 /*     */ public class CustomerServiceController
@@ -43,7 +62,7 @@
 /*  50 */         message = "\"param error\"";
 /*     */       } else {
 /*  52 */         Pagination pagination = this.manager.getPagination(null, SimplePage.cpn(pageNo), pageSize.intValue());
-/*  53 */         List list = pagination.getList();
+/*  53 */         List<CustomerService> list = (List<CustomerService>)pagination.getList();
 /*  54 */         JSONArray jsons = new JSONArray();
 /*  55 */         for (CustomerService customerService : list) {
 /*  56 */           jsons.add(customerService.converToJson());

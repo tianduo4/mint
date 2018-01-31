@@ -1,32 +1,54 @@
 /*     */ package com.jspgou.cms.lucene;
 /*     */ 
 /*     */ import com.jspgou.cms.dao.ProductDao;
-/*     */ import com.jspgou.cms.entity.Product;
-/*     */ import com.jspgou.common.page.Pagination;
-/*     */ import java.io.File;
-/*     */ import java.io.IOException;
-/*     */ import java.util.Date;
-/*     */ import java.util.List;
-/*     */ import javax.servlet.ServletContext;
-/*     */ import org.apache.lucene.analysis.Analyzer;
-/*     */ import org.apache.lucene.analysis.standard.StandardAnalyzer;
-/*     */ import org.apache.lucene.index.CorruptIndexException;
-/*     */ import org.apache.lucene.index.IndexReader;
-/*     */ import org.apache.lucene.index.IndexWriter;
-/*     */ import org.apache.lucene.index.IndexWriter.MaxFieldLength;
-/*     */ import org.apache.lucene.queryParser.ParseException;
-/*     */ import org.apache.lucene.search.IndexSearcher;
-/*     */ import org.apache.lucene.search.Query;
-/*     */ import org.apache.lucene.search.Searcher;
-/*     */ import org.apache.lucene.search.Sort;
-/*     */ import org.apache.lucene.search.SortField;
-/*     */ import org.apache.lucene.search.TopDocs;
-/*     */ import org.apache.lucene.store.Directory;
-/*     */ import org.apache.lucene.store.LockObtainFailedException;
-/*     */ import org.apache.lucene.store.SimpleFSDirectory;
-/*     */ import org.apache.lucene.util.Version;
-/*     */ import org.springframework.beans.factory.annotation.Autowired;
-/*     */ import org.springframework.stereotype.Service;
+import com.jspgou.cms.entity.Product;
+import com.jspgou.common.page.Pagination;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.*;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.LockObtainFailedException;
+import org.apache.lucene.store.SimpleFSDirectory;
+import org.apache.lucene.util.Version;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ @Service
 /*     */ public class LuceneProductSvcImpl
@@ -50,7 +72,7 @@
 /*     */       return i;
 /*     */     } finally {
 /*  53 */       writer.close();
-/*  54 */     }throw localObject;
+/*  54 */     }
 /*     */   }
 /*     */ 
 /*     */   public void createIndex(Product product) throws IOException {

@@ -1,23 +1,41 @@
 /*     */ package com.jspgou.common.hibernate4;
 /*     */ 
 /*     */ import com.jspgou.common.page.Pagination;
-/*     */ import com.jspgou.common.util.MyBeanUtils;
-/*     */ import java.util.ArrayList;
-/*     */ import java.util.Iterator;
-/*     */ import java.util.List;
-/*     */ import org.hibernate.Criteria;
-/*     */ import org.hibernate.Query;
-/*     */ import org.hibernate.Session;
-/*     */ import org.hibernate.SessionFactory;
-/*     */ import org.hibernate.criterion.CriteriaSpecification;
-/*     */ import org.hibernate.criterion.Projection;
-/*     */ import org.hibernate.criterion.Projections;
-/*     */ import org.hibernate.internal.CriteriaImpl;
-/*     */ import org.hibernate.transform.ResultTransformer;
-/*     */ import org.slf4j.Logger;
-/*     */ import org.slf4j.LoggerFactory;
-/*     */ import org.springframework.beans.factory.annotation.Autowired;
-/*     */ import org.springframework.util.Assert;
+import com.jspgou.common.util.MyBeanUtils;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.transform.ResultTransformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ public abstract class HibernateSimpleDao
 /*     */ {
@@ -116,16 +134,17 @@
 /*     */ 
 /* 164 */     Projection projection = impl.getProjection();
 /* 165 */     ResultTransformer transformer = impl.getResultTransformer();
+    /*     */     List orderEntries;
 /*     */     try
 /*     */     {
-/* 168 */       List orderEntries = (List)
+/* 168 */        orderEntries = (List)
 /* 169 */         MyBeanUtils.getFieldValue(impl, "orderEntries");
 /* 170 */       MyBeanUtils.setFieldValue(impl, "orderEntries", new ArrayList());
 /*     */     } catch (Exception e) {
 /* 172 */       throw new RuntimeException(
 /* 173 */         "cannot read/write 'orderEntries' from CriteriaImpl", e);
 /*     */     }
-/*     */     List orderEntries;
+
 /* 176 */     int totalCount = ((Number)crit.setProjection(Projections.rowCount())
 /* 177 */       .uniqueResult()).intValue();
 /* 178 */     Pagination p = new Pagination(pageNo, pageSize, totalCount);

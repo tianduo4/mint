@@ -1,18 +1,30 @@
 /*     */ package com.jspgou.common.hibernate4;
 /*     */ 
 /*     */ import com.jspgou.common.util.MyBeanUtils;
-/*     */ import java.io.Serializable;
-/*     */ import java.util.List;
-/*     */ import org.hibernate.Criteria;
-/*     */ import org.hibernate.LockMode;
-/*     */ import org.hibernate.Session;
-/*     */ import org.hibernate.SessionFactory;
-/*     */ import org.hibernate.criterion.Criterion;
-/*     */ import org.hibernate.criterion.Projections;
-/*     */ import org.hibernate.criterion.Restrictions;
-/*     */ import org.hibernate.engine.spi.SessionImplementor;
-/*     */ import org.hibernate.metadata.ClassMetadata;
-/*     */ import org.springframework.util.Assert;
+import org.hibernate.Criteria;
+import org.hibernate.LockMode;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.metadata.ClassMetadata;
+import org.springframework.util.Assert;
+
+import java.io.Serializable;
+import java.util.List;
+
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
+/*     */
 /*     */ 
 /*     */ public abstract class HibernateBaseDao<T, ID extends Serializable> extends HibernateSimpleDao
 /*     */ {
@@ -23,12 +35,12 @@
 /*     */ 
 /*     */   protected T get(ID id, boolean lock)
 /*     */   {
-/*     */     Object entity;
+/*     */     T entity;
 /*  46 */     if (lock)
-/*  47 */       entity = getSession().get(getEntityClass(), id, 
+/*  47 */       entity = (T)getSession().get(getEntityClass(), id,
 /*  48 */         LockMode.PESSIMISTIC_WRITE);
 /*     */     else {
-/*  50 */       entity = getSession().get(getEntityClass(), id);
+/*  50 */       entity = (T)getSession().get(getEntityClass(), id);
 /*     */     }
 /*  52 */     return entity;
 /*     */   }
@@ -43,7 +55,7 @@
 /*     */   {
 /*  69 */     Assert.hasText(property);
 /*  70 */     Assert.notNull(value);
-/*  71 */     return createCriteria(new Criterion[] { Restrictions.eq(property, value) }).uniqueResult();
+/*  71 */     return (T)createCriteria(new Criterion[] { Restrictions.eq(property, value) }).uniqueResult();
 /*     */   }
 /*     */ 
 /*     */   protected int countByProperty(String property, Object value)
@@ -65,7 +77,7 @@
 /* 107 */     ClassMetadata cm = this.sessionFactory.getClassMetadata(getEntityClass());
 /* 108 */     Object bean = updater.getBean();
 /*     */ 
-/* 110 */     Object po = getSession().get(getEntityClass(), cm.getIdentifier(bean, (SessionImplementor)this.sessionFactory.getCurrentSession()));
+/* 110 */     T po = (T)getSession().get(getEntityClass(), cm.getIdentifier(bean, (SessionImplementor)this.sessionFactory.getCurrentSession()));
 /* 111 */     updaterCopyToPersistentObject(updater, po, cm);
 /* 112 */     return po;
 /*     */   }
