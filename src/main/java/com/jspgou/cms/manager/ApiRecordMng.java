@@ -1,0 +1,28 @@
+package com.jspgou.cms.manager;
+
+import com.jspgou.cms.entity.ApiRecord;
+import com.jspgou.common.page.Pagination;
+
+public abstract interface ApiRecordMng
+{
+  public abstract Pagination getPage(int paramInt1, int paramInt2);
+
+  public abstract ApiRecord findById(Long paramLong);
+
+  public abstract ApiRecord save(ApiRecord paramApiRecord);
+
+  public abstract ApiRecord update(ApiRecord paramApiRecord);
+
+  public abstract ApiRecord deleteById(Long paramLong);
+
+  public abstract ApiRecord[] deleteByIds(Long[] paramArrayOfLong);
+
+  public abstract void callApiRecord(String paramString1, String paramString2, String paramString3, String paramString4);
+
+  public abstract ApiRecord findBySign(String paramString1, String paramString2);
+}
+
+/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
+ * Qualified Name:     com.jspgou.cms.manager.ApiRecordMng
+ * JD-Core Version:    0.6.0
+ */

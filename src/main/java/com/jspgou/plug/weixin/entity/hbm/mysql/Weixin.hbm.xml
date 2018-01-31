@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jspgou.plug.weixin.entity">
+	<class
+		name="Weixin"
+		table="jg_weixin"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id name="id" type="java.lang.Long" column="site_id">
+			<generator class="foreign"><param name="property">site</param></generator>
+		</id>
+		<property
+			name="welcome"
+			column="wx_welcome"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="pic"
+			column="wx_pic"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		
+		
+		
+		
+		<property
+			name="appKey"
+			column="app_key"
+			type="string"
+			not-null="true"
+			length="30"
+		/>
+		<property
+			name="appSecret"
+			column="app_secret"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="token"
+			column="token"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<one-to-one name="site" class="com.jspgou.core.entity.Website" constrained="true"/>
+	</class>	
+</hibernate-mapping>

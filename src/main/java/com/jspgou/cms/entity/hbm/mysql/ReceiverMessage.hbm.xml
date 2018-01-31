@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jspgou.cms.entity">
+	<class
+		name="ReceiverMessage"
+		table="jc_receiver_message"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id
+			name="id"
+			type="java.lang.Long"
+			column="msg_re_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="msgTitle"
+			column="msg_title"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="msgContent"
+			column="msg_content"
+			type="string"
+			not-null="false"
+		/>
+		<property
+			name="sendTime"
+			column="send_time"
+			type="timestamp"
+			not-null="false"
+			length="19"
+		/>
+		
+		<property
+			name="msgStatus"
+			column="msg_status"
+			type="boolean"
+			not-null="true"
+		/>
+		<property
+			name="msgBox"
+			column="msg_box"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+	
+      
+      
+      <many-to-one
+			name="msgReceiverUser"
+			column="msg_receiver_user"
+			class="ShopMember"
+			not-null="true"
+		>
+		</many-to-one>
+		<many-to-one
+			name="msgSendUser"
+			column="msg_send_user"
+			class="ShopAdmin"
+			not-null="true"
+		>
+		</many-to-one>
+		<many-to-one
+			name="message"
+			column="msg_id"
+			class="Message"
+			not-null="false"
+		>
+		</many-to-one>
+
+	</class>	
+</hibernate-mapping>

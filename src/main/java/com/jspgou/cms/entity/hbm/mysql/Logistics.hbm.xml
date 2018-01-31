@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jspgou.cms.entity">
+	<class name="Logistics" table="jc_shop_logistics">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="java.lang.Long" column="logistics_id"><generator class="native"/></id>
+		<property name="name" column="name" type="string" not-null="true" length="100"/>
+		<property name="webUrl" column="web_url" type="string" not-null="false" length="255"/>
+		<property name="logoPath" column="logo_path" type="string" not-null="false" length="255"/>
+		<property name="priority" column="priority" type="integer" not-null="true" length="10"/>
+		
+		<property name="courier" column="is_courier" type="boolean" not-null="false" length="255"/>
+		<property name="imgUrl" column="img_url" type="string" not-null="false" length="100"/>
+		<property name="evenSpacing" column="even_spacing" type="integer" not-null="false" length="11"/>
+		
+		<property name="fnt" column="fnt" type="double" not-null="false" length="10"/>
+		<property name="fnz" column="fnz" type="double" not-null="false" length="10"/>
+		<property name="fat" column="fat" type="double" not-null="false" length="10"/>
+		<property name="faz" column="faz" type="double" not-null="false" length="10"/>
+		<property name="fpt" column="fpt" type="double" not-null="false" length="10"/>
+		<property name="fpz" column="fpz" type="double" not-null="false" length="10"/>
+		<property name="snt" column="snt" type="double" not-null="false" length="10"/>
+		<property name="snz" column="snz" type="double" not-null="false" length="10"/>
+		<property name="sat" column="sat" type="double" not-null="false" length="10"/>
+		<property name="saz" column="saz" type="double" not-null="false" length="10"/>
+		<property name="spt" column="spt" type="double" not-null="false" length="10"/>
+		<property name="spz" column="spz" type="double" not-null="false" length="10"/>
+		
+		<property name="fnw" column="fnw" type="double" not-null="false" length="10"/>
+		<property name="fnh" column="fnh" type="double" not-null="false" length="10"/>
+		<property name="faw" column="faw" type="double" not-null="false" length="10"/>
+		<property name="fah" column="fah" type="double" not-null="false" length="10"/>
+		<property name="fpw" column="fpw" type="double" not-null="false" length="10"/>
+		<property name="fph" column="fph" type="double" not-null="false" length="10"/>
+		<property name="snw" column="snw" type="double" not-null="false" length="10"/>
+		<property name="snh" column="snh" type="double" not-null="false" length="10"/>
+		<property name="saw" column="saw" type="double" not-null="false" length="10"/>
+		<property name="sah" column="sah" type="double" not-null="false" length="10"/>
+		<property name="spw" column="spw" type="double" not-null="false" length="10"/>
+		<property name="sph" column="sph" type="double" not-null="false" length="10"/>
+		
+		<property name="fnwh" column="fnwh" type="string" not-null="false" length="100"/>
+		<property name="fawh" column="fawh" type="string" not-null="false" length="100"/>
+		<property name="fpwh" column="fpwh" type="string" not-null="false" length="100"/>
+		<property name="snwh" column="snwh" type="string" not-null="false" length="100"/>
+		<property name="sawh" column="sawh" type="string" not-null="false" length="100"/>
+		<property name="spwh" column="spwh" type="string" not-null="false" length="100"/>
+		
+		<set name="logisticsTextSet" inverse="true" cascade="delete">
+			<cache usage="read-write"/>
+			<key column="logistics_id"/>
+			<one-to-many class="LogisticsText"/>
+		</set>
+	</class>
+</hibernate-mapping>
