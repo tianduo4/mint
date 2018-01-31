@@ -152,7 +152,6 @@
 /* 157 */       e.printStackTrace();
 /*     */     }
 /*     */     String pass;
-/*     */     String pass;
 /* 160 */     if (StringUtils.isBlank(name))
 /* 161 */       pass = "false";
 /*     */     else {

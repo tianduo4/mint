@@ -40,7 +40,7 @@
 /*  45 */         code = 202;
 /*  46 */         message = "\"param error\"";
 /*     */       } else {
-/*  48 */         List dictTypes = this.shopDictionaryTypeMng.findAll();
+/*  48 */         List<ShopDictionaryType> dictTypes = this.shopDictionaryTypeMng.findAll();
 /*  49 */         JSONArray jsons = new JSONArray();
 /*  50 */         for (ShopDictionaryType dictType : dictTypes) {
 /*  51 */           jsons.add(dictType.converToJson());
@@ -71,7 +71,7 @@
 /*  84 */         message = "\"param error\"";
 /*     */       } else {
 /*  86 */         Pagination pagination = this.shopDictionaryTypeMng.getPage(pageNo.intValue(), pageSize.intValue());
-/*  87 */         List dictTypes = pagination.getList();
+/*  87 */         List<ShopDictionaryType> dictTypes = (List<ShopDictionaryType>)pagination.getList();
 /*  88 */         JSONArray jsons = new JSONArray();
 /*  89 */         for (ShopDictionaryType dictType : dictTypes) {
 /*  90 */           jsons.add(dictType.converToJson());

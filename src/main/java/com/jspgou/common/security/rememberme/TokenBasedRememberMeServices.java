@@ -21,19 +21,18 @@
 /*  85 */       throw new InvalidCookieException("Cookie token did not contain 4 tokens, but contained '" + 
 /*  87 */         Arrays.asList(cookieTokens) + "'");
 /*     */     }
-/*     */ 
+               long tokenExpiryTime;
+/*     */       Long userId;
 /*     */     try
 /*     */     {
 /*  93 */       tokenExpiryTime = new Long(cookieTokens[1]).longValue();
 /*     */     }
 /*     */     catch (NumberFormatException nfe)
 /*     */     {
-/*     */       long tokenExpiryTime;
 /*  95 */       throw new InvalidCookieException(
 /*  96 */         "Cookie token[1] did not contain a valid number (contained '" + 
 /*  97 */         cookieTokens[1] + "')");
 /*     */     }
-/*     */     long tokenExpiryTime;
 /* 100 */     if (isTokenExpired(tokenExpiryTime))
 /* 101 */       throw new InvalidCookieException(
 /* 102 */         "Cookie token[1] has expired (expired on '" + 
@@ -45,12 +44,11 @@
 /*     */     }
 /*     */     catch (NumberFormatException nfe)
 /*     */     {
-/*     */       Long userId;
+
 /* 109 */       throw new InvalidCookieException(
 /* 110 */         "Cookie token[3] did not contain a valid number (contained '" + 
 /* 111 */         cookieTokens[3] + "')");
 /*     */     }
-/*     */     Long userId;
 /* 117 */     UserDetails user = getUserDetailsService().loadUser(userId, 
 /* 118 */       cookieTokens[0]);
 /*     */ 

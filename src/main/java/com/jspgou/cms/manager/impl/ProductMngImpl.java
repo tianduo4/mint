@@ -226,13 +226,11 @@
 /*     */   public List<Product> getListForTag(Long webId, Integer ctgId, Long tagId, Boolean isRecommend, Boolean isSpecial, Boolean isHostSale, Boolean isNewProduct, int firstResult, int maxResults)
 /*     */   {
 /*     */     List list;
-/*     */     List list;
 /* 179 */     if (tagId != null) {
 /* 180 */       list = this.dao.getListByTag(tagId, ctgId, isRecommend, isSpecial, firstResult, maxResults, true);
 /*     */     }
 /*     */     else
 /*     */     {
-/*     */       List list;
 /* 182 */       if (ctgId != null)
 /* 183 */         list = this.dao.getListByCategory(ctgId, isRecommend, isSpecial, firstResult, maxResults, true);
 /*     */       else {
@@ -772,7 +770,7 @@
 /*     */       }
 /*     */     }
 /* 745 */     if (bean.getCategory().getColorsize().booleanValue()) {
-/* 746 */       Set pfList = bean
+/* 746 */       Set<ProductFashion> pfList = bean
 /* 747 */         .getFashions();
 /*     */ 
 /* 749 */       if (fashionIds != null)

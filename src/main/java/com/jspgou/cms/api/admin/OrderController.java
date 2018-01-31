@@ -299,7 +299,7 @@
 /* 313 */             order.getScore().intValue()));
 /* 314 */           member.setScore(Integer.valueOf(member.getScore().intValue() + order.getScore().intValue()));
 /* 315 */           this.shopMemberMng.update(member);
-/* 316 */           List list = this.shopScoreMng.getlist(
+/* 316 */           List<ShopScore> list = this.shopScoreMng.getlist(
 /* 317 */             Long.toString(order.getCode().longValue()));
 /* 318 */           for (ShopScore s : list) {
 /* 319 */             s.setStatus(true);

@@ -115,7 +115,6 @@
 /*     */     }
 /* 141 */     User user = this.userMng.findById(uid);
 /*     */     boolean success;
-/*     */     boolean success;
 /* 143 */     if (activationCode.equals(user.getResetKey())) {
 /* 144 */       user = this.userMng.resetPassword(user.getId());
 /* 145 */       success = true;

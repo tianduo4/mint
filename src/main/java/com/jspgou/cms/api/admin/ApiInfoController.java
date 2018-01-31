@@ -43,7 +43,7 @@
 /*  50 */         message = "\"param error\"";
 /*     */       } else {
 /*  52 */         Pagination pagination = this.manager.getPage(SimplePage.cpn(pageNo), pageSize.intValue());
-/*  53 */         List apiRecord = pagination.getList();
+/*  53 */         List<ApiInfo> apiRecord = (List<ApiInfo>)pagination.getList();
 /*  54 */         JSONArray jsons = new JSONArray();
 /*  55 */         for (ApiInfo api : apiRecord) {
 /*  56 */           jsons.add(api.converToJson());

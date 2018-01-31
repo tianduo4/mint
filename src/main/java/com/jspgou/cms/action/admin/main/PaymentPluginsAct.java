@@ -24,7 +24,7 @@
 /*     */   private PaymentPluginsMng manager;
 /*     */ 
 /*  32 */   @RequestMapping({"/plugins/v_list.do"})
-/*     */   public String list(HttpServletRequest request, ModelMap model) { List list = this.manager.getList();
+/*     */   public String list(HttpServletRequest request, ModelMap model) { List<PaymentPlugins> list = this.manager.getList();
 /*  33 */     Set codeSet = new HashSet();
 /*  34 */     for (PaymentPlugins p : list) {
 /*  35 */       codeSet.add(p.getCode());

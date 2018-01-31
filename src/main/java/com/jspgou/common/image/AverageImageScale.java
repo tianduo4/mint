@@ -21,11 +21,10 @@
 /*  37 */         FileUtils.copyFile(srcFile, destFile);
 /*  38 */         return;
 /*     */       }
-/*     */       int zoomHeight;
 /*     */       int zoomWidth;
 /*     */       int zoomHeight;
 /*  42 */       if (width / height > boxWidth / boxHeight) {
-/*  43 */         int zoomWidth = boxWidth;
+/*  43 */          zoomWidth = boxWidth;
 /*  44 */         zoomHeight = Math.round(boxWidth * height / width);
 /*     */       } else {
 /*  46 */         zoomWidth = Math.round(boxHeight * width / height);
@@ -54,10 +53,9 @@
 /*     */       }
 /*     */       int j2;
 /*     */       int i2;
-/*     */       int j2;
 /*  72 */       if (k1 / l1 > i / j)
 /*     */       {
-/*  74 */         int i2 = i;
+/*  74 */          i2 = i;
 /*  75 */         j2 = Math.round(i * l1 / k1);
 /*     */       }
 /*     */       else {

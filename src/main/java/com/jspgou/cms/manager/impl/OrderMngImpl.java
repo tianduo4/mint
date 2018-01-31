@@ -147,7 +147,7 @@
 /* 102 */     Double couponPrice = Double.valueOf(0.0D);
 /* 103 */     Double popularityPrice = Double.valueOf(0.0D);
 /* 104 */     if (cart != null) {
-/* 105 */       List popularityItems = this.popularityItemMng.getlist(cart.getId(), null);
+/* 105 */       List<PopularityItem> popularityItems = this.popularityItemMng.getlist(cart.getId(), null);
 /* 106 */       for (PopularityItem popularityItem : popularityItems) {
 /* 107 */         popularityPrice = Double.valueOf(popularityPrice.doubleValue() + popularityItem.getPopularityGroup().getPrivilege().doubleValue() * popularityItem.getCount().intValue());
 /*     */       }
@@ -163,7 +163,7 @@
 /*     */ 
 /*     */     }
 /*     */ 
-/* 121 */     List itemList = new ArrayList();
+/* 121 */     List<CartItem> itemList = new ArrayList();
 /* 122 */     for (Long cId : cartItemId) {
 /* 123 */       itemList.add(this.cartItemMng.findById(cId));
 /*     */     }
@@ -210,7 +210,7 @@
 /* 165 */       order.addToItems(orderItem);
 /*     */     }
 /* 167 */     order.setProductName(productName);
-/* 168 */     List popularityItemList = this.popularityItemMng.getlist(cart.getId(), null);
+/* 168 */     List<PopularityItem> popularityItemList = this.popularityItemMng.getlist(cart.getId(), null);
 /* 169 */     for (PopularityItem popularityItem : popularityItemList) {
 /* 170 */       this.popularityItemMng.deleteById(popularityItem.getId());
 /*     */     }
@@ -300,7 +300,7 @@
 /*     */ 
 /*     */   public void abolishOrder()
 /*     */   {
-/* 260 */     List orderList = getlist();
+/* 260 */     List<Order> orderList = getlist();
 /* 261 */     for (Order order : orderList) {
 /* 262 */       order.setStatus(Integer.valueOf(3));
 /*     */       ProductFashion fashion;
@@ -320,7 +320,7 @@
 /* 277 */       ShopMember member = order.getMember();
 /* 278 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 279 */       this.shopMemberMng.update(member);
-/* 280 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 280 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 281 */       for (ShopScore s : list) {
 /* 282 */         this.shopScoreMng.deleteById(s.getId());
 /*     */       }
@@ -419,7 +419,7 @@
 /* 382 */       this.orderReturnMng.deleteById(bean.getReturnOrder().getId());
 /*     */     }
 /* 384 */     if (((bean.getShippingStatus().intValue() == 1) && (bean.getStatus().intValue() == 1)) || ((bean.getShippingStatus().intValue() == 1) && (bean.getStatus().intValue() == 2))) {
-/* 385 */       Set set = bean.getItems();
+/* 385 */       Set<OrderItem> set = bean.getItems();
 /*     */       ProductFashion fashion;
 /* 387 */       for (OrderItem item : set) {
 /* 388 */         Product product = item.getProduct();
@@ -437,7 +437,7 @@
 /* 400 */       ShopMember member = bean.getMember();
 /* 401 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - bean.getScore().intValue()));
 /* 402 */       this.shopMemberMng.update(member);
-/* 403 */       List list = this.shopScoreMng.getlist(Long.toString(bean.getCode().longValue()));
+/* 403 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(bean.getCode().longValue()));
 /* 404 */       for (ShopScore s : list) {
 /* 405 */         this.shopScoreMng.deleteById(s.getId());
 /*     */       }
@@ -551,13 +551,13 @@
 /* 522 */     String suffix = "";
 /* 523 */     if ("month".equals(type)) {
 /* 524 */       firstLoop = days;
-/* 525 */       suffix = months;
+/* 525 */       suffix = months+"";
 /* 526 */     } else if ("year".equals(type)) {
 /* 527 */       firstLoop = months;
-/* 528 */       suffix = years;
+/* 528 */       suffix = years+"";
 /*     */     }
 /* 530 */     for (int i = 1; i <= firstLoop; i++) {
-/* 531 */       String firstVal = StringUtils.leftPad(i, 2, '0');
+/* 531 */       String firstVal = StringUtils.leftPad(i+"", 2, '0');
 /* 532 */       xJson.add(suffix + "-" + firstVal);
 /* 533 */       String ySaleVal = "0";
 /* 534 */       String yCountVal = "0";
@@ -604,7 +604,7 @@
 /* 576 */       ShopMember member = order.getMember();
 /* 577 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 578 */       this.shopMemberMng.update(member);
-/* 579 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 579 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 580 */       for (ShopScore s : list) {
 /* 581 */         this.shopScoreMng.deleteById(s.getId());
 /*     */       }

@@ -71,7 +71,7 @@
 /*     */   public String save(Advertise bean, Integer adspaceId, HttpServletRequest request, ModelMap model) {
 /*  72 */     Map attr = RequestUtils1.getRequestMap(request, "attr_");
 /*     */ 
-/*  74 */     Set toRemove = new HashSet();
+/*  74 */     Set<String> toRemove = new HashSet();
 /*  75 */     for (Map.Entry entry : attr.entrySet()) {
 /*  76 */       if (StringUtils.isBlank((String)entry.getValue())) {
 /*  77 */         toRemove.add((String)entry.getKey());

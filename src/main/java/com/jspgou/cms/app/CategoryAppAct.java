@@ -38,10 +38,8 @@
 /*  50 */     String result = "00";
 /*  51 */     JSONArray jsonArray = null;
 /*     */     List list;
-/*     */     List list;
 /*  53 */     if (StringUtils.isNotBlank(parentId)) {
 /*  54 */       Category category = this.categoryMng.findById(Integer.valueOf(Integer.parseInt(parentId)));
-/*     */       List list;
 /*  55 */       if (category != null)
 /*  56 */         list = new ArrayList(category.getChild());
 /*     */       else

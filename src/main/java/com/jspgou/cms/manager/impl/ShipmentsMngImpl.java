@@ -37,9 +37,10 @@
 /*    */ 
 /*    */   public void deleteByorderId(Long orderId)
 /*    */   {
-/* 43 */     List list = getlist(orderId);
-/* 44 */     for (Shipments shipments : list)
+/* 43 */     List<Shipments> list = getlist(orderId);
+/* 44 */     for (Shipments shipments : list){
 /* 45 */       deleteById(shipments.getId());
+              }
 /*    */   }
 /*    */ 
 /*    */   @Transactional(readOnly=true)

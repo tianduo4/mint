@@ -56,22 +56,22 @@ import com.jspgou.core.entity.WebsiteExt.ConfigLogin;
 /*  52 */     sender.setHost(email.getHost());
 /*  53 */     sender.setUsername(email.getUsername());
 /*  54 */     sender.setPassword(email.getPassword());
-/*  55 */     sender.send(new MimeMessagePreparator(email, tpl, receiverEmail, userName, activationCode, base)
-/*     */     {
-/*     */       public void prepare(MimeMessage mimemessage) throws MessagingException, UnsupportedEncodingException
-/*     */       {
-/*  59 */         MimeMessageHelper msg = new MimeMessageHelper(mimemessage, 
-/*  60 */           false, this.val$email.getEncoding());
-/*  61 */         msg.setSubject(this.val$tpl.getActiveTitle());
-/*  62 */         msg.setTo(this.val$receiverEmail);
-/*  63 */         msg.setFrom(this.val$email.getUsername(), this.val$email.getPersonal());
-/*  64 */         String text = this.val$tpl.getActiveTxt();
-/*  65 */         text = StringUtils.replace(text, "${userName}", this.val$userName);
-/*  66 */         text = StringUtils.replace(text, "${activationCode}", this.val$activationCode);
-/*  67 */         text = StringUtils.replace(text, "${base}", this.val$base);
-/*  68 */         msg.setText(text, true);
-/*     */       }
-/*     */     });
+///*  55 */     sender.send(new MimeMessagePreparator(email, tpl, receiverEmail, userName, activationCode, base)
+///*     */     {
+///*     */       public void prepare(MimeMessage mimemessage) throws MessagingException, UnsupportedEncodingException
+///*     */       {
+///*  59 */         MimeMessageHelper msg = new MimeMessageHelper(mimemessage,
+///*  60 */           false, this.val$email.getEncoding());
+///*  61 */         msg.setSubject(this.val$tpl.getActiveTitle());
+///*  62 */         msg.setTo(this.val$receiverEmail);
+///*  63 */         msg.setFrom(this.val$email.getUsername(), this.val$email.getPersonal());
+///*  64 */         String text = this.val$tpl.getActiveTxt();
+///*  65 */         text = StringUtils.replace(text, "${userName}", this.val$userName);
+///*  66 */         text = StringUtils.replace(text, "${activationCode}", this.val$activationCode);
+///*  67 */         text = StringUtils.replace(text, "${base}", this.val$base);
+///*  68 */         msg.setText(text, true);
+///*     */       }
+///*     */     });
 /*     */   }
 /*     */ 
 /*     */   public void senderEmail(Long uid, String username, String base, String to, String resetKey, String resetPwd, EmailSender email, MessageTemplate tpl)

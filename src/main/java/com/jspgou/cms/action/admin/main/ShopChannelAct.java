@@ -79,7 +79,6 @@
 /*     */   public String list(Integer root, HttpServletRequest request, ModelMap model) {
 /*  76 */     Website web = SiteUtils.getWeb(request);
 /*     */     List list;
-/*     */     List list;
 /*  78 */     if (root == null)
 /*  79 */       list = this.manager.getTopList(web.getId());
 /*     */     else {

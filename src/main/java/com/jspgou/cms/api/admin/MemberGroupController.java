@@ -33,7 +33,7 @@
 /*  38 */     String message = "\"success\"";
 /*  39 */     int code = 200;
 /*     */     try {
-/*  41 */       List groups = this.shopMemberGroupMng.getList();
+/*  41 */       List<ShopMemberGroup> groups = this.shopMemberGroupMng.getList();
 /*  42 */       JSONArray jsons = new JSONArray();
 /*  43 */       for (ShopMemberGroup group : groups) {
 /*  44 */         jsons.add(group.converToJson());

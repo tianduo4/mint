@@ -41,7 +41,7 @@
 /*  50 */         message = "\"param error\"";
 /*     */       } else {
 /*  52 */         Pagination pagination = this.manager.getPage(SimplePage.cpn(pageNo), pageSize.intValue());
-/*  53 */         List records = pagination.getList();
+/*  53 */         List<WebserviceCallRecord> records =(List<WebserviceCallRecord>) pagination.getList();
 /*  54 */         JSONArray jsons = new JSONArray();
 /*  55 */         for (WebserviceCallRecord record : records) {
 /*  56 */           jsons.add(record.converToJson());

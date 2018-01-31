@@ -51,11 +51,15 @@
 /*     */   @RequestMapping({"/popularityGroup/v_search.do"})
 /*     */   public void update(Long typeId, Long brandId, String productName, HttpServletRequest request, HttpServletResponse response, ModelMap model)
 /*     */   {
-/*  50 */     List list = this.productMng.getList(typeId, brandId, productName);
+/*  50 */     List<Product> list = this.productMng.getList(typeId, brandId, productName);
 /*  51 */     JSONObject json = new JSONObject();
 /*     */     try {
-/*  53 */       int i = 0; for (int j = list.size(); i < j; i++)
-/*  54 */         json.append(((Product)list.get(i)).getId(), ((Product)list.get(i)).getName());
+/*  53 */       int i = 0;
+              for (int j = list.size(); i < j; i++){
+                  json.append(
+                          ((Product)list.get(i)).getId()+"",
+                          ((Product)list.get(i)).getName());
+              }
 /*     */     }
 /*     */     catch (JSONException e) {
 /*  57 */       e.printStackTrace();

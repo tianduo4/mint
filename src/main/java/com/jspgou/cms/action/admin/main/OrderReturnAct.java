@@ -287,7 +287,7 @@
 /* 329 */     ShopMember member = entity.getOrder().getMember();
 /* 330 */     member.setFreezeScore(Integer.valueOf(member.getScore().intValue() - entity.getOrder().getScore().intValue()));
 /* 331 */     this.shopMemberMng.update(member);
-/* 332 */     List list = this.shopScoreMng.getlist(Long.toString(entity.getOrder().getCode().longValue()));
+/* 332 */     List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(entity.getOrder().getCode().longValue()));
 /* 333 */     for (ShopScore s : list) {
 /* 334 */       this.shopScoreMng.deleteById(s.getId());
 /*     */     }

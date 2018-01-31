@@ -80,7 +80,7 @@
 /*     */     try
 /*     */     {
 /*  92 */       List nvps = new ArrayList();
-/*  93 */       Set keySet = params.keySet();
+/*  93 */       Set<String> keySet = params.keySet();
 /*  94 */       for (String key : keySet) {
 /*  95 */         nvps.add(new BasicNameValuePair(key, (String)params.get(key)));
 /*     */       }

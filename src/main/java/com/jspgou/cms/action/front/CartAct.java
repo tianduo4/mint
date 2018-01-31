@@ -261,7 +261,7 @@
 /* 240 */     cart.setTotalItems(Integer.valueOf(cart.calTotalItem()));
 /* 241 */     this.cartMng.update(cart);
 /* 242 */     if ((cart != null) && (popularityGroup != null)) {
-/* 243 */       List list = this.cartItemMng.getlist(cart.getId(), popularityGroup.getId());
+/* 243 */       List<CartItem> list = this.cartItemMng.getlist(cart.getId(), popularityGroup.getId());
 /* 244 */       list.remove(cartItem);
 /* 245 */       for (CartItem item : list) {
 /* 246 */         item.setPopularityGroup(null);
@@ -367,7 +367,7 @@
 /* 353 */     if (cart == null) {
 /* 354 */       return "redirect:shopping_cart.jspx";
 /*     */     }
-/* 356 */     List popularityItems = null;
+/* 356 */     List<PopularityItem> popularityItems = null;
 /* 357 */     Double popularityPrice = Double.valueOf(0.0D);
 /* 358 */     if (cart != null) {
 /* 359 */       popularityItems = this.popularityItemMng.getlist(cart.getId(), null);
@@ -376,7 +376,7 @@
 /*     */       }
 /*     */     }
 /*     */ 
-/* 365 */     Set items = getItems(cart2Checkbox, cart);
+/* 365 */     Set<CartItem> items = getItems(cart2Checkbox, cart);
 /* 366 */     if (items == null) {
 /* 367 */       return "redirect:/cart/shopping_cart.jspx";
 /*     */     }

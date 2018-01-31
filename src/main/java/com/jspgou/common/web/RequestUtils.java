@@ -58,8 +58,7 @@
 /*     */ 
 /*     */   public static Map<String, Object> getQueryParams(HttpServletRequest request)
 /*     */   {
-/*     */     Map map;
-/*     */     Map map;
+/*     */     Map<String,String[]> map;
 /*  81 */     if (request.getMethod().equalsIgnoreCase("POST")) {
 /*  82 */       map = request.getParameterMap();
 /*     */     } else {

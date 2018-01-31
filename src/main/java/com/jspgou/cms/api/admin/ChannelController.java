@@ -39,7 +39,7 @@
 /*  45 */     int code = 200;
 /*     */     try {
 /*  47 */       Website site = CmsThreadVariable.getSite();
-/*  48 */       List list = null;
+/*  48 */       List<ShopChannel> list = null;
 /*  49 */       if ((pid != null) && (pid.intValue() == 0))
 /*  50 */         list = this.shopChannelMng.getTopList(site.getId());
 /*     */       else {
@@ -67,7 +67,7 @@
 /*  81 */     int code = 200;
 /*     */     try {
 /*  83 */       Website site = CmsThreadVariable.getSite();
-/*  84 */       List list = null;
+/*  84 */       List<ShopChannel> list = null;
 /*  85 */       if ((pid != null) && (pid.intValue() == 0))
 /*  86 */         list = this.shopChannelMng.getTopList(site.getId());
 /*     */       else {
@@ -212,7 +212,7 @@
 /* 251 */         message = "\"param error\"";
 /*     */       } else {
 /* 253 */         Website site = CmsThreadVariable.getSite();
-/* 254 */         List list = null;
+/* 254 */         List<ShopChannel> list = null;
 /* 255 */         if ((id != null) && (id.intValue() == 0))
 /* 256 */           list = this.shopChannelMng.getTopList(CmsThreadVariable.getSite().getId());
 /*     */         else {

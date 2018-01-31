@@ -41,7 +41,7 @@
 /*     */ 
 /*     */   public Double getSubtotal()
 /*     */   {
-/*  70 */     Set items = getItems();
+/*  70 */     Set<CartItem> items = getItems();
 /*  71 */     Double total = Double.valueOf(0.0D);
 /*  72 */     if (items != null) {
 /*  73 */       for (CartItem item : items) {
@@ -68,7 +68,7 @@
 /*     */ 
 /*     */   public int calTotalItem()
 /*     */   {
-/* 100 */     Set items = getItems();
+/* 100 */     Set<CartItem> items = getItems();
 /* 101 */     int count = 0;
 /* 102 */     if (items != null) {
 /* 103 */       for (CartItem item : items) {

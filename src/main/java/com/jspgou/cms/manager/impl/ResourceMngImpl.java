@@ -61,7 +61,6 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /*  58 */     if (parent.exists())
 /*     */     {
 /*     */       File[] files;
-/*     */       File[] files;
 /*  60 */       if (dirAndEditable)
 /*  61 */         files = parent.listFiles(this.filter);
 /*     */       else {
@@ -190,7 +189,6 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /* 195 */         String name = entry.getName();
 /* 196 */         log.debug("unzip file：{}", name);
 /*     */         String filename;
-/*     */         String filename;
 /* 198 */         if (name.startsWith("${res}"))
 /* 199 */           filename = resRoot + name.substring("${res}".length());
 /*     */         else {
@@ -262,13 +260,12 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /* 282 */         if (!pfile.exists())
 /*     */         {
 /* 284 */           createFolder(outFile);
-/*     */         }int len;
+/*     */         }
+                 int len;
 /*     */         try { is = zip.getInputStream(entry);
 /* 288 */           os = new FileOutputStream(outFile);
-/*     */           int len;
 /* 289 */           while ((len = is.read(buf)) != -1)
 /*     */           {
-/*     */             int len;
 /* 290 */             os.write(buf, 0, len);
 /*     */           }
 /*     */         } finally {
@@ -411,10 +408,8 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /*     */         }int len;
 /*     */         try { is = zip.getInputStream(entry);
 /* 448 */           os = new FileOutputStream(outFile);
-/*     */           int len;
 /* 449 */           while ((len = is.read(buf)) != -1)
 /*     */           {
-/*     */             int len;
 /* 450 */             os.write(buf, 0, len);
 /*     */           }
 /*     */         } finally {

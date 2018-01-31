@@ -241,7 +241,6 @@
 /* 283 */     if (errors.hasErrors())
 /* 284 */       return FrontHelper.showError(errors, web, model, request);
 /*     */     String tpl;
-/*     */     String tpl;
 /* 286 */     if (id != null) {
 /* 287 */       model.addAttribute("brand", this.brandMng.findById(id));
 /* 288 */       tpl = MessageResolver.getMessage(request, "tpl.brandDetail", new Object[0]);
@@ -273,7 +272,7 @@
 /* 332 */     Pagination pagination = this.productMng.getPageForTagChannel(brandId, web.getId(), categoryId, 
 /* 333 */       null, isRecommend, names, values, isSpecial, orderBy, startPrice, endPrice, SimplePage.cpn(Integer.valueOf(pageNo)), 
 /* 334 */       count);
-/* 335 */     List list = pagination.getList();
+/* 335 */     List<Product> list = ( List<Product>)pagination.getList();
 /* 336 */     JSONArray arr = new JSONArray();
 /*     */ 
 /* 338 */     boolean no = pageNo <= pagination.getTotalPage();

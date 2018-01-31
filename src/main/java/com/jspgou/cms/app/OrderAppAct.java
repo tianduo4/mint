@@ -131,7 +131,7 @@
 /* 125 */       Integer maxResults = Apputil.getmaxResults(request
 /* 126 */         .getParameter("maxResults"));
 /*     */ 
-/* 128 */       List list = this.orderMng.getOrderList(web.getId(), user.getId(), 
+/* 128 */       List<Order> list = this.orderMng.getOrderList(web.getId(), user.getId(),
 /* 129 */         productName, userName, paymentId, shippingId, startTime, 
 /* 130 */         endTime, startOrderTotal, endOrderTotal, status, code, 
 /* 131 */         firstResult.intValue(), maxResults.intValue());

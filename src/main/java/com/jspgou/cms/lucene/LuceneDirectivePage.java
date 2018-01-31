@@ -42,6 +42,7 @@
 /* 49 */     Date end = getEndDate(params);
 /* 50 */     Integer orderBy = getInt("orderBy", params);
 /* 51 */     int pageNo = ((TemplateNumberModel)env.getGlobalVariable("pageNo")).getAsNumber().intValue();
+/*    */       Pagination pagination;
 /*    */     try
 /*    */     {
 /* 54 */       String path = this.servletContext.getRealPath("/WEB-INF/lucene");
@@ -49,10 +50,8 @@
 /*    */     }
 /*    */     catch (ParseException e)
 /*    */     {
-/*    */       Pagination pagination;
 /* 57 */       throw new RuntimeException(e);
 /*    */     }
-/*    */     Pagination pagination;
 /* 59 */     Map paramWrap = new HashMap(
 /* 60 */       params);
 /* 61 */     paramWrap.put("tag_pagination", ObjectWrapper.DEFAULT_WRAPPER.wrap(pagination));

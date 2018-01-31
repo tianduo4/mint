@@ -64,7 +64,6 @@
 /*  82 */     } else if (flag.intValue() == 2)
 /*     */     {
 /*     */       int y;
-/*     */       int y;
 /*  84 */       if ((request.getParameter("year") != null) && (!request.getParameter("year").equals("")))
 /*  85 */         y = Integer.parseInt(request.getParameter("year"));
 /*     */       else {
@@ -101,7 +100,6 @@
 /*     */     }
 /* 126 */     else if (flag.intValue() == 2)
 /*     */     {
-/*     */       int y;
 /*     */       int y;
 /* 128 */       if ((request.getParameter("year") != null) && 
 /* 129 */         (!request.getParameter("year").equals(""))) {

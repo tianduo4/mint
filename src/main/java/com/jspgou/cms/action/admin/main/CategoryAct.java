@@ -66,7 +66,6 @@
 /*  55 */     Website web = SiteUtils.getWeb(request);
 /*  56 */     log.debug("tree path={}", root);
 /*     */     boolean isRoot;
-/*     */     boolean isRoot;
 /*  59 */     if ((StringUtils.isBlank(root)) || ("source".equals(root)))
 /*  60 */       isRoot = true;
 /*     */     else {
@@ -79,7 +78,6 @@
 /*  68 */       ResponseUtils.renderJson(response, "[]");
 /*  69 */       return null;
 /*     */     }
-/*     */     List list;
 /*     */     List list;
 /*  72 */     if (isRoot) {
 /*  73 */       list = this.manager.getTopList(web.getId());
@@ -95,7 +93,6 @@
 /*     */   @RequestMapping({"/category/v_list.do"})
 /*     */   public String list(Integer root, HttpServletRequest request, ModelMap model) {
 /*  86 */     Website web = SiteUtils.getWeb(request);
-/*     */     List list;
 /*     */     List list;
 /*  88 */     if (root == null)
 /*  89 */       list = this.manager.getTopList(web.getId());
@@ -117,7 +114,6 @@
 /* 107 */     ProductType type = this.productTypeMng.findById(typeId);
 /*     */ 
 /* 109 */     List itemList = this.productTypePropertyMng.getList(typeId, true);
-/*     */     List brandList;
 /*     */     List brandList;
 /* 110 */     if (root != null) {
 /* 111 */       parent = this.manager.findById(root);
@@ -175,11 +171,9 @@
 /* 166 */     List brandList1 = this.brandMng.getAllList();
 /* 167 */     List itemList = this.productTypePropertyMng.getList(type.getId(), true);
 /*     */     List brandList;
-/*     */     List brandList;
 /* 169 */     if (category.getParent() != null) {
 /* 170 */       Set set = new HashSet();
 /* 171 */       set = category.getParent().getBrands();
-/*     */       List brandList;
 /* 173 */       if ((set != null) && (set.size() != 0)) {
 /* 174 */         brandList = new ArrayList(set);
 /*     */       }

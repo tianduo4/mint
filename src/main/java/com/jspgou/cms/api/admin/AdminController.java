@@ -65,7 +65,7 @@
 /*  69 */         message = "\"param error\"";
 /*     */       } else {
 /*  71 */         Pagination pagination = this.shopAdminMng.getPage(CmsThreadVariable.getSite().getId(), SimplePage.cpn(pageNo), pageSize.intValue());
-/*  72 */         List admins = pagination.getList();
+/*  72 */         List<ShopAdmin> admins = (List<ShopAdmin>)pagination.getList();
 /*  73 */         JSONArray jsons = new JSONArray();
 /*  74 */         for (ShopAdmin admin : admins) {
 /*  75 */           jsons.add(admin.converToJson());

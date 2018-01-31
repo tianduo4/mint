@@ -38,7 +38,7 @@
 /*  46 */     String message = "\"success\"";
 /*  47 */     int code = 200;
 /*     */     try {
-/*  49 */       List roles = this.roleMng.getList();
+/*  49 */       List<Role> roles = this.roleMng.getList();
 /*  50 */       JSONArray jsons = new JSONArray();
 /*  51 */       for (Role role : roles) {
 /*  52 */         jsons.add(role.converToJson());

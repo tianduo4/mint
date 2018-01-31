@@ -127,7 +127,7 @@
 /* 127 */     JSONObject o = new JSONObject();
 /* 128 */     ShopMember user = this.apiUtilMng.findbysessionKey(request);
 /* 129 */     if (user != null) {
-/* 130 */       List list = this.shopMemberAddressMng.getList(user
+/* 130 */       List<ShopMemberAddress> list = this.shopMemberAddressMng.getList(user
 /* 131 */         .getId());
 /* 132 */       for (ShopMemberAddress address : list) {
 /* 133 */         o.put("username", address.getUsername());

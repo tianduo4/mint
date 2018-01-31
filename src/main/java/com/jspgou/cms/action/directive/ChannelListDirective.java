@@ -41,10 +41,8 @@
 /*    */     }
 /* 50 */     Integer parentId = DirectiveUtils.getInt("parentId", params);
 /*    */     List list;
-/*    */     List list;
 /* 52 */     if (parentId != null) {
 /* 53 */       ShopChannel channel = this.shopChannelMng.findById(parentId);
-/*    */       List list;
 /* 54 */       if (channel != null)
 /* 55 */         list = new ArrayList(channel.getChild());
 /*    */       else

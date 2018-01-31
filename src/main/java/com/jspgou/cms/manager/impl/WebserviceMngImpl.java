@@ -128,7 +128,7 @@
 /*     */ 
 /*     */   public void callWebService(String operate, Map<String, String> params)
 /*     */   {
-/* 140 */     List list = getList(operate);
+/* 140 */     List<Webservice> list = getList(operate);
 /* 141 */     for (Webservice s : list)
 /* 142 */       callWebService(s, params);
 /*     */   }

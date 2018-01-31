@@ -82,7 +82,7 @@
 /*     */     {
 /*  88 */       FTPClient ftp = getClient();
 /*  89 */       if (ftp != null) {
-/*  90 */         List files = MyFileUtils.getFiles(new File(folder));
+/*  90 */         List<File> files = MyFileUtils.getFiles(new File(folder));
 /*  91 */         for (File file : files) {
 /*  92 */           String filename = getPath() + file.getName();
 /*  93 */           String name = FilenameUtils.getName(filename);

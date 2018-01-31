@@ -252,7 +252,7 @@
 /* 250 */     if (orderId != null) {
 /* 251 */       Order order = this.manager.findById(orderId);
 /* 252 */       order.setStatus(Integer.valueOf(3));
-/* 253 */       Set set = order.getItems();
+/* 253 */       Set<OrderItem> set = order.getItems();
 /*     */       Product product;
 /* 255 */       for (OrderItem item : set) {
 /* 256 */         product = item.getProduct();
@@ -269,7 +269,7 @@
 /*     */ 
 /* 268 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 269 */       this.shopMemberMng.update(member);
-/* 270 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 270 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 271 */       for (ShopScore s : list) {
 /* 272 */         this.shopScoreMng.deleteById(s.getId());
 /*     */       }
@@ -292,7 +292,7 @@
 /* 293 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 294 */       member.setScore(Integer.valueOf(member.getScore().intValue() + order.getScore().intValue()));
 /* 295 */       this.shopMemberMng.update(member);
-/* 296 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 296 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 297 */       for (ShopScore s : list) {
 /* 298 */         s.setStatus(true);
 /* 299 */         this.shopScoreMng.update(s);
@@ -409,7 +409,7 @@
 /*     */     }
 /* 427 */     OrderReturn entity = this.orderReturnMng.findById(id);
 /* 428 */     entity.setStatus(Integer.valueOf(7));
-/* 429 */     Set set = entity.getOrder().getItems();
+/* 429 */     Set<OrderItem> set = entity.getOrder().getItems();
 /*     */     Product product;
 /* 431 */     for (OrderItem item : set) {
 /* 432 */       product = item.getProduct();
@@ -426,7 +426,7 @@
 /*     */ 
 /* 444 */     member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - entity.getOrder().getScore().intValue()));
 /* 445 */     this.shopMemberMng.update(member);
-/* 446 */     List list = this.shopScoreMng.getlist(Long.toString(entity.getOrder().getCode().longValue()));
+/* 446 */     List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(entity.getOrder().getCode().longValue()));
 /* 447 */     for (ShopScore s : list) {
 /* 448 */       this.shopScoreMng.deleteById(s.getId());
 /*     */     }

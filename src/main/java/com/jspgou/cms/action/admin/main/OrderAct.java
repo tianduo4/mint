@@ -181,7 +181,7 @@
 /* 158 */       ShopMember member = order.getMember();
 /* 159 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 160 */       this.shopMemberMng.update(member);
-/* 161 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 161 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 162 */       for (ShopScore s : list) {
 /* 163 */         this.shopScoreMng.deleteById(s.getId());
 /*     */       }
@@ -212,7 +212,7 @@
 /* 191 */     Order order = this.manager.findById(id);
 /* 192 */     Pagination pagination = this.shopShipmentsMng.getPage(1, 10);
 /* 193 */     model.addAttribute("allList", pagination.getList());
-/* 194 */     List list = this.shopShipmentsMng.getList(Boolean.valueOf(true));
+/* 194 */     List<ShopShipments> list = this.shopShipmentsMng.getList(Boolean.valueOf(true));
 /* 195 */     if ((list != null) && (list.size() > 0)) {
 /* 196 */       for (ShopShipments li : list) {
 /* 197 */         model.addAttribute("mentId", li.getId());
@@ -259,7 +259,7 @@
 /* 241 */       member.setFreezeScore(Integer.valueOf(member.getFreezeScore().intValue() - order.getScore().intValue()));
 /* 242 */       member.setScore(Integer.valueOf(member.getScore().intValue() + order.getScore().intValue()));
 /* 243 */       this.shopMemberMng.update(member);
-/* 244 */       List list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
+/* 244 */       List<ShopScore> list = this.shopScoreMng.getlist(Long.toString(order.getCode().longValue()));
 /* 245 */       for (ShopScore s : list) {
 /* 246 */         s.setStatus(true);
 /* 247 */         this.shopScoreMng.update(s);

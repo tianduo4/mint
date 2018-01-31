@@ -60,7 +60,6 @@
 /*     */     {
 /*  55 */       Website web = SiteUtils.getWeb(request);
 /*     */       List list;
-/*     */       List list;
 /*  56 */       if ((pid == null) || (pid.intValue() == 0))
 /*  57 */         list = this.categoryMng.getTopList(web.getId());
 /*     */       else {
@@ -96,12 +95,10 @@
 /*  95 */       if (!errors.hasErrors())
 /*     */       {
 /*     */         boolean isRoot;
-/*     */         boolean isRoot;
 /*  98 */         if (pid.intValue() == 0)
 /*  99 */           isRoot = true;
 /*     */         else
 /* 101 */           isRoot = false;
-/*     */         List list;
 /*     */         List list;
 /* 104 */         if (isRoot)
 /* 105 */           list = this.categoryMng.getTopList(web.getId());

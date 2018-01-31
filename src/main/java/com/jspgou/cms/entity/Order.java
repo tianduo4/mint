@@ -80,7 +80,7 @@
 /*  95 */     json.put("orderStatus", CommonUtils.parseInteger(getStatus()));
 /*  96 */     json.put("paymentStatus", CommonUtils.parseInteger(getPaymentStatus()));
 /*  97 */     json.put("shippingStatus", CommonUtils.parseInteger(getShippingStatus()));
-/*  98 */     Set order = getItems();
+/*  98 */     Set<OrderItem> order = getItems();
 /*  99 */     JSONArray jsons = new JSONArray();
 /* 100 */     for (OrderItem item : order) {
 /* 101 */       JSONObject obj = new JSONObject();

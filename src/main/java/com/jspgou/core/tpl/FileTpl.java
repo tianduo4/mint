@@ -1,6 +1,7 @@
 /*     */ package com.jspgou.core.tpl;
 /*     */ 
-/*     */ import com.jspgou.common.file.FileWrap.FileComparator;
+/*     */ import com.jspgou.common.file.FileWrap;
+import com.jspgou.common.file.FileWrap.FileComparator;
 /*     */ import com.jspgou.common.util.DateUtils;
 /*     */ import java.io.File;
 /*     */ import java.io.IOException;

@@ -20,7 +20,7 @@
 /* 29 */   @RequestMapping(value={"/commonAdmin/v_list.do"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
 /*    */   public String unLoad(HttpServletRequest request, HttpServletResponse response, ModelMap model) { Map adminMap = AdminMap.adminmap;
 /* 30 */     model.addAttribute("map1", adminMap);
-/* 31 */     Set keySet = adminMap.keySet();
+/* 31 */     Set<String> keySet = adminMap.keySet();
 /* 32 */     for (String username : keySet) {
 /* 33 */       ((Integer)adminMap.get(username)).intValue();
 /*    */     }

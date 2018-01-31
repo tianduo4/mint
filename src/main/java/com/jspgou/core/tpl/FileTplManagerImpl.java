@@ -51,7 +51,6 @@
 /*  57 */     File f = new File(this.realPathResolver.get(prefix));
 /*  58 */     String name = prefix.substring(prefix.lastIndexOf("/") + 1);
 /*     */     File parent;
-/*     */     File parent;
 /*  60 */     if (prefix.endsWith("/")) {
 /*  61 */       name = "";
 /*  62 */       parent = f;
@@ -75,7 +74,7 @@
 /*     */ 
 /*     */   public List<String> getNameListByPrefix(String prefix)
 /*     */   {
-/*  84 */     List list = getListByPrefix(prefix);
+/*  84 */     List<Tpl> list = getListByPrefix(prefix);
 /*  85 */     List result = new ArrayList(list.size());
 /*  86 */     for (Tpl tpl : list) {
 /*  87 */       result.add(tpl.getName());

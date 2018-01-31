@@ -163,7 +163,7 @@
 /*     */   public Map<String, String> getSsoAttr()
 /*     */   {
 /* 201 */     Map ssoMap = new HashMap();
-/* 202 */     Map attr = getAttr();
+/* 202 */     Map<String,String> attr = getAttr();
 /* 203 */     for (String ssoKey : attr.keySet()) {
 /* 204 */       if (ssoKey.startsWith("sso_")) {
 /* 205 */         ssoMap.put(ssoKey, (String)attr.get(ssoKey));
@@ -174,7 +174,7 @@
 /*     */ 
 /*     */   public List<Map<String, String>> getAuthUrl() {
 /* 212 */     List attrs = new ArrayList();
-/* 213 */     Map attr = getAttr();
+/* 213 */     Map<String,String> attr = getAttr();
 /* 214 */     for (String ssoKey : attr.keySet()) {
 /* 215 */       if (ssoKey.startsWith("sso_")) {
 /* 216 */         Map map = new HashMap();
@@ -186,7 +186,7 @@
 /*     */   }
 /*     */ 
 /*     */   public List<String> getSsoAuthenticateUrls() {
-/* 225 */     Map ssoMap = getSsoAttr();
+/* 225 */     Map<String, String> ssoMap = getSsoAttr();
 /* 226 */     List values = new ArrayList();
 /* 227 */     for (String key : ssoMap.keySet()) {
 /* 228 */       values.add((String)ssoMap.get(key));

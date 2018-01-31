@@ -197,7 +197,6 @@
 /* 194 */         String name = entry.getName();
 /* 195 */         log.debug("unzip file：{}", name);
 /*     */         String filename;
-/*     */         String filename;
 /* 197 */         if (name.startsWith("${res}"))
 /* 198 */           filename = resRoot + "/" + solution + 
 /* 199 */             name.substring("${res}".length());
@@ -212,10 +211,8 @@
 /*     */         try {
 /* 210 */           is = zip.getInputStream(entry);
 /* 211 */           os = new FileOutputStream(outFile);
-/*     */           int len;
 /* 212 */           while ((len = is.read(buf)) != -1)
 /*     */           {
-/*     */             int len;
 /* 213 */             os.write(buf, 0, len);
 /*     */           }
 /*     */         } finally {

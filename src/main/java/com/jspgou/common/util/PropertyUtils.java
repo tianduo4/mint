@@ -110,7 +110,7 @@
 /*     */   }
 /*     */ 
 /*     */   public Map<String, Object> getBeanMap(String prefix) {
-/* 112 */     Map keyMap = getMap(prefix);
+/* 112 */     Map<String, String> keyMap = getMap(prefix);
 /* 113 */     if (keyMap.isEmpty()) {
 /* 114 */       return Collections.emptyMap();
 /*     */     }

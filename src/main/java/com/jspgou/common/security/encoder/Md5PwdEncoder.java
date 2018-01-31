@@ -19,16 +19,15 @@
 /*     */   {
 /*  20 */     String saltedPass = mergePasswordAndSalt(rawPass, salt, false);
 /*  21 */     MessageDigest messageDigest = getMessageDigest();
+/*     */       byte[] digest;
 /*     */     try
 /*     */     {
 /*  24 */       digest = messageDigest.digest(saltedPass.getBytes("UTF-8"));
 /*     */     }
 /*     */     catch (UnsupportedEncodingException e)
 /*     */     {
-/*     */       byte[] digest;
 /*  26 */       throw new IllegalStateException("UTF-8 not supported!");
 /*     */     }
-/*     */     byte[] digest;
 /*  28 */     return new String(Hex.encodeHex(digest));
 /*     */   }
 /*     */ 

@@ -37,7 +37,7 @@
 /*    */ 
 /*    */   public void deleteByorderId(Long orderId)
 /*    */   {
-/* 42 */     List list = getlist(orderId);
+/* 42 */     List<Gathering> list = getlist(orderId);
 /* 43 */     for (Gathering gathering : list)
 /* 44 */       deleteById(gathering.getId());
 /*    */   }

@@ -277,9 +277,9 @@
 /* 373 */           fashionSwitchPics, pictures, colorImgs, characters, natures, isDefault, stockCount, salePrice, marketPrice, costPrice);
 /*     */         try
 /*     */         {
-/* 377 */           if (bean.getStatus().intValue() != Product.ON_SALE_STATUS) break label973; this.luceneProductSvc.createIndex(bean);
-/*     */         }
-/*     */         catch (IOException e) {
+/* 377 */           if (bean.getStatus().intValue() != Product.ON_SALE_STATUS) break label973;
+                        this.luceneProductSvc.createIndex(bean);
+/*     */         } catch (IOException e) {
 /* 381 */           e.printStackTrace();
 /*     */         }
 /*     */       } else {
@@ -591,7 +591,7 @@
 /* 724 */         message = "\"param error\"";
 /*     */       } else {
 /* 726 */         Pagination page = this.productMng.getPageOverStockList(CmsThreadVariable.getSite().getId(), SimplePage.cpn(pageNo), pageSize.intValue());
-/* 727 */         List list = page.getList();
+/* 727 */         List<Product> list = (List<Product>)page.getList();
 /* 728 */         JSONArray jsons = new JSONArray();
 /* 729 */         for (Product product : list) {
 /* 730 */           jsons.put(product.convertToJson("list"));

@@ -48,7 +48,7 @@
 /*  55 */         message = "\"param error\"";
 /*     */       } else {
 /*  57 */         Pagination pagination = this.shopArticleMng.getPage(cid, CmsThreadVariable.getSite().getId(), pageNo.intValue(), pageSize.intValue());
-/*  58 */         List articles = pagination.getList();
+/*  58 */         List<ShopArticle> articles =(List<ShopArticle>)pagination.getList();
 /*  59 */         JSONArray jsons = new JSONArray();
 /*  60 */         for (ShopArticle article : articles) {
 /*  61 */           jsons.add(article.converToJson());
@@ -71,7 +71,7 @@
 /*  83 */     String message = "\"success\"";
 /*  84 */     int code = 200;
 /*     */     try {
-/*  86 */       List list = this.shopChannelMng.getArticleList(CmsThreadVariable.getSite().getId());
+/*  86 */       List<ShopChannel> list = this.shopChannelMng.getArticleList(CmsThreadVariable.getSite().getId());
 /*  87 */       JSONArray jsons = new JSONArray();
 /*  88 */       for (ShopChannel channel : list) {
 /*  89 */         jsons.add(channel.converToTreeJson());
