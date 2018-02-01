@@ -1,0 +1,60 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		$.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	$.confirm(doDelete);
+}
+function doDelete(){
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+	<div class="rhead">
+		<div class="rpos"><@s.m "global.position"/>：应用中心</div>
+	</div>
+    <div class="web-con">
+    <br/>
+    	<form class="f_l">
+            <input class="add_menu" type="submit" value="配置" onclick="this.form.action='v_config.do';"/>
+        </form>
+        <form class="f_r" method="post" action="v_center.do" style="float: right;">
+           应用分类：<@p.select name="productType" value="${productType!}" list={"1":"bug类","2":"安全补丁类","3":"新功能类"} headerKey="" headerValue="global.pleaseSelect"/>
+            <input type="submit" value="<@s.m 'global.query'/>" class="search_menu" />
+        </form>
+        <div class="clear"></div>
+        
+        <form id="tableForm" method="post">
+        <input type="hidden" name="pageNo" value="${pageNo!}"/>
+        <input type="hidden" name="productType" value="${productType!}"/>
+        <@p.table listAction="v_center.do" value=pagination;storeplug,i,has_next><#rt/>
+            <@p.column title="ID" align="center">${storeplug.id}</@p.column><#t/>
+            <@p.column code="storeplug.type" align="center"><@s.m "storeplug.type.${storeplug.type!}"/></@p.column><#t/>
+            <@p.column code="storeplug.title" align="center">${storeplug.title!}</@p.column><#t/>
+            <@p.column code="storeplug.shortDesc" align="center"><@text_cut s=storeplug.shortDesc?html len=25 append="..."/></@p.column><#t/>
+            <@p.column code="storeplug.releaseDate" align="center">${storeplug.releaseDate!}</@p.column><#t/>
+            <@p.column code="storeplug.chargeAmount" align="center"><#if storeplug.isCharge>${storeplug.chargeAmount!}<#else><@s.m "storeplug.chargeFree"/></#if></@p.column><#t/>
+            <@p.column code="global.operate" align="center">
+                <a href="${plugUrlPrefix!}/${storeplug.id}.jspx" target="_blank" class="pn-opt"><@s.m "global.view"/></a><#rt/>
+            </@p.column><#t/>
+        </@p.table>
+        </form>
+    </div>
+	<#include "/common/alert_message.html"/>
+</div>
+</body>
+</html>

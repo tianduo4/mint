@@ -1,0 +1,14 @@
+<div class="subNavBox fl">
+    [@shop_Channel count='5']
+    [#list tag_list as c]
+    <div class="subNav"><a href="${c.url!}">${c.name!}</a></div>
+    <ul class="navContent" style="display:block">
+        [@shop_ArticleList channelId=c.id count='20']
+        [#list tag_list as a]
+        <li><a href="${a.url!}">${a.title!}</a></li>
+        [/#list]
+        [/@shop_ArticleList]
+    </ul>
+    [/#list]
+    [/@shop_Channel]
+</div>	

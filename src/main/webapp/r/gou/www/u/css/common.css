@@ -1,0 +1,33 @@
+.FittingAll{padding-top:15px;}
+.FittingGoods{width:100%;overflow:hidden;margin-top:10px;}
+.FittingGoodsMain{background:url('fitting_plus.gif') center right no-repeat;padding-right:50px;width:155px;height:210px;float:left;}
+.FittingGoodsMain img,#FittingScrollArea img{border:1px solid #DDDDDD;}
+.FittingGoodsMain a:hover,#FittingScrollArea a:hover{border:none;}
+.FittingGoodsMain a:hover img,#FittingScrollArea a:hover img{border:1px solid #CC0000;}
+
+.FittingGoodsMainName a:hover,#FittingScrollArea a:hover{text-decoration:underline;color:#CC0000;}
+
+.FittingGoodsMainName{color:#000000;line-height:20px;display:block;width:155px;height:40px;text-align:center;overflow:hidden;}
+.FittingGoodsDetail{width:535px;height:210px;float:left;}
+.FittingGoodsDetail div{float:left;height:210px;}
+.FittingGoodsDetailArrowLeft{background:url('fitting_left_arrow.gif') center no-repeat;width:20px;cursor:pointer;}
+.FittingGoodsDetailArrowRight{background:url('fitting_right_arrow.gif') center no-repeat;width:20px;cursor:pointer;}
+.FittingGoodsDetailGoods{width:480px;overflow:hidden;}
+.FittingGoodsDetailGoods ul, .FittingGoodsDetailGoods ul li{list-style:none;float:left;}
+.FittingGoodsDetailGoods ul{margin:0;padding:0;height:210px;}
+.FittingGoodsDetailGoods ul li{width:146px;_width:144px;margin:3px;padding:3px;border:1px solid #FFFFFF;overflow:visible!important;overflow:hidden;height:199px;}
+.FittingGoodsDetailGoods ul li span{display:block;width:138px;text-align:center;}
+.FGDGImg img{border:#EEEEEE solid 1px;margin-left:17px;float:left;}
+.FGDGName{line-height:20px; height:40px; overflow:hidden;padding-top:2px;}
+.FGDGPrice{color:#333333;line-height:18px;height:18px;font-family:"Î¢ÈíÑÅºÚ";}
+.FGDGFit{color:#CC0000;font-weight:bold;line-height:18px;height:18px;font-family:"Î¢ÈíÑÅºÚ";}
+.FGDGButton{height:25px;padding-top:5px;}
+.FGDGButton img{cursor:pointer;}
+.FittingBottom{height:200px;width:180px;background-color:#f8f8f8;border:#cdcdcd 1px solid;border:#ededed 1px solid;float:left;margin-top:5px;}
+*html .FittingBottom{margin-top:-5px;}
+*+html .FittingBottom{margin-top:-5px;}
+.FBText{line-height:36px;padding-left:18px;}
+.FBText div strong{color:#CC0000;font-family:"Î¢ÈíÑÅºÚ";font-size:14px;}
+.FBText div strong span{padding:0;}
+.FBButton{padding-left:18px;width:120px;height:32px;padding-top:3px;}
+.comm_show{background-color: #0c840c; color: #FFFFFF;height: 40px;line-height: 20px;overflow: hidden;padding: 2px 5px;position: relative;width: 190px;z-index: 1000;filter:alpha(opacity=80);opacity:0.8;}

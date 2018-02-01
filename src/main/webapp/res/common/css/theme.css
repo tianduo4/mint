@@ -1,0 +1,58 @@
+.welcom-con{ margin:0 auto; width:98%;}
+.ms{height:27px; border-bottom:1px solid #c0d5e6; border-top:1px solid #c0d5e6; margin-top:25px;padding-left:0px;}
+.ms li{color:#09C; font-weight:bold; float:left; line-height:27px;}
+.wxx{width:30%;}
+.ms-xx{height:80px; }
+.striping{border-bottom:1px solid #c0d5e6; }
+.item-title {color:#09C;}
+
+.we-txt{background:url(../img/admin/jeecms.png) no-repeat 0px -80px;}
+.we-txt a{color:#ff0000;}
+.we-txt p{line-height:24px; padding-left:158px; margin-top:17px;}
+.topColumn tr td a{font-weight:bold;}
+/*鏁版嵁褰曞叆鍜屼慨鏀规牱寮*/
+.pn-ftable{background-color:#B4CFCF;margin-top:5px;}
+.pn-ftable1{margin-top:5px;}
+.pn-flabel{background-color:#F9FBFD;text-align:right;padding-right:3px;}
+.pn-flabel-h{height:27px;}
+.pn-fcontent{background-color:#FFFFFF;padding-left:5px;}
+.pn-fbutton{background-color:#FFFFFF;text-align:center;}
+.pn-fhelp{color:#747474;padding:3px 0px;}
+.pn-frequired{color:red}
+.pn-fruler{background:url(../img/admin/ruler.gif) repeat-x 1px 6px;}
+/*鏁版嵁鍒楄〃鏍峰紡*/
+.pn-ltable{background-color:#E2EBEF;margin:5px auto 0px auto;}
+.pn-ltable tr:hover{background-color:#e2f0ff;}
+.pn-lthead{}
+.pn-lthead th{height:27px;background-image:url(../img/theme/msg_bg.jpg);}
+.pn-ltbody{background-color:#FFFFFF;}
+.pn-ltbody tr{height:25px;}
+.pn-ltbody tr td a:hover{text-decoration:underline;color:#CC0000!important;}
+.pn-ltbody tr td a{color:#3399FF;}
+#div1{float:left;width:80%;}
+
+/*鏁版嵁鍒楄〃榧犳爣缁忚繃鏍峰紡*/
+.pn-lhover{background-color:#F2F2F2;}
+.pn-lselected{background-color:#d9e8fb;}
+/*鏁版嵁鍒楄〃娌℃湁鏁版嵁鏍峰紡*/
+.pn-lnoresult{padding:10px;border:#b4cfcf 1px solid;text-align:center;color:red;font-weight:bold;}
+/*鏁版嵁鍒楄〃鎵归噺鎿嶄綔鏍峰紡*/
+.pn-lbopt{margin-top:2px;padding:5px;border:#b4cfcf 1px solid;}
+/*鏁版嵁鍒楄〃鎿嶄綔閾炬帴鏍峰紡*/
+.pn-lopt{text-align:center;}
+a.pn-loperator{text-decoration:underline;}
+a.pn-loperator:link {color: #2366A8;}
+a.pn-loperator:visited {color: #2366A8;}
+a.pn-loperator:hover{color: #2366A8;}
+a.pn-loperator:active {color: #2366A8;}
+/*鍒嗛〉鏍峰紡*/
+.pn-sp{margin:3px auto 0px auto;padding:1px 0px;height:28px;background-image:url(../img/theme/pbg.jpg);}
+.pn-sp-left{float:left;padding-left:10px;width:24%}
+.pn-sp-right{float:left;text-align:center;width:74%}
+/*鏍戠殑鏍峰紡*/
+.pn-tree{font-size:12px;}
+.pn-tree *{word-break:keep-all;white-space:nowrap;}
+.pn-tree img{vertical-align:middle;}
+.pn-tree-hover{background-color:#F5F5F5;}
+.pn-tree-selected{background-color:#DDECEF;}
+.pn-tree-checkbox{vertical-align:middle;}

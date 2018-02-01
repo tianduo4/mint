@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的积分 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+
+function checkStatus(status){
+	if(status==1){
+		$("#status").attr("value",'');
+		$("#useStatus").attr("value",'');
+	}else{
+		$("#status").attr("value",status);
+		$("#useStatus").attr("value",'');
+	}
+    $("#jvForm").submit();
+ }
+
+function checkUseStatus(useStatus){
+	 $("#useStatus").attr("value",useStatus);
+     $("#jvForm").submit();
+}
+</script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">积分管理</h1>
+</header>
+<div class="mb44" style="padding-top:45px;">
+	<span style="width:50%; background:#ffefef; color:#000; display:block; line-height:30px; float:left; text-align:center;">可用积分：${member.score!}</span>
+    <span style="width:50%; background:#ffefef; color:#000; display:block; line-height:30px; float:left; text-align:center;">冻结积分：${member.freezeScore!}</span>
+	<div class="clear"></div>
+    <form id="jvForm" action="myscore.jspx" method="post">
+        <input type="hidden" id="status" name="status" value="${status!}"/> 
+        <input type="hidden" id="useStatus" name="useStatus" value="${useStatus!}"/>
+        <div class="tab_tb" style="clear: both;overflow: hidden;">
+            <ul>
+                <li [#if !(status??)&&!(useStatus??)]class="first cur"[/#if]><a href="javascript:vodi(0);" onclick="checkStatus(1);">全部明细</a></li>
+                <li [#if useStatus??&useStatus==0]class="first cur"[/#if]><a href="javascript:vodi(0);" onclick="checkUseStatus(0);" >全部收入</a></li>
+                <li [#if useStatus??&useStatus==1]class="first cur"[/#if]><a href="javascript:vodi(0);" onclick="checkUseStatus(1);">全部支出</a></li>
+                <li [#if status??&&!(useStatus??)&status==0]class="first cur"[/#if]><a href="javascript:vodi(0);" onclick="checkStatus(0);">冻结积分</a></li>
+            </ul>
+        </div>
+        <!--
+        <div id="queryCodeNum" style="margin-bottom:10px; overflow:hidden; padding-top:10px;">
+
+            时间：<input type="text" name="startTime" [#if startTime??]value="${startTime!}"[/#if] class="ss_input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width:20%;"/> 至 
+            <input type="text" name="endTime" [#if endTime??]value="${endTime!}"[/#if] class="ss_input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width:20%;"/>
+            <input id="toQuery" type="submit" value="查询" class="menu_s1"/>
+
+        </div>
+        -->
+        [@score_page status=status useStatus=useStatus startTime=startTime endTime=endTime count='5']
+        [#if tag_list?size gt 0]
+        [#list tag_list as shopScore]
+        <div class="jifen">
+            <p>
+            	来源：[#if shopScore.orderItem??]
+                <img src="${baseUrl!}${shopScore.orderItem.product.productExt.coverImg!}" width="50" height="50"/>[/#if]
+            	[@text_cut s=shopScore.name len='20' append="..."/]
+            </p>
+            <p>收入：[#if !(shopScore.useStatus)]${shopScore.score!0}([#if shopScore.status]可用[#else]冻结[/#if])[/#if]</p>
+            <p>支出：[#if shopScore.useStatus]支出[#else]收入[/#if]</p>
+            <p>日期：${shopScore.scoreTime!}</p>
+            <p>备注：${shopScore.remark!}</p>
+        </div>
+        [/#list]
+        [#else]
+        
+        [#if !(status??)&&!(useStatus??)]
+        暂无支出与收入 ，这就去<a href="${base}/">JSPGOU商城</a>购买商品获得积分。
+        [#elseif !(status??)&&useStatus==0]
+        暂无收入，这就去<a href="${base}/">JSPGOU商城</a>购买商品获得积分。
+        [#elseif !(status??)&&useStatus==1]
+        暂无支出，这就去<a href="${base}/">JSPGOU商城</a>购买商品兑换积分。
+        [#elseif !(useStatus??)&&status==0]
+        暂无冻结积分 ，这就去<a href="${base}/">JSPGOU商城</a>兑换商品。
+        [/#if]                             
+        </td>
+        </tr>
+        [/#if]
+        [/@score_page]
+        </table>
+    </form>
+</div>
+<style>
+.tab_tb ul li{ width:25%;}
+</style>
+</body>
+</html>

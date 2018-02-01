@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+function optSaveOrder() {
+	var f = getTableForm();
+	f.action="o_priority.do";
+	f.submit();
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 配置 - 支付插件 - <@s.m "global.list"/></div>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+
+<#if list?? && list?size gt 0>
+
+<@p.table value=list;payment,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${payment.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column title="ID" align="center">${payment.id}</@p.column><#t/>
+	<@p.column code="payment.name" align="center">${payment.name}</@p.column><#t/>
+	<@p.column code="payment.priority" align="center"><input type="text" name="priority" value="${payment.priority}" size="7"/><input type="hidden" name="wids" value="${payment.id}"/></@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+		<a href="v_edit.do?id=${payment.id}&code=${payment.code}"><@s.m "global.edit"/></a> | <#rt/>
+		<a href="o_delete.do?ids=${payment.id}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/>
+	</@p.column><#t/>
+</@p.table>
+<div>
+	<input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/>
+&nbsp; <input type="button" value="<@s.m "global.saveOrder"/>" onclick="optSaveOrder();"/>
+</div>
+
+<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+</#if>
+
+</form>
+<table>
+<#if !codeSet?seq_contains('alipay')>
+<tr><td width="300"><@s.m "payment.type.alipay"/></td><td width="70"><a href="v_add.do?code=alipay"><@s.m "payment.install"/></a></td></tr>
+</#if>
+<#if !codeSet?seq_contains('alipayPartner')>
+<tr><td width="300"><@s.m "payment.type.alipay"/>担保交易</td><td width="70"><a href="v_add.do?code=alipayPartner"><@s.m "payment.install"/></a></td></tr>
+</#if>
+<#if !codeSet?seq_contains('weChatPayment')>
+<tr><td width="300"><@s.m "payment.type.weChat"/></td><td width="70"><a href="v_add.do?code=weChatPayment"><@s.m "payment.install"/></a></td></tr>
+</#if>
+<#if !codeSet?seq_contains('weChatPublicPay')>
+<tr><td width="300">微信公众号支付</td><td width="70"><a href="v_add.do?code=weChatPublicPay"><@s.m "payment.install"/></a></td></tr>
+</#if>
+
+<#if !codeSet?seq_contains('alipayMobile')>
+<tr><td width="300">支付宝移动端网页支付</td><td width="70"><a href="v_add.do?code=alipayMobile"><@s.m "payment.install"/></a></td></tr>
+</#if>
+
+</table>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<title></title>
+<script src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" href="${root}/mobile/css/fenlei.css" />
+<script src="${root}/mobile/js/mui.min.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-red"></a>
+    <h1 class="mui-title">商品分类</h1>
+    <a class="mui-pull-right" href="${base}/cart/shopping_cart.jspx">
+    <img src="/r/gou/www/mobile/img/product/gwc-white-ico.png" style="width:25px; margin-top:11px;">
+    </a>
+</header>
+<div class="mui-content mui-row mui-fullscreen">
+        
+    <div class="mui-col-xs-3">
+        <div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+        
+        </div>
+    </div>
+    <!-- 用于显示一级标签begin -->
+    <div style="display: none;" id="fenlei">
+        [@shop_Category]
+            [#list tag_list as type]
+                <input type="text" value="${type.id!}" />
+                <a title="${type.name!}">[@text_cut len='5' s=type.name! /]</a>
+            [/#list]
+        [/@shop_Category]
+    </div>
+    <!-- 用于显示一级标签end -->
+    <div id="segmentedControlContents" class="mui-col-xs-9" >
+        [@shop_Category]
+        [#list tag_list as type]
+        <div id="content${type.id!}" class="mui-control-content">
+            <section class="fenlei-warp">
+                [@shop_Category parentId=type.id]
+                [#list tag_list as cate]
+                <div class="child-fenlei"> 
+                    <h2>[@text_cut s=cate.name! len=4 append="..."/]</h2>
+                    <ul class="flex-item">
+                        [@shop_Category parentId=cate.id]
+                        [#list tag_list as ca]
+                        <li>
+                            <a href="${ca.url!}" title="${ca.name!}">
+                                <div class="img-box">
+                                    <img src="${baseUrl!}${ca.imagePath!}" alt="" />
+                                </div>
+                                <span>[@text_cut s=ca.name! len=10 append="..."/]</span>
+                            </a>
+                        </li>
+                        [/#list]
+                        [/@shop_Category]
+                    </ul>
+                </div>
+                [/#list]
+                [/@shop_Category]
+            </section>
+        </div>
+        [/#list] 
+        [/@shop_Category]
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    var controls = document.getElementById("segmentedControls");
+    var contents = document.getElementById("segmentedControlContents");
+    var fenlei = document.getElementById("fenlei");
+    var fenleia = fenlei.getElementsByTagName("a");
+    var itemName = new Array();
+    var types = fenlei.getElementsByTagName("input");
+    var type = new Array();
+    for(var i=0;i<fenleia.length;i++){
+        itemName[i] = fenleia[i].text;
+        type[i] = types[i].value;
+    }
+    var html = [];
+    var i = 0,
+        j = 0,
+        m = itemName.length, //左侧选项卡数量+1
+        n = 21; //每个选项卡列表数量+1
+    for (; i < m; i++) {
+        html.push('<a class="mui-control-item" href="#content' + type[i] + '"><span>'+itemName[i]+'</span></a>');
+    }
+    controls.innerHTML = html.join('');
+     //默认选中第一个
+    controls.querySelector('.mui-control-item').classList.add('mui-active');
+    contents.querySelector('.mui-control-content').classList.add('mui-active');
+</script>

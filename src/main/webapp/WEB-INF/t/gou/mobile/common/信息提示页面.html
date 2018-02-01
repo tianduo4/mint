@@ -1,0 +1,28 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>信息提示页面 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">信息提示</h1>
+</header>
+<div class="member-content" style="margin:20px;">
+
+    <p>[#if message??]<p>[@s.mt code=message text=message/]</p>[/#if]
+    <p>
+    <script>setTimeout("window.location.href ='${base}/';", 4000);</script>
+    <a href="${base}/">如果您的浏览器没有自动跳转，请点击此链接</a>
+    </p>
+
+</div>
+</body>
+</html>

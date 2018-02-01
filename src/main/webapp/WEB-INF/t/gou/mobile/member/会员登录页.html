@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员登录页 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/member.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+
+<body>
+<header class="hasManyCity hasManyCitytwo" id="header">
+    <a href="javascript:history.go(-1)" class="fl fanhui"><i class="iconfont icon-fanhui"></i></a>
+    <div class="header-tit-all">会员登录</div>
+</header>
+<div class="login_wrap">
+    <form id="jvForm" action="login.jspx" method="post">
+        [#if returnUrl??]
+        <p style="color:#F00; text-align:center;">[#if message??][@s.mt code=message text=message/][#else]您需要登录才能继续刚才的操作[/#if]</p>
+        <input type="hidden" name="returnUrl" value="${returnUrl}"/>
+        [#else]
+        <input type="hidden" name="redirectUrl" value="/"/>
+        [/#if]
+        [#if errors??]
+        <ul>
+        [#list errors as error]
+        <li style="color:#F00; text-align:center;">${error}</li>
+        [/#list]
+        </ul>
+        [/#if]
+        
+        <div class="user">
+            <span class="icon"><img src="/r/gou/www/mobile/img/member/user.png"></span>
+            <div class="user_code">
+                <input id="username" type="text" name="username" placeholder="用户名"  required="true">
+                <span class="del_btn" style="display: none"></span>
+            </div>
+        </div>
+        <div class="pwd">
+            <span class="icon"><img src="/r/gou/www/mobile/img/member/pwd.png"></span>
+            <div class="pwd_code">
+                <input id="password" type="password" name="password" placeholder="请输入密码"  subform="login_sub">
+                <span class="del_btn" style="display: none"></span>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="find_pwd">
+            <div class="find_btn">
+             <a href="${base}/forgot_password.jspx">找回密码</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <input type="submit" value="登 录"  class="login_btn"/>
+        
+        <a href="${base}/register.jspx" class="register_btn">注册</a>
+        
+        <div class="clear"></div>
+        <div class="quick">
+            <div class="quick-list">
+            [#if web.global.qqEnable] 
+            <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
+            <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js"  data-appid="${global.qqID!}" data-redirecturi="http:/${base}/public_auth.jspx"  charset="utf-8"></script>
+            <script type="text/javascript">
+            //插入按钮的节点qqLoginBtn id
+            QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
+            //根据返回数据，更换按钮显示状态方法
+            var dom = document.getElementById(opts['btnId']),
+            _logoutTemplate=[
+            //头像
+            //   '<span><img src="{figureurl}" class="{size_key}"/></span>',
+            //昵称
+            '<span>{nickname}</span>',
+            //退出
+            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+            ].join("");
+            dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+            nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+            figureurl : reqData.figureurl
+            }));
+            });
+            </script>
+            [/#if]
+            
+            [#if web.global.sinaEnable]
+            <a class="quick-sina" id="wb_connect_btn" title="用新浪微博账号登录"></a>
+            <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=${global.sinaID!}" type="text/javascript" charset="utf-8"></script>
+            <script type="text/javascript">
+            WB2.anyWhere(function(W){
+            W.widget.connectButton({
+            id: "wb_connect_btn",
+            type: '3,2',
+            callback : {
+            login:function(o){
+            //登录成功之后执行
+            location="${base}/public_auth.jspx";
+            },
+            logout:function(){
+            //退出之后执行退出本地用户
+            location="${base}/logout.jspx?returnUrl=/";
+            }
+            }
+            });
+            });
+            </script>
+            [/#if]		  
+            [#if web.global.weixinEnable]
+            <a href="${base}/wechat/login.jspx" title="用微信账号登录" style="margin-left: 10px;">微信登录</a>
+            [/#if]
+            </div>
+        </div>
+    </form> 
+</div>
+</body>
+</html>

@@ -1,0 +1,1100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>	首页 - ${web.name}${web.additionalTitle!}</title>
+<meta http-equiv="keywords" content="JSPGOU演示站"/>
+<meta http-equiv="description" content="JSPGOU演示站"/>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<script src="${root}/js/2017/jquery1.42.min.js" type="text/javascript"></script>
+<script src="${root}/js/jquery.superslide.2.1.1.js" type="text/javascript"></script>
+<link href="${root}/u/css/service.css" type="text/css" rel="stylesheet" />
+</head>
+<body style="background:#f5f5f5;">
+[#include "../include/在线咨询.html"/]
+[#include "../include/页头顶栏.html"/]
+
+
+	<!-- 搜索栏begin -->
+	<div class="Header">
+		<div class="ctr pr">
+			<a href=""><div class="Logo">
+					<img src="${root}/images/logo.jpg" width="158" height="58" />
+				</div></a>
+			<form class="Search"  id="searchForm" action="${base}/search.jspx">
+				<input id="search_form_input" class="Search-input zi2" type="text"
+					 name="q" id="q" value="${q!'请输入关键词'}" type="text"
+					onfocus="if(this.value=='请输入关键词')this.value=''"
+					onblur="if(this.value=='')this.value='请输入关键词'">
+
+					<!--<button class="Search-submit" type="submit">搜 索</button>-->
+                                      <!-- <input class="Search-submit"  value="搜索" onclick="sousuo();"/>-->
+                                    <input class="Search-submit" value="搜索 " onclick="sousuo();"  type="button">
+			</form>
+			<div class="Search-hot">
+				[@keyword_list count= 6] [#if
+				tag_list?size gt 0] [#list tag_list as kw] <a style="cursor: pointer;"
+					id="${kw.keyword}" onclick="parssKey(this);" class="gray">${kw.keyword}</a>
+				[/#list] [#else] [/#if] [/@keyword_list]
+			</div>
+			<script type="text/javascript">
+				function parssKey(o) {
+					var v = o.id;
+					$("#q").val(v);
+					document.getElementById("searchForm").submit();
+				}
+                               function sousuo(){
+    
+                                    var a=$("input[name='q']").val();
+                                if(a=="请输入关键词"){
+                                   alert("亲！请输入关键词");
+                                 }else{
+                                      document.getElementById("searchForm").submit();
+
+                              }
+                             } 
+			</script>
+		</div>
+	</div>
+	<!-- 搜索栏end -->
+
+	<!--商品类目栏 begin  -->
+	<div class="Nav">
+		<ul class="ctr cf pr">
+			<li id="nav_category"
+				class="Nav-item Nav-category fl zi6 homepage active">
+				<h2 class="tac">全部商品分类</h2>
+				<ul class="Nav-catelist">
+					       [@shop_Category]
+                             [#list tag_list as type]
+                               [#if type_index<13]
+					<li class="Nav-catelist-item even">
+						<ul class="Nav-cate-sublist">
+
+						[@shop_Category parentId=type.id]
+						      [#list tag_list as cate]
+						       [#if cate_index<3]
+							 <li><a target="_blank" href="${cate.url!}">${cate.name!}</a></li> 
+							   [/#if]
+								 [/#list]
+					      [/@shop_Category]
+							
+							
+							 [@shop_Category parentId=type.id]
+							<ul class="Nav-cate-detail">
+                                                                    <div class="list">
+								 [#list tag_list as cate]
+									<li class="cf">
+										<h4 class="fl" >   
+										      
+											<a target="_blank" class="nav-menu-
+
+subs" href="${cate.url}">${cate.name!}</a>
+										</h4>
+										  [@shop_Category parentId=cate.id]
+											<ul class="Nav-cate-detail-list">
+											    [#list tag_list as ca]
+												<li><a target="_blank" 
+
+href="${ca.url!}">${ca.name!}</a></li>
+											     [/#list]
+											</ul>	
+											 [/@shop_Category]
+									</li>
+								 [/#list]
+                                                            </div>
+							</ul>
+					      [/@shop_Category]
+					     	</ul>
+					</li>
+					  [/#if]
+                 [/#list]
+            [/@shop_Category]
+				</ul>
+			</li>
+
+			<!--导航栏 begin -->
+	
+			<li class="Nav-item fl first active"><a href="${base}/" >首页</a></li>
+				 [@shop_Category]
+				  [#list tag_list as ctg]
+			          <input type="hidden" id="hidden${ctg_index+1}" value="${tag_list?size}"></input>
+			<li class="Nav-item fl"> <a href="${ctg.url}"  id="nav${ctg_index+1}">${ctg.name}</a></li>
+				   [/#list]
+				  [/@shop_Category]
+
+			<!--导航栏 end -->
+		</ul>
+	</div>
+	<!--商品类目栏 end  -->
+	
+   <!--中间广告图片start  -->
+	<div class="indexbanner">
+		<ul class="buypic">
+		[@post_list]
+              [#list tag_list as post] 
+                   <li><a href="[#if !post.interUrl??]#[#else]${post.interUrl!}[/#if]" target="_blank"><img 
+
+src="${baseUrl!}${post.picUrl}" width="1624" height="440" /></a></li>
+              [/#list]
+        [/@post_list]
+          
+		</ul>
+		<a class="prev" href="javascript:void(0)"></a> <a class="next"
+			href="javascript:void(0)"></a>
+		<div class="num">
+			<ul></ul>
+		</div>
+	</div>
+	<script>
+		/*鼠标移过，左右按钮显示*/
+		$(".indexbanner").hover(function() {
+			$(this).find(".prev,.next").fadeTo("show", 0.1);
+		}, function() {
+			$(this).find(".prev,.next").hide();
+		})
+		/*鼠标移过某个按钮 高亮显示*/
+
+		$(".prev,.next").hover(function() {
+			$(this).fadeTo("show", 0.7);
+		}, function() {
+			$(this).fadeTo("show", 0.1);
+		})
+		$(".indexbanner").slide({
+			titCell : ".num ul",
+			mainCell : ".buypic",
+			effect : "fold",
+			autoPlay : true,
+			delayTime : 700,
+			autoPage : true
+		});
+	</script>
+ <!--中间广告图片end  -->
+
+	<div class="advert-img">
+		<div class="w clearfix">
+			<!--<div class="fl img-item">
+				<div class="word">
+					<p>
+						<a target="_blank" href="">热卖</a>
+					</p>
+					<span><a target="_blank" href="">舒适柔软 底价钜惠</a></span>
+				</div>
+				<a target="_blank" href=""><img
+					src="${root}/images/s1.jpg"></a>
+			</div>
+
+			<div class="fl img-item ">
+				<div class="word">
+					<p>
+						<a target="_blank" href="">新品</a>
+					</p>
+					<span><a target="_blank" href="">春季新品 限时限量</a></span>
+				</div>
+				<a target="_blank" href=""><img
+					src="${root}/images/s2.jpg"></a>
+			</div>
+
+			<div class="fl img-item ">
+				<div class="word">
+					<p>
+						<a target="_blank" href="">推荐</a>
+					</p>
+					<span><a target="_blank" href="">新出风格 高端时尚</a></span>
+				</div>
+				<a target="_blank" href=""><img
+					src="${root}/images/s3.jpg"></a>
+			</div>
+
+			<div class="fl img-item last">
+				<div class="word">
+					<p>
+						<a target="_blank" href="">焕新</a>
+					</p>
+					<span><a target="_blank" href="">品牌精选 开春特卖</a></span>
+				</div>
+				<a target="_blank" href=""><img
+					src="${root}/images/s4.jpg"></a>
+			</div>-->
+
+
+                  [@shop_ProductList  count='1' hostSale='1']
+			          [#list tag_list as product]
+                           <div class="fl img-item ">
+                              <div class="word">
+					<p>
+						<a target="_blank" href="${product.url!}">热卖</a>
+					</p>
+					<span><a target="_blank" href="${product.url!}"> 全场满减 底价钜惠</a></span>
+				</div>
+				<a target="_blank" href="${product.url!}">
+				<img src="${root}/images/s1.jpg"></a>
+				
+			</div> 
+			 [/#list]
+			     [/@shop_ProductList]
+
+           
+           
+	          [@shop_ProductList  count='1' newProduct='1' ]
+			          [#list tag_list as product]
+			            [#if product_index== 0]
+			            <div class="fl img-item ">
+							<div class="word">
+								<p>
+									<a target="_blank" href="${product.url!}">新品</a>
+								</p>
+								<span><a target="_blank" href="${product.url!}">春季新品 限时限量</a></span>
+							</div>
+							<a target="_blank" href="${product.url!}"><img
+								src="${root}/images/s2.jpg"></a>
+						</div>
+			         [/#if]
+			       [/#list]
+			  [/@shop_ProductList]
+	       
+
+              [@shop_ProductList  count='1' recommend='1']
+			          [#list tag_list as product]
+			          [#if product_index== 0]
+			             <div class="fl img-item ">
+							<div class="word">
+								<p>
+									<a target="_blank" href="${product.url!}">推荐</a>
+								</p>
+								<span><a target="_blank" href="${product.url!}">新出风格 高端时尚</a></span>
+							</div>
+							<a target="_blank" href="${product.url!}"><img
+								src="${root}/images/s3.jpg"></a>
+						</div>
+	               [/#if]
+			      [/#list]
+			 [/@shop_ProductList]
+			
+			 [@shop_ProductList  count='1' special='1']
+			          [#list tag_list as product]
+			          [#if product_index== 0]
+						<div class="fl img-item last">
+							<div class="word">
+								<p>
+									<a target="_blank" href="${product.url!}">焕新</a>
+								</p>
+								<span><a target="_blank" href="${product.url!}">品牌精选 开春特卖</a></span>
+							</div>
+							<a target="_blank" href="${product.url!}"><img
+								src="${root}/images/s4.jpg"></a>
+						</div> 
+		            [/#if]
+			      [/#list]
+			 [/@shop_ProductList]
+			 	
+
+                
+
+
+		</div>
+	</div>
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+	var caseHtml="<img src=\"${root}/images/c_b_1.jpg\" />";
+	$(".casehtml").html(caseHtml);
+	$(".c3").mouseover(function(){
+		$(".casehtml").html($(this).find(".hidden").html());
+		
+		$(".caselayBox").fadeIn(300)
+	});
+	
+$(".casehtml").hover(function(){
+		$(this).find(".hiddBg").stop(true,true).fadeToggle();
+	});
+});
+</script>
+<div class="caseImg03 ctr clearfix">
+    <div class="slideCase03">
+       
+        <div class="bd03">
+             
+			        
+		[@shop_ProductList  count='9' newProduct='1']
+			  [#list tag_list as product]
+			     <div class="c3">
+	                <a class="grid one-grid small" href="${product.url!}">
+	                    <div class="title">[@text_cut s=product.name len='8' /]</div>
+	                    <div class="sub-title">${product.productExt.mtitle!}</div>
+	                    <img src="${baseUrl!}${product.productExt.coverImg!}">
+						</img>
+	                </a>
+	                
+	                [#if product.pictures?? && product.pictures?size gt 0]
+                       [#list product.pictures as pic]
+	                <div class="hidden">
+	                 <a href="${product.url!}">  <img src="${baseUrl!}${pic.appPicturePath!}"/>  </a>         
+	                </div>
+	                     [/#list]
+                      [/#if]
+                      
+              </div>    
+			         [/#list]
+			     [/@shop_ProductList]
+			
+                
+        </div>
+    </div>
+    <div class="caselayBox">
+		<div class="casehtml"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+jQuery(".slideCase03").slide({titCell:".hd03 ul",mainCell:".bd03 ul",autoPage:true,effect:"top",autoPlay:true,vis:3});
+</script>
+
+
+
+
+
+
+
+
+ 
+ 
+        <!-----------------------1start-------------------------------->   
+ <div class="j_floor floor-con">
+		<div class="floor-line-con color-type-blue">
+		[@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 0]
+			<i class="color-mark"></i>
+			   <div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					
+			            [@shop_Category parentId=cate.id]
+				             [#list tag_list as subcate]
+				          	      <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+				          	 [/#list]
+			          	[/@shop_Category]
+			             
+				</div>
+				<div class="left-column-con blueBg">
+					<div class="title">坚果智能影院</div>
+					<div class="sub-title">潮酷数码</div>
+					<div class="bg-title">智能换新家</div>
+					<img src="${root}/images/left-column-con-blue-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<!--<a href="#" class="hotword fl">华为</a> <a href="#"
+							class="hotword fl">三星</a> <a href="#" class="hotword fl">美的</a>
+						<a href="#" class="hotword fl">格力</a> <a href="#"
+							class="hotword fl">PPTV</a> <a href="#" class="hotword fl">乐视</a>
+						<a href="#" class="hotword fl">VIVO</a> <a href="#"
+							class="hotword fl">OPPO</a>-->
+					</div>
+				</div>
+				<div class="big-banner-con">
+
+					<div class="jiaodiantu1">
+						<!--<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f1.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f1c.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f1b.jpg" /></a></li>
+						</ul>-->
+
+                                                 [@shop_Category parentId=cate.id]
+				           
+						<ul class="buypic">
+                                                     [#list tag_list as subcate]
+						     [#if subcate_index==1]
+							    <li><a href="${subcate.url!}"><img src="${root}/images/f1.jpg" /></a></li>
+							 [#elseif subcate_index==0]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f1b.jpg" /></a></li>
+							 [#elseif subcate_index==4]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f1c.jpg" /></a></li>
+							[/#if]
+                                                         [/#list]
+						</ul>
+						     
+			          	[/@shop_Category]
+
+
+
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu1").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu1").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+
+				</div>
+				
+				<div class="right-column-con">
+					 [@shop_ProductList categoryId=cate.id count='6' recommend='1']
+			          [#list tag_list as product]
+			          	       <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${baseUrl!}${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]    
+				</div>
+				
+			</div>
+				 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div>
+    <!-----------------------1end-------------------------------->   
+ 
+
+	<!-----------------------2start-------------------------------->   
+	<div class="j_floor floor-con">
+		<div class="floor-line-con color-type-pink">
+		[@shop_Category]
+              [#list tag_list as cate]
+                     [#if cate_index==1]
+			<i class="color-mark"></i>
+			<div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					 [@shop_Category parentId=cate.id]
+			             [#list tag_list as subcate]
+			          	 <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+			          	 [/#list]
+			          	[/@shop_Category]
+				</div>
+				<div class="left-column-con pinkBg">
+					<div class="title">卧室个性巧搭</div>
+					<div class="sub-title">懂你 懂生活</div>
+					<div class="bg-title">2件8折优惠</div>
+					<img src="${root}/images/left-column-con-pink-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<!--<a href="hotword" class="hotword fl">餐桌</a> <a href="hotword"
+							class="hotword fl">枕头</a> <a href="hotword" class="hotword fl">客
+
+厅装饰画</a>
+						<a href="hotword" class="hotword fl">被单</a> <a href="hotword"
+							class="hotword fl">床头柜</a> <a href="hotword" class="hotword fl">
+
+衣柜</a>
+						<a href="hotword" class="hotword fl">沙发</a> <a href="hotword"
+							class="hotword fl">床</a>-->
+					</div>
+				</div>
+				<div class="big-banner-con">
+					<div class="jiaodiantu2">
+						<!--<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f2.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f2b.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f2.jpg" /></a></li>
+						</ul>-->
+
+                                  
+                                                 [@shop_Category parentId=cate.id]
+				           
+						<ul class="buypic">
+                                                     [#list tag_list as subcate]
+						     [#if subcate_index==0]
+							    <li><a href="${subcate.url!}"><img src="${root}/images/f2.jpg" /></a></li>
+							 [#elseif subcate_index==1]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f2b.jpg" /></a></li>
+							 [#elseif subcate_index==3]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f2c.jpg" /></a></li>
+							[/#if]
+                                                         [/#list]
+						</ul>
+						     
+			          	          [/@shop_Category]
+
+
+
+
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu2").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu2").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+				</div>
+				<div class="right-column-con">
+					[@shop_ProductList categoryId=cate.id count='6' recommend='1']
+			          [#list tag_list as product]
+			          	     <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${baseUrl!}${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]
+				</div>
+			</div>
+				 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div>
+	
+		<!-----------------------2end-------------------------------->   
+	
+	
+ 
+ <!---------------3begin---------------------->
+ <!-- 
+                <div class="j_floor floor-con">
+		<div class="floor-line-con color-type-green">
+		
+		[@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 2]
+			<i class="color-mark"></i>
+			<div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					 [@shop_Category parentId=cate.id]
+			             [#list tag_list as subcate]
+			          	 <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+			          	 [/#list]
+			         [/@shop_Category]
+				</div>
+				<div class="left-column-con greenBg">
+					<div class="title">卧室个性巧搭</div>
+					<div class="sub-title">懂你 懂生活</div>
+					<div class="bg-title">2件8折优惠</div>
+					<img src="${root}/images/left-column-con-green-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<a href="hotword" class="hotword fl">餐桌</a> <a href="hotword"
+							class="hotword fl">枕头</a> <a href="hotword" class="hotword fl">客
+
+厅装饰画</a>
+						<a href="hotword" class="hotword fl">被单</a> <a href="hotword"
+							class="hotword fl">床头柜</a> <a href="hotword" class="hotword fl">
+
+衣柜</a>
+						<a href="hotword" class="hotword fl">沙发</a> <a href="hotword"
+							class="hotword fl">床</a>
+					</div>
+				</div>
+				<div class="big-banner-con">
+					<div class="jiaodiantu3">
+						<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+						</ul>
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu3").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu3").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+				</div>
+				<div class="right-column-con">
+					[@shop_ProductList categoryId=cate.id count='6' Recommend='1']
+			          [#list tag_list as product]
+			          	      <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]
+				</div>
+			</div>
+						 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div> -->
+ 
+  <!---------------3end---------------------->
+ 
+ 
+ 
+ 
+   <!--------------4start---------------------->
+           <!--     <div class="j_floor floor-con">
+	 	<div class="floor-line-con color-type-green">
+		
+		[@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 3]
+			<i class="color-mark"></i>
+			<div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					 [@shop_Category parentId=cate.id]
+			             [#list tag_list as subcate]
+			          	 <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+			          	 [/#list]
+			         [/@shop_Category]
+				</div>
+				<div class="left-column-con greenBg">
+					<div class="title">卧室个性巧搭</div>
+					<div class="sub-title">懂你 懂生活</div>
+					<div class="bg-title">2件8折优惠</div>
+					<img src="${root}/images/left-column-con-green-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<a href="hotword" class="hotword fl">餐桌</a> <a href="hotword"
+							class="hotword fl">枕头</a> <a href="hotword" class="hotword fl">客
+
+厅装饰画</a>
+						<a href="hotword" class="hotword fl">被单</a> <a href="hotword"
+							class="hotword fl">床头柜</a> <a href="hotword" class="hotword fl">
+
+衣柜</a>
+						<a href="hotword" class="hotword fl">沙发</a> <a href="hotword"
+							class="hotword fl">床</a>
+					</div>
+				</div>
+				<div class="big-banner-con">
+					<div class="jiaodiantu3">
+						<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+						</ul>
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu3").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu3").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+				</div>
+				<div class="right-column-con">
+					[@shop_ProductList categoryId=cate.id count='6' recommend='1']
+			          [#list tag_list as product]
+			          	      <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]
+				</div>
+			</div>
+						 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div> -->
+ 
+   <!---------------4end---------------------->
+ 
+ 
+ 
+ 
+ <!--------------5start---------------------->
+                <div class="j_floor floor-con">
+		<div class="floor-line-con color-type-green">
+		
+		[@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 4]
+			<i class="color-mark"></i>
+			<div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					 [@shop_Category parentId=cate.id]
+			             [#list tag_list as subcate]
+			          	 <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+			          	 [/#list]
+			         [/@shop_Category]
+				</div>
+				<div class="left-column-con greenBg">
+					<div class="title">卧室个性巧搭</div>
+					<div class="sub-title">懂你 懂生活</div>
+					<div class="bg-title">2件8折优惠</div>
+					<img src="${root}/images/left-column-con-green-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<!--<a href="hotword" class="hotword fl">餐桌</a> <a href="hotword"
+							class="hotword fl">枕头</a> <a href="hotword" class="hotword fl">客
+
+厅装饰画</a>
+						<a href="hotword" class="hotword fl">被单</a> <a href="hotword"
+							class="hotword fl">床头柜</a> <a href="hotword" class="hotword fl">
+
+衣柜</a>
+						<a href="hotword" class="hotword fl">沙发</a> <a href="hotword"
+							class="hotword fl">床</a>-->
+					</div>
+				</div>
+				<div class="big-banner-con">
+					<div class="jiaodiantu3">
+						<!--<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3c.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+						</ul>-->
+
+
+                                                 [@shop_Category parentId=cate.id]
+						<ul class="buypic">
+                                                     [#list tag_list as subcate]
+						     [#if subcate_index==1]
+							    <li><a href="${subcate.url!}"><img src="${root}/images/f3.jpg" /></a></li>
+							 [#elseif subcate_index==0]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f3c.jpg" /></a></li>
+							 [#elseif subcate_index==1]
+							   <li><a href="${subcate.url!}"><img src="${root}/images/f3.jpg" /></a></li>
+							[/#if]
+                                                         [/#list]
+						</ul>   
+			          	          [/@shop_Category]
+                                               
+                                             
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu3").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu3").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+				</div>
+				<div class="right-column-con">
+					[@shop_ProductList categoryId=cate.id count='6' recommend='1']
+			          [#list tag_list as product]
+			          	      <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${baseUrl!}${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]
+				</div>
+			</div>
+						 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div>
+ 
+   <!---------------5end---------------------->
+ 
+  
+ <!--------------6start---------------------->
+              <!--   <div class="j_floor floor-con">
+		<div class="floor-line-con color-type-green">
+		
+		[@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 5]
+			<i class="color-mark"></i>
+			<div class="floor-name">${cate.name!}</div>
+			<div class="line-body">
+				<div class="hot-word-con">
+					 [@shop_Category parentId=cate.id]
+			             [#list tag_list as subcate]
+			          	 <a href="${subcate.url!}" class="hot-word">${subcate.name!}</a>
+			          	 [/#list]
+			         [/@shop_Category]
+				</div>
+				<div class="left-column-con greenBg">
+					<div class="title">卧室个性巧搭</div>
+					<div class="sub-title">懂你 懂生活</div>
+					<div class="bg-title">2件8折优惠</div>
+					<img src="${root}/images/left-column-con-green-pic.jpg"
+						width="190" />
+					<div class="keyword-list">
+						<a href="hotword" class="hotword fl">餐桌</a> <a href="hotword"
+							class="hotword fl">枕头</a> <a href="hotword" class="hotword fl">客
+
+厅装饰画</a>
+						<a href="hotword" class="hotword fl">被单</a> <a href="hotword"
+							class="hotword fl">床头柜</a> <a href="hotword" class="hotword fl">
+
+衣柜</a>
+						<a href="hotword" class="hotword fl">沙发</a> <a href="hotword"
+							class="hotword fl">床</a>
+					</div>
+				</div>
+				<div class="big-banner-con">
+					<div class="jiaodiantu3">
+						<ul class="buypic">
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+							<li><a href=""><img src="${root}/images/f3.jpg" /></a></li>
+						</ul>
+						<a class="prev" href="javascript:void(0)"></a> <a class="next"
+							href="javascript:void(0)"></a>
+						<div class="num">
+							<ul></ul>
+						</div>
+					</div>
+					<script>
+						/*鼠标移过，左右按钮显示*/
+						$(".jiaodiantu3").hover(function() {
+							$(this).find(".prev,.next").fadeTo("show", 0.1);
+						}, function() {
+							$(this).find(".prev,.next").hide();
+						})
+						/*鼠标移过某个按钮 高亮显示*/
+
+						$(".prev,.next").hover(function() {
+							$(this).fadeTo("show", 0.7);
+						}, function() {
+							$(this).fadeTo("show", 0.1);
+						})
+						$(".jiaodiantu3").slide({
+							titCell : ".num ul",
+							mainCell : ".buypic",
+							effect : "fold",
+							autoPlay : true,
+							delayTime : 700,
+							autoPage : true
+						});
+					</script>
+				</div>
+				<div class="right-column-con">
+					[@shop_ProductList categoryId=cate.id count='6' recommend='1']
+			          [#list tag_list as product]
+			          	      <a class="grid one-grid"  href="${product.url!}">
+						          	<div class="title">[@text_cut s=product.name len='8' /]
+
+</div>
+									    <div class="sub-title">联合营销</div>
+									 <img
+									src="${product.productExt.coverImg!}">
+									</img>
+									
+						         </a>
+			            [/#list]
+			        [/@shop_ProductList]
+				</div>
+			</div>
+						 [/#if]
+		  [/#list]
+		[/@shop_Category]
+		</div>
+	</div> -->
+ 
+   <!---------------6end---------------------->
+ 
+ 
+ 
+ 
+ 
+ 
+	<div class="guess_main">
+		<div class="title">猜你喜欢</div>
+		<div class="wonderful-con">
+			<ul style="display: block">
+
+                             
+
+                           [@shop_ProductList  count='6' hostSale='1' ]
+			          [#list tag_list as product]
+			          	    <li>  <a href="${product.url!}">
+			          	             <img src="${baseUrl!}${product.productExt.coverImg!}">
+						          	<p class="guess_title">[@text_cut s=product.name len='20' /]</p>	
+						          	<p class="guess_price">
+						          	 <span class="yuan">¥</span> ${product.salePrice!0}
+						          	</p>	
+						         </a>
+						    </li>
+			            [/#list]
+			        [/@shop_ProductList]
+
+
+
+
+
+
+
+
+
+
+<!--
+				<li><a href=""> <img src="${root}/images/w1.jpg">
+                <p class="guess_title">奥克斯（AUX）1.5匹 变频 冷暖电辅 二级能效 壁
+
+挂式空调
+                        KFR-35GW/BpLS700(A2)</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>2699.00
+                    </p></a></li>
+        <li><a href=""> <img src="${root}/images/w2.jpg">
+                    <p class="guess_title">海尔彩电LE32G310G 32英寸高清LED液晶电视</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>1299.00
+                    </p></a></li>
+        <li><a href=""> <img src="${root}/images/w3.jpg">
+                    <p class="guess_title">梦克拉白18K金钻石戒指 缘美 女戒指</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>11999.00
+                    </p></a></li>
+        <li><a href=""> <img src="${root}/images/w4.jpg">
+                    <p class="guess_title">Apple iPad Air 2 平板电脑（32G金色
+                        WiFi版）MNV72CH/A</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>39.90
+                    </p></a></li>
+        <li><a href=""> <img src="${root}/images/w5.jpg">
+                    <p class="guess_title">阿迪达斯adidas男鞋跑步鞋 AQ2182 AQ2189(浅黄色 
+
+43)</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>418.00
+                    </p></a></li>
+        <li><a href=""> <img src="${root}/images/w6.jpg">
+                    <p class="guess_title">天梭/Tissot 瑞士手表 俊雅系列多功能钢带石英男
+
+手表</p>
+                    <p class="guess_price">
+                        <span class="yuan">￥</span>1599.90
+                    </p></a></li>-->
+			</ul>
+		</div>
+	</div>
+
+[#include "../include/页脚信息栏.html"/]
+</body>
+</html>

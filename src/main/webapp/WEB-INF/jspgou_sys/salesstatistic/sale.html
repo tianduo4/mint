@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>销售额统计</title>
+ <#include "/jspgou_sys/head.html"/>
+<link href="${base}/res/common/css/jquery.flot.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="${base}/res/common/js/excanvas.min.js"></script>
+<script src="${base}/res/common/js/jquery.flot.min.js" type="text/javascript"></script>
+<script src="${base}/res/common/js/jquery.flot.time.min.js" type="text/javascript"></script>
+<script src="${base}/res/common/js/jquery.flot.categories.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  function getTableForm() {
+    return document.getElementById('tableForm');
+  }
+  
+
+function statisticYear(){
+	var f= getTable();
+	$("#flag").val(2);
+	f.submit();
+}
+
+
+
+function statisticDays(){	
+	var f = getTable();
+	$("#flag").val(1);
+	f.submit();
+}
+
+
+$(function() {
+	var pv = []
+<#if flag==2>
+	<#list orders as s>
+	var date="${s[0]}".split(" ")[0];
+	var timeArray=date.split("-");
+	var day=timeArray[1]+"/"+timeArray[2];
+	date=new Date(timeArray[0],timeArray[1]-1,timeArray[2]);
+	pv.push([timeArray[1], ${s[1]!}]);
+	</#list>
+<#elseif flag==1>
+	<#list orders as s>
+	var date="${s[0]}".split(" ")[0];
+	var timeArray=date.split("-");
+	var day=timeArray[1]+"/"+timeArray[2];
+	date=new Date(timeArray[0],timeArray[1]-1,timeArray[2]);
+	pv.push([date, ${s[1]!}]);
+	</#list>
+</#if>
+var datasets = {
+
+	"pv": {
+	label: "销售额统计",
+	data: pv
+  } 
+
+ };
+	var i = 0;
+	$.each(datasets, function(key, val) {
+	val.color = i;
+	++i;
+});
+
+
+function plotAccordingToChoices() {
+	var data = [];
+	data.push(datasets["pv"]);
+
+if (data.length > 0) {
+	$.plot("#placeholder", data, {
+	series: {
+	lines: {
+	show: true
+	},
+	points: {
+	show: true
+	}
+},
+	grid: {
+	hoverable: true
+	},
+	yaxis: {
+	min: 0
+	},
+<#if flag==1>
+	xaxis: {
+	minTickSize: [1, "day"],
+	mode: "time",timezone: "browser",
+	timeformat: "%m/%d"
+	}
+<#elseif flag==2>
+	xaxis:{
+	ticks: [1, 2, 3, 4, 5,6,7,8,9,10,11,12],
+	min:1,
+	max:12,
+	tickDecimals: 0,
+	tickFormatter:function (val, axis) {
+	  return val+"月";
+	}
+}
+</#if>
+ });
+ }
+}
+	plotAccordingToChoices();
+	$("<div id='tooltip'></div>").css({
+	position: "absolute",
+	display: "none",
+	border: "1px solid #fdd",
+	padding: "2px",
+	"background-color": "#fee",
+	opacity: 0.80
+	}).appendTo("body");
+
+$("#placeholder").bind("plothover", function (event, pos, item) {
+if (item) {
+	var x = item.datapoint[0].toFixed(0),
+	y = item.datapoint[1].toFixed(0);
+	$("#tooltip").html(item.series.label  + " = " + y)
+	.css({top: item.pageY+5, left: item.pageX+5})
+	.fadeIn(200);
+} else {
+	$("#tooltip").hide();
+	}
+ });
+});
+
+
+
+
+function getTable() {
+ return document.getElementById('table');
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+    <div class="rhead">
+    	<div class="rpos"><@s.m "global.position"/>：销售额统计</div>
+    	<div class="clear"></div>
+    </div>
+    <div class="web-con" >
+        <form action="../salesStatistic/saleroom.do" method="post" id="table">
+            年度统计:&nbsp;&nbsp; 
+            <input class="Wdate" id="year" type="text" style="width: 80px" onclick="WdatePicker({dateFmt:'yyyy'})" value="${year!}" name="year" /> 
+        &nbsp; <input class="query" type="button" onclick="statisticYear()" value="年度统计" />
+        <br />		 <br />						
+        起始日期：<input class="Wdate" type="text" style="width: 150px" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',dateFmt:'yyyy-MM-dd'})"
+        value="" name="startTime" realvalue="" id="startTime"/><br />
+        结束日期：<input class="Wdate" type="text" style="width: 150px"
+        onclick="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',dateFmt:'yyyy-MM-dd'})"
+        value="" name="endTime" id="endTime"/>&nbsp;&nbsp;&nbsp;
+        <input id="flag" name="flag" type="hidden" value="" />  &nbsp; &nbsp;  <input class="query" type="button" onclick="statisticDays()" value="日统计" />
+        <br/> <br/> 
+     
+        </form>
+        <div class="demo-container">
+        	<div id="placeholder" class="demo-placeholder" style="width:700px;height:350px;margin-left: 250px;"></div>			
+        </div>
+	</div>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

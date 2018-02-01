@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = document.getElementById('tableForm');
+	f.action="o_delete.do";
+	f.submit();
+}
+
+function optShangjia(){
+	  if(Pn.checkedCount('ids')<=0){
+		  alert("<@s.m 'error.checkRecord'/>");
+		  return;
+	  }
+	  if(!confirm("确定要上架?")) {
+			return;
+	  }
+	  var f=document.getElementById('tableForm');
+	  f.action="v_shangjia.do";
+	  f.submit();
+}
+function optXiajia(){
+	  if(Pn.checkedCount('ids')<=0){
+		  alert("<@s.m 'error.checkRecord'/>");
+		  return;
+	  }
+	  if(!confirm("确定要下架?")) {
+			return;
+	  }
+	  var f=document.getElementById('tableForm');
+	  f.action="v_xiajia.do";
+	  f.submit();
+}
+
+function getTableForm(){
+	return document.getElementById("tableForm");
+}
+function showBackground(obj){
+	obj.style.background='#3D85CC';
+}
+function removeBackground(obj){
+	obj.style.background='white';
+}
+function showDown(){
+	document.getElementById('showDown').style.display='table';
+}
+function showClose(){
+	document.getElementById('showDown').style.display='none';
+}
+</script>
+<style type="text/css">
+.titles{
+	border:1px solid #CBCBCB;
+	box-shadow: 1px 2px 2px 2px #CBCBCB;
+	display:none;
+	padding:0;
+	margin:0;
+}
+.titles li{
+	list-style:none;
+	padding-left:6px;
+	padding-right:36px;
+}
+.titleSpan{
+	float:right;
+	height:200px;
+	
+}
+
+</style>
+</head>
+<body class="lbody">
+<div class="body-box">
+
+
+<div style="float:left;margin-right: 30px;width:15%;">
+<div class="lttop" align="center">
+	<a href="javascript:location.reload()"><@s.m "global.refresh"/></a>
+&nbsp;	<a href="../tag/v_list.do" target="rightFrame"><@s.m "productTag.function"/></a>
+</div>
+<hr/>
+<#if treeRoot??>
+<@p.tree root=treeRoot showDeep=3 url="v_title_list" durl="v_title_list"
+	dparams={"ctgId":"id"} params={"ctgId":"id"} childName="child" treeName="name"/>
+<#else>
+	<div style="color:red;font-weight:bolt;text-align:center;">请先添加栏目</div>
+</#if>
+</div>
+
+<div style="border-left:1px dashed gray;height:100%;line-height:1px;float:left;"></div>
+
+
+ <div class="rhead" style="float:left;">
+	<div class="rpos"><@s.m "global.position"/>: <@s.m "shop.function.product"/> - <@s.m "product.function"/> - <@s.m "global.list"/></div>
+	<!-- <form class="ropt">
+		<#if category??>
+		<input type="hidden" name="ctgId" value="${category.id}"/>
+		<input type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='v_add.do';"/>
+		</#if>
+	</form> -->
+	<div class="clear"></div>
+</div>
+
+
+<div id="div1">
+<div class="rhead" style="max-height:22px;">
+	<form action="v_title_list.do">
+	 <select name="typeId" id="typeId" class="add_menu" style="width: 140px;">
+            <option value="">商品分类</option>
+         <#list typeList as productType>
+            <option value="${productType.id}"<#if typeId??> <#if typeId==productType.id>selected="selected"</#if></#if>>${productType.name!}</option>
+         </#list>  
+       </select> &nbsp;
+	<@s.m "product.name"/>:<input type="text" name="productName" id="productName" value="${productName!}" style="width:90px"/> &nbsp;
+	品牌名称:<input type="text" name="brandName" id="brandName" value="${brandName!}" style="width:90px"/>&nbsp;
+    <label class="ckl">
+                  商品状态：<select name="status">
+                <option value="">请选择</option>
+                <option value="1" <#if status??> <#if status==1>selected="selected"</#if></#if>>上架</option>
+                <option value="2" <#if status??> <#if status==2>selected="selected"</#if></#if>>下架</option> 
+                </select>    </label>
+    <label class="ckl">
+	     <input type="checkbox" id="isRecommend" name="isRecommend" value="true" <#if isRecommend?? && isRecommend> checked="checked"</#if>/><@s.m "product.recommend"/>
+    </label>
+    <label class="ckl">
+	      <input type="checkbox" id="isSpecial" name="isSpecial" value="true" <#if isSpecial?? && isSpecial> checked="checked"</#if>/><@s.m "product.special"/>
+    </label>
+    <label class="ckl">
+	     <input type="checkbox" id="isHotsale" name="isHotsale" value="true" <#if isHotsale?? && isHotsale> checked="checked"</#if>/> 热卖
+    </label>
+    <label>
+	    <input type="checkbox" id="isNewProduct" name="isNewProduct" value="true"<#if isNewProduct?? && isNewProduct> checked="checked"</#if> /> 新品
+     </label> &nbsp;
+	  库存:
+	    <input type="text" name="startStock" id="startStock" value="${startStock!}" style="width:40px"/>
+	    &nbsp;至&nbsp;<input type="text" name="endStock" id="endStock" value="${endStock!}" style="width:40px"/>
+		<input type="submit"  class="ropt" value="<@s.m "global.query"/>" />
+	</form>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" id="pageNo" value="${pageNo!}"/>
+<input type="hidden" name="ctgId"  id="ctgId" value="${ctgId!}"/>
+
+<#if pagination?? && pagination.list?size gt 0>
+
+<@p.table listAction="v_title_list.do" value=pagination;product,i,has_next><#rt/>
+
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20" align="center">
+		<input type='checkbox' name='ids' value='${product.id}'/><#t/>
+	</@p.column><#t/>
+	<#if title_id1??&&title_id1>
+	<@p.column title="ID" width="20" align="center">${product.id!}</@p.column><#t/>
+	</#if>
+	
+	<#if title_coverImg2??&&title_coverImg2>
+	<@p.column code="图片" align="center"><img src="${product.coverImg}" width="43px" height="43px"/></a></@p.column><#t/>
+	</#if>
+	
+	<#if title_prdtName3??&&title_prdtName3>
+	<@p.column code="product.name" align="center"><a href="${product.url}" target="_blank">${product.name}</a></@p.column><#t/>
+	</#if>
+	<#if title_prdtCategory4??&&title_prdtCategory4>
+	<@p.column code="product.category" align="center">${product.category.name}</@p.column><#t/>
+	</#if>
+	<#if title_prdtType5??&&title_prdtType5>
+	<@p.column code="product.type" align="center">${product.type.name}</@p.column><#t/>
+	</#if>
+	<#if title_prdtSalePrice6??&&title_prdtSalePrice6>
+	<@p.column code="product.salePrice" align="center"><#if product.productFashion??>${product.productFashion.salePrice!}<#else>${product.salePrice!}</#if></@p.column><#t/>
+	</#if>
+	<#if title_prdtStockCount7??&&title_prdtStockCount7>
+	<@p.column code="product.stockCount" align="center">${product.stockCount}</@p.column><#t/>
+	</#if>
+	<#if title_prdtBrand8??&&title_prdtBrand8>
+	<@p.column code="product.brand" align="center"><#if product.brand??>${(product.brand.name)!}</#if></@p.column><#t/>
+	</#if>
+	<#if title_prdtOnSale9??&&title_prdtOnSale9>
+	<@p.column code="商品状态" align="center"><#if product.status == 1 >上架<#else>下架</#if></@p.column><#t/>
+	</#if>
+	<#if title_Operate10??&&title_Operate10>
+	<@p.column code="global.operate" align="center">
+		<@authorize url="/product/v_edit.do"> <a href="v_edit.do?id=${product.id}&pageNo=${pageNo!}&ctgId=${(product.category.id)!}"><@s.m "global.edit"/></a> | <#rt/></@authorize> 
+		<@authorize url="/product/o_delete.do"><a href="o_delete.do?ids=${product.id}&pageNo=${pageNo!}&ctgId=${(product.category.id)!}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/></@authorize> 
+	</@p.column><#t/>
+	</#if>
+	
+
+</@p.table>
+<input type="button" value="上架" onclick="optShangjia();"/>
+<input type="button" value="下架" onclick="optXiajia();"/>
+
+<input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/>
+<span onmouseover="showDown()" onmouseout="showClose()" class="titleSpan">
+	 	<select disabled="disabled" style="border:1px solid black;"><option value="">--筛选表标题--</option></select>
+	<ul class="titles" id="showDown">
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,1)" name="title_id"   <#if title_id1?? && title_id1> checked="checked"</#if>/>ID
+				</li>
+				
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,2)" name="title_coverImg2"   <#if title_coverImg2?? && title_coverImg2> checked="checked"</#if>/>图片
+				</li> 
+				 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,3)" name="title_prdtName"   <#if title_prdtName3?? && title_prdtName3> checked="checked"</#if>/><@s.m "product.name"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,4)" name="title_prdtCategory"   <#if title_prdtCategory4?? && title_prdtCategory4> checked="checked"</#if>/><@s.m "product.category"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,5)" name="title_prdtType"   <#if title_prdtType5?? && title_prdtType5> checked="checked"</#if>/><@s.m "product.type"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,6)" name="title_prdtSalePrice"   <#if title_prdtSalePrice6?? && title_prdtSalePrice6> checked="checked"</#if> /><@s.m "product.salePrice"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,7)" name="title_prdtStockCount"  <#if title_prdtStockCount7?? && title_prdtStockCount7> checked="checked"</#if> /><@s.m "product.stockCount"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,8)" name="title_prdtBrand"  <#if title_prdtBrand8?? && title_prdtBrand8> checked="checked"</#if> /><@s.m "product.brand"/>
+			    </li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,9)" name="title_prdtOnSale"  <#if title_prdtOnSale9?? && title_prdtOnSale9> checked="checked"</#if> /><@s.m "product.onSale"/>
+				</li> 
+				<li onmouseover="showBackground(this)" onmouseout="removeBackground(this)">
+				    <input type="checkbox"  onclick="getList(this,10)" name="title_Operate"  value="true" <#if title_Operate10?? && title_Operate10> checked="checked"</#if> /><@s.m "global.operate"/>
+				</li> 
+			</ul>
+       </span>
+</div>
+<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无商品</span>
+</#if>
+</div>
+</form>
+<script type="text/javascript">
+function getList(obj,index){
+	var checked=obj.checked;
+	var url="v_title_list.do?checked="+checked+"&index="+index;
+	var pageNo=document.getElementById("pageNo").value;
+	var ctgId=document.getElementById("ctgId").value;
+	var productName=document.getElementById("productName").value; 
+	var brandName=document.getElementById("brandName").value;
+	var startStock=document.getElementById("startStock").value;
+	var endStock=document.getElementById("endStock").value;    
+	var typeId=document.getElementById("typeId").value;
+	
+	var isOnSale=document.getElementById("isOnSale").checked;
+	var isRecommend=document.getElementById("isRecommend").checked;
+	var isSpecial=document.getElementById("isSpecial").checked;
+	var isHotsale=document.getElementById("isHotsale").checked;
+	var isNewProduct=document.getElementById("isNewProduct").checked;
+
+	if(pageNo!=null){
+		url=url+"&pageNo="+pageNo;
+	}
+	if(ctgId!=null){
+		url=url+"&ctgId="+ctgId;
+	}
+	if(productName!=null){
+		url=url+"&productName="+productName;
+	}
+	if(brandName!=null){
+		url=url+"&brandName="+brandName;
+	}
+	if(startStock!=null){
+		url=url+"&startStock="+startStock;
+	}
+	if(endStock!=null){
+		url=url+"&endStock="+endStock;
+	}
+	if(typeId!=null){
+		url=url+"&typeId="+typeId;
+	}
+	
+	if(isOnSale){
+		url=url+"&isOnSale="+isOnSale;
+	}
+	if(isRecommend){
+		url=url+"&isRecommend="+isRecommend;
+	}
+	if(isSpecial){
+		url=url+"&isSpecial="+isSpecial;
+	}
+	if(isHotsale){
+		url=url+"&isHotsale="+isHotsale;
+	}
+	if(isNewProduct){
+		url=url+"&isNewProduct="+isNewProduct;
+	}
+	location.href=url;
+}
+</script>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

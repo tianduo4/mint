@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>jeecms-left</title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function(){
+	JCore.lmenu('lmenu');
+});
+</script>
+</head>
+<body class="lbody">
+<ul id="lmenu">
+
+<@authorize url="product/v_title_list.do">
+ <li><a href="../product/v_title_list.do" target="rightFrame"><@s.m "product.function"/></a></li>
+</@authorize>
+
+<@authorize url="product/v_categoryList.do">
+<li><a href="../product/v_categoryList.do" target="rightFrame">商品发布</a></li>
+</@authorize>
+
+<@authorize url="category/v_list.do">
+ <li><a href="../category/v_list.do" target="rightFrame">分类管理</a></li>
+</@authorize>
+
+<@authorize url="brand/v_list.do"> 
+<li><a href="../brand/v_list.do" target="rightFrame"><@s.m "brand.function"/></a></li>
+</@authorize>
+
+<!-- <@authorize url="exended/v_list.do"> 
+<li><a href="../exended/v_list.do" target="rightFrame">扩展属性</a></li>
+</@authorize> -->
+
+<@authorize url="standardType/v_list.do"> 
+<li><a href="../standardType/v_list.do" target="rightFrame">规格管理</a></li>
+</@authorize>
+
+<@authorize url="type/v_list.do"> 
+<li><a href="../type/v_list.do" target="rightFrame"><@s.m "productType.function"/></a></li>
+</@authorize>
+</ul>
+</body>
+</html>

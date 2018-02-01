@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<title>信息提示页面 - ${web.name}${web.additionalTitle!}</title>
+<style>
+</style>
+</head>
+<body>
+<div class="Header">
+	<div class="ctr pr">
+        <a href="${base!}/" title="返回首页">
+        <img src="${root}/images/logo.jpg" width="158" height="58" class="Logo" />
+        </a>
+    </div>
+</div>
+<div style="width:800px; margin:60px auto; overflow:hidden; font-family:微软雅黑; color:#555555;">
+	<table width="800" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td width="320">
+    <img src="${root}/images/member/shop.jpg" width="280" height="290" />
+    </td>
+    <td>
+    <div style="font-size:24px; color:#555555; line-height:40px; margin-bottom:20px;">系统信息提示！</div>
+    [#if message??]<p style="line-height:24px; font-size:14px;">[@s.mt code=message text=message/]</p>[/#if]
+    <p style="margin:20px 0;">
+    <a href="${base}/" style="color:#555555; font-size:12px;">如果您的浏览器没有自动跳转，请点击此链接</a>
+    <script>setTimeout("window.location.href ='${base}/';", 4000);</script>
+    </p>
+    </td>
+    </tr>
+    </table>
+</div>
+<div class="Copyright clear" style="background:#fff;">
+	<div class="ctr tac">Copyright © JSPGOU 2017，All Rights Reserved</div>
+</div>
+</body>
+</html>

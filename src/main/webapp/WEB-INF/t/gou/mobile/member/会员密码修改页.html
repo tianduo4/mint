@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>会员密码修改页 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+<style>
+td {
+    width: auto;
+	padding:5px 2px;
+	height:auto;
+	text-align:!important;
+}
+select{
+	width:99%;
+	height:28px;
+	border:1px solid #ddd !important;
+	line-height:28px;
+}
+input{
+	-webkit-appearance:normal;
+}
+body{
+	font-size:14px;
+	background:#fff;
+}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">修改密码</h1>
+</header>
+<div class="member-content">
+    <form id="jvForm" action="${base}/shopMember/pwd.jspx" method="post">
+        <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr>
+        <td align="right" class="w100">原密码：</td>
+        <td><input type="password" name="origPwd" autocomplete="off" class="ss_input" vld="{required:true,remote:'${base}/shopMember/checkPwd.jspx',messages:{remote:'原密码不正确'}}"}" maxlength="32"/></td>
+        </tr>
+        <tr>
+        <td align="right">新密码：</td>
+        <td><input type="password" id="newPwd" name="newPwd" autocomplete="off" vld="{rangelength:[3,32]}" maxlength="32" class="ss_input" /></td>
+        </tr>
+        <tr>
+        <td align="right">确认新密码：</td>
+        <td><input type="password" class="ss_input" autocomplete="off" equalTo="#newPwd"/></td>
+        </tr>
+        <tr>
+        <td align="right">Email：</td>
+        <td><input type="text" name="email" value="${email!}" rvalue="${email!}" vld="{required:true,email:true,remote:'${base}/check_email.jspx',messages:{remote:'该邮箱已被使用'}}" maxlength="100" class="ss_input" /></td>
+        </tr>
+        <tr>
+        <td align="center">&nbsp;</td>
+        <td height="40">
+        <input type="submit" value="提交"  class="menu_submit"/>
+        &nbsp; <input type="reset" value="重置" class="menu_reset"/>
+        <input type="hidden" name="backUrl" value="${location}"/>
+        </td>
+        </tr>
+        </table>	
+    </form>	
+</div>
+</body>
+</html>

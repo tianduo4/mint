@@ -1,0 +1,51 @@
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<div class="Header">
+    <div class="ctr pr">
+        <a href="${base}/"><div class="Logo">
+                <img src="${root}/images/logo.jpg" width="158" height="58" />
+            </div></a>
+        <form class="Search"  id="searchForm" action="${base}/search.jspx">
+            <input id="search_form_input" class="Search-input zi2" type="text"
+                 name="q" id="q" value="${q!'请输入关键词'}" type="text"
+                onfocus="if(this.value=='请输入关键词')this.value=''"
+                onblur="if(this.value=='')this.value='请输入关键词'">
+
+                <!--<button class="Search-submit" type="submit">搜 索</button>-->
+                              <!-- <input class="Search-submit"  value="搜索" onclick="sousuo();"/>-->
+                          <input class="Search-submit" value="搜索" onclick="sousuo();"  type="button">
+        </form>
+        <div class="Search-hot">
+            [@keyword_list count= 6] [#if
+            tag_list?size gt 0] [#list tag_list as kw] <a id="${kw.keyword}" onclick="parssKey(this);" class="gray">${kw.keyword}</a>
+            [/#list] [#else] [/#if] [/@keyword_list]
+        </div>
+        <script type="text/javascript">
+            function parssKey(o) {
+                var v = o.id;
+                $("#q").val(v);
+                document.getElementById("searchForm").submit();
+            }
+
+                        function sousuo(){
+    
+                var a=$("input[name='q']").val();
+                if(a=="请输入关键词"){
+                    alert("亲！请输入关键词");
+                }else{
+                    document.getElementById("searchForm").submit();
+
+                }
+            } 
+
+           
+        </script>
+        <div class="top_shopping">
+        	<i></i>
+        		<a href="${base}/cart/shopping_cart.jspx">我的购物车(<span id="cart_total_items"></span>) </a>
+        </div>
+
+          <script type="text/javascript">
+	              $('#cart_total_items').html(Shop.cartTotalItems());
+            </script>
+    </div>
+</div>

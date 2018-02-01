@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>jspgou-left</title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function(){
+	JCore.lmenu('lmenu');
+});
+</script>
+</head>
+<body class="lbody">
+<ul id="lmenu">
+<@authorize url="/member/v_list.do"> 
+<li><a href="../member/v_list.do" target="rightFrame">会员管理</a></li>
+</@authorize>
+<@authorize url="group/v_list.do"> 
+<li><a href="../group/v_list.do" target="rightFrame">会员等级</a></li>
+</@authorize>
+<@authorize url="shopDictionary/v_list.do"> 
+<li><a href="../shopDictionary/v_list.do" target="rightFrame"><@s.m "shopDictionary.function"/></a></li>
+</@authorize>
+<@authorize url="shopDictionaryType/v_list.do"> 
+<li><a href="../shopDictionaryType/v_list.do" target="rightFrame"><@s.m "shopDictionaryType.function"/></a></li>
+</@authorize>
+<@authorize url="address/v_list.do"> 
+<li><a href="../address/v_list.do" target="rightFrame">地区管理</a></li>
+</@authorize>
+<@authorize url="/message/v_list.do">
+<li><a href="../message/v_list.do" target="rightFrame">站内信</a></li>
+</@authorize>
+</ul>
+</body>
+</html>

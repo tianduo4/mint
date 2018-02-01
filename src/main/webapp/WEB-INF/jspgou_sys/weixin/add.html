@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+<#include "/common/image_upload.html"/>
+<div class="page-positon ove">
+  <div  class="rpos"><@s.m "global.position"/>: 公众号设置  添加</div>
+</div>
+<div class="body-box">
+<@p.form id="jvForm" action="o_save.do" labelWidth="15" class="formDefStyle">
+<@p.password colspan="1" width="50" label="App Key" name="appKey" required="true" class="required" maxlength="255"/>
+<@p.password colspan="1" width="50" label="App Secret" name="appSecret" required="true" class="required" maxlength="255"/><@p.tr/>
+<@p.password colspan="2" width="50" label="Token" id="token" name="token" required="true" class="required" minlength="3" maxlength="32"/><@p.tr/>
+
+<@p.textarea  cols="70" rows="3" maxlength="255"  label="关注欢迎语" name="welcome" colspan="2" width="100"/><@p.tr/>
+
+<@p.td   label="微信二维码" colspan="1" width="50" noHeight="true">
+ <@p.text id="uploadImgPath0" name="pic" size="30" class="required"/> 
+        <input type="button" value="清空" onclick="clearImg(0);"/><br/>
+        <span id="ufc0"><input type="file" id="uploadFile0" size="20"/></span> 
+        <input type="button" value="上传" onclick="upload(0);"/><br/>
+</@p.td>
+         
+<@p.td colspan="1" width="50">
+<img id="preImg0" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333"/>
+</@p.td><@p.tr/>
+
+<@p.td colspan="2"><@p.submit code="global.submit" class="submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+</@p.form>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+.manu{ padding:3px; text-align:center; font-size:13px; font-family:微软雅黑; color:#909090; float:right;}
+.manu A{ border:#c3c3c3 1px solid; color:#909090; padding:2px 8px; text-decoration:none; border-radius:2px;}
+.manu A:hover{ border:#999 1px solid; color:#666;}
+.manu A:active{ border:#999 1px solid; color:#666;}
+.manu .current{ border:#3694d7 1px solid; color:#fff; padding:2px 8px; background-color:#3694d7; border-radius:2px;}
+.manu .disabled{ border:#c3c3c3 1px solid; color:#909090; padding:2px 8px; border-radius:2px;}
+
+ 
+/*欢迎页*/
+.welcom-con{ margin:auto; padding:25px;}
+.bor_blue/*蓝色边框*/{ border-radius:4px; border:1px solid #a0cae8; padding:30px; overflow:hidden; margin-bottom:20px;}
+.bor_blue .title{ border-bottom:1px solid #f3f3f3; color:#333333; font-size:16px; text-indent:30px; padding-bottom:15px; background:url(../img/admin/index/ico_daichuli.gif) no-repeat 1px 2px; margin-bottom:20px;}
+
+.ico_dcl1{ background:url(../img/admin/index/ico_daichuli_1.gif) no-repeat 0 center; width:58px; height:50px; float:left;}
+.ico_dcl2{ background:url(../img/admin/index/ico_daichuli_2.gif) no-repeat 0 center; width:65px; height:50px; float:left;}
+.ico_dcl3{ background:url(../img/admin/index/ico_daichuli_3.gif) no-repeat 0 center; width:60px; height:50px; float:left;}
+.ico_dcl4{ background:url(../img/admin/index/ico_daichuli_4.gif) no-repeat 0 center; width:65px; height:50px; float:left;}
+
+.bor_blue ul li{ float:left; margin-right:2%; width:23%; margin-top:20px; min-width:150px;}
+.bor_blue ul li span{ color:#0070b8; font-size:24px; font-family:Arial, Helvetica, sans-serif;}
+.bor_blue ul li p{ color:#777777; margin:0; font-size:14px;}
+.bor_blue ul li .index_txt{ float:left; text-align:center;}
+
+.bor_gray/*灰色边框*/{ border-radius:4px; border:1px solid #e7e7e7; padding:30px; overflow:hidden;}
+.bor_gray .title{ border-bottom:1px solid #f3f3f3; color:#333333; font-size:16px; text-indent:30px; padding-bottom:15px; background:url(../img/admin/index/ico_xitongxinxi.gif) no-repeat 1px 2px;}
+.bor_gray .xinxi{ float:left; width:25%; min-width:180px; margin-top:30px;}
+.bor_gray .xinxi ul{ margin-left:12px; background:url(../img/admin/index/ico_xitongxinxi_list.gif) repeat-y;}
+.bor_gray .xinxi ul li{ text-indent:30px; color:#777777; font-size:14px;}
+.bor_gray .xinxi .leimu{ background:url(../img/admin/index/ico_xitongxinxi_1.gif) no-repeat; text-indent:42px; font-size:18px; line-height:31px;}
+.bor_gray .xinxi ul .list1{ padding-top:25px;}
+.bor_gray .xinxi ul .list2{ padding-top:18px;}
+.bor_gray .xinxi ul .list3{ padding-top:18px;}
+.bor_gray .xinxi ul li span{ color:#0070b8; margin-left:7px; font-size:13px; font-weight:700;}
+.bor_gray .xinxi ul li a{ color:#777;}
+
+.web-con{ margin:auto; padding:16px 22px;}
+
+/*数据录入和修改样式*/
+.pn-ftable{background-color:#fff;margin-top:5px;}
+.pn-flabel{background-color:#fff;text-align:right; font-weight:bold; color:#646464;border-bottom:1px dotted #d8d8d8;}
+.pn-flabel-h{ padding:12px 5px 12px 0;}
+
+.pn-fcontent{background-color:#FFFFFF;padding:5px 0 5px 5px;border-bottom:1px dotted #d8d8d8;}
+.pn-fcontent input{ border:1px solid #999999; padding:2px;}
+.pn-fcontent textarea, .pn-fcontent select{ border:1px solid #999999; padding:2px; background:#fff;}
+
+#itemsContainer input{ border:1px solid #999999; padding:2px;}
+
+.pn-fbutton{background-color:#FFFFFF;}
+.pn-fhelp{color:#a3a3a3;padding:3px 0px;}
+.pn-frequired{color:red}
+.pn-fruler{background:url(../img/admin/ruler.gif) repeat-x 1px 6px;}
+/*数据列表样式*/
+.pn-ltable{margin:20px auto 20px auto;}
+.pn-ltable a{ color:#0070b8;}
+.pn-lthead th{height:38px;background:#f3f3f3;}
+.pn-ltbody{background-color:#FFFFFF;}
+.pn-ltbody td{ border-bottom:1px solid #eeeeee; padding:8px 0; word-break:break-all; word-wrap:break-word;}
+.pn-ltbody tr{height:25px;}
+/*数据列表鼠标经过样式*/
+.pn-lhover{background-color:#F2F2F2;}
+.pn-lselected{background-color:#d9e8fb;}
+/*数据列表没有数据样式*/
+.pn-lnoresult{padding:10px;border:#b4cfcf 1px solid;text-align:center;color:red;font-weight:bold;}
+/*数据列表批量操作样式*/
+.pn-lbopt{margin-top:2px;padding:5px;border:#b4cfcf 1px solid;}
+/*数据列表操作链接样式*/
+.pn-lopt{text-align:center;}
+a.pn-loperator{text-decoration:underline;}
+a.pn-loperator:link {color: #2366A8;}
+a.pn-loperator:visited {color: #2366A8;}
+a.pn-loperator:hover{color: #2366A8;}
+a.pn-loperator:active {color: #2366A8;}
+/*分页样式*/
+.pn-sp{margin:0px auto 0px auto;}
+.pn-sp-left{float:left;padding-left:10px;width:24%}
+.pn-sp-right{float:left;text-align:center;width:74%}
+/*树的样式*/
+.pn-tree{font-size:12px;}
+.pn-tree *{word-break:keep-all;white-space:nowrap;}
+.pn-tree img{vertical-align:middle;}
+.pn-tree-hover{background-color:#F5F5F5;}
+.pn-tree-selected{background-color:#DDECEF;}
+.pn-tree-checkbox{vertical-align:middle;}
+
+.add_menu/*添加--按钮*/{ background:#3694d7 url(../img/theme/ico_add.png) no-repeat 10px center; border-radius:3px; padding:4px 12px; border:0; color:#fff; font-size:14px; text-indent:15px; font-family:微软雅黑;}
+.add_menu2/*添加--按钮*/{ background:#3694d7; border-radius:3px; padding:4px 12px; border:0; color:#fff; font-size:14px; text-align:center; font-family:微软雅黑;}
+.menu2/*按钮*/{ background:#fff; border-radius:3px; padding:3px 12px; border:1px solid #3694d7; color:#0072bc; font-size:14px; text-align:center; font-family:微软雅黑;}
+.delete_menu/*删除--按钮*/, .save_menu/*保存*/, .recommend_menu/*推荐*/{ background:#fff; border-radius:3px; padding:4px 12px; border:0; color:#333333; border:1px solid #333333; font-size:12px;}
+.back_menu/*返回--按钮*/{ background:#f4f4f4 url(../img/theme/ico_back.png) no-repeat 10px center; border-radius:2px; padding:6px 12px; border:1px solid #999999; color:#000; font-weight:500; font-size:12px; text-indent:15px; font-family:微软雅黑;}
+.search_menu, .see_menu/*查看*/{ background:#3694d7; text-align:center; border:0; font-size:14px; color:#fff; padding:0 10px; font-family:微软雅黑; height:24px; line-height:24px;}
+.text_input100{ background:#fff; width:100px;}
+
+.tijiao_menu/*提交--按钮*/{ background:#3694d7; border-radius:3px; padding:4px 25px; border:0; color:#fff; font-size:14px; text-align:center; font-family:微软雅黑; margin-left:13%;}
+.chongzhi_menu/*重置--按钮*/{ background:#e04a00; border-radius:3px; padding:4px 25px; border:0; color:#fff; font-size:14px; text-align:center; font-family:微软雅黑;}
+.mtb20{ margin-top:20px; margin-bottom:20px;}
+
+.list-page/*页码*/{ border:1px solid #c3c3c3; background:#fff; line-height:22px; color:#909090; border-radius:2px; padding:0 10px; text-align:center; font-family:微软雅黑;}
+
+.con_line/*内容分隔线*/{ background:#f3f3f3; height:4px; font-size:0; margin:14px auto; clear:both;}
+
+.previewImg/*预览*/{ width:90px; height:90px; background:url(../img/theme/previewImg.jpg) no-repeat center center; text-align:center; line-height:110px;}
+.selectFile/*选择文件*/{background:#e3e3e3; margin:10px 0; border:0; padding:0 7px 0 0;}
+
+

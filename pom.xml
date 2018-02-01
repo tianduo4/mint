@@ -6,7 +6,7 @@
     <groupId>mint</groupId>
     <artifactId>mint</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -357,11 +357,11 @@
             <!--<artifactId>ojdbc14</artifactId>-->
             <!--<version>10.2.0.4.0</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.quartz-scheduler</groupId>-->
-            <!--<artifactId>quartz</artifactId>-->
-            <!--<version>2.1.7</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.1.7</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.apache.shiro</groupId>-->
             <!--<artifactId>shiro-cas</artifactId>-->
@@ -437,11 +437,11 @@
         <artifactId>spring-jdbc</artifactId>
         <version>4.3.13.RELEASE</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework</groupId>-->
-        <!--<artifactId>spring-orm</artifactId>-->
-        <!--<version>4.3.12.RELEASE</version>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>4.3.13.RELEASE</version>
+        </dependency>
         <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>

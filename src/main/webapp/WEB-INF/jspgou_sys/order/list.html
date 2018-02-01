@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 订单 - <@s.m "order.function"/> - <@s.m "global.list"/></div>
+	<form class="ropt">
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="rhead">
+	<form action="v_list.do">
+	 <div style="padding-top:5px">
+	 订单编号: <input type="text" name="code" value="${code!}" style="width:100px"/> 
+	 收货人: <input type="text" name="userName" value="${userName!}" style="width:100px"/>  
+	下单日期:<input type="text" name="startTime" value="${startTime!}" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:100px"/>&nbsp;至&nbsp;<input type="text" name="endTime" value="${endTime!}" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:100px"/> 
+	  <select name="status">
+      	<option value="">--订单状态--</option>
+        <option value="1" <#if status??><#if 1==status>selected="selected"</#if></#if>>未确认</option>
+        <option value="2" <#if status??><#if 2==status>selected="selected"</#if></#if>>已确认</option>
+        <option value="3" <#if status??><#if 3==status>selected="selected"</#if></#if>>已取消</option>
+        <option value="3" <#if status??><#if 4==status>selected="selected"</#if></#if>>已完成</option>
+      </select>
+       <select name="paymentStatus">
+      	<option value="">--支付状态--</option>
+        <option value="1" <#if paymentStatus??><#if 1==paymentStatus>selected="selected"</#if></#if>>未支付</option>
+        <option value="2" <#if paymentStatus??><#if 2==paymentStatus>selected="selected"</#if></#if>>已支付</option>
+        <option value="3" <#if paymentStatus??><#if 3==paymentStatus>selected="selected"</#if></#if>>已退款</option>
+      </select>
+         <select name="shippingStatus">
+      	<option value="">--配送状态--</option>
+        <option value="1" <#if shippingStatus??><#if 1==shippingStatus>selected="selected"</#if></#if>>未发货</option>
+        <option value="2" <#if shippingStatus??><#if 2==shippingStatus>selected="selected"</#if></#if>>已发货</option>
+        <option value="3" <#if shippingStatus??><#if 3==shippingStatus>selected="selected"</#if></#if>>已退货</option>
+      </select>
+      <select name="paymentId">
+      	<option value="">--支付方式--</option>
+        <#list paymentList as payment>
+        <option value="${payment.id}"<#if paymentId??> <#if paymentId==payment.id>selected="selected"</#if></#if>>${payment.name!}</option>
+        </#list>  
+      </select>
+      <select name="shoppingId">
+         <option value="">--配送方式--</option>
+         <#list shippingList as shopping>
+         <option value="${shopping.id}"<#if shoppingId??> <#if shoppingId==shopping.id>selected="selected"</#if></#if>>${shopping.name!}</option>
+         </#list>  
+       </select>
+       <input type="submit"  value="<@s.m "global.query"/>" />
+		</div>
+	</form>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+
+<#if pagination?? && pagination.list?size gt 0>
+
+<@p.table value=pagination;order,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${order.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column code="订单编号" align="center">${order.code}</@p.column><#t/>
+	<@p.column code="会员名" align="center">${order.member.username!}</@p.column><#t/>
+	<@p.column code="收货人名称" align="center">${order.receiveName!}</@p.column><#t/>
+	<@p.column code="order.total" align="center">￥${order.total!}<br/>(含运费:${order.freight!0})</@p.column><#t/>
+	<@p.column code="order.createTime" style="width:100px;" align="center">${order.createTime}</@p.column><#t/>
+	<@p.column code="order.shipping" align="center"><#if order.shipping??>${order.shipping.name}</#if></@p.column><#t/>
+	<@p.column code="order.payment" align="center"><#if order.payment??>${order.payment.name!}</#if></@p.column><#t/>
+	<@p.column code="order.status" align="center"><@s.m "order.status.${order.status}"/></@p.column><#t/>
+	<@p.column code="order.paymentStatus" align="center"><@s.m "order.paymentStatus.${order.paymentStatus}"/></@p.column><#t/>
+	<@p.column code="order.shippingStatus" align="center"><@s.m "order.shippingStatus.${order.shippingStatus}"/></@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+		<a href="v_view.do?id=${order.id}&pageNo=${pageNo!}">查看</a> | <#rt/>
+	<@authorize url="/order/v_edit.do"> 	<a href="v_edit.do?id=${order.id}&pageNo=${pageNo!}"><@s.m "global.edit"/></a> | <#rt/></@authorize>
+	<@authorize url="/order/o_delete.do"> <a href="o_delete.do?ids=${order.id}&pageNo=${pageNo!}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/></@authorize> 
+	</@p.column><#t/>
+</@p.table>
+<@authorize url="/order/o_delete.do"><div><input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/></div></@authorize>
+
+<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+</#if>
+
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

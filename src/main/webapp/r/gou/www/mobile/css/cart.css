@@ -1,0 +1,366 @@
+/*购物车*/
+html {
+    font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5%*/
+}
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+
+    html {
+        font-size: 73.2%!important;
+    }
+}
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+
+    html {
+        font-size: 80.8%!important;
+    }
+}
+@media only screen and (min-width: 480px) {
+    html {
+        font-size: 94%!important;
+    }
+}
+@media only screen and (min-width: 560px) {
+    html {
+        font-size: 109%!important;
+    }
+}
+@media only screen and (min-width: 640px) {
+    html {
+        font-size: 125%!important;
+    }
+}
+::-webkit-scrollbar {
+    width: 0px;
+ }
+
+ul, ol {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-before: 0;
+    -webkit-padding-after: 0;
+    -webkit-padding-start: 0;
+    -webkit-padding-end: 0
+}
+
+input, select, textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    /*-moz-appearance:none;
+    appearance:none;*/
+    border: 0;
+    border-radius: 0;
+}
+div {
+    overflow: hidden;
+}
+ul, li, ol, p {
+    list-style: none
+}
+h4, h5, em {
+    font-style: normal;
+    font-weight: 400
+}
+h3 {
+    font-style: normal;
+    font-weight:normal;
+}
+a {
+    color: #787878;
+    text-decoration: none;
+}
+.hide{display:none;}
+
+.gray {
+    background:#f2f2f2;
+}
+.c_checkbox {
+    width:2rem;
+    height:2rem;
+    background-image:url(/r/gou/www/mobile/img/member/c_checkbox_off.png);
+    background-repeat: no-repeat;
+    background-size: 2rem 2rem;
+    border-radius: 1rem;
+    display: block;
+    margin:.575rem 1rem 0 0;
+}
+
+#wrapper{width: 100%;/* height: 100%; */}
+.viewport {
+    width: 100%;
+    min-height: 100%;
+}
+.viewport section {
+    width: 100%;
+    min-height: 100%;
+    overflow: auto;
+   /*  padding-bottom:5px; */
+}
+
+
+.viewport section:last-child{margin-bottom:5.8rem;}
+.block {
+    border-top:1px solid #ebebeb;
+    margin-top:.5rem;
+    background:#fff;
+    overflow: auto;
+}
+.shop_title {
+    height:3.5rem;
+    margin:0 1.5rem;
+    border-bottom:1px solid #ccc
+}
+
+.shop_title div {
+    font-size:1.4rem;
+    line-height:3.5rem;
+}
+
+
+
+.garbage {
+    width:1.9rem;
+    height:2rem;
+    background-image:url(/r/gou/www/mobile/img/member/c_del.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size: 1.9rem 2rem;
+    display: block;
+    margin:3.05rem 1rem 0 1.5rem;
+    text-indent:-10000px;
+}
+.garbage.on{background-image:url(/r/gou/www/mobile/img/member/c_del_on.png);}
+
+.c_checkbox:checked {
+    background-image:url(/r/gou/www/mobile/img/member/c_checkbox_on.png);
+}
+
+.right_arrow {
+    height:100%;
+    background:url(/r/gou/www/mobile/img/member/shop_arrow.png) no-repeat center;
+    background-size:.65rem 1.2rem;
+    width:2.65rem;
+    display:block
+}
+.cart_list {
+    width:100%;
+}
+.cart_item .c_checkbox {
+    margin:3rem 1rem 0 1.5rem;
+}
+.cart_item.item_no {
+    height:5rem;
+    line-height:5rem
+}
+.cart_item.item_no .c_checkbox {
+    margin:1.5rem 1rem 0 1.5rem;
+}
+.cart_item .pro_pic {
+    width:6rem;
+    height:6rem;
+    margin:1rem 1rem 1rem 0;
+    text-align:right
+}
+.cart_item .detail {
+    font-size:1.2rem;
+    padding:.8rem 0;
+    border-bottom:1px solid #f0f0f0
+}
+.cart_item .prd_tit {
+    width:50%;
+}
+.cart_item .prd_tit a {
+    width:100%;
+    height:3.2rem;
+    overflow:hidden;
+    line-height:1.6rem;
+    display:block;
+    color:#464646;
+    word-wrap: break-word;
+}
+.cart_item .prd_price {
+    color:#000;
+    overflow:auto;
+    margin-right: 1.5rem;
+}
+.cart_item .tags {
+    width:100%;
+    height:2rem;
+    clear:both
+}
+.cart_item .tags span {
+    display:block;
+    background:#ff463c;
+    font-size:.9rem;
+    float:left;
+    margin:0 .5rem 0 0;
+    color:#fff;
+    padding:.2rem;
+    vertical-align: middle;
+}
+.cart_item .tags a {
+    float:right;
+    color:#ff463c;
+    font-size:1.1rem;
+    margin:0 1.5rem 0 0;
+}
+.cart_item .tags a.garbage{
+    margin:0;
+    display:none;
+    width:3.4rem;
+}
+.cart_item .edit_area {
+    height:2rem;
+    line-height:2rem;
+    margin:.7rem 1.5rem .7rem 0;
+    font-size:1.1rem;
+    color:#787878
+}
+.cart_item .attrs{background:url(/r/gou/www/mobile/img/member/bottom_arrow.png) right center no-repeat;background-size:1.2rem .65rem; padding-right:1.2rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; max-width: 54%;}
+.cart_item .attrs span {
+    margin-right:.5rem;
+}
+.cart_item p.border_right{border-right:1px solid #dcdcdc; width:0;height:100%;}
+.cart_item .num {
+    width:8%;
+}
+.cart_item .gift_area {
+    margin:0 0 0 4.5rem;
+    border-top:1px solid #f0f0f0;
+}
+.cart_item .gift_area p{padding:0.7rem 0;overflow: auto;color:#6d6d6d;line-height: 2rem;padding-right:2.4rem;border-bottom: 1px dashed #ccc;}
+.cart_item .gift_area p:first-child{line-height: 1.7rem;font-size:1.2rem;color:#464646}
+.cart_item .gift_area p span{font-size:1.1rem;}
+.cart_item .gift_area p a{width:5.4rem;height:1.7rem;display:block; float: left; vertical-align: middle;color:red;text-align: center; margin-right: 1.1rem;}
+
+
+.cart_item .gift_area p span:first-child{float:left;width: 80%;}
+.cart_item .gift_area p span:last-child{float:right}
+
+.bottom_line {
+      height:0;
+	line-height:0;
+	font-size:0;
+	border-top:1px solid #f0f0f0;
+    margin-left:4.5rem;
+    clear:both;
+
+}
+.cart_list .cart_item:last-child .bottom_line {
+    margin-left:0
+}
+
+
+/*footer*/
+.total_result {
+    background-color: #fff;
+    background-size:100%;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    box-shadow: rgb(207, 207, 207) 0px -1px 5px;
+}
+.total_result .fl {
+    padding:1.4rem 0 1.1rem 1.4rem;
+    vertical-align:middle;
+}
+.total_result .c_checkbox {
+    float:left;
+
+}
+.total_result .c_checkbox:checked {
+    background-image:url(/r/gou/www/mobile/img/member/c_checkbox_on.png);
+}
+
+.total_result .fl span {
+    line-height:3.15rem;
+    font-size:1.4rem;
+}
+.total_result .fr span {
+    font-size:1.2rem;
+}
+.total_result .fr p {
+    font-size:1.4rem;
+    color:#ff463c;
+    overflow:hidden;
+}
+.total_result .fr {
+    padding:0.85rem 1.5rem .75rem 0;
+}
+.total_result .fr.totalPrice{padding:1.25rem 1.5rem .75rem 0;}
+.total_result .fr span img{
+    height:1.35rem;
+    vertical-align: middle;
+    margin-left: .35rem;}
+
+.total_result div:last-child {
+    text-align:right;
+    padding:1.15rem 1rem 0 0;
+}
+a.c_btn {
+    width:7.8rem;
+    height:3.9rem;
+    line-height:3.9rem;
+    color:#464646;
+    font-family:"黑体";
+    font-size:1.5rem;
+    display:block;
+    border-radius:6px;
+    text-align:center;
+    cursor:pointer;
+    border:.1rem solid #464646;
+}
+a.c_btn.orange{border:.1rem solid #ff463c;color:#fff; background:#ff463c}
+.prd_price .right_arrow {
+    height:1.2rem;
+    width:.65rem;
+    float:right;
+    margin-top:1rem
+}
+
+.f_block .sel_list .prd_price {
+    color:#ff463c;
+    font-size:1.3rem;
+    padding:1.25rem 0 .6rem 0
+}
+.f_block .sel_list .prd_tit {
+    font-size:1.2rem
+}
+
+
+
+.gift_area p:last-child{
+    border-bottom: none;
+}
+.promotion_title .discountDesc{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80%;
+}
+.eclipse{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.fl .shopLink{
+    color: #464646;
+    max-width: 15.7rem;
+}
+.collect {
+    width:2rem;
+    height:2rem;
+    background-image:url(/r/gou/www/mobile/img/member/collect_off.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size: 2rem 2rem;
+    display: none;
+    margin:3.05rem 1rem 0 1.5rem;
+    text-indent:-10000px;
+}
+.collect.on{background-image:url(/r/gou/www/mobile/img/member/collect_on.png);}
+.cart_item .tags a.collect{margin: 0 0.1rem 0 0}
+a.payBtn{background-color: #FB4741;color: #fff;}

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>购买记录页面 - ${web.name}${web.additionalTitle!}</title>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/product.css" type="text/css" rel="stylesheet" />
+
+</head>
+
+<body style="min-width:944px;margin:auto;">
+	<div class="intro_box">
+		<p>
+			<input type="hidden" name="productId" value="${product.id!}" />
+
+
+                      [@shop_bargain_page productId=product.id count="5"]
+                        [#if tag_pagination.list?size gt 0] 
+                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2" class="shangpin">
+                              <tr>
+                                <td height="30" align="center" bgcolor="#f7f7f7" class="huise">买家</td>
+                                [#if product.fashions?size>0]<td align="center" bgcolor="#f7f7f7" class="huise">款式</td>[/#if]
+                                <td width="25%" align="center" bgcolor="#f7f7f7" class="huise">拍下价格</td>
+                                <td width="25%" align="center" bgcolor="#f7f7f7" class="huise">数量</td>
+                                <td width="25%" align="center" bgcolor="#f7f7f7" class="huise">下单时间</td>
+                              </tr>
+                              [#list tag_pagination.list as c]
+                              <tr>
+                                <td align="center" height="40">[@text_cut s=c.ordeR.member.username! len='2' append='**'/]</td>
+                                [#if c.productFash??]<td align="center">${c.productFash.attitude!}</td>[/#if]
+                                <td align="center" class="red">&yen;${c.salePrice!0}</td>
+                                <td align="center">${c.count!}</td>
+                                <td align="center">${c.ordeR.createTime!}</td>
+                              </tr>
+                              [/#list]
+                        </table>
+                        <div class="clear"></div>
+                        <div style="text-align:center; padding:15px 0; border-top:1px solid #eee;">[@pagination_style sysPage='4'/]</div>
+                        [#else]
+                        暂无数据 
+                        [/#if]
+                        [/@shop_bargain_page]
+
+
+		</p>
+	</div>
+</body>
+</html>

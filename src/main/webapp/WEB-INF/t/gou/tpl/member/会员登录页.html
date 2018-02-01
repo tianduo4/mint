@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员登录页 - ${web.name}${web.additionalTitle!}</title>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/member.css" type="text/css" rel="stylesheet" />
+<link href="${root}/tpl/css/login.css" type="text/css" rel="stylesheet" />
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+
+<body style="background:#fff;">
+<div class="Header">
+	<div class="ctr pr">
+        <a href="${base!}/" title="返回单店首页">
+        <img src="${root}/images/logo.jpg" width="158" height="58" class="Logo" />
+        </a>
+    </div>
+</div>
+    
+<div style="width:1000px; margin:auto auto 30px auto; overflow:hidden;">
+    <img src="${root}/images/member/login_pic.jpg" class="fl" />
+    <div class="fr">
+        <form id="jvForm" action="login.jspx" method="post">
+            <div style="line-height:30px;">
+                [#if message??]
+                <div class="red">
+                	[#if message=="true"]您必须登录后才能继续刚才的操作
+                	[#else]${message}[/#if]
+                </div>
+                <input type="hidden" name="message" value="${message}"/>
+                [/#if]	
+                [#if processUrl??]<input type="hidden" name="processUrl" value="${processUrl}"/>[/#if]
+                [#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>
+                [#else]<input type="hidden" name="returnUrl" value="/"/>
+                [/#if]
+                [#if errors??]
+                
+                [#list errors as error]
+                <div class="red">${error}</div>
+                [/#list]
+                [/#if]
+            </div>
+            
+            <div style="border:2px solid #e7e7e7; width:390px; height:390px; margin-top:30px;">
+                <table width="335" border="0" align="center" cellpadding="2" cellspacing="0" style="margin:auto;">
+                <tr>
+                <td height="70">
+                <div class="fl" style="font-size:18px; color:#484848; font-family:微软雅黑;">账户登录</div>
+                <a href="${base}/register.jspx" style="color:#cf1e1e; font-size:14px;" class="fr">免费注册</a>
+                </td>
+                </tr>
+                <tr>
+                <td height="75" >
+                <input type="text" name="username" id="username" class="loginInput"  required="true"  placeholder="用户名" />
+                </td>
+                </tr>
+                <tr>
+                <td height="75">
+                <input type="password" name="password" id="" class="loginInput" vld="{required:true,rangelength:[3,32]}"  placeholder="密码" />
+                </td>
+                </tr>
+                <tr>
+                <td height="30">
+                <a href="${base}/forgot_password.jspx" target="_blank" class="fr">忘记密码</a> 
+                </td>
+                </tr>
+                
+                <tr>
+                <td height="75" ><input type="submit" value="登 录" style="width:100%; height:45px; text-align:center; color:#fff; background:#AF0000; cursor:pointer; border:0; font-size:16px;border-radius:4px;"/></td>
+                </tr>
+                </table>
+                
+                <div class="quick">
+                
+                <div class="quick-list clearfix">
+                [#if web.global.qqEnable]
+                <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
+                <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${(web.global.qqID)!}" data-redirecturi="http://${web.domain!}/public_auth.jspx" charset="utf-8"></script>
+                <script type="text/javascript">
+                //插入按钮的节点qqLoginBtn id
+                QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
+                //根据返回数据，更换按钮显示状态方法
+                var dom = document.getElementById(opts['btnId']),
+                _logoutTemplate=[
+                //头像
+                //   '<span><img src="{figureurl}" class="{size_key}"/></span>',
+                //昵称
+                '<span>{nickname!}</span>',
+                //退出
+                '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+                ].join("");
+                dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+                nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+                figureurl : reqData.figureurl
+                }));
+                var userId=null;
+                [#if user??]
+                userId="${user.id!}";
+                [/#if]
+                if(QC.Login.check()&&userId==null){
+                QC.Login.signOut();          
+                }
+                });
+                </script>
+                [/#if]
+                
+                [#if web.global.weixinEnable]   
+                <a class="quick-weChat" onclick="EV_modeAlert('envon')" title="微信帐号登陆"></a>
+                <script src="${root}/tpl/js/modeAlert.js" type="text/javascript"></script>
+                <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>	<!-- 二维码微信登录JS	 -->
+                <div id="envon" style="width:300px; background-color:#FFFFFF; border:1px solid #000000; padding:20px; overflow:hidden; display:none;">
+                <p>
+                <div style="width:100%;text-align:right; font-family:微软雅黑;"><a href="javascript:EV_closeAlert()">关闭</a> </div>
+                <div id="login_container" style="background: #fff;"></div>
+                </p>
+                </div>
+                <script type="text/javascript">
+                function generateMixed(n) {
+                var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+                var res = "";
+                for(var i = 0; i < n ; i ++) {
+                var id = Math.ceil(Math.random()*35);
+                res += chars[id];
+                }
+                return res;
+                }
+                var obj = new WxLogin({
+                id:"login_container", 
+                appid: "${(web.global.weixinID)!}", //公众号的唯一标识 
+                scope: "snsapi_login",     // 应用授权作用域，，网页应用目前仅填写snsapi_login
+                redirect_uri: "${base}/public_wechat_login.jspx",	//重定向地址，需要进行UrlEncode（前面认证网页应用中获得）
+                state: generateMixed(10),	//用于保持请求和回调的状态，授权请求后原样带回给第三方。该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加session进行校验
+                style: "black",
+                href: ""	
+                });
+                </script>
+                [/#if]
+                [#if web.global.sinaEnable]
+                <a class="quick-sina" id="wb_connect_btn" title="用新浪微博账号登录"></a>
+                <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=${(web.global.sinaID)!}" type="text/javascript" charset="utf-8"></script>
+                <script type="text/javascript">
+                WB2.anyWhere(function(W){
+                W.widget.connectButton({
+                id: "wb_connect_btn",
+                type: '3,2',
+                callback : {
+                login:function(o){
+                //登录成功之后执行
+                location="${base!}/public_auth.jspx?screen_name="+o.screen_name;
+                },
+                logout:function(){
+                //退出之后执行退出本地用户
+                location="${base!}/logout.jspx?returnUrl=/";
+                }
+                }
+                });
+                });
+                </script>
+                [/#if]
+                </div>
+                </div>
+            
+            </div>    
+        </form>
+    </div>
+</div>
+
+<div class="Copyright clear" style="background:#fff;">
+    <div class="ctr tac">
+
+    [@shop_Channel count='10']
+    [#list tag_list as c]
+        [#if c_index==8]
+           [@shop_ArticleList channelId=c.id count='20']
+                [#list tag_list as a] 
+                         [#if a_index==5]
+                       <a href="${a.url!}"target="_blank">${a.title!}</a> 
+                        [#else]
+                             <a href="${a.url!}"target="_blank">${a.title!}</a> |
+                         [/#if]
+                  [/#list]
+              [/@shop_ArticleList]
+        [/#if]
+    [/#list]
+    [/@shop_Channel]
+
+    </div>
+    <div class="ctr tac">Copyright © JSPGOU 2017，All Rights Reserved</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>评价 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${root}/tpl/js/product.js"  type="text/javascript"></script>
+<script type="text/javascript">
+function checkLen(obj) {  
+	var maxChars = 125;//最多字符数  
+	if (obj.value.length > maxChars){		
+		obj.value = obj.value.substring(0,maxChars);  
+	}  
+	var curr = maxChars - obj.value.length;  
+	document.getElementById("count").innerHTML = curr.toString(); 
+
+} 
+
+ function discuss(productId){
+     $.post("${base!}/haveDiscuss.jspx",{productId:productId},function(data){
+            if(data=='success'){
+                $("#discussTextArea").css("display","");
+                $(".dianping").css("display","none");
+                }else if(data=='denru'){
+                     alert('请登入');
+                     var loginForm=getLoginForm();
+                     loginForm.submit();
+                    }
+                else if(data=='false'){
+                   alert('必须购买过该产品才能够评论!');
+                    }
+         });
+	 }
+ 
+ function getLoginForm(){
+     return document.getElementById("loginForm");
+ }
+ function insertDiscuss(productId){
+	 var disCon=$("#disContent").val();
+     var discussType=$('input[name="discussType"]:checked').val();
+	 if($.trim(disCon)==""){
+             alert('评论内容不能为空！');
+             return false;
+		 }
+      $.post("${base!}/insertDiscuss.jspx",{productId:productId,disCon:disCon,discussType:discussType},function(data){
+                      if(data=='success'){
+                    	  alert('发表成功!'); 
+                    	  window.location.reload(); 
+                    	  getTableForm().submit();
+                          }
+          })
+	 }
+
+ function getTableForm(){
+     return document.getElementById("tableForm");
+	  }
+ 
+ function g(o){
+		return document.getElementById(o);
+	}
+ function HoverLi2(m,n,counter){
+  	for(var i=1;i<=counter;i++){
+		g('tb_'+m+i).className='spms_normal';
+		g('tbc_'+m+i).className='undis';
+	}
+		g('tbc_'+m+n).className='dis';
+		g('tb_'+m+n).className='spms_curr';
+	}
+</script>
+</head>
+<style>
+.dis{
+	display:block;
+	margin:10px;
+}
+.undis{
+	display:none;
+	margin:10px;
+}
+.dis p, .undis p{
+	line-height:30px;
+}
+.dis p span, .undis p span{
+	font-size:12px;
+	color:#999;
+}
+.pingjia{
+	margin:20px auto 10px auto;
+    width: 100%;
+	background:#fff;
+    text-align: center;
+	border-top: 8px solid #eee;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+.spms_curr{
+	width: 25%;
+    text-align: center;
+    color: #cc0000;
+    border-bottom: 1px solid #c40000;
+}
+.spms_curr a{
+	color: #cc0000;
+	font-size:12px;
+}
+.pingjia ul li{
+    width: 25%;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    cursor: pointer;
+}
+</style>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">商品评价</h1>
+</header>
+<div class="mb44" style="padding-top:45px;">
+	[#if !(orderItem.status??)]
+    <div class="dianping">
+        <div style="text-align:center; line-height:24px; margin:20px auto; font-size:14px;">您可对已购商品进行评价</div>
+        <div class="clear10"></div>
+        <a href="javascript:void(0)" class="menu_submit" style="width:200px; font-size:14px; display:block; margin:auto; color:#fff;" onclick="discuss('${product.id!}');">写评论</a>
+    </div>
+    <div id="discussTextArea" style="display:none;margin-left: 25px;margin-top: 20px;">
+        <p>评价：
+            <input type="radio"  name="discussType" value="1" checked="checked"/>好评&nbsp;&nbsp;
+            <input type="radio"  name="discussType" value="2" checked="checked"/>中评&nbsp;&nbsp;
+            <input type="radio"  name="discussType" value="3" checked="checked"/>差评&nbsp;&nbsp;
+        <p>
+        <p><textarea rows="10" cols="50" id="disContent" class="ss_input" style="height:90px; margin:10px auto;"></textarea></p>
+        <p style="text-align:center;"><button id="button1" onclick="insertDiscuss('${product.id}');" class="menu_submit" style="width:200px; font-size:14px;">发表评论</button></p>
+    </div>
+   [/#if]
+  
+
+	<div class="pingjia">
+		<ul>
+			[@discuss_count productId=product.id]
+			<li class="spms_curr" id="tb_21" onclick="HoverLi2(2,1,4)"><a>全部(${discusses?size})</a></li>
+			[/@discuss_count]
+
+			[@discuss_count productId=product.id discussType="1"]
+			<li class="spms_normal" id="tb_22" onclick="HoverLi2(2,2,4)"><a>好评(${discusses?size})</a></li>
+			[/@discuss_count]
+			
+			[@discuss_count productId=product.id discussType="2"]
+			<li class="spms_normal" id="tb_23" onclick="HoverLi2(2,3,4)"><a>中评(${discusses?size})</a></li>
+			[/@discuss_count]
+			
+			[@discuss_count productId=product.id discussType="3"]
+			<li class="spms_normal" id="tb_24" onclick="HoverLi2(2,4,4)"><a>差评(${discusses?size})</a></li>
+			[/@discuss_count]
+		</ul>
+	</div> 	
+    <div id="tbc_21" class="dis">
+        [@discuss_Page count=5 productId=product.id]
+        [#list tag_list as discuss]
+        <p style="color:#000;">${discuss.member.username!}&nbsp;&nbsp;<span>${discuss.time!}</span></p>
+        <p style="border-bottom:1px solid #eee;">${discuss.content!}</p>
+        [/#list]
+        [/@discuss_Page]
+    </div>
+    
+    <div id="tbc_22" class="undis">
+        [@discuss_Page count=5 productId=product.id  discussType="1"]
+        [#list tag_list as discuss]
+        <p style="color:#000;">${discuss.member.username!}&nbsp;&nbsp;<span>${discuss.time!}</span></p>
+        <p style="border-bottom:1px solid #eee;">${discuss.content!}</p>
+        [/#list]
+        [/@discuss_Page]
+    </div>  
+
+    <div id="tbc_23" class="undis">        
+        [@discuss_Page count=5 productId=product.id discussType="2"]
+        [#list tag_list as discuss]
+        <p style="color:#000;">${discuss.member.username!}&nbsp;&nbsp;<span>${discuss.time!}</span></p>
+        <p style="border-bottom:1px solid #eee;">${discuss.content!}</p>
+        [/#list]
+        [/@discuss_Page]
+    </div>
+  
+    <div id="tbc_24" class="undis">
+        [@discuss_Page count=5 productId=product.id discussType="3"]
+        [#list tag_list as discuss]
+        <p style="color:#000;">${discuss.member.username!}&nbsp;&nbsp;<span>${discuss.time!}</span></p>
+        <p style="border-bottom:1px solid #eee;">${discuss.content!}</p>
+        [/#list]
+        [/@discuss_Page]
+    </div>
+        
+	
+</div>
+</body>
+</html>

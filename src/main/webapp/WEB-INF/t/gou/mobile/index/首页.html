@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>	首页 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="keywords" content="JSPGOU演示站"/>
+<meta http-equiv="description" content="JSPGOU演示站"/>
+<link href="${root}/mobile/css/index.css" rel="stylesheet" type="text/css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${root}/mobile/js/TouchSlide.1.1.js" type="text/javascript"></script>
+<script src="${root}/mobile/js/home.js" type="text/javascript"></script>
+</head>
+<body style=" background:#fafafa;">
+<!--header-->
+<div class="header_dl">
+	<div class="back"></div>
+    <h1><a href="${base}/" class="logo">JSPGOU</a></h1>
+
+      <form class="search" id="searchForm"  action="${base}/search.jspx">
+					<input type="text" class="sea"   name="q" id="q" value="${q!'请输入关键词'}" 
+						onfocus="if(this.value=='请输入关键词')this.value=''"
+						onblur="if(this.value=='')this.value='请输入关键词'" >
+					<input type="submit" class="btn" value="搜索" />
+    </form>
+ 
+</div>
+<!--end-->
+<!--searchbox-->
+<div class="searchBox">
+        <div class="list">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<!--end-->
+<section class="index">
+    <div id="slideBox" class="slideBox">
+        <div class="bd">
+            <ul>
+               
+
+             [@post_list]
+              [#list tag_list as post] 
+                   <li><a href="[#if !post.interUrl??]#[#else]${post.interUrl!}[/#if]" target="_blank"><img src="${baseUrl!}${post.picUrl}" width="170" height="200" /></a></li>
+              [/#list]
+            [/@post_list]  
+
+
+            </ul>
+        </div>
+        <div class="hd">
+            <ul></ul>
+        </div>
+    </div>
+	<script type="text/javascript">
+      TouchSlide({ 
+        slideCell:"#slideBox",
+        titCell:".hd ul", 
+        mainCell:".bd ul", 
+        effect:"leftLoop", 
+        autoPage:true,
+        autoPlay:true 
+      });
+    </script>
+    
+
+    <!--menu-->
+    <div class="menu">
+        <ul>
+            <li><a href="${base!}/allProductCategory.jspx"><i><img src="${root}/mobile/img/menu_icon1.png" alt="" /></i><p>商品分类</p></a></li>
+            <li><a href="${base}/coupon.jspx"><i><img src="${root}/mobile/img/menu_icon2.png" alt="" /></i><p>优惠券</p></a></li>
+            <li><a href="${base}/cart/shopping_cart.jspx"><i><img src="${root}/mobile/img/menu_icon3.png" alt="" /></i><p>购物车</p></a></li>
+            <li><a href="${base}/shopMember/index.jspx"><i><img src="${root}/mobile/img/menu_icon4.png" alt="" /></i><p>我的</p></a></li>
+        </ul>
+    </div>
+    <!--end-->
+
+    <!--新品推荐-->
+    <div class="index_list1">
+        <div class="index_title">新品推荐</div>
+        <div class="index_list1_con">
+
+                  [@shop_ProductList  count='1' newProduct='1']
+			          [#list tag_list as product]
+			           [#if product_index== 0]
+			          <div class="index_list1_l">
+			                <dl>
+			                    <a  href="${product.url!}" style="border-left:0;">
+			                        <dt><span>[@text_cut s=product.name len='8' /]</span><b>¥ ${product.salePrice!}</b></dt>
+			                        <dd><img src="${baseUrl!}${product.productExt.coverImg!}"></dd>
+			                    </a>
+			                </dl>
+                                    </div>
+			         
+			        [/#if]
+			          [/#list]
+	         [/@shop_ProductList]
+			          
+			   <div class="index_list_r">
+                               [@shop_ProductList  count='5' newProduct='1']
+			          [#list tag_list as product]
+			           [#if product_index> 0]
+		                      <dl>
+		                        <a  href="${product.url!}">
+		                        <dt><span>[@text_cut s=product.name len='8' /]</span><b>¥ ${product.salePrice!}</b></dt>
+		                        <dd><img src="${baseUrl!}${product.productExt.coverImg!}"></dd>
+		                       </a>
+		                      </dl>
+                                    [/#if]
+			          [/#list]
+			        [/@shop_ProductList]
+                            </div>
+
+
+            
+        </div>
+    </div>
+    <!--end-->
+	<div class="clear"></div>
+    <!--热卖商品-->
+    <div class="index_list2">
+        <div class="index_title">热卖商品</div>
+        <div class="index_list2_con">
+            <ul>
+
+            [@shop_ProductList  count='10' hostSale='1']
+			          [#list tag_list as product]
+			          <li>
+		                    <a href="${product.url!}">
+		                    <img src="${baseUrl!}${product.productExt.coverImg!}" /><span>[@text_cut s=product.name len='8' /]</span>
+		                    </a>
+                     </li>
+			          [/#list]
+	      [/@shop_ProductList]
+
+            
+            </ul>
+        </div>
+    </div>
+
+    <!--end-->
+
+    <!--数码-->
+    <div class="index_list3">
+
+
+                [@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 0]
+          <div class="index_title">${cate.name!}<a href="${cate.url}" class="fr">更多 ></a></div>
+	        <div class="index_list3_con" style="border-bottom:1px solid #ddd;">
+	            <dl>
+	                <dt>
+	                
+	                 [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			            [#list tag_list as product]
+			            [#if product_index==0]
+	                    <div>
+	                        <a href="${product.url!}" title=""><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span></a>
+	                    </div>
+	                    [/#if]
+	                     [/#list]
+			        [/@shop_ProductList]  
+			        
+			      [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			            [#list tag_list as product]
+			              [#if product_index==1]
+	                    <div>
+	                        <a href="${product.url!}" title=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></a>
+	                    </div>
+	                   [/#if]
+	                       [/#list]
+			        [/@shop_ProductList]  
+	                </dt>
+	               [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			            [#list tag_list as product]
+			              [#if product_index==2]
+			                   <dd>
+			                    <a href="${product.url!}" title=""><span>[@text_cut s=product.name len='8' /]</span><b>￥${product.salePrice!}</b><strong><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></strong></a>
+			                   </dd>
+	                      [/#if]
+	                    [/#list]
+			        [/@shop_ProductList] 
+	            </dl>
+	        </div>
+        [/#if]
+        [/#list]
+   [/@shop_Category]
+
+
+
+
+
+
+
+
+       
+    </div>
+    <!--end-->
+    
+    <!--服装-->
+    <div class="index_list3">
+
+
+                   [@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 1]
+        <div class="index_title">${cate.name!}<a href="${cate.url}" class="fr">更多 ></a></div>
+        <div class="index_list3_con" style="border-bottom:1px solid #ddd;">
+            <dl>
+                <dt>
+                  [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			            [#if product_index==0]
+		                    <div>
+		                        <a href="${product.url!}" title=""><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span></a>
+		                    </div>
+                           [/#if]
+	                    [/#list]
+			      [/@shop_ProductList] 
+			      
+		          [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			            [#if product_index==1]
+		                    <div>
+		                        <a href="${product.url!}" title=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></a>
+		                    </div>
+                          [/#if]
+	                  [/#list]
+			      [/@shop_ProductList]   
+                    
+                </dt>
+                
+                 [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			            [#if product_index==2]
+			                <dd>
+			                    <a href="${product.url!}" title=""><span>[@text_cut s=product.name len='8' /]</span><b>￥${product.salePrice!}</b><strong><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></strong></a>
+			                </dd>
+                
+                         [/#if]
+	                  [/#list]
+			      [/@shop_ProductList] 
+            </dl>
+        </div>
+        
+            [/#if]
+        [/#list]
+   [/@shop_Category]
+
+        
+    </div>
+    <!--end-->
+
+	<!--家居建材-->
+    <div class="index_list3">
+
+
+            [@shop_Category]
+			  [#list tag_list as cate]
+			    [#if cate_index== 4]
+        <div class="index_title">${cate.name!}<a href="${cate.url!}" class="fr">更多 ></a></div>
+        <div class="index_list3_con" style="border-bottom:1px solid #ddd;">
+            <dl>
+                <dt>
+                 [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			          [#if product_index==0]
+			            
+                    <div>
+                        <a href="${product.url!}" title=""><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span></a>
+                    </div>
+                     [/#if]
+	                  [/#list]
+			      [/@shop_ProductList] 
+			      
+			      [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			            [#if product_index==1]
+                    <div>
+                        <a href="${product.url!}" title=""><span><i>[@text_cut s=product.name len='8' /]</i><b>￥${product.salePrice!}</b></span><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></a>
+                    </div>
+                     [/#if]
+	                  [/#list]
+			      [/@shop_ProductList] 
+                </dt>
+                 [@shop_ProductList categoryId=cate.id count='3' recommend='1']
+			          [#list tag_list as product]
+			            [#if product_index==2]
+				                <dd>
+				                    <a href="${product.url!}"  title=""><span>[@text_cut s=product.name len='8' /]</span><b>￥${product.salePrice!}</b><strong><img src="${baseUrl!}${product.productExt.coverImg!}" alt=""></strong></a>
+				                </dd>
+                          [/#if]
+	                  [/#list]
+			      [/@shop_ProductList]  
+            </dl>
+        </div>
+               [/#if]
+        [/#list]
+   [/@shop_Category]
+
+
+
+
+
+
+
+
+       
+    </div>
+    <!--end-->
+    
+    <!--猜你喜欢-->
+    <div class="index_list3">
+        <div class="index_title">猜你喜欢</div>
+        <section class="goods_list" style="top:0;">
+            <div class="clearfix">
+                <ul>
+
+
+
+                 [@shop_ProductList  count='4' hostSale='1' ]
+			          [#list tag_list as product]
+			          
+			          <li>
+                        <div>
+                            <a href="${product.url!}">
+                                <p class="img">
+                                <img src="${baseUrl!}${product.productExt.coverImg!}" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                                </p>
+                                <p class="name">[@text_cut s=product.name len='20' /]</p>
+                            </a>
+                            <p class="price">
+                                <span class="red">¥${product.salePrice!0}</span>
+                            </p>
+                        </div>
+                    </li>
+			             [/#list]
+			        [/@shop_ProductList]
+
+
+                </ul>
+                
+            </div>
+        </section>
+    </div>
+    <!--end-->
+
+</section>
+
+
+<!--返回top-->
+<div class="btntop"><img src="${root}/mobile/img/back-top.png"/></div>
+<!--end-->
+
+</body>
+</html>

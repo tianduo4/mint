@@ -1,0 +1,45 @@
+   	 <div class="searchColMainItem searchResultOp">
+        <dl>
+            <dt>品牌：</dt>
+              <input type="hidden" name="q" value="${q!}"/>
+              <input type="hidden" name="brandId" id="brandId" value="${brandId!0}"/>
+              <input type="hidden" name="isShow" id="isShow" value="${isShow!}"/>
+              [@cate_brand]
+              <dd><span class="all"><a [#if !(brandId??)]class="cur"[#else][#if brandId==0]class="cur"[/#if][/#if] onclick="clickBrand(0);">全部</a></span>
+                  <span class="selection fashion" id="FacetBrandsAll" >
+                  [#list tag_list as brd]
+                  	 [#if brd_index lt 12]
+                    	<a [#if brandId??][#if brandId==brd.id]class="cur"[/#if][/#if] onclick="clickBrand(${brd.id},0);">${brd.name!}</a>
+                     [#else]
+                        <a [#if brandId??][#if brandId==brd.id]class="cur"[/#if][/#if]  onclick="clickBrand(${brd.id},1);" [#if isShow??][#if isShow==0] style="display:none"[/#if][/#if]>${brd.name!}</a>
+                     [/#if]
+                   [/#list]
+                  </span>
+              </dd>
+              <dd class="more">
+                [#if !(tag_list?size lt 12)]
+                     <a [#if isShow??][#if isShow==1]class="pack" style="display:none"[/#if][/#if] id="FacetBrandsMoreBtn" onclick="showMore('FacetBrandsAll','more')" href="javascript:void(0)" >更多</a>
+                     <a [#if isShow??][#if isShow==0]class="pack" style="display:none"[/#if][#else]class="pack" style="display:none"[/#if] id="FacetBrandsBackBtn" onclick="showMore('FacetBrandsAll','back')" href="javascript:void(0)" >收起</a>
+                 [/#if]
+              </dd>
+          [/@cate_brand]  
+          </dl>
+    </div>
+<!-- 排序方式与布局方式切换区 -->
+   <div class="rankOp clearfix">
+       <input type="hidden" name="orderBy" id="orderBy" value="${orderBy!}"/>
+       <ul class="rank clearfix">
+        <!-- 排序方式 -->
+        <li [#if orderBy==0]class="normal"[/#if]><a onclick="clickOrderBy(0);">默认排序</a></li>
+        <li [#if orderBy==1]class="down"[#else]class="default"[/#if]><a onclick="clickOrderBy(1);"><span>销量</span></a></li>
+        [#if orderBy==3]
+        <li class="defaultPrice priceUp"><a onclick="clickOrderBy(4);"><span>价格</span></a></li>
+       [#elseif orderBy==4]
+       <li class="defaultPrice priceDown"><a onclick="clickOrderBy(3);"><span>价格</span></a></li>
+       [#else]
+       <li class="defaultPrice"><a onclick="clickOrderBy(4);" > <span>价格</span></a></li>
+       [/#if]
+        <li class="default"><a onclick="clickOrderBy(5);"><span>访问</span></a></li>
+        <li [#if orderBy==2]class="down"[#else]class="default"[/#if]><a onclick="clickOrderBy(2);"><span>上架时间</span></a></li>
+      </ul>
+  </div>

@@ -1,0 +1,80 @@
+<div class="clear"></div>
+<div class="Footer">
+    <div class="footer-icon">
+        <div class="w">
+            [@shop_Channel  count='10']
+            [#list tag_list as c]
+            [#if c_index==7]
+            [@shop_ArticleList channelId=c.id count='6']
+            [#list tag_list as a]
+            <a href="${a.url!}" target="_blank" class="icon-map">
+            [#if a_index==0]
+            <p class="icon-bg i1"></p>
+            [#elseif a_index==1]  
+            <p class="icon-bg i2"></p>
+            [#elseif a_index==2]  
+            <p class="icon-bg i3"></p>
+            [#elseif a_index==3] 
+            <p class="icon-bg i4"></p>
+            [#elseif a_index==4] 
+            <p class="icon-bg i5"></p>
+            [#elseif a_index==5] 
+            <p class="icon-bg i6"></p>
+            [/#if]
+            <p class="icon-title">${a.title!}</p>
+            </a>
+            [/#list]
+            [/@shop_ArticleList]
+            [/#if]
+            [/#list]
+            [/@shop_Channel]
+        </div>
+    </div>
+
+	<!-- 帮助中心栏目start -->
+    <div class="Footer-block pt20 pb20 ctr cf">
+        <ul class="Sitemap fl cf">
+            [@shop_Channel  count='5']
+            [#list tag_list as c]
+            <li class="Sitemap-item fl">
+            <h4>
+            <a target="_blank" href="${c.url!}">${c.name!}</a>
+            </h4>
+            <ul>
+            [@shop_ArticleList channelId=c.id count='20']
+            [#list tag_list as a]
+            <li><a href="${a.url!}" class="track2" target="_blank">${a.title!}</a></li>
+            [/#list]
+            [/@shop_ArticleList]
+            </ul>
+            </li> 
+            [/#list]
+            [/@shop_Channel]
+        </ul>
+        <div class="QR fl">
+            <img class="QR-img" src="${root}/images/jspgou-wx.jpg" >
+        </div>
+    </div>
+	<!-- 帮助中心栏目 end-->
+
+    <div class="Copyright">
+        <div class="ctr tac">
+            [@shop_Channel count='10']
+            [#list tag_list as c]
+            [#if c_index==8]
+            [@shop_ArticleList channelId=c.id count='20']
+            [#list tag_list as a] 
+            [#if a_index==5]
+            <a href="${a.url!}"target="_blank">${a.title!}</a> 
+            [#else]
+            <a href="${a.url!}"target="_blank">${a.title!}</a> |
+            [/#if]
+            [/#list]
+            [/@shop_ArticleList]
+            [/#if]
+            [/#list]
+            [/@shop_Channel]
+        </div>
+        <div class="ctr tac">Copyright © JSPGOU 2017，All Rights Reserved</div>
+    </div>
+</div>

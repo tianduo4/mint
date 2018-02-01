@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+
+function optDy(){
+	if(Pn.checkedCount('ids')<=0){
+		alert("请选择要打印的数据");
+		return;
+	}
+	if(!confirm("确认打印订单!")){
+		return;
+	}
+	if($("#logisticsId").val()==''||$("#logisticsId").val()==null){
+        alert("请选择打印模板!");
+        return;
+	}
+	var f=document.getElementById('tableForm');
+	f.action="o_printOrder.do";
+	f.submit();
+}
+
+
+function optIsPrintTrue(){
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("确定要改为已打印快递面单")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_isPrintTrue.do";
+	f.submit();
+}
+
+function optIsPrintFalse(){
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("确定要取消已打印快递面单标记")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_isPrintFalse.do";
+	f.submit();
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 订单 - 发货管理 - <@s.m "global.list"/></div>
+	<div class="clear"></div>
+</div>
+<#if pagination?? && pagination.list?size gt 0>
+ <div class="web-con">
+    	<form action="v_list.do">
+    		
+            <select name="isPrint">
+            <option value="">--是否已打印快递免单--</option>
+            <option value="false" <#if isPrint??&&isPrint=false>selected="selected"</#if>>未打印快递面单</option>
+            <option value="true" <#if isPrint??&&isPrint=true>selected="selected"</#if>>已打印快递面单</option>
+            </select> 
+            <input type="submit" class="search_menu" value="<@s.m "global.query"/>" />
+    	</form>
+ </div>
+ <br/>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+    <select name="logisticsId" id="logisticsId">
+        	<option value="">--请选择快递面单打印模板--</option>
+        	<#list logistics as lo>
+        		<option value="${lo.id!}">${lo.name!}</option>
+        	</#list>
+        </select>
+
+
+<@p.table value=pagination;shipments,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${shipments.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column title="订单编号" align="center">${shipments.indent.code!}</@p.column><#t/>
+	<@p.column code="物流单号" align="center">${shipments.waybill!}</@p.column><#t/>
+	<@p.column code="是否已打印快递面单" align="center"><#if shipments.isPrint><font color="green;">已打印</font><#else>未打印</#if></@p.column><#t/>
+	<@p.column code="操作员" align="center">${shipments.shopAdmin.username!}</@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+		<a href="v_edit.do?id=${shipments.id}&pageNo=${pageNo!}">查看</a>
+	</@p.column><#t/>
+</@p.table>
+ <div><input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/>     <input type="button" class="delete_menu" value="批量打印快递面单" onclick="optDy();"/>
+
+   	<input type="button" class="save_menu" value="标记打印快递面单" onclick="optIsPrintTrue();"/>    	<input type="button" class="save_menu" value="取消已打印快递面单标记" onclick="optIsPrintFalse();"/>
+ </div>
+
+<#else>
+        <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+</#if>
+
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

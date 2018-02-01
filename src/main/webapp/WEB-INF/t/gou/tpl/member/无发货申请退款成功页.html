@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无发货申请退款页 - ${web.name}${web.additionalTitle!}</title>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/member.css" type="text/css" rel="stylesheet" />
+<link href="${root}/tpl/css/cart.css" type="text/css" rel="stylesheet" />
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+function g(o){
+	return document.getElementById(o);
+}
+</script>
+</head>
+<body>
+[#include "../include/页头顶栏.html"/]
+[#include "../include/页头搜索栏.html"/]
+[#include "../include/内页导航栏.html"/]
+<div class="user-page-content" id="page">
+	<div class="clearfix w">
+    	[#include "会员中心_导航.html"/]
+        <div class="user_main">
+        	<div class="content-one content-hei">
+            	<div class="user_title">
+                   申请退款<div class="fr" style="font-size:13px;">消费者热线：<span style="color:#F00;">0571-88158198</span></div>
+                </div>
+                
+                <!-- 步骤条导航 START -->
+                <ul class="step clearfix" style="margin-top:10px;">
+                    <li><span>STEP 1.</span>申请退款</li>
+                    <li class="three"><span>STEP 2.</span>卖家处理退款申请</li>
+                    <li><span>STEP 3.</span>退款到支付宝</li>
+                </ul>
+                
+                <div style="line-height:50px; text-align:center; color:#ff0000; font-size:16px;">
+                	您已成功申请退款，请等待卖家处理退款申请。
+                </div>
+                
+                <div class="content clearfix main-left-bor ">
+                    <div class="content-main bor-r" >
+                        <div class="main-wrap">
+                         <div class="control-area">
+                              <div class="control-tip">
+                                
+                                 <!--   <p>卖家（ysynyb）还有
+                                  <span class="J_Countdown" data-time="172380000">
+                                      <em class="hand hand-d">
+                                        <em class="digital digital-0 ">0</em>
+                                        <em class="digital digital-1 ">1</em>
+                                      </em>天
+                                  <em class="hand hand-h">
+                                     <em class="digital digital-2 ">2</em>
+                                     <em class="digital digital-3 ">3</em>
+                                  </em>时
+                                  <em class="hand hand-m">
+                                      <em class="digital digital-3 ">3</em>
+                                      <em class="digital digital-8 ">8</em>
+                                  </em>分
+                                  <em class="hand hand-s">
+                                     <em class="digital digital-5 ">5</em>
+                                     <em class="digital digital-8 ">8</em>
+                                 </em>秒
+                                </span>来处理您的申请，逾期未处理则自动退款给您。
+                            </p>-->
+                          	  </div>
+                       
+                       <div class="grid ctrl-btn-wrapper">
+                        <!-- <a class="button J_ControlBtn default-btn gray-btn g-u" style="margin-right: 12px;" href="http://refund.taobao.com/buyer_modify_agreement.htm?refundId=7980722473244">修改退款申请</a>--> 
+                       </div>
+                     </div>
+                     <div class="rf-status refund-status">
+                       <table class="rf-table" width="100%" cellspacing="0" cellpadding="3">
+                         <colgroup><col width="110"><col></colgroup>
+                         <tbody>
+                           <tr><th height="40" align="right"> 退款编号： </th><td> ${orderReturn.code!}</td></tr>
+                           <tr class="bor-b"><th height="40" align="right"> 申请时间： </th><td> ${orderReturn.createTime?string("yyyy-MM-dd HH:mm:ss")!} </td> 
+                           </tr>
+                          <tr><th height="40" align="right"> 退款类型： </th><td>[@s.m "orderReturn.status.${orderReturn.orderReturnStatus!}"/] </td></tr>
+                          <tr><th height="40" align="right"> 退款状态： </th><td> 退款申请等待卖家确认中 </td></tr>
+                          <tr><th height="40" align="right"> 退款金额： </th><td id="J_TotalRefund"><em class="price">${orderReturn.money!0}</em>元</td></tr>
+                          <tr><th height="40" align="right"> 退款支付类型： </th><td>[#if orderReturn.payType=1]我的账户[#elseif orderReturn.payType=2]支付宝[/#if]</td></tr>
+                          [#if orderReturn.payType ==2]
+                          <tr><th height="40" align="right"> 支付宝账号： </th><td>${orderReturn.alipayId}</td></tr>
+                          [/#if]
+                          <tr><th height="40" align="right"> 退款原因： </th><td><p>${orderReturn.shopDictionary.name!}</p></td></tr>
+                          <tr><th height="40" align="right"> 退款说明： </th><td><div class="text-info">${orderReturn.reason!}</div></td> </tr>
+                     </tbody>
+                   </table>
+                 </div>
+                </div>
+               </div>
+               <!-- 订单 信息START -->
+                  <div class="f-r order aside" >
+                    <div class="user_title" style="margin-top:50px;">退款的商品信息</div>
+                    <table width="100%" border="0" cellspacing="1" cellpadding="3" bgcolor="#ddd">
+                      <tr>
+                        <td height="40" align="center" bgcolor="#f9f9f9">商品名称</td>
+                        <td width="140" align="center" bgcolor="#f9f9f9">订单编号</td>
+                        <td align="center" bgcolor="#f9f9f9">商品金额</td>
+                        <td align="center" bgcolor="#f9f9f9">运费</td>
+                        <td align="center" bgcolor="#f9f9f9">可获积分</td>
+                        <td align="center" bgcolor="#f9f9f9">总计</td>
+                        <td width="150" align="center" bgcolor="#f9f9f9">成交时间</td>
+                      </tr>
+                      <tr>
+                        <td height="80" bgcolor="#FFFFFF"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="rf-table">
+                          <colgroup>
+                            <col width="70" />
+                            <col />
+                            </colgroup>
+                          <tbody>
+                          </tbody>
+                          [#list order.items as item]
+                      <tr>
+                        <th width="70" align="center"><img src="${baseUrl!}${item.product.productExt.coverImg!}" alt="${item.product.name}" width="60" height="60" class="goods-img" /></th>
+                        <td><p class="goods-title"> <a href="${item.product.url!}" target="_blank"> [@text_cut s=item.product.name len='30' append='...'/]</a></p></td>
+                      </tr>
+                          [/#list]
+                      <tr>
+                        <td></tbody></td>
+                      </tr>
+                        </table></td>
+                        <td align="center" bgcolor="#FFFFFF"><a href="myOrderView.jspx?orderId=${order.id}" target="_blank">${order.code!}</a></td>
+                        <td align="center" bgcolor="#FFFFFF">${order.productPrice!0}元</td>
+                        <td align="center" bgcolor="#FFFFFF">${order.freight!0}元</td>
+                        <td align="center" bgcolor="#FFFFFF">${order.score!0}</td>
+                        <td align="center" bgcolor="#FFFFFF">${order.total!0}元</td>
+                        <td align="center" bgcolor="#FFFFFF">${order.createTime!}</td>
+                      </tr>
+                    </table>
+               <div class="order-header"></div>
+               </div>
+               <!-- 订单 end-->
+             </div>
+                <!-- 常见问题 START -->
+                <div class="questions">
+                    <h4>常见问题看这里</h4>
+                    <h5>1、买家申请退款后接下来该做什么？</h5>
+                    <p>答：买家在交易过程中遇到问题，建议积极联系卖家沟通协商。买家申请退款操作后，可以联系卖家确认同意退款协议。
+                                       若买卖双方无法协商解决，在买家申请退款3天后可以要求客服介入帮助核实处理</p>
+                    <h5>2、卖家拒绝退款给我怎么办？</h5>
+                    <p>答：进行中的退款，若双方协商后不能达成一致或未得到解决，在规定时间后进入退款详情页面，任意一方可以点击“要求客服介入处理”，
+                                         填写您的有效联系方式，说明原由，点击“确认”申请淘宝客服介入协调处理。</p>
+                    <h5>3、我想修改退款协议怎么操作？</h5>
+                    <p>答：退款成功后，交易款项将立即退回到您的支付宝账户，您可以登录支付宝账户查询余额或收支记录。</p>
+                    <h5>4、卖家拒绝退款给我怎么办？</h5>
+                    <p>答：答：退款协议达成前，买家可修改已申请的退款协议。</p>
+                </div>
+                <!-- 常见问题 END -->
+                
+            </div>
+        </div>
+	</div>
+</div>
+[#include "../include/页脚信息栏.html"/]
+</body>
+</html>

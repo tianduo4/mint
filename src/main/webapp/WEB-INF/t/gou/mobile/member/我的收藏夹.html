@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>我的收藏夹  - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/member.css" />
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+function del(id){
+	var ids = new Array(1);;
+	ids[0] = id;
+	$.post("${base}/collect/delCollect.jspx",{collectIds:ids},function(data){
+                alert(data);
+                location.reload();
+		});
+}
+function dels(){
+	var j = 0;
+	var h = 0;
+	var fchecked=document.getElementsByName("colect_goods_list");
+	for(var i=0;i<fchecked.length;i++){
+        if(fchecked[i].checked){j++; }
+	}
+	var ids = new Array(j);
+	for(var i=0;i<fchecked.length;i++){
+          if(fchecked[i].checked){ids[h] = fchecked[i].id;h++;}
+	}
+	if(ids.length<1){alert('请选择');return ;}
+	$.post("${base}/collect/delCollect.jspx",{collectIds:ids},function(data){
+		alert(data);
+        location.reload();     
+		});
+}
+function checkall(o){
+	$("input[type=checkbox]").each(function(){
+         $(this).attr("checked",o);
+		});
+}
+</script>
+<style>
+input{ width:auto;}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">我的收藏</h1>
+</header>
+[@collect_page pageNo=pageNo count='10']
+<div class="search-list larger-view">
+    <table width="96%" border="0" cellspacing="0" cellpadding="0" style="margin:auto; line-height:30px;">
+      <tr>
+        <td height="" width="20"><input type="checkbox" onclick="checkall(this.checked)" value="all" style="width:auto;" /></td>
+        <td width="50">全选</td>
+        <td>
+        <button onclick="if (confirm('您确定要从收藏夹中删除选定的玩物吗？')); dels();" style="background:#fff; border:0;">删除</button>
+        </td>
+        <td align="right">全部宝贝(<font style="color:#cc0000;">${tag_pagination.totalCount}</font>)</td>
+      </tr>
+    </table>
+	<ul>
+        <div class="page-container J_PageContainer_1">
+        
+        [#if tag_list?size gt 0]
+        [#list tag_list as coll]
+        [#if coll.fashion??]
+        <li>
+            <div class="list-item">
+            	<div class="p">
+                    <a href="${coll.product.url}">
+                    <img class="p-pic" src="${baseUrl!}${coll.product.productExt.coverImg}" style="visibility: visible;">
+                    </a>
+                </div>
+                <div class="d">
+                    <a href="${coll.product.url}">
+                        <h3 class="d-title">[@text_cut s=coll.product.name len='30' append='...'/]${coll.fashion.attitude!}</h3>
+                    </a>
+                    <p class="d-price">
+                        <em class="h">
+                            <span class="price-icon">¥</span>
+                            <span class="font-num">${coll.fashion.salePrice!0}</span>
+                        </em>
+                        <input type="checkbox" id="${coll.id}" name="colect_goods_list" class="fl" style="margin:5px 6px 0 0;" />
+                    	<a href="javascript:if (confirm('您确定要从收藏夹中删除选定的玩物吗？')); del(${coll.id});" class="fl">删除</a>
+                    </p>
+                </div>
+            </div>
+        </li>
+        [#else]
+        <li>
+            <div class="list-item">
+            	<div class="p">
+                    <a href="${coll.product.url}">
+                    <img class="p-pic" src="${baseUrl!}${coll.product.productExt.coverImg}" style="visibility: visible;">
+                    </a>
+                </div>
+                <div class="d">
+                    <a href="${coll.product.url}">
+                        <h3 class="d-title">[@text_cut s=coll.product.name len='30' append='...'/]</h3>
+                    </a>
+                    <p class="d-price">
+                        <em class="h">
+                            <span class="price-icon">¥</span>
+                            <span class="font-num">${coll.product.salePrice!0}</span>
+                        </em>
+                        <input type="checkbox" id="${coll.id}" name="colect_goods_list" class="fl" style="margin:5px 6px 0 0;" />
+                    	<a href="javascript:if (confirm('您确定要从收藏夹中删除选定的商品吗？')); del(${coll.id});" class="fl">删除</a>
+                    </p>
+                </div>
+            </div>
+        </li>
+        [/#if]
+        [/#list]
+
+        </div>
+        [#else]
+        <div style="line-height:30px; text-align:center; margin:50px 10px;">暂无收藏</div>
+        [/#if]
+        
+    </ul>
+</div>
+[/@collect_page]
+</body>
+</html>

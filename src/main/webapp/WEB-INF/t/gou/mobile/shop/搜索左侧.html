@@ -1,0 +1,86 @@
+<div class="left fl">
+   <div class="itemChoose">
+      <h2>所有类目</h2>
+      <div class="itemChooseBox">
+      <input type="hidden" name="ctgId" id="ctgId" value="${ctgId!}"/>
+      	 [@shop_Category]
+         	[#list tag_list as category]
+         	[#if category.child?size&gt;0]
+            <li class="child">
+              <a class="icon_btn" href="javascript:void(0);"></a>
+              <a onclick="clickctg(${category.id});" title="${category.name!}">${category.name!}</a>
+              <ul>
+              [@shop_Category parentId=category.id]
+              [#list tag_list as ctg]
+              
+              [#if ctg.child?size&gt;0]
+            <li class="child">
+              <a class="icon_btn" href="javascript:void(0);"></a>
+              <a onclick="clickctg(${ctg.id});" title="${ctg.name!}">${ctg.name!}</a>
+              <ul>
+              [@shop_Category parentId=ctg.id]
+              [#list tag_list as ctg1]
+              <li>
+              	<a class="icon_btn" href="javascript:void(0);"></a>
+              	<a onclick="clickctg(${ctg1.id});" title="${ctg1.name!}">${ctg1.name!}</a>
+              </li>
+              [/#list]
+              [/@shop_Category] 
+              </ul>
+            </li>
+            [#else]
+               <li>
+              	<a class="icon_btn" href="javascript:void(0);"></a>
+              	<a onclick="clickctg(${ctg.id});" title="${ctg.name!}">${ctg.name!}</a>
+              </li>
+            [/#if]
+              [/#list]
+              [/@shop_Category] 
+              </ul>
+            </li>
+            [#else]
+               <li>
+               <a class="icon_btn" href="javascript:void(0);"></a>
+               <a onclick="clickctg(${category.id});" title="${category.name!}">${category.name!}</a>
+               </li>
+            [/#if]
+            [/#list]
+         [/@shop_Category] 
+      
+      </div>
+    </div>
+    <div class="last-week-hot mt10">
+         <div class="tit_hot">上周热销榜 <span>HOT</span></div>
+          	[@shop_topSale count=2]
+          	    [#list tag_list as topSale]
+          	    <dl>
+               	   <dt><a href="">${topSale.name!}</a></dt>
+                   <dd class="hot_img fl"><a href="${topSale.url!}" target="_blank">
+                   <img src="${baseUrl!}${topSale.productExt.coverImg!global.defImg}" width="63" height="65" onload="javascript:DrawImage(this,63,65);" /></a></dd>
+                   <dd class="hot_price fr">
+                   [#if topSale.category.colorsize] 
+                   	[#list topSale.fashions as fashion]
+                    	[#if fashion.isDefault]
+                        ¥${fashion.salePrice!0}
+                      	[/#if]
+                   	[/#list]     
+                   [#else]
+                   	¥${topSale.salePrice!0}
+                   [/#if]
+                   </dd>
+               </dl>
+          	  [/#list]
+             [/@shop_topSale]
+      </div>
+     <div class="choiceness mt10">
+        [@sift_brand]
+           [#if tag_bean??]
+             <div class="tit_choiceness">精选品牌 <span>${tag_bean.name!}</span></div>
+               <div class="pinpai_sp">
+                    <div class="pinpai_img"><a style="cursor: hand" onclick="brandSubmit('${tag_bean.id}');"  ><img src="${baseUrl!}${tag_bean.logoPath!}" width="179" height="93" /></a></div>
+                    <a style="cursor: hand" onclick="brandSubmit('${tag_bean.id}');" class="look_sp">[查看本品牌商品]</a>
+               </div>
+           [/#if]
+        [/@sift_brand]
+    </div>
+</div>

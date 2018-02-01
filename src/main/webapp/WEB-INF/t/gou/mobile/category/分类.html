@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<title>商品分类</title>
+<script src="${root}/mobile/js/jquery-1.7.1.min.js"></script>
+<script src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" href="${root}/mobile/css/cpList.css" />
+<script src="${root}/mobile/js/mui.min.js"></script>
+</head>
+<body>
+<!--侧滑菜单容器-->
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+    <!--菜单部分-->
+    <form id="jvForm" action="${urlPrefix}${urlSuffix}"> 
+    <aside id="offCanvasSide" class="mui-off-canvas-right">
+        <input type="hidden" name="brandId" id="brandId" value="${brandId!}"/>
+        <input type="hidden" name="orderBy" id="orderBy" value="${orderBy!}"/>
+        <div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <h2 class="tj-title">价格区间</h2>
+                    <div class="pl-15">
+                    <input type="number" class="price-1" name="startPrice" id="startPrice" [#if startPrice==0]value=""[#else]value="${startPrice}"[/#if] onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  
+                                onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" /> -
+                    <input type="number" class="price-1" name="endPrice" id="endPrice" [#if endPrice==0]value=""[#else]value="${endPrice}"[/#if] onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  
+                                            onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />				
+                    </div>
+                    <!--此处作为一个整体-->
+                    <div class="pl-15">
+                        <div class="sx-title">
+                            <span>品牌</span>
+                            <span class="allList">全部 <i class="mui-icon mui-icon-arrowup"></i></span>
+                        </div>
+                        [@cate_brand categoryId=category.id]
+                        <ul class="sx-item sx-brand">
+                            [#list tag_list as brd]
+                                <li data-brad="${brd.id}" data-bids="${brandId!}" [#if brandId??][#if brandId?index_of('${brd.id!}')!=-1]class="on"[/#if][/#if]>${brd.name!}</li>
+                            [/#list]    
+                        </ul>
+                        [/@cate_brand] 
+                    </div>
+                    
+            <!-- [#list map?keys as mykey]
+              [#assign mlist=map[mykey]] 
+              [#assign st=map1[mykey]]	
+                [#if 0<(fields?size)]  
+                    <div class="pl-15" >
+                    <div class="sx-title">
+                    <span>${st.name!}：</span>	
+                    [#list fields as field]
+                        [#if field==st.field]
+                            [#list zhis as zhi]
+                                [#if field_index==zhi_index]
+                                <span class="allList">全部 <i class="mui-icon mui-icon-arrowup"></i></span>
+                                </div>
+                                <ul class="sx-item sx-categorical-attributes sx">
+                                    <input type="hidden" id="exendedss_${st.field}" name="exendedss_${st.field}" value="${zhi}" />
+                                    [#list mlist as m] 
+                                        <li data-field="exendedss_${st.field}" data-mid="${m.id}" data-zhi="${zhi!}"[#if zhi?index_of("${m.id!}")!=-1]class="on"[/#if]>${m.name!}</li>									                                   
+                                    [/#list] 
+                                </ul> 									
+                                [/#if]
+                            [/#list]			
+                        [/#if]
+                    [/#list]
+                    </div>	
+                [#else]
+                    <div class="pl-15">
+                        <div class="sx-title">
+                            <span>${st.name!}：</span>    			  
+                            <span class="allList">全部 <i class="mui-icon mui-icon-arrowup"></i></span>
+                        </div>
+                        <ul class="sx-item sx-categorical-attributes">
+                            <input type="hidden" id="exendedss_${st.field}" name="exendedss_${st.field}" value=""  />
+                            [#list mlist as m]
+                                <li data-field="exendedss_${st.field}" data-mid="${m.id}">${m.name!}</li>						  
+                            [/#list]
+                        </ul> 
+                    </div>	
+                [/#if]
+            [/#list]	 -->
+                </div>
+                <div class="fix-btn">
+                    <input type="button" name="" id="" onclick="clearCondition();" value="清除" class="btn-50" />
+                    <input type="button" name="" id="" onclick="searchCondition();" value="确定" class="btn-50 red-btn" />
+                </div>
+        </div>
+    </aside>
+  </form>
+
+
+
+         <div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-red"></a>
+    <h1 class="mui-title">商品分类</h1>
+    <a class="mui-icon mui-icon-more-filled mui-pull-right back-red"></a>
+</header>
+<!--选择条-->
+<ul class="fixed-bar">
+    <li data-ordernum="0" class="fixed-orderBy [#if orderBy??][#if orderBy==0]active[/#if][#else]active[/#if]">综合</li>
+    <li data-ordernum="4" class="fixed-orderBy [#if orderBy??][#if orderBy==4]active[/#if][/#if]">销量</li>
+    <li data-ordernum="2" class="fixed-orderBy [#if orderBy??][#if orderBy==2]active[/#if][/#if]">新品</li>
+    [#if orderBy==7]
+        <li data-ordernum="6" class="fixed-orderBy [#if orderBy??][#if orderBy==7]active[/#if][/#if]">价格</i>
+    [#elseif orderBy==6]
+       <li data-ordernum="7" class="fixed-orderBy [#if orderBy??][#if orderBy==6]active[/#if][/#if]">价格</i>
+    [#else]
+       <li data-ordernum="7" class="fixed-orderBy [#if orderBy??][#if orderBy==7]active[/#if][/#if]">价格</i>
+    [/#if]
+    <li id='offCanvasShow'>筛选</li>
+</ul>
+
+
+
+
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <form id="tableForm" action="${category.url!}" method="get">
+          [@shop_ProductPageChannel categoryId=category.id brandId=brandId  names=names values=values count=10  pageNo=pageNo orderBy=orderBy startPrice=startPrice endPrice=endPrice] 
+        [#if tag_pagination.list?size gt 0]
+        <ul class="mui-table-view mui-table-view-chevron">
+        [#list tag_pagination.list as product]
+           <li class="normal-list">
+            <a href="${product.url!}">
+                <div class="box-100">
+                <img src="[#if product.productExt.coverImg??]${baseUrl!}${(product.productExt.coverImg)!}[#else]${baseUrl!}${global.defMobileImg!}[/#if]" title="${product.name!}"/>
+                </div>
+                <section class="product-box">
+                    <div class="product-name">
+                        [@text_cut s=product.name len='30' append='...'/]
+                    </div>
+                    <div class="product-price-m clearfix">
+                        <em>¥
+                            <span class="big-price">
+                            [#if product.productFashion??]
+                                [#list product.fashions as fashion]
+                                    [#if fashion.isDefault]
+                                        ${fashion.salePrice!0}
+                                    [/#if]
+                                [/#list]
+                            [#else]
+                                ${product.salePrice!0}
+                            [/#if]
+                            </span>
+                        </em>
+                    </div>
+                    <div class="gray-pro-info">
+                                                
+                         
+                    </div>
+                </section>
+            </a>
+           </li>
+        [/#list]
+        </ul>
+        [#else]
+            <div style=" line-height:20px; text-align:center; margin:20px auto;">此分类下暂无商品</div>
+        [/#if]
+        [/@shop_ProductPageChannel]
+        </form> 
+    </div>
+</div>
+    <!-- off-canvas backdrop -->
+        <div class="mui-off-canvas-backdrop"></div>
+     </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+function getJvForm(){
+return document.getElementById("jvForm");
+}
+
+$('.allList').on('tap', function() {
+if($(this).find('i').is('.mui-icon-arrowup')) {
+    $(this).find('i').removeClass('mui-icon-arrowup').addClass('mui-icon-arrowdown');
+    $(this).parent().siblings('.sx-item').css('height', 'initial');
+} else {
+    $(this).find('i').removeClass('mui-icon-arrowdown').addClass('mui-icon-arrowup');
+    $(this).parent().siblings('.sx-item').css('height', '40px');
+}
+
+})
+
+//品牌控制
+$('.sx-brand').on('tap','li',function () {
+if($(this).is('.on')){
+    $('.sx-brand li').removeClass('on');
+    $(this).removeClass('on');
+    $('#brandId').val('');
+}
+else{
+    $('.sx-brand li').removeClass('on');
+    $(this).addClass('on');
+    $('#brandId').val($(this).data('brad'));
+} 
+});
+//分类属性控制	
+$(".sx-categorical-attributes").on("tap","li",function(){
+if($(this).is('.on')){
+    $(this).siblings('li').removeClass('on');
+    $(this).removeClass('on');
+    $("#"+$(this).data("field")).val("");
+}
+else{
+    $(this).siblings('li').removeClass('on');
+    $(this).addClass('on');
+    $("#"+$(this).data("field")).val($(this).data("mid"));
+}
+});
+//更多选项控制	
+$(".fixed-orderBy").on("tap",function(){
+$("#orderBy").val($(this).data("ordernum"));
+var jvForm = getJvForm();
+jvForm.onsubmit=null;
+jvForm.submit();
+});
+//价格判断
+function searchCondition(){
+var d=$("#startPrice").val();
+var a=$("#endPrice").val();
+if((d.value=="")&&(a.value=="")){
+   alert("请输入价格区间");
+   d.focus();
+   return;
+}
+if((d.value!="")&&(a.value!="")){
+   if(Number(a.value)<Number(d.value)){
+       alert("输入价格区间 右值必须大于或等于左值");
+       a.focus();
+       return;
+    }
+}
+var jvForm = getJvForm();
+jvForm.onsubmit=null;
+jvForm.submit();
+}
+//清除条件
+function clearCondition(){
+$('#startPrice').val('');
+$('#endPrice').val('');
+$('.sx-brand li').removeClass('on');
+$('.sx-categorical-attributes li').removeClass('on');
+$('#brandId').val('');
+$('.sx-categorical-attributes input').val('');
+}
+
+mui.init({
+swipeBack: false
+});
+mui('#offCanvasSideScroll').scroll({
+scrollY: true, //是否竖向滚动
+scrollX: false, //是否横向滚动
+deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+bounce: true //是否启用回弹
+});
+//侧滑容器父节点
+var offCanvasWrapper = mui('#offCanvasWrapper');
+//主界面容器
+var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+//菜单容器
+var offCanvasSide = document.getElementById("offCanvasSide");
+
+document.getElementById('offCanvasShow').addEventListener('tap', function() {
+offCanvasWrapper.offCanvas('show');
+});
+
+mui('body').on('tap','a',function(){document.location.href=this.href;});
+/*模板*/
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    
+    var pageNo=2;  //从第二页开始加载
+    var num=30;
+    var count=10;
+    var categoryId=${category.id!};
+    [#if brandId??]
+        [#if brandId!='']
+            var brandId=${brandId!};
+        [#else]	
+            var brandId='';
+        [/#if]
+    [#else]
+        var brandId='';
+    [/#if]
+    [#if names??]
+        [#if names!='']
+            var names='${names!}';
+        [#else]	
+            var names=[];
+        [/#if]
+    [#else]			
+        var names=[];
+    [/#if]
+    [#if values??]
+        [#if values!='']
+            var values='${values!}';
+        [#else]	
+            var values=[];
+        [/#if]
+    [#else]
+        var values=[];
+    [/#if]
+    var orderBy=${orderBy!};
+    var startPrice=${startPrice!};
+    var endPrice=${endPrice!};
+    var content="";
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+        $.post("${base!}/cateGoryListLoading.jspx", {
+            pageNo:pageNo,
+            count:count,
+            categoryId:categoryId,
+            brandId:brandId,
+            names:names,
+            values:values,
+            orderBy:orderBy,
+            startPrice:startPrice,
+            endPrice:endPrice,
+            num:num
+           }, function(data) {
+            content="";
+            pageNo++;	
+           
+             if(data!=null){
+                    for (var i=0;i<data.length;i++){
+                        content=content+"<ul class='mui-table-view mui-table-view-chevron'><li class='normal-list'><a href='"+data[i].url+"'>";
+                        content=content+"<div class='box-100'><img src='${baseUrl!}"+data[i].coverImg+"' alt='' /></div>";
+                        content=content+"<section class='product-box'><div class='product-name'>"+data[i].name+"</div><div class='product-price-m clearfix'><em>¥<span class='big-price'>"+data[i].salePrice+"</span></em></div><div class='gray-pro-info'> </div></section>";
+                        content=content+"</a></li></ul>";
+                    }
+            }
+           
+            setTimeout(function() {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh((data==null));
+                var table = document.body.querySelector('.mui-table-view');
+                var li = document.createElement('li');
+                li.className = 'normal-list';
+                li.innerHTML = content;
+                table.appendChild(li);
+            }, 1500);
+        }, "json"); 	
+    }
+    if (mui.os.plus) {
+        mui.plusReady(function() {
+            setTimeout(function() {
+                mui('#pullrefresh').pullRefresh().pullupLoading();
+            }, 1000);
+
+        });
+    } else {
+        mui.ready(function() {
+            
+        });
+    }
+</script>

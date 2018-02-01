@@ -1,0 +1,47 @@
+[#--
+栏目翻页样式
+
+pageClass: 翻页DIV class
+pageStyle: 翻页DIV style
+--]
+<div class="scott">
+[#assign p=tag_pagination/]
+[#if p.firstPage]&nbsp;<a class="disabled">上一页</a>[#t/]
+[#else]&nbsp;<a class="disabled" href="${urlPrefix}[#if p.prePage gt 1]_${p.prePage}[/#if]${urlSuffix}">上一页</a>[#t/]
+[/#if]
+
+    [#list 1..p.totalPage as i]
+		[#if p.pageNo==i]
+			<span class="current">${i}</span>
+		[#elseif i==p.totalPage]
+		
+		[#else]
+			[#if i==1]
+				<a id="page_1" href="${urlPrefix}${urlSuffix}">1</a>
+			[#elseif i<8]
+				<a id="page_${i}" href="${urlPrefix}_${i}${urlSuffix}">${i}</a>
+			[/#if]
+		[/#if]
+    [/#list]...
+    <a id="page_${p.totalPage}" href="${urlPrefix}_${p.totalPage}${urlSuffix}">${p.totalPage}</a>
+    [#if p.totalPage!=1]
+			<a href="${urlPrefix}_${tag_pagination.nextPage}${urlSuffix}">下一页</a>
+	[/#if]
+    &nbsp;&nbsp;&nbsp;到第&nbsp;&nbsp;<input type="text" id="_goPs" class="ssinput" style="width:64px; border:#c3c3c3 1px 
+
+solid;" /> 页 <button id="jumptopage" onclick="_gotoPage($('#_goPs').val(),'${urlPrefix}','${urlSuffix}');" [#if 
+
+p.totalPage==1] disabled="disabled"[/#if] class="menu_queding">确定</button>
+</div>
+<script type="text/javascript">
+function _gotoPage(pageNo,urlp,urls) {
+	try{
+		var tableForm = getTableForm();
+		tableForm.action=urlp+"_"+pageNo+urls;
+		tableForm.onsubmit=null;
+		tableForm.submit();
+	} catch(e) {
+		alert('_gotoPage(pageNo)方法出错');
+	}
+}
+</script>

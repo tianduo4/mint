@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+
+$(function(){
+	$("#browser").treeview({
+		url: "v_tree.do"
+	});
+	JCore.lmenu('lmenu');
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+
+
+<div style="float:left;margin-right: 30px;width:15%;">
+	<div class="lttop" align="center">
+		<a href="javascript:location.href=location.href"><@s.m "global.refresh"/></a>&nbsp; 
+		<a href="../type/v_list.do" target="rightFrame"><@s.m "productType.function"/></a>
+	</div>
+<hr/>
+<ul id="browser" class="filetree"></ul>
+</div>
+
+<div style="border-left:1px dashed gray;height:100%;line-height:1px;float:left;"></div>
+
+<div class="rhead"  style="float: left;">
+	<div class="rpos"><@s.m "global.position"/>: <@s.m "shopArticle.function"/> - <@s.m "global.list"/></div>
+	<@authorize url="/article/v_add.do">
+	<form class="ropt">
+	    <input type="hidden" name="cid" value="${cid!}"/>
+	    <#if channel??>
+	      <#if !(channel.child?size gt 0)>
+		    <input type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='v_add.do';"/>
+		  </#if>
+		</#if>
+	</form>
+	</@authorize>
+	<div class="clear"></div>
+</div>
+
+
+<div id="div1">
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+
+<#if pagination?? && pagination.list?size gt 0>
+
+<@p.table value=pagination;shopArticle,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${shopArticle.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column title="ID" align="center">${shopArticle.id}</@p.column><#t/>
+	<@p.column code="shopArticle.title" align="center">[<a href="${shopArticle.channel.url!}" target="_blank">${shopArticle.channel.name}</a>] <a href="${shopArticle.url}" target="_blank">${shopArticle.title}</a></@p.column><#t/>
+	<@p.column code="shopArticle.publishTime" align="center">${shopArticle.publishTime?string('yyyy-MM-dd')}</@p.column><#t/>
+	<@p.column code="shopArticle.disabled" align="center"><#if shopArticle.disabled><@s.m "global.true"/><#else><@s.m "global.false"/></#if></@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+	<@authorize url="/article/v_edit.do">	<a href="v_edit.do?id=${shopArticle.id}&pageNo=${pageNo!}"><@s.m "global.edit"/></a> | <#rt/></@authorize>
+	<@authorize url="/article/o_delete.do">	<a href="o_delete.do?ids=${shopArticle.id}&pageNo=${pageNo!}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/></@authorize>
+	</@p.column><#t/>
+</@p.table>
+	<@authorize url="/article/o_delete.do"><div><input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/></div></@authorize>
+	
+	<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+	</#if>
+	
+</div>
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

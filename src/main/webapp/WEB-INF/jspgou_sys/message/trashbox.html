@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<link href="${base}/res/jeecore/css/admin.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/jeecore/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/common/css/jquery.validate.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/common/css/jquery.treeview.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/common/css/pony.tree.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/common/css/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/jspgou/css/product.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/jspgou/css/reset-min.css" rel="stylesheet" type="text/css"/>
+
+<script src="${base}/thirdparty/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<script src="${base}/r/cms/www/default/jquery.js" type="text/javascript"></script>
+<script src="${base}/res/common/js/jquery_ext.js" type="text/javascript"></script>
+<script src="${base}/res/common/js/pony.js" type="text/javascript"></script>
+<script src="${base}/res/common/js/pony.tree.js" type="text/javascript"></script>
+<script src="${base}/res/jspgou/js/jquery.idTabs.min.js" type="text/javascript"></script>
+
+<script src="${base}/res/common/js/lang/validator-${locale}.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function toList(box) {
+	$("#box").val(box);
+	$("#listFrom").submit();
+}
+function checkAll(){
+	if($("#ids").prop("checked")){
+		$("input[name='ids']").each(function(i){
+			$(this).prop("checked","checked");
+		 });
+		}else{
+			$("input[name='ids']").each(function(i){
+				$(this).prop("checked","");
+			 });
+		}
+}
+function empty(){
+	var ids=new Array();
+	$("input[name='ids']").each(function(i){
+		if($(this).prop("checked")){
+			ids.push($(this).val());
+		}
+	 });
+	 if(ids.length>0){
+		 if(!confirm("您确定要彻底删除这些信息吗？")) {
+				return;
+			}
+		 $.ajax({
+			 url: 'v_empty.do',
+			 type: 'post',
+	         dataType: 'json',
+	         data: $("#tableForm").serialize(),
+	         success:function(data) {
+					if(data.result){
+						for(var i=0;i<ids.length;i++){
+							$("#id_"+ids[i]).parent().parent().remove();
+							}
+						 $("#msgDiv").html("您选择的站内信息已被彻底删除 ");
+					}else{
+						alert("请先登录");
+					}
+				}
+		 });
+		 }else{
+			 $("#msgDiv").html("请先选择信息");
+			 }
+}
+//还原操作
+function revert(){
+	var ids=new Array();
+	$("input[name='ids']").each(function(i){
+		if($(this).prop("checked")){
+			ids.push($(this).val());
+		}
+	 });
+	 if(ids.length>0){
+		 if(!confirm("您确定要还原这些信息吗？")) {
+				return;
+			}
+		 $.ajax({
+			 url: 'v_revert.do',
+			 type: 'post',
+	         dataType: 'json',
+	         data: $("#tableForm").serialize(),
+	         success:function(data) {
+					if(data.result){
+						for(var i=0;i<ids.length;i++){
+							$("#id_"+ids[i]).parent().parent().remove();
+							}
+						 $("#msgDiv").html("您选择的站内信息已还原 ");
+					}else{
+						alert("请先登录");
+					}
+				}
+		 });
+		 }else{
+			 $("#msgDiv").html("请先选择信息");
+			 }
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 站内信 - 垃圾箱</div>  
+ 	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+	<div class="clear"></div>
+</div>
+        
+        <form id="tableForm" method="post">
+        <input type="hidden" name="pageNo" value="${pageNo!}"/>
+        <input type="hidden" name="box" value="${box!}"/>
+        <input type="hidden" name="msg" value="<@s.m "cmsMessage.msg"/>"/>
+        <#if pagination?? && pagination.list?size gt 0>
+        <@p.table value=pagination;message,i,has_next><#rt/>
+            <@p.column title="<input type='checkbox' id='ids' onclick='checkAll();'/>" width="40" align="center" style="height:38px">
+                <input type='checkbox' name='ids' value='${message.id}' id="id_${message.id!}" /><#t/>
+            </@p.column><#t/>
+            <@p.column title="ID" width="50" align="center">${message.id}</@p.column><#t/>
+            <@p.column code="cmsMessage.title">
+                <#if message.msgStatus>
+                    <a href="v_read.do?id=${message.id!}&&box=3"><@text_cut s=message.titleHtml len='15' append='...'/></a>
+                <#else>
+                    <a href="v_read.do?id=${message.id!}&&box=3"><strong><@text_cut s=message.titleHtml len='15' append='...'/></strong></a>
+                </#if>
+            </@p.column><#t/>
+            <@p.column code="cmsMessage.sendUser" align="center">${message.msgSendUser.username!}</@p.column><#t/>
+            <@p.column code="cmsMessage.receiverUser" align="center">${message.msgReceiverUser.username!}</@p.column><#t/>
+            <#if message.sendTime??>
+                <@p.column code="cmsMessage.sendTime" align="center">${message.sendTime?string('yyyy-MM-dd HH:mm:ss')}</@p.column><#t/>
+            <#else>
+                <@p.column code="cmsMessage.sendTime" align="center"></@p.column><#t/>
+            </#if>
+        </@p.table>
+        <div>
+        <input class="delete_menu" type="button" onclick="revert()" value="<@s.m "cmsMessage.revert"/>"/>
+        <input class="delete_menu" type="button" onclick="empty()" value="<@s.m "cmsMessage.trash"/>"/>
+        <span id="msgDiv" style="color: red;"></span>
+        </div>
+        <#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+		</#if>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员订单详情 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+function addCart(orderId){
+	$("#orderId").val(orderId);
+    $("#jvForm").attr("action","${base}/cart/add_orderItem1.jspx");
+	$("#jvForm").submit();
+}
+function addToCollect(productId,productFashId){
+	$.post('${base}/collect/add_to_collect.jspx',{
+		'productId':productId,
+		'productFashId':productFashId
+		}, function(data){
+            if(data.status == 1){
+            	 alert('收藏成功!');
+            }else if(data.status== 2){
+                    alert('收藏过该商品');
+                }
+            else{
+            	location.href='${base}/login.jspx';
+                }
+        
+			},'json');
+}
+
+function addToCart(productId,count,fashId) {
+	$.post('${base}/cart/add_orderItem.jspx', {
+		'productId' : productId,
+		'productAmount' : count,
+		'fashId': fashId
+	}, function(data) {
+		if(data.status==1) {
+			location.href='${base}/cart/shopping_cart.jspx?backUrl=${location}';
+		} else if(data.status==0) {
+			location.href='${loginUrl}';
+		} else {
+			alert(data.error);
+		}
+	},'json');
+}
+</script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">订单详情</h1>
+</header>
+<div class="mb44" style="padding-top:45px;">
+     <div id="container">
+        <div class="order_conhead">
+            <ul>
+                <li>订单编号：<span style="color:#fe0000;">${order.code}</span></li>
+                <li>下单日期：<span style="color:#fe0000;">${order.createTime}</span></li>
+                <li>订单状态：<span style="color:#fe0000;"> [#if order.status=3][@s.m "order.status.${order.status}"/][#elseif order.status=4][@s.m "order.status.${order.status}"/]
+                [#elseif order.paymentStatus=1][@s.m "order.paymentStatus.${order.paymentStatus}"/]&nbsp;[#if order.shippingStatus=2][@s.m "order.shippingStatus.${order.shippingStatus}"/][/#if]
+                [#elseif order.paymentStatus=2][@s.m "order.paymentStatus.${order.paymentStatus}"/]&nbsp;[@s.m "order.shippingStatus.${order.shippingStatus}"/][/#if]
+                </span></li>
+                <li style="padding:10px 0; display:none;">
+                <form id="jvForm" action="../cart/add_orderItem1.jspx" method="post">
+                <input type="hidden" id="orderId" name="orderId" value="${order.id}" />
+                <button class="menu_submit"  onclick="addCart(${order.id});" style="margin:auto;">再放进购物车</button>
+                </form>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="order_conhead">
+            <dl>
+                <dt style="line-height:30px; text-align:center; font-size:14px; border-bottom:1px solid #eee; border-top:8px solid #eee;">收货人信息</dt>
+                <dd>收货人：${order.receiveName!}</dd>
+                <dd>收货地址：${order.receiveAddress!}</dd>
+                <dd>手机号码：${order.receiveMobile!}</dd>
+                <dd>固定号码：${order.receivePhone!}</dd>
+                <dd>邮政编码：${order.receiveZip!}</dd>
+            </dl>
+            <dl>
+                <dt style="line-height:30px; text-align:center; font-size:14px; border-bottom:1px solid #eee; border-top:8px solid #eee;">配送信息</dt>
+                <dd>送货方式：${order.shipping.name!}</dd>
+                <dd>运费：&yen;${order.freight!}</dd>
+            </dl>
+            <dl>
+                <dt style="line-height:30px; text-align:center; font-size:14px; border-bottom:1px solid #eee; border-top:8px solid #eee;">支付信息</dt>
+                <dd>支付状态： [#if order.status=3][@s.m "order.status.${order.status}"/][#elseif order.status=4][@s.m "order.status.${order.status}"/]
+                [#elseif order.paymentStatus=1][@s.m "order.paymentStatus.${order.paymentStatus}"/]&nbsp;[#if order.shippingStatus=2][@s.m "order.shippingStatus.${order.shippingStatus}"/][/#if]
+                [#elseif order.paymentStatus=2][@s.m "order.paymentStatus.${order.paymentStatus}"/]&nbsp;[@s.m "order.shippingStatus.${order.shippingStatus}"/][/#if]
+                </dd>
+                <dd>支付方式： ${order.payment.name}</dd>
+            </dl>
+            <dl>
+            <dt style="line-height:30px; text-align:center; font-size:14px; border-bottom:1px solid #eee; border-top:8px solid #eee;">积分信息</dt>
+            <dd>可获积分：￥${order.score!0}[#if order.status==20](可用积分)[#else](冻结中)[/#if]</dd>
+            <dd style="text-align:center; border-top:1px solid #eee;">
+            <a href="${base}/xsrm/20.htm" target="_blank" style="margin-right:10px;">查看积分规则</a>
+            <a href="${base}/shopScore/myscore.jspx" target="_blank">查看我的积分</a>
+            </dd>
+            </dl>
+            <div style="border-top:8px solid #eee; border-bottom:1px solid #eee; line-height:30px; text-align:center; font-size:14px;">
+            商品信息
+            </div> 
+            
+            [#list order.items as item]
+                <div class="order-info clearfix">
+                    <div class="order-img"><a href="${item.product.url!}"><img src="${baseUrl!}${item.product.productExt.coverImg!}"/></a></div>
+                    <div class="order-other">
+                        <div class="order-inner">
+                        	<span class="order-name"><a href="${item.product.url!}">${item.product.name}</a></span>
+                        
+                        	<span class="order-price">价格：[#if item.productFash??]${item.productFash.salePrice!}[#else]${item.product.salePrice!}[/#if]</span>
+                        </div>
+                        <div class="order-outer">
+                        	<span class="order-type">数量：${item.count}</span>
+                            <span class="order-num">金额小计：[#if item.productFash??]${item.productFash.salePrice*item.count!}[#else]${item.product.salePrice*item.count!}[/#if]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="order-btn-warp">
+                [#if item.productFash??]
+                    <a class="order-btn gray" onclick="javascript:addToCollect(${item.product.id},${item.productFash.id});" style="display:block; width:60px;">收藏</a>
+                    [#else]
+                    <a class="order-btn gray" onclick="javascript:addToCollect(${item.product.id},'');" style="display:block; width:60px;">收藏</a>
+                    [/#if]
+                    [#if item.productFash??]
+                    <button class="order-btn gray" onclick="javascript:addToCart(${item.product.id},${item.count},${item.productFash.id});" style=" width:100px;">再放进购物车</button>
+                    [#else]
+                    <button class="order-btn gray" onclick="javascript:addToCart(${item.product.id},${item.count},'');" style=" width:100px;">再放进购物车</button>
+                    [/#if]
+                </div>
+            	
+            [/#list]
+            
+            <div style="border-top:8px solid #eee; padding:10px; text-align:right;">
+                <p>商品总金额：<span style="color:#cc0000;">&yen;${order.productPrice!}</span></p>
+                <p>运费：<span style="color:#cc0000;">+&yen;${order.freight!}</span></p>
+                <p>发货前需先支付：<span style="color:#cc0000;">&yen;${order.total!}</span></p>
+            </div>
+        </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+
+
+function checkReceiverUser(){
+	if($("#username").val()==""&&$("#groupId").val()==-1){
+		$("#usernameMsg").html("* 没有填写收件人或者选择会员组");
+	}else{
+		$("#usernameMsg").html();
+		$("#jvForm").submit();
+	}
+}
+
+
+function find_user(){
+	var username=$("#username").val();
+	if(username!=""){
+		$.post("v_findUser.do", {
+			"username" : username
+		}, function(data) {
+			if(data.result==true){
+				if(data.frontuser){
+					$("#usernameMsg").html("不能给自己发站内信");
+					$("#username").val("");
+				}else if(data.exist){
+					$("#usernameMsg").html("没有此用户");
+					$("#username").val("");
+				}else{
+					$("#usernameMsg").html("");
+				}
+			}else if(data.result==false){
+					alert("请先登录");
+			}
+		}, "json");
+	}
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>:发送站内信 - <@s.m "global.add"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<@p.form id="jvForm" action="v_send.do" labelWidth="10">
+        <@p.td  label="收件人" colspan="2" width="50">
+        <input  name="username" id="username" maxlength="100" onchange="find_user()" <#if message??>value="${message.username!}"</#if>/>
+                     会员组选择
+        <select name="groupId" id="groupId">
+          <option value="-1">请选择</option>
+          <option value="0">全部会员</option>
+          <#list groupList as group>
+             <option value="${group.id!}">${group.name!}</option>
+          </#list>
+        </select>
+                 请填写收件人或者选择会员组（两者必选其一，选择会员组批量发送站内信）
+        <span style="color: red;" id="usernameMsg"></span>
+        </@p.td>
+        <@p.tr/>
+        <#if message??>
+            <@p.text colspan="2" width="50" label="标题" name="msgTitle"  required="true" class="required" maxlength="100" value="${message.titleHtml!}" />
+            <@p.tr/>
+            <@p.textarea  style="width:90%;height:350px" wrap="off" maxlength="1024000"  label="内容" name="msgContent" value="${message.msgContent!}"/>
+            <@p.tr/>
+        <#else>
+            <@p.text colspan="2" width="50" label="标题" name="msgTitle"  required="true" class="required"  maxlength="100"/>
+            <@p.tr/>
+            <@p.textarea  style="width:90%;height:350px;word-wrap:break-word" maxlength="1024000"  label="内容" name="msgContent"/>
+            <@p.tr/>
+        </#if>
+        <@p.td colspan="2"><@p.button code="global.submit" onclick="checkReceiverUser()" class="submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+        
+   </@p.form>
+</div>
+</body>
+</html>

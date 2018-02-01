@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>:  配置 - <@s.m "Webservice.function"/> - <@s.m "global.edit"/></div>
+	<form class="ropt">
+		<input class="return-button" type="button" value="<@s.m "global.backToList"/>" onclick="history.back();"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<@p.form id="jvForm" action="o_update.do">
+<@p.text label="Webservice.address" name="address" value=Webservice.address required="true" class="required" maxlength="100"/><@p.tr/>
+<@p.text label="Webservice.targetNamespace" name="targetNamespace" value=Webservice.targetNamespace  maxlength="100"/><@p.tr/>
+<@p.text label="Webservice.operate" name="operate" value=Webservice.operate maxlength="100"/><@p.tr/>
+<@p.select  label="Webservice.type" name="type" value=Webservice.type   list={"addUser":"添加用户","updateUser":"修改用户","deleteUser":"删除用户"} required="true"/><@p.tr/>
+
+<@p.text label="Webservice.successResult" name="successResult" value=Webservice.successResult  maxlength="100"/><@p.tr/>
+<@p.td  label="Webservice.param.list">
+<@p.button code="Webservice.param.add" onclick="addParamLine()"/> 
+<table border="0" >
+<tr>
+	<td>
+		<div>
+		<span style="width:100px"><@s.m "Webservice.param.name"/></span>
+		<span style="width:100px"><@s.m "Webservice.param.default"/></span>
+		</div>
+	</td>
+</tr>
+</table>
+<#list Webservice.params as param>
+<table id="paramTable${param_index+1}" border="0" >
+<tr>
+	<td>
+		<div>
+		<input type="text"  name="paramName" value="${param.paramName!}" style="width:100px"/> 
+		<input type="text"  name="defaultValue" value="${param.defaultValue!}" style="width:100px"/>
+		<a href="javascript:void(0);" onclick="$('#paramTable${param_index+1}').remove();" class="pn-opt"><@s.m "global.delete"/></a>
+		</div>
+	</td>
+</tr>
+</table>
+</#list>
+<div id="paramBefore" style="clear:both"></div>
+<textarea id="paramTable" style="display:none;">
+<table id="paramTable{0}" border="0" >
+<tr >
+	<td>
+		<div>
+		<input type="text"  name="paramName"  style="width:100px"/> 
+		<input type="text"  name="defaultValue"  style="width:100px"/>
+		<a href="javascript:void(0);" onclick="$('#paramTable{0}').remove();" class="pn-opt"><@s.m "global.delete"/></a></div>
+	</td>
+</tr>
+</table>
+</textarea>
+<script type="text/javascript">
+var paramIndex = ${Webservice.params?size+1};
+var paramTpl = $.format($("#paramTable").val());
+function addParamLine() {
+	$('#paramBefore').before(paramTpl(paramIndex++));
+}
+</script>
+</@p.td><@p.tr/>
+<@p.td><@p.hidden name="id" value=Webservice.id/><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+</@p.form>
+</div>
+</body>
+</html>

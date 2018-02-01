@@ -1,0 +1,78 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dropdown</title>
+	<script language="JavaScript" src="${base}/res/common/js/SystemEvent.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/elementProperty.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/elementNode.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/Canvas.1.0.1.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/TemplateEdit.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/DataSource.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/Tools.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/PublicData.js"></script>
+	<script src="${base}/res/common/js/jquery.min.js"></script>
+	<script src="${base}/res/common/js/dropdown.js"></script>
+	<script src="${base}/res/common/js/tooltip.js"></script>
+	<script language="javascript" src="${base}/res/common/js/jquery.jqprint-0.3.js"></script>
+	<script type="text/javascript" src="${base}/res/common/js/jquery.PrintArea.js"></script>   
+	<script src="${base}/res/common/js/transition.js"></script>
+	<script src="${base}/res/common/js/collapse.js"></script>
+	<script src="${base}/res/common/js/modal.js"></script>
+	<script src="${base}/res/common/js/layer.js"></script>
+	<link href="${base}/res/common/css/ruler.css" rel="stylesheet" type="text/css" />
+	<link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head> 
+<body>
+<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+</BODY>
+<script language="JavaScript">
+var template=new TemplateEdit({
+jTemplates:[
+            {"title":"EMS",
+             "backgroundImage":"url('${logistics.imgUrl!}')",
+             "printpc":10,
+             "container":{"left":-859,"top":57,"right":1600,"bottom":557,"width":1440,"height":500},
+             "elements":[                        
+                         {"top":"${logistics.fnt!}px","left":"${logistics.fnz-980!}px","width":"${logistics.fnw!}px","height":"${logistics.fnh!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#发货人姓名#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fnwh!}","fontsize":""},
+                         {"top":"${logistics.fat!}px","left":"${logistics.faz-980!}px","width":"${logistics.faw!}px","height":"${logistics.fah!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#发货人联系地址#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fawh!}","fontsize":""},
+                         {"top":"${logistics.fpt!}px","left":"${logistics.fpz-980!}px","width":"${logistics.fpw!}px","height":"${logistics.fph!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#发货人手机号#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fpwh!}","fontsize":""},
+                         {"top":"${logistics.snt!}px","left":"${logistics.snz-980!}px","width":"${logistics.snw!}px","height":"${logistics.snh!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#收货人姓名#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.snwh!}","fontsize":""},
+                         {"top":"${logistics.sat!}px","left":"${logistics.saz-980!}px","width":"${logistics.saw!}px","height":"${logistics.sah!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#收货人联系地址#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.sawh!}","fontsize":""},
+                         {"top":"${logistics.spt!}px","left":"${logistics.spz-980!}px","width":"${logistics.spw!}px","height":"${logistics.sph!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#收货人手机号#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.spwh!}","fontsize":""}
+                         ]
+             }
+            ]
+	});
+window.onresize = function(){
+	template.ResetPosition();
+}
+$(function() {
+	$("#submit").click(function () {		
+		if($("#courier").val()==''||$("#courier").val()==null){
+			alert("请先保存模板再提交!");
+	        return false;
+		}if($("#evenSpacing").val()==''||$("#evenSpacing").val()==null){
+			alert("请添加套打间距提交!");
+	        return false;
+		}
+    });
+});  
+</script> 
+</body>
+<#include "/common/image_upload.html"/>
+<form action="o_courierEdit.do" method="post">
+<input type="hidden" id="uploadImgPath1" name="imgUrl" value="${logistics.imgUrl!}" size="30"/>
+<span id="ufc1"><input type="file" id="uploadFile1" class="selectFile" style="border:0; padding:0 7px 0 0;" size="20"/></span> 
+<input type="button" value="上传背景图片" onclick="upload(1);"/><br/>
+
+
+<input type="hidden" id="courier" name="courier"/>
+套打间距：<input type="text" value="${logistics.evenSpacing!}" name="evenSpacing" class="required number" required="true" id="evenSpacing"/>
+<input type="hidden" id="logisticsId" name="logisticsId" value="${logistics.id!}"/>
+<input type="submit" id="submit" class="tijiao_menu mtb20"/><input type="reset" class="chongzhi_menu mtb20"/>
+</form>
+</html>	

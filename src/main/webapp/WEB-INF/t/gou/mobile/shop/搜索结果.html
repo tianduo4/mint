@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<title>商品搜索结果页</title>
+<script src="${root}/mobile/js/rem.js"></script>
+<script src="${root}/mobile/js/jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" href="${root}/mobile/css/cpList.css" />
+<script src="${root}/mobile/js/mui.min.js"></script>
+</head>
+
+<body>
+	<!--侧滑菜单容器-->
+	<div id="offCanvasWrapper"
+		class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+		<!--菜单部分-->
+		<form id="jvForm" action="${urlPrefix}${urlSuffix}">
+			<input type="hidden" name="q" value="${q!}" /> <input type="hidden"
+				name="orderBy" id="orderBy" value="${orderBy!}" /> [#if orderBy??]
+			[#assign orderBy = (orderBy)?number][/#if] [#if startPrice??]
+			[#assign startPrice = (startPrice)?number][/#if] [#if endPrice??]
+			[#assign endPrice = (endPrice)?number][/#if]
+
+		</form>
+		<!--原始代码-->
+		<div class="mui-inner-wrap">
+			<header class="mui-bar mui-bar-nav">
+				<a
+					class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-red"></a>
+
+				<h1 class="mui-title">商品搜索</h1>
+
+			</header>
+			<!--选择条-->
+			<ul class="fixed-bar">
+				[#if q??]
+					 [@shop_lucene_page q=q ctgId=ctgId descLen='100' append='...' count='20' brandId=brandId orderBy=orderBy]
+						<li>
+						           您搜索的<span class="red">“${q!}”</span>， 共有 <span class="red">${tag_pagination.totalCount}
+								条</span>
+						</li> 
+					[/@shop_lucene_page]
+			   [/#if]
+
+			</ul>
+			<!--下拉刷新容器-->
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					[#if q??] [@shop_lucene_page q=q ctgId=ctgId brandId=brandId
+					descLen='100' append='...' count='4' orderBy=orderBy] [#if
+					tag_list?size gt 0]
+					<!--数据列表-->
+					<ul class="mui-table-view mui-table-view-chevron">
+						[#list tag_list as product]
+
+						<li class="normal-list"><a href="${product.url!}">
+								<div class="box-100">
+									<img
+										src="[#if product.coverImgUrl??]${baseUrl!}${product.coverImgUrl!}[#else]${baseUrl!}${global.defMobileImg!}[/#if]"
+										alt="" />
+								</div>
+								<section class="product-box">
+									<div class="product-name">[@text_cut s=product.name len='30' append='...'/]</div>
+									<div class="product-price-m clearfix">
+										<em>¥ <span class="big-price">${product.salePrice!0}</span>
+										</em>
+									</div>
+									<div class="gray-pro-info"></div>
+								</section>
+						</a></li> [/#list]
+					</ul>
+					[#else]
+					<p style="text-align:center; line-height:50px;">暂无查询记录</p>
+					[/#if] [/@shop_lucene_page] [/#if]
+				</div>
+			</div>
+			<!-- off-canvas backdrop -->
+			<div class="mui-off-canvas-backdrop"></div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+    function getJvForm(){
+		return document.getElementById("jvForm");
+	}
+</script>

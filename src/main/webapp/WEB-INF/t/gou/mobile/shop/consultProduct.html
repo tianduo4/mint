@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>购买咨询 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<style>
+.use-msg .wen{background:#09F; color:#fff; padding:1px 5px; border-radius:2px;}
+.use-msg .da{background:#F60; color:#fff; padding:1px 5px; border-radius:2px;}
+.use-info, .use-msg, .use-msg p{ margin-bottom:10px;}
+.com-time{ font-size:14px; color:#999;}
+body{ font-size:14px;}
+</style>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">购买咨询</h1>
+</header>
+<div class="mb44" style="padding:50px 10px 10px 10px;">
+<form id="loginForm" action="${base!}/login.jspx" method="get" target="_top"></form>
+<form id="tableForm" action="consultProduct.jspx" method="post">
+    <input type="hidden" value="${product.id!}" name="productId">
+</form>
+<!--
+<div style="font-size:14px;">
+提出你的疑惑，让商家来帮你解答吧！ <input type="button" onclick="showProblem(${product.id!});" value="提问" style="background:#fff; line-height:24px; text-align:center; color:#cc0000; border:1px solid #cc0000; padding:0 15px; border-radius:2px;" />
+</div>
+-->
+<div id="problem" style="display: block; margin:15px auto 30px auto;">
+<textarea rows="6" cols="60" name="content" id="goods_question_contens_box" style="border:1px solid #ddd; height:60px; border-radius:2px; padding:0 1%; width:100%; margin:auto;" placeholder="提出你的疑惑，让商家来帮你解答吧！请输入咨询内容"></textarea>
+<input type="button" value="提交" align="middle" onClick="insertConsult('${product.id}');" class="menu_submit" style="margin:10px auto auto auto; width:200px; display:block;" />
+</div>
+
+<div style=" background:url(/r/gou/www/images/member/line.gif) repeat-x; line-height:20px; text-align:center; margin:30px 0 15px 0;">
+	<span style="background:#fff; padding:0 10px; font-size:15px;">商品咨询</span>
+</div>
+[@cousult_list productId=product.id count="4"] 
+[#if tag_pagination.list?size gt 0]
+<div class="dt-com">
+    <ul class="com-ul">
+    [#list tag_pagination.list as c]
+        <li class="cfix">
+            <div class="use-info">
+                <p>
+                	<img src="/r/gou/www/images/member/ico_yonghu.png" width="16" height="16" />${c.member.username!}
+                	<span class="com-time">( ${c.time} )</span>
+                </p>
+            </div>
+            [#if c.adminReplay??]
+            <div class="use-msg">
+                <p><span class="wen">问</span>：${c.consult!}</p>
+                <p class="com-an"><span class="da">答</span>：${c.adminReplay}</p>
+            </div>
+            [#else]
+            <div class="use-msg">
+                <p><span class="wen">问</span>：${c.consult!}</p>
+               
+            </div>
+            [/#if]
+        </li>
+    [/#list] 
+    </ul>
+</div>
+<!--<div align="center">[@pagination_style sysPage='4'/]</div>-->
+[#else]
+<div class="dt-com" style="text-align:center; font-size:14px; line-height:40px;">暂无数据</div>
+[/#if]
+[/@cousult_list]
+<script type="text/javascript">
+function insertConsult(pid,mid){
+var content=$("#goods_question_contens_box").val();
+$.post("insertConsult.jspx",{
+productId:pid,content:content
+},function(data){
+if(data=='false'){
+alert('请先登入！');
+var loginForm=getLoginForm();
+loginForm.submit();
+}else if(data=='sameUsually'){
+alert('请稍后发表');
+
+} else if(data=='success'){
+alert('成功');
+}else if(data=='empty'){
+alert("请先输入问题!");
+}
+});
+}
+
+function getLoginForm(){
+return document.getElementById("loginForm");
+}
+function getTableForm(){
+return document.getElementById("tableForm");
+}
+function showProblem(productId){
+$.post("showProblem.jspx",{productId:productId},
+function(data){
+if(data=='false'){ 
+alert('请先登录！'); 
+getLoginForm().submit();
+}else if(data=='success'){
+document.getElementById("problem").style.display ="block";
+}
+});
+}
+</script>
+</div>
+</body>
+</html>

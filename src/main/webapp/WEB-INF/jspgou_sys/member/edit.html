@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+<style type="text/css">
+.addr{padding:2px 0;}
+</style>
+</head>
+<body>
+<#include "/common/image_upload.html"/>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>:  会员 - <@s.m "member.function"/> - <@s.m "global.edit"/></div>
+	<form class="ropt">
+		<input type="button" value="<@s.m "global.backToList"/>" onclick="history.back();"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+<#assign emailExist><@s.m "error.emailExist"/></#assign>
+<@p.form id="jvForm" action="o_update.do" labelWidth="12">
+<@p.text colspan="1" width="50" label="member.username" id="username" name="username" value=member.username rvalue=member.username size="30" disabled="disabled"/>
+<@p.text colspan="1" width="50" label="member.email" id="email" name="email" value=member.email rvalue=member.email size="30" required="true" vld="{required:true,email:true,maxlength:100,remote:'../admin/v_check_email.do',messages:{remote:'${emailExist}'}}"/><@p.tr/>
+<@p.password colspan="1" width="50" label="member.password" id="password" name="password" maxlength="32"/>
+<@p.password colspan="1" width="50" label="member.pwdAgain" equalTo="#password" maxlength="32"/><@p.tr/>
+<@p.select colspan="1" width="50" label="group.function" id="groupId" name="groupId" value=member.group.id list=groupList listKey="id" listValue="name" required="true"/>
+<@p.text colspan="1" width="50" label="member.score" id="score" name="score" value=member.score required="true" class="required digits" maxlength="10"/><@p.tr/>
+<@p.text colspan="1" width="50" label="member.realname" id="realName" name="realName" value=member.realName maxlength="10"/>
+<@p.radio colspan="1" width="50" label="member.gender" id="gender" name="gender" value=member.gender required="true" list={"true":"member.gender.male","false":"member.gender.female"}/><@p.tr/>
+<@p.text colspan="1" width="50" label="member.birthday" id="birthday" name="birthday" value=member.birthday onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+<@p.radio colspan="1" width="50" label="member.marriage" id="marriage" name="marriage" value=member.marriage required="true" list={"true":"member.marriage.married","false":"member.marriage.unmarried"," ":"member.secrecy"}/><@p.tr/>
+<@p.text colspan="1"  width="50" label="member.mobile" id="mobile" name="mobile" value=member.mobile class="digits" maxlength="50"/>
+<@p.text colspan="1"  width="50" label="member.tel" id="tel" name="tel" value=member.tel maxlength="50"/><@p.tr/>
+<@p.text colspan="1"  width="50" label="member.schoolTag" id="schoolTag" name="schoolTag" value=member.schoolTag maxlength="50"/>
+<@p.text colspan="1" width="50" label="member.schoolTagDate" id="schoolTagDate" name="schoolTagDate" value=member.schoolTagDate onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/><@p.tr/>
+<@p.radio colspan="1" width="50" label="member.disabled" id="disabled" name="disabled" value=member.disabled  required="true" list={"true":"global.true","false":"global.false"}/>
+<@p.radio colspan="1" width="50" label="member.isCar" id="isCar" name="isCar" value=member.isCar required="true" list={"true":"global.true","false":"global.false"}/><@p.tr/>
+<@p.text colspan="2"  width="50" label="member.position" id="position" name="position" value=member.position maxlength="50"/><@p.tr/>
+
+
+<#if member.userDegree??>
+<@p.select colspan="1" width="50" label="userDegree.function" id="userDegreeId" name="userDegreeId"  value=member.userDegree.id list=userDegreeList listKey="id" listValue="name" required="true"/>
+<#else>
+<@p.select colspan="1" width="50" label="userDegree.function" id="userDegreeId" name="userDegreeId" list=userDegreeList listKey="id" listValue="name" required="true"/>
+</#if>
+<#if member.degree??>
+<@p.select colspan="1" width="50" label="degree.function" id="degreeId" name="degreeId" value=member.degree.id list=degreeList listKey="id" listValue="name" required="true"/><@p.tr/>
+<#else>
+<@p.select colspan="1" width="50" label="degree.function" id="degreeId" name="degreeId" list=degreeList listKey="id" listValue="name" required="true"/><@p.tr/>
+</#if> 
+<#if member.incomeDesc??>
+<@p.select colspan="1" width="50" label="incomeDesc.function" id="incomeDescId" name="incomeDescId" value=member.incomeDesc.id list=incomeDescList listKey="id" listValue="name" required="true"/>
+<#else>
+<@p.select colspan="1" width="50" label="incomeDesc.function" id="incomeDescId" name="incomeDescId" list=incomeDescList listKey="id" listValue="name" required="true"/>
+</#if>
+<#if member.workSeniority??>
+<@p.select colspan="1" width="50" label="workSeniority.function" id="workSeniorityId" name="workSeniorityId" value=member.workSeniority.id list=workSeniorityList listKey="id" listValue="name" required="true"/><@p.tr/>
+<#else>
+<@p.select colspan="1" width="50" label="workSeniority.function" id="workSeniorityId" name="workSeniorityId" list=workSeniorityList listKey="id" listValue="name" required="true"/><@p.tr/>
+</#if>
+<#if member.familyMembers??>
+<@p.select colspan="2" width="100"  label="familyMembers.function" id="familyMembersId" name="familyMembersId" value=member.familyMembers.id list=familyMembersList listKey="id" listValue="name" required="true"/><@p.tr/>
+<#else>
+<@p.select colspan="2" width="100"  label="familyMembers.function" id="familyMembersId" name="familyMembersId" list=familyMembersList listKey="id" listValue="name" required="true"/><@p.tr/>
+</#if>
+<@p.td label="头像" colspan="1" width="50" noHeight="true">
+<@p.text id="uploadImgPath1" name="avatar" value=member.avatar! size="30"/> <input type="button" value="<@s.m "imageupload.clear"/>" onclick="clearImg(1);"/><br/>
+<span id="ufc1"><input type="file" id="uploadFile1" size="20"/></span> <input type="button" value="<@s.m "imageupload.upload"/>" onclick="upload(1);"/><br/>
+<@s.m "global.width"/>: <input type="text" id="zoomWidth1" value="139" size="5"/> <@s.m "global.height"/>: <input type="text" id="zoomHeight1" value="139" size="5"/> <input type="button" value="<@s.m "imageupload.cut"/>" onclick="imgCut(1);"/> 
+</@p.td><@p.td colspan="1" width="50">
+<img id="preImg1" alt="<@s.m "imageupload.preview"/>" src="${member.avatar!}" style="<#if !member.avatar??>width:100px;height:70px;</#if>background-color:#CCCCCC;border:1px solid #333"/>
+</@p.td><@p.tr/>
+<@p.text colspan="2" width="100" label="member.company" id="company" name="company" value=member.company size="70" maxlength="100" /><@p.tr/>
+<@p.text colspan="2" width="100" label="member.address" id="address" name="address" value=member.address size="70" maxlength="100" /><@p.tr/>
+<@p.textarea colspan="2" label="member.favoriteBrand" id="favoriteBrand" name="favoriteBrand" value=member.favoriteBrand maxlength="255" cols="70" rows="5"/><@p.tr/>
+<@p.textarea colspan="2" label="member.favoriteStar" id="favoriteStar" name="favoriteStar" value=member.favoriteStar maxlength="255" cols="70" rows="5"/><@p.tr/>
+<@p.textarea colspan="2" label="member.favoriteMovie" id="favoriteMovie" name="favoriteMovie" value=member.favoriteMovie maxlength="255" cols="70" rows="5"/><@p.tr/>
+<@p.textarea colspan="2" label="member.favoritePersonage" id="favoritePersonage" name="favoritePersonage" value=member.favoritePersonage maxlength="255" cols="70" rows="5"/><@p.tr/>
+
+<@p.td colspan="2"><@p.hidden name="id" value=member.id/><@p.submit code="global.submit"/>&nbsp; <@p.reset code="global.reset"/></@p.td>
+</@p.form>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: <@s.m "shopArticle.function"/> - <@s.m "global.add"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<@p.form id="jvForm" action="o_save.do" labelWidth="12">
+<@p.select colspan="2" width="100" label="shopArticle.channel" name="channelId" list=channelList  value=(cid)!  listKey="id" listValue="name" listDeep="deep" headerKey="" headerValue="global.none" required="true"/><@p.tr/>
+<@p.td colspan="2" width="100"  label="shopArticle.title" required="true" >
+<@p.text name="title" size="70" required="true" class="required"  maxlength="255"/>
+<label><input type="checkbox" onclick="$('#linkDiv').toggle(this.checked);if(!this.checked){$('#link').val('');}"/><@s.m "global.link"/></label>
+<div id="linkDiv" style="display:none">url: <input type="text" id="link" name="link" size="35" maxlength="255"/></div>
+</@p.td><@p.tr/>
+<@p.text colspan="1" width="50" label="shopArticle.publishTime" readonly="readonly" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" help="shopArticle.publishTime.help"/>
+<@p.radio colspan="1" width="50" label="shopArticle.disabled" name="disabled" value="false" list={"true":"global.true","false":"global.false"}/><@p.tr/>
+<@p.editor colspan="2" width="100"  label="shopArticle.content" name="content" height="300"/><@p.tr/>
+<@p.td colspan="2" width="100"  label="shopArticle.extendData">
+<@s.m "shopArticle.data"/>2: <@p.text name="param2"/> &nbsp;
+<@s.m "shopArticle.data"/>3: <@p.text name="param3"/>
+</@p.td><@p.tr/>
+<@p.td colspan="2" width="100" ><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+</@p.form>
+</div>
+</body>
+</html>

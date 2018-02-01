@@ -1,0 +1,40 @@
+body{margin:0;padding:0;font-size:12px;color:#364f56;background-color:#FFFFFF;}
+img{border:0px;}
+form{margin:0; padding:0;}
+input[type=text],input[type=password],textarea{border-top:1px solid #404040;border-left:1px solid #404040;border-right:1px solid #D4D0C8;border-bottom:1px solid #D4D0C8;}
+input[type=text][disabled=disabled],.disabled{background:#D4D0C8;}
+input[type=text],input[type=password]{height:17px;}
+input[type=text]:focus,input[type=password]:focus,textarea:focus{border:1px solid #000000;}
+/*閾炬帴鎬荤殑css瀹氫箟*/
+a{text-decoration:none;}
+a:link{color:#364f56;}
+a:visited{color:#333333;}
+a:hover{color: #ae0927;}
+a:active {color: #0000ff;}
+/*鑿滃崟閾炬帴*/
+a.channel:link {color:#ffffff;}
+a.channel:visited {color:#ffffff;}
+a.channel:hover{color:#ffff00;}
+a.channel:active {color:#ffffff;}
+/*鑿滃崟閾炬帴*/
+a.normal{text-decoration:underline;}
+.clear{clear:both;}
+/*鍚庡彴绠＄悊鐣岄潰body浣�/
+.body-box{width:99%;margin:0px auto;margin-right:auto;}
+/*鍚庡彴宸﹂〉body*/
+.lbody{background:url(../img/admin/lbg.jpg) right repeat-y #F4F7FB;color:#666666;margin-right:6px;}
+/*鍚庡彴宸﹂〉鑿滃崟*/
+.lmenu{padding:0px;margin:10px 0px 0px 0px;list-style:none;font-size: 12px;font-family: 微软雅黑;}
+.lmenu a{display:block;padding:12px 0px 7px 50px; background:url(../img/admin/circle.gif) no-repeat 30px 5px;color: #5c9ecd;}
+.lmenu-focus a{background:url(../img/admin/disc.gif) no-repeat 30px 15px #DDECEF;}
+.lmenu1{padding:0px;margin:10px 0px 0px 0px;list-style:none;}
+.lmenu1 a{display:block;padding:7px 0px 7px 30px; background:url(../img/admin/circle.gif) no-repeat 15px -1px;}
+/*鍚庡彴宸﹂〉鏍�/
+.lttop{padding:10px 0px 2px 0px;text-align:center;}
+/*鍚庡彴鍙抽〉澶撮儴*/
+ .rhead{border:#b4cfcf 0px solid;padding:0px 5px 15px 5px;} 
+/* .rhead{border:#b4cfcf 1px solid;padding:5px 5px 5px 5px;margin-top:5px;} */
+/*鍚庡彴鍙抽〉褰撳墠浣嶇疆*/
+.rpos{float:left;padding:3px 0px 3px 20px;background:url(../img/admin/arrow.gif) center left no-repeat;}
+/*鍚庡彴鍙抽〉鎿嶄綔*/
+.ropt{float:right;}

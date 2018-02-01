@@ -1,0 +1,63 @@
+body{margin:0;padding:0;font-size:12px;color:#364f56;background-color:#FFFFFF; font-family:微软雅黑;}
+img{border:0px;}
+form{margin:0; padding:0;}
+input[type=text],input[type=password],textarea{border:1px solid #90a9bb; padding:2px;}
+input[type=text][disabled=disabled],.disabled{background:#fff;}
+input[type=text],input[type=password]{height:17px;}
+input[type=text]:focus,input[type=password]:focus,textarea:focus{border:1px solid #000000;}
+select{border:1px solid #90a9bb; padding:2px;}
+/*链接总的css定义*/
+a{text-decoration:none;}
+a:link{color:#364f56;}
+a:visited{color:#333333;}
+a:hover{color:#ae0927;}
+a:active {color:#0000ff;}
+/*菜单链接*/
+a.channel:link {color:#ffffff;}
+a.channel:visited {color:#ffffff;}
+a.channel:hover{color:#ffff00;}
+a.channel:active {color:#ffffff;}
+/*菜单链接*/
+a.normal{text-decoration:underline;}
+.clear{clear:both;}
+ul,ol,li,dl,dt,dd{ list-style-type:none; margin:0; padding:0;}
+.f_l{ float:left;}
+.f_r{ float:right;}
+
+p{ margin:0; padding:0;}
+/*后台管理界面body体*/
+.body-box{width:100%;margin:0px auto;}
+/*后台左页body*/
+.lbody{background:url(../img/admin/lbg.jpg) right repeat-y #dceefb;color:#666666;margin-right:6px;}
+.leftbody{background:url(../img/admin/leftbg.jpg) right repeat-y #fff;color:#666666;}
+/*后台左页菜单*/
+.lmenu{ padding:44px 20px 20px 20px;}
+.lmenu ul li{ line-height:28px; text-indent:33px; margin-bottom:12px; background:url(../img/admin/ico_yuandian2.gif) no-repeat 16px center;}
+.lmenu ul .on{ border-radius:10px; background:#fff url(../img/admin/ico_yuandian1.gif) no-repeat 16px center;}
+.lmenu ul li a{ color:#5c9ecd;}
+
+/**============ 顶栏 ===============**/
+.top_bg{ background:url(../img/admin/top_bg.jpg) repeat-x; width:100%; height:67px; min-width:1200px;}
+.w272{ width:272px;}
+.top_xx{ height:35px; line-height:35px; color:#fff; font-size:12px; display:table-cell; position:absolute; right:20px; float:right; margin-left:300px;}
+.top_xx i{ background:url(../img/admin/user.png) no-repeat 0 center; width:14px; height:15px; position:relative; padding-right:20px;}
+.top_xx span{ color:#4b9bd5; padding:0 10px;}
+.top_xx a{ color:#fff;}
+
+/**============ 导航栏 ===============**/
+.nav{ height:29px; position:absolute; top:35px; font-size:13px; min-width:932px; overflow:hidden;}
+.nav ul li{ line-height:29px; padding:0 16px; float:left; background:url(../img/admin/nav_line.gif) no-repeat;}
+.nav ul li a{ padding:2px 10px;}
+.nav ul .on{ color:#fff; border-radius:4px; background:#5c9ecd url(../img/admin/nav_line.gif) no-repeat;}
+
+
+.lmenu-focus{background-color:#DDECEF;}
+/*后台左页树*/
+.lttop{ line-height:27px;text-align:center;}
+/*后台右页头部*/
+.rhead{ background:#f8fcff url(../img/theme/weizhi.gif) repeat-x; padding:0 15px; height:28px; line-height:28px;}
+/*后台右页当前位置*/
+.rpos{float:left;padding:0 0 0 10px;}
+/*后台右页操作*/
+.ropt{float:right;}
+.add/*添加*/{background:url(../img/theme/tianjia.jpg) no-repeat; width:52px; height:18px; color:#00325d; line-height:18px; text-indent:18px; border:0 none; cursor:pointer;}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title></title>
+  <script language="javascript" src="${base}/res/common/js/jquery-1.4.4.min.js"></script>
+	<script language="JavaScript" src="${base}/res/common/js/Canvas.1.0.1.js"></script>
+  <script language="javascript" src="${base}/res/common/js/Print.js"></script>
+  	<script language="JavaScript" src="${base}/res/common/js/elementNode.js"></script>
+  <script language="javascript" src="${base}/res/common/js/jquery.PrintArea.js"></script>
+          <style>
+            *{margin:0;padding:0;}
+            body{background:url(${base}/res/courier/images/dark_wood1.png) 0 0 repeat;padding:0px 0 0;margin:auto;text-align:center;}
+            .sucaihuo {
+			    display: inline-block;
+			    position: absolute;
+			    right: 0;
+			}
+            .sucaihuo:after, .sucaihuo:before{margin-top:0.5em;content: "";float:left;border:1.5em solid #fff;}
+            .sucaihuo:after{border-right-color:transparent;}
+            .sucaihuo:before{border-left-color:transparent;}
+            .sucaihuo a:link, .sucaihuo a:visited{color:#000;text-decoration:none;float:left;height:3.5em;overflow:hidden;}
+            .sucaihuo span{background:#fff;display:inline-block;line-height:3em;padding:0 1em;margin-top:0.5em;position:relative;-webkit-transition: background-color 0.2s, margin-top 0.2s;/* Saf3.2+, Chrome*/-moz-transition: background-color 0.2s, margin-top 0.2s;/* FF4+*/-ms-transition: background-color 0.2s, margin-top 0.2s;/* IE10*/-o-transition: background-color 0.2s, margin-top 0.2s;/* Opera 10.5+*/transition: background-color 0.2s, margin-top 0.2s;}
+            .sucaihuo a:hover span{background:#FFD204;margin-top:0;}
+            .sucaihuo span:before{content: "";position:absolute;top:3em;left:0;border-right:0.5em solid #9B8651;border-bottom:0.5em solid #fff;}
+            .sucaihuo span:after{content: "";position:absolute;top:3em;right:0;border-left:0.5em solid #9B8651;border-bottom:0.5em solid #fff;}
+			.content{} 
+        </style>
+  <style media="print">
+ .noprint { display: none } 
+ .nextpage {page-break-after:always;}
+  </style>
+</head> 
+<body style="align:center">    
+<div class='sucaihuo'>
+    <a href="#" onclick="a()"><span>打印</span></a>
+</div> 
+  <div id="con" class="content" >
+  </div>
+</BODY>
+<script language="JavaScript">
+$(function() {
+	a();
+}); 
+function a(){
+$("div#con").printArea();
+}
+ function addpage(){
+ var content=document.getElementById('con');
+ var p=document.createElement('div');
+ p.setAttribute("class","nextpage");
+ content.appendChild(p);
+ }
+ <#list shipments as shipment>
+ addpage();
+ new Print({
+	 id:"con",
+	 jdatasource:{"ok":true,"订单":[
+										{"发货人姓名":"${shipment.shippingName!}","发货人联系地址":"${(shipment.shippingAddress)!}","发货人手机号":"${shipment.shippingMobile!}","收货人姓名":"${(shipment.indent.receiveName)!}","收货人联系地址":"${(shipment.indent.receiveAddress)!}","收货人手机号":"${(shipment.indent.receiveMobile)!}"}
+									]
+				},
+	 template:{
+	 "title":"EMS",
+	 "backgroundImage":"url('${logistics.imgUrl!}')",
+	 "printpc":0,
+	 "container":{"left":-850,"top":100,"top1":${logistics.evenSpacing!},"right":1600,"bottom":557,"width":1440,"height":500},
+	              
+	 "elements":[
+					{"top":"${logistics.fnt!}px","left":"${logistics.fnz-970!}px","width":"${logistics.fnw!}px","height":"${logistics.fnh!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.发货人姓名#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fnwh!}","fontsize":""},						
+					{"top":"${logistics.fat!}px","left":"${logistics.faz-960!}px","width":"${logistics.faw!}px","height":"${logistics.faw!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.发货人联系地址#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fawh!}","fontsize":""},
+					{"top":"${logistics.fpt!}px","left":"${logistics.fpz-960!}px","width":"${logistics.fpw!}px","height":"${logistics.fpw!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.发货人手机号#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.fpwh!}","fontsize":""},
+					{"top":"${logistics.snt!}px","left":"${logistics.snz-960!}px","width":"${logistics.snw!}px","height":"${logistics.snh!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.收货人姓名#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.snwh!}","fontsize":""},
+					{"top":"${logistics.sat!}px","left":"${logistics.saz-970!}px","width":"${logistics.saw!}px","height":"${logistics.sah!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.收货人联系地址#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.sawh!}","fontsize":""},
+					{"top":"${logistics.spt!}px","left":"${logistics.spz-960!}px","width":"${logistics.spw!}px","height":"${logistics.sph!}px","color":"green","backgroundColor":"rgb(204, 255, 255)","text":"#订单.收货人手机号#","id":"node1","textDecoration":"","fontStyle":"","fontWeight":"${logistics.spwh!}","fontsize":""}					
+				]
+			  }
+			});
+ </#list> 
+
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = document.getElementById('tableForm');
+	f.action="o_delete.do";
+	f.submit();
+}
+</script>
+<style type="text/css">
+
+.pl_line {
+    font-size: 12px;
+    width: 710px;
+}
+.visual_zone {
+    border-bottom: 1px dotted #eaeaea;
+    color: #000000;
+    display: block;
+    float: left;
+    line-height: 24px;
+    overflow: hidden;
+    padding: 10px 10px 5px;
+    word-wrap: break-word;
+}
+.pl {
+    width: 710px;
+}
+.visual_zone span {
+    color: #999999;
+}
+UL, LI {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.visual_txt {
+    color: #333333;
+    line-height: 22px;
+}
+.visual_re_txt {
+    color: #999999;
+    line-height: 18px;
+    margin-left: 0;
+    margin-top: 5px !important;
+}
+.visual_re_txt dd span {
+    color: #c90809;
+}
+.visual_re_txt dd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #dbdbdb #dbdbdb #dbdbdb #c90809;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 2px;
+    height: 100%;
+    padding: 6px 10px;
+    position: relative;
+}
+.visual_re_txt dd div {
+    background: transparent url("bg.gif") no-repeat scroll -647px -58px;
+    font-size: 0;
+    height: 8px;
+    left: 12px;
+    line-height: 0;
+    position: absolute;
+    top: -8px;
+    width: 14px;
+}
+.dlt{
+	float:right;
+}
+.dlt a{
+	color:white;
+}
+.dlt a:hover{
+	text-decoration:underline;color:#CC0000!important;
+}
+</style>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function getDlBack(obj){
+	obj.style.background='#CAEACE';
+}
+function changDlBbck(obj){
+	obj.style.background='white';
+	obj.style.background=obj.parentNode.style.background;
+}
+function getUlBk(obj,id){
+	obj.style.background='#E2F0FF';
+	obj.childNodes.style=obj.style.background;
+	document.getElementById('dlt'+id).firstChild.style.color="blue";
+	var answer=document.getElementById('answer'+id);
+	if(answer!=null){
+		answer.style.color="blue";
+	}
+}
+function changUlBk(obj,id){
+	obj.style.background='white';
+	obj.childNodes.style=obj.style.background;
+	document.getElementById('dlt'+id).firstChild.style.color="white";
+	var answer=document.getElementById('answer'+id);
+	if(answer!=null){
+		answer.style.color="white";
+	}
+}
+function changeInnerHtml(id){
+	var hiddentextarea=document.getElementById('reply'+id);
+	var txt;
+	if(hiddentextarea!=null){
+		txt=hiddentextarea.value;
+		var HTML="<textarea cols='75' rows='3' name='adminReplay"+id+"' maxlength='255'>"+txt+"</textarea><br/>"+
+					"<input type='button' onclick='updateVisual("+id+")' value='提交'><input type='reset' value='重置'>";
+		document.getElementById('dd'+id).innerHTML=HTML;
+	}else{
+		var HTML="<dl class='visual_re_txt' onmouseover='getDlBack(this)' onmouseout='changDlBbck(this)'><dd id='dd"+id+"'>"+
+				"<textarea cols='75' rows='3' name='adminReplay"+id+"' maxlength='255'></textarea><br/>"+
+				"<input type='button' onclick='updateVisual("+id+")' value='提交'><input type='reset' value='重置'>"+
+				"</dd></dl>";
+		document.getElementById('li'+id).innerHTML=HTML;
+	}
+}
+function updateVisual(id){
+	try {
+		var tableForm = document.getElementById('tableForm');
+		tableForm.action = "o_visualize_update.do?id="+id;
+		tableForm.onsubmit = null;
+		tableForm.submit();
+	} catch (e) {
+		alert('更新客服回复出错');
+	}
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 首页 - <@s.m "customer.consult"/> - 直观列表</div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="rhead">
+	<form action="v_visualize_list.do">
+	<@s.m "consult.people"/>： <input type="text" name="userName" value="${userName!}" style="width:100px"/>
+	<@s.m "consult.product"/>： <input type="text" name="productName" value="${productName!}" style="width:100px"/>
+	    <@s.m "consult.date"/>：
+	    <input type="text" name="startTime" value="${startTime!}" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	    &nbsp;至&nbsp;<input type="text" name="endTime" value="${endTime!}" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		<input type="submit"  class="ropt" value="<@s.m "global.query"/>" />
+	</form>
+	<div class="clear"></div>
+</div>
+ <div class="rhead">
+ <form id="tableForm" method="post">
+ <input type="hidden" name="pageNo" value="${pageNo!}"/>
+ 		<div class="pl_line">
+			<#list pagination.list as consult>
+			 <ul class="visual_zone" style="width:715px;" onmouseover="getUlBk(this,${consult.id})" onmouseout="changUlBk(this,${consult.id})">
+				<span class="dlt" id="dlt${consult.id}"><a href="o_visual_delete.do?ids=${consult.id}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}">删除</a></span>
+				<li>
+					<strong>${consult.member.username}</strong> <span style="color:gray;">[${consult.time}]</span>
+				</li>
+				<li class="visual_txt">${consult.consult!}</li>
+				<li id="li${consult.id}">
+					<#if consult.adminReplay??>
+					<dl class="visual_re_txt" onmouseover="getDlBack(this)" onmouseout="changDlBbck(this)">
+						<dd ondblClick="changeInnerHtml(${consult.id})" id="dd${consult.id}">
+							<span>${consult.product.name}客服：</span> ${consult.adminReplay!}
+							<div></div>
+						</dd>
+						<textarea rows="" cols="" hidden="true" id="reply${consult.id}">${consult.adminReplay!}</textarea>
+					</dl>
+					<#else>
+					<span id="answer${consult.id}" onclick="changeInnerHtml(${consult.id})" style="cursor:pointer">回复</span>
+					</#if>
+				</li>
+			</ul>
+				</#list>
+		</div>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td align="center" class="pn-sp">共 ${pagination.totalCount}
+							条&nbsp; 每页<input type="text" value="${pagination.pageSize}"
+							style="width: 30px" onfocus="this.select();"
+							onblur="$.cookie('_cookie_page_size',this.value,{expires:3650});"
+							onkeypress="if(event.keyCode==13){$(this).blur();return false;}" />条&nbsp;
+							<input type="button" value="首 页" onclick="_gotoPage('1');"<#if
+								pagination.firstPage> disabled="disabled"</#if>/> <input
+							type="button" value="上一页"
+							onclick="_gotoPage('${pagination.prePage}');"<#if
+								pagination.firstPage> disabled="disabled"</#if>/> <input
+							type="button" value="下一页"
+							onclick="_gotoPage('${pagination.nextPage}');"<#if
+								pagination.lastPage> disabled="disabled"</#if>/> <input type="button"
+							value="尾 页" onclick="_gotoPage('${pagination.totalPage}');"<#if
+								pagination.lastPage> disabled="disabled"</#if>/>&nbsp; 当前
+								${pagination.pageNo}/${pagination.totalPage} 页 &nbsp;转到第<input type="text"
+							id="_goPs" style="width: 50px" onfocus="this.select();"
+							onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" />页
+							<input id="_goPage" type="button" value="转"
+							onclick="_gotoPage($('#_goPs').val());"<#if
+								pagination.totalPage==1> disabled="disabled"</#if>/> 
+						</td>
+					</tr>
+				</table>
+				<script type="text/javascript">
+					function _gotoPage(pageNo) {
+						try {
+							var tableForm = document.getElementById('tableForm');
+							$("input[name=pageNo]").val(pageNo);
+							tableForm.action = "v_visualize_list.do";
+							tableForm.onsubmit = null;
+							tableForm.submit();
+						} catch (e) {
+							alert('_gotoPage(pageNo)方法出错');
+						}
+					}
+				</script>
+			</form>
+</div>
+双击客服回复可以修改
+		<#include "/common/alert_message.html"/>
+</body>
+</html>

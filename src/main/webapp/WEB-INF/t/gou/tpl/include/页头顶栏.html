@@ -1,0 +1,40 @@
+<div id="Topbar" class="Topbar">
+		<div class="ctr cf">
+			<ul class="Topbar-menu fr">
+				<li class="Topbar-menu-item ib"><a href="${base}/order/myorder.jspx">我的JSPGOU</a></li>
+				<li class="Topbar-menu-item ib"><a href="${base}/collect/mycollect.jspx">收藏夹</a></li>
+				<!--<li class="Topbar-menu-item ib"><a target="_blank" href="">网站导航</a>-->
+				</li>
+			</ul>
+			  [#if member??]
+			    <ul class="Topbar-welcome fl" id="top_user_bar">			   
+				    <li class="Topbar-welcome-item">Hi,<font color="red">  ${member.username!}  </font>欢迎
+
+来到JSPGOU商城</li>
+				   	<li class="Topbar-welcome-item"><a href="${base}/logout.jspx?username=${userName!}">退出登录</a></li>
+			    </ul>
+             [#else]
+				<ul class="Topbar-welcome fl" id="top_user_bar">
+					<li class="Topbar-welcome-item">Hi~欢迎来到JSPGOU商城</li>
+					<li class="Topbar-welcome-item"><a href="${base}/login.jspx">请登录</a></li>
+					<li class="Topbar-welcome-item"><a
+						href="${base}/register.jspx">免费注册</a></li>
+			   </ul>
+             [/#if]
+  
+  
+  
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	[#if member??]
+		console.log(1);
+		localStorage.setItem("sessionKey",'${sessionKey!}'); 
+		localStorage.setItem("userName", '${userName!}'); 
+	[#else]
+	console.log(2);
+		localStorage.removeItem("sessionKey"); 
+		localStorage.removeItem("userName"); 
+	[/#if]
+ </script>

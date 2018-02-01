@@ -1,0 +1,58 @@
+<script type="text/javascript">
+ var productIds = HistoryRecord.record();
+ function g(o){
+		return document.getElementById(o);
+	}
+
+	 function HoverLiGuide(m,n,counter){
+			for(var i=1;i<=counter;i++){
+				g('tbg_'+m+i).className='';
+			}
+			g('tbg_'+m+n).className='current';
+	}
+	 function displayed(i){
+		   $("#ul"+i).toggle();
+		   if($("#ss"+i).attr("class")=="user_ss"){
+			  $("#ss"+i).attr("class","user_tt");
+		   }else{
+			  $("#ss"+i).attr("class","user_ss");
+		   }
+		 }	
+</script>
+
+<div class="user_menu">
+    <div class="navs" id="JS_u_navs">
+        <div id="ss1" onclick="displayed(1);"><h3><span class="s1"></span>订单中心</h3></div>
+        <ul id="ul1">
+            <li class="current" id="tbg_11" onclick="HoverLiGuide(1,1,13);"><a href="${base}/order/myorder.jspx">我的订单</a></li>
+            
+        	<li class="sep" id="tbg_13" onclick="HoverLiGuide(1,3,13);"><a href="${base}/order/myReturnOrder.jspx">退货订单</a></li>
+        	<li class="sep" id="tbg_14" onclick="HoverLiGuide(1,4,13);"><a href="${base}/collect/mycollect.jspx">我的收藏</a></li>
+            <li [#if cl??][#if cl=='tbg_144']class="current"[#else]class="sep"[/#if][/#if] id="tbg_144" onclick="HoverLiGuide(1,44,13);">
+	        <a href="${base}/member/message_mng.jspx?cl=tbg_144">站内信息</a>
+	        </li>
+        	<li class="sep" id="tbg_15" onclick="HoverLiGuide(1,5,13);"><a href="${base}/myCoupon.jspx">我的优惠卷</a></li>
+        </ul>
+        
+        <div id="ss2" onclick="displayed(2);"><h4><span class="s2"></span>账户管理</h4></div>
+        <ul id="ul2">
+            <li class="sep" id="tbg_16" onclick="HoverLiGuide(1,6,13);"><a href="${base}/shopScore/myscore.jspx">我的积分</a></li>
+            <li class="sep" id="tbg_17" onclick="HoverLiGuide(1,7,13);"><a href="${base}/shopScore/exchange.jspx">积分兑换</a></li>
+            <li class="sep" id="tbg_18" onclick="HoverLiGuide(1,8,13);"><a href="${base}/shopMoney/mymoney.jspx">账户余额</a></li>
+            <li class="sep" id="tbg_19" onclick="HoverLiGuide(1,9,13);"><a href="${base}/shopMemberAddress/address_list.jspx">收货地址</a></li>
+            <li class="sep" id="tbg_110" onclick="HoverLiGuide(1,10,13);"><a href="${base}/shopMember/profile.jspx">个人资料</a></li>
+            <li class="sep" id="tbg_111" onclick="HoverLiGuide(1,11,13);"><a href="${base}/shopMember/pwd.jspx">密码管理</a></li>
+        </ul>
+        
+        <div id="ss3" onclick="displayed(3);"><h5><span class="s3"></span>服务与评价</h5></div>
+        <ul id="ul3">
+            <li class="sep" id="tbg_112" onclick="HoverLiGuide(1,11,12);"><a href="${base}/my_discuss.jspx">商品评论</a></li>
+        	<li class="sep" id="tbg_113" onclick="HoverLiGuide(1,12,12);"><a href="${base}/my_cousult.jspx">购买咨询</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+function checkClass(o){
+   o.className="current1";
+}
+</script>

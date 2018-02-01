@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>商品咨询 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<script type="text/javascript" src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+<style>
+.pl_line { width: 710px; font-size:12px;}
+.pl_zone {color: #000000; display: block; float: left; line-height: 24px; overflow-x: hidden; overflow-y: hidden; word-wrap: break-word; border-bottom: #EAEAEA dotted 1px; padding: 10px; }
+.pl {width: 710px;}
+.pl_zone span {color: #999999;}
+UL, LI {list-style-image: none; list-style-position: outside; list-style-type: none; margin:0; padding: 0;}
+.pl_txt {color: #333333; line-height: 22px;}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100"></a>
+    <h1 class="mui-title">商品评论</h1>
+</header>
+<div class="mui-content mb44">
+
+    [#list pagination.list as c]
+    <div>
+        <ul>
+        	<li><strong>${c.member.username!}</strong>&nbsp;&nbsp;<span>发表于 ${c.time!}</span></li>
+        	<li> ${c.content!}</li>
+        </ul>
+    </div>
+    [/#list]
+    [@pagination_style style='7'/]
+
+</div>
+</body>
+</html>

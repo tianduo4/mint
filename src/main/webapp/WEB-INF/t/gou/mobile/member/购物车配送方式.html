@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>确认订单 - ${web.name!}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${root}/tpl/js/cart_sure.js"  type="text/javascript"></script>
+<script type="text/javascript">
+var URLPrefix = {
+		"url":"${base}"
+};
+$(function() {
+	$("#jvForm").validate();
+	$(':radio[name=memberCoupon]').each(function(){            
+		$(this).click(function(){                
+			if($(this).attr('checked')){                    
+				$(':radio[name=memberCoupon]').removeAttr('checked');
+				$(this).attr('checked','checked');         
+			}
+           if($(this).attr("checked")==true){
+        	   var memberCoupon=document.getElementsByName("memberCoupon"); 
+				for(var i=0;i<memberCoupon.length;i++){
+			    	if(memberCoupon[i].checked){
+			    	var	str = memberCoupon[i].value;
+			    	var strs = new Array();
+			    	strs=str.split(","); 
+			    	$("#deduceAmount").html(strs[1]); 
+			    	$("#memberCouponId").val(strs[0]);
+				}
+			 } 
+		   }else{
+			   $("#deduceAmount").html(0);
+			   $("#memberCouponId").val(""); 
+		   }
+           var cart_price= $("#cart_price").html();
+		   var deduceAmount=$("#deduceAmount").html();
+		   var totalDeliveryFee=$("#totalDeliveryFee").html();  
+		   $("#amount_payable").html(parseFloat(cart_price)+parseFloat(totalDeliveryFee)-parseFloat(deduceAmount));				      
+		});        
+	});
+	   
+});
+$().ready(function() {
+	var $paymentMethodId = $("#paymentMethod :radio");
+	var $shippingMethodId = $("#shippingMethod :radio");
+	var shippingMethodIds = {};
+    [#list paylist as pay]
+	  shippingMethodIds["${pay_index+1}"] = [ [#list pay.shippings as sp] "${sp.id}"[#if sp_has_next],[/#if][/#list]];  
+	[/#list]
+	// 支付方式
+	$paymentMethodId.click(function() {
+		var $this = $(this);
+		if ($(this).attr("disabled")) {
+			return false;
+		}
+		var paymentMethodId = $this.val();
+		$shippingMethodId.each(function() {
+			var $this = $(this);
+			if ($.inArray($this.val(), shippingMethodIds[paymentMethodId]) >= 0) {
+				$(this).attr("disabled", false);
+			} else {
+				$this.attr("disabled", true).attr("checked", false);
+			}
+		});
+		
+	});
+	// 配送方式
+	$shippingMethodId.click(function() {
+		var $this = $(this);
+		if ($(this).attr("disabled")) {
+			return false;
+		}
+	});
+});
+
+//获得城市
+function getResultCity(d){
+	$.post('../shopMemberAddress/findAllCity.jspx', {"id":d}, 
+		function(data) {
+					if(data.success){
+						$("#itemcity").html("");
+                         var select="<select name='cityId' onchange='getResultCountry(this.value)'>";
+                        for(var i=0;i<data.ids.length;i++){
+              				select+="<option value='"+data.ids[i]+"'>&nbsp;"+data.citys[i]+"&nbsp;</option>";
+              			}
+              			select+="</select>";
+              			getResultCountry(data.ids[0]);
+              			$("#itemcity").append(select);
+					} 
+	 },"json");
+}
+//获得县、区
+function getResultCountry(a){
+	$.post('../shopMemberAddress/findAllCountry.jspx', {"id":a},
+		 function(data) {
+				if(data.success){
+					$("#itemarea").html("");
+                     var select="<select name='countryId'>";
+                      for(var i=0;i<data.ids.length;i++){
+              				select+="<option value='"+data.ids[i]+"'>&nbsp;"+data.areas[i]+"&nbsp;</option>";
+              		 }
+              		select+="</select>";
+              		$("#itemarea").append(select);
+				} 
+		},"json");
+}
+
+function checkSubmit(){
+	if($("#provinceId").val()==''||$("#provinceId").val()==null){
+           alert("请选择所在地址!");
+           return;
+	}
+	if($("#tel").val()==null&&$("#phone").val()==null||$("#tel").val()==''&&$("#phone").val()==''){
+        alert("手机跟电话至少有一项必填");
+        return;
+	}
+	$("#jvForm").attr("action","../shopMemberAddress/address_save.jspx");
+	$("#jvForm").submit();
+}
+
+function checkSubmit1(){
+	if($("input[name='deliveryInfo']").length<=0){
+     alert("请添加邮寄地址");
+     return;
+	} 
+	if($("input[name='paymentMethodId']").length<=0){
+	     alert("请选择支付方式");
+	     return;
+		} 
+	var $checkedShippingMethodId = $("#shippingMethod :radio").filter(":checked");
+	if ($checkedShippingMethodId.size() == 0) {
+		alert("请选择配送方式");
+	     return;
+	}
+	if($("#error1").val()!=null){
+		alert("您选择的商品当中含有款式商品已下架的情况,不能购买"); 
+	     return;
+	} 
+	if($("#error2").val()!=null){
+		alert("您选择的商品当中含有款式商品无库存的情况,不能购买"); 
+	     return;
+	} 
+	if($("error3").val()!=null){
+		alert("您选择的商品当中含有款式商品的购买数量大于库存的问题,不能购买"); 
+	     return;
+	} 
+	if($("error4").val()!=null){
+		alert("您选择的商品当中含有商品已下架的情况,不能购买"); 
+	     return;
+	} 
+	if($("error5").val()!=null){
+		alert("您选择的商品当中含有商品无库存的情况,不能购买"); 
+	     return;
+	} 
+	if($("error6").val()!=null){
+		alert("您选择的商品当中含有商品的购买数量大于库存的问题,不能购买"); 
+	     return;
+	} 
+	var pd=false;
+	$("input[name='deliveryInfo']").each(function(){
+		if($(this).attr("checked")){
+              pd=true;
+		}  
+	});
+	if(!pd){
+         alert("请选择邮寄地址！");
+         return;
+	}
+	$("#addrInputDiv").html('');
+	$("#jvForm").attr("action","../order/order_shipping.jspx");
+	$("#jvForm").submit();
+}
+function showBalanceDiv(a){
+	if(a.className == ""){
+		a.className = "bh-on";
+		$("#balance_div").fadeOut("800");
+	}else{
+		a.className = "";
+		$("#balance_div").fadeIn("800");
+	}
+}
+
+function showCouponDiv(a){
+	if(a.className == ""){
+		a.className = "bh-on";
+		$("#coupon_div").fadeOut("800");
+	}else{
+		a.className = "";
+		$("#coupon_div").fadeIn("800");
+	}
+}
+
+function showRemark(chk){
+	if(chk.checked){
+		$("#remark").fadeIn("500");
+	}else{
+		$("#remark").fadeOut("500");
+	}
+}
+</script>
+<style>
+em{ font-weight:normal; font-style:normal;}
+.x_address{ color:#000; font-size:12px; line-height:30px;}
+.x_address span{ color:#999; float:left; width:70px; text-align:right;}
+.x_address p{ padding-left:18px; color:#000;}
+#inputUI_delivery{ color:#000; font-size:12px;}
+#inputUI_delivery ul{ padding:0px 10px;}
+#inputUI_delivery ul li{ border-bottom:1px solid #eee; line-height:30px;}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">确认订单信息</h1>
+</header>
+<div class="mb44" style="padding-top:45px;">
+    <div id="checkoutUI">
+    	<div id="errorMsgDisplayDiv" style="z-index:1000;"></div>
+        <form id="jvForm" action="../order/order_shipping.jspx" method="post">
+            <div id="receiver_buffer_window" class="delivery">
+                <div style="border-top:8px solid #eee;border-bottom:1px solid #eee; line-height:40px; text-align:center;">
+                收货人信息
+                </div>
+                <div id="inputUI_rece">
+                    <p id="btn_away_ui"></p>
+                    <div class="x_address">
+                        [#if smalist?size gt 0]
+                        [#list smalist as sma]
+                        <label>
+                            <div style="border-bottom:1px solid #eee; padding:10px; overflow:hidden;">
+                                <div>
+                                    <span style="width:20px;"><input type="radio" name="deliveryInfo" value="${sma.id}" [#if sma.isDefault]checked="checked"[/#if]"/></span>
+                                    <span>收货人：</span>${sma.username!}
+                                </div>
+                                <p><span>所在地区：</span>${sma.province!}&nbsp;${sma.city!}</p>
+                                <p><span>详细地址：</span>${sma.detailaddress!}</p>
+                                <p><span>邮编：</span>${sma.postCode!}</p>
+                                [#if sma.tel??]
+                                [#if sma.phone??]
+                                <p><span>手机：</span>${sma.tel!}</p>
+                                <p><span>固定电话：</span>[#if sma.areaCode??]
+                                ${sma.areaCode!}-
+                                [#else]
+                                [/#if]
+                                ${sma.phone!}
+                                [#if sma.extNumber??]
+                                -${sma.extNumber!}</p>
+                                [#else]
+                                [/#if]
+                                [#else]
+                                <p><span>操作：</span>${sma.tel!}</p>
+                                [/#if]
+                                [#else]
+                                [#if sma.areaCode??]
+                                ${sma.areaCode!}-
+                                [#else]
+                                
+                                [/#if]
+                                ${sma.phone!}
+                                [#if sma.extNumber??]
+                                -${sma.extNumber!}
+                                [#else]
+                                [/#if]
+                                [/#if]
+                                <div style="padding:5px; overflow:hidden; clear:both;">
+                                <a href="../shopMemberAddress/address_delete.jspx?id=${sma.id}&returnUrl=../cart/checkout_shipping.jspx" class="menu_r1 fr">删除</a>
+                                <a href="../shopMemberAddress/address_default.jspx?id=${sma.id}&returnUrl=../cart/checkout_shipping.jspx" class="menu_r1 fr">设为默认</a>
+                                </div>
+                            </div>
+                            
+                        </label>
+                        [/#list]
+                        [/#if]
+                    </div>
+                    <p style="width:280px; margin:auto; text-align:center; padding:10px; overflow:hidden;">
+                    <span class="menu_submit fl" onclick="jQuery('#addrInputDiv').show();" style="display:block; width:120px;">添加新地址</span>
+                    <span class="menu_reset fr" onclick="jQuery('#addrInputDiv').hide();" style="display:block; width:120px;">取消新地址</span>
+                    </p>
+                
+                    
+                    <div id="addrInputDiv" style="clear:both; display:none;">   
+                        <div style="border-top:8px solid #eee;border-bottom:1px solid #eee; line-height:40px; text-align:center;">
+                        请填写收货人信息
+                        </div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:15px;" class="x_address none">
+                          <tr>
+                            <td width="100" height="40" align="right"><label for="user_name"><em style="color:#cc0000;">*</em>收&nbsp;货 &nbsp;人：</label></td>
+                            <td>
+                            <input type="text" id="receiverName" name="username" class="ss_input required" />
+                            <span id="nameError"></span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right"><label for="user_name"><em style="color:#cc0000;">*</em>性&nbsp;&nbsp;&nbsp;&nbsp;别：</label></td>
+                            <td>
+                            <input type="radio" name="gender" value="true" checked/>男&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="gender" value="false"/>女
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right"><label for="select_province"><em style="color:#cc0000;">*</em>收货地址：</label></td>
+                            <td>
+                            <select id="provinceId" name="provinceId" onchange="getResultCity(this.value)" class="ss_input" style="height:32px;">
+                            <option value="">--请选择--</option>
+                            [#list plist as province]
+                            <option value="${province.id!}">${province.name!}</option>
+                            [/#list]
+                            </select>
+                            <span id="itemcity"></span>
+                            <span id="itemarea"></span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right"><label for="user_adress"><em style="color:#cc0000;">*</em>详细地址：</label></td>
+                            <td><input id="detailAddress" name="detailaddress" class="ss_input required" type="text" /></td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right"><label for="user_adress"><em style="color:#cc0000;">*</em>邮政编码：</label></td>
+                            <td><input id="postCode" name="postCode" class="required digits ss_input" type="text" /></td>
+                          </tr>
+                          <tr>
+                            <td height="70" align="right" valign="top"><label for="user_phone" style="margin-top:15px; display:block;">手机号码：</label></td>
+                            <td>
+                            <input type="text" id="tel" name="tel" class="digits ss_input" />
+                            <div id="mobileError" style="color:#999;">手机或电话必填一种</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="70" align="right" valign="top"><label for="user_phone" style="margin-top:5px; display:block;">固定电话：</label></td>
+                            <td>
+                            <input type="text" id="areaCode" name="areaCode" size="4" maxlength="4" class="ss_input text digits" style="width:25%;" /> 
+                            -
+                            <input type="text" id="phone" name="phone" size="14" maxlength="10" class="ss_input text digits" style="width:25%;" /> 
+                            -
+                            <input type="text" id="extNumber" name="extNumber" size="6" maxlength="6" class="ss_input text digits" style="width:25%;" />
+                            <div style="color:#999;">区号(3到4位数字，可选)-电话号码(7到8位数字)-分机号(最多6位数字，可选)</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right">
+                            <input type="checkbox" onclick="$('#isDefault').val(this.checked)" />
+                            <input type="hidden" id="isDefault" name="isDefault" value="false" />
+                            </td>
+                            <td><label for="daily_address">设为默认地址</label></td>
+                          </tr>
+                        </table>
+    
+                        <p id="addrSubBtn" style="width:100%; text-align:center; border-top:1px solid #eee; padding:10px 0;">
+                            <input type="hidden" name="returnUrl" value="../cart/checkout_shipping.jspx"/>
+                            <input type="button" value="保存收货信息" onclick="checkSubmit();" class="menu_submit" style="width:200px;" />
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div id="payment_buffer_window">
+                <div style="border-top:8px solid #eee;border-bottom:1px solid #eee; line-height:40px; text-align:center;">
+                支付方式
+                </div>
+                <div id="paymentMethod" style="padding:10px;">
+                    [#list paylist as pay]
+                    <p id="pNet" style="line-height:30px;">
+                        <input type="radio" id="paymentMethod_${pay.id}" name="paymentMethodId" value="${pay.id}" [#if pay.disabled]disabled[/#if] [#if pay.isDefault]checked="true"[/#if]/>
+                        <label>${pay.name!}</label>
+                        <span>(${pay.introduce!})</span>
+                    </p>
+                    [/#list]
+                </div>
+            </div>
+            
+            <div id="delivery_buffer_window">
+                <div style="border-top:8px solid #eee;border-bottom:1px solid #eee; line-height:40px; text-align:center;">配送信息</div>
+                <div id="inputUI_delivery">
+                
+                    [#list items as item]
+                    
+                    <div class="order-info clearfix">
+                        <div class="order-img">
+                            <a href="${item.product.url}"><img src="${baseUrl!}${item.product.productExt.coverImg!}" /></a>
+                        </div>
+                        
+                        <input type="hidden" name="cartItemId" value='${item.id!}'/>
+                        <input type="hidden" name="cartProductId" value="${item.product.id!}"/>
+                        <input type="hidden" name="cartCountId" value="${item.count!}"/>
+                        
+                        <div class="order-other">
+                            <div class="order-inner">
+                                <span class="order-name">
+                                    <a href="${item.product.url}" title="${item.product.name!}">
+                                        [@text_cut s=item.product.name len='10' appent='...'/]
+                                        [#if item.productFash??]${item.productFash.attitude!!}[/#if]
+                                    </a>
+                                </span>
+                                <span class="order-price">
+                                     ¥<em id="cart_price_${item.id}">[#if item.productFash??]${item.productFash.salePrice!}[#else]${item.product.salePrice!}[/#if]</em>
+                                </span>	
+                            </div>
+                            <div class="order-outer">
+                                <span class="order-type">
+                                    <em id="cart_weight_${item.id}">${item.product.productExt.weight!0}</em>g
+                                </span>
+                                <span class="order-num">数量：<em id="cart_count_${item.id}">${item.count!0}</em></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-bar">
+                        [#if item.productFash??]     
+                        [#if !(item.product.status==1)]
+                        <input type="hidden" id="error1" value="0"/>
+                        <p><strong>该款式商品已下架,不能购买</strong></p>
+                        [/#if]
+                        [#if item.productFash.stockCount==0]
+                        <input type="hidden" id="error2" value="0"/>
+                        <p><strong>该款式商品无库存</strong></p>
+                        [#elseif item.count gt item.productFash.stockCount]
+                        <input type="hidden" id="error3" value="0"/>
+                        <p><strong>该款式商品的购买数量大于库存</strong></p>
+                        [/#if]
+                        [#else]
+                        [#if  !(item.product.status==1)]
+                        <input type="hidden" id="error4" value="0"/>
+                        <p><strong>该款式商品已下架，不能购买</strong></p>
+                        [/#if]
+                        [#if item.product.stockCount==0]
+                        <input type="hidden" id="error5" value="0"/>
+                        <p><strong>该商品无库存</strong></p>
+                        [#elseif item.count gt item.product.stockCount]
+                        <input type="hidden" id="error6" value="0"/>
+                        <p><strong>该商品的购买数量大于库存</strong></p>
+                        [/#if]   
+                        [/#if]
+                    </div>
+                    [#if item_index==0]
+                    <div rowspan="${items?size}">
+                        <div id="shippingMethod">
+                        [#list splist as sp]
+                        <div class="order-settle">
+                        <input type="radio" onclick="ajaxtotalDeliveryFee('${sp.id}','${item.product.weight!0}');" id="shippingMethod_${sp_index+1}" name="shippingMethodId" class="delivery_radio" [#if sp.disabled]disabled[/#if] [#if sp.isDefault]checked[/#if] value="${sp.id}" />
+                        <label>${sp.name!}</label>
+                        </div>
+                        [/#list]
+                        </div>
+                    </div>
+                    [/#if]
+                  
+                    [/#list]
+                   
+                </div>
+            </div>
+            
+            <div id="delivery_buffer_window" style="overflow:hidden">
+                <div style="border-top:8px solid #eee;border-bottom:1px solid #eee; line-height:40px; text-align:center;">结算信息</div>
+                <div id="inputUI_delivery">
+                    <ul>
+                        <li>
+                            商品金额：￥<strong><span id="cart_price"></strong>元</span>&nbsp;
+                            + 运费：￥<strong id="totalDeliveryFee"></strong>元&nbsp;-&nbsp;
+                            优惠券：￥<strong><span id="deduceAmount">0.0</span></strong>元-&nbsp;
+                            立省：￥<strong><span id="popularityPrice">${popularityPrice!}</span></strong>元&nbsp;&nbsp;&nbsp;
+                            重量：<strong><span id="cart_weight"></strong>g</span>
+                        </li>
+                        <li>
+                            <div>
+                                应付金额：<strong style="color:#cc0000; font-size:16px;"><span id="amount_payable"></strong>元</span>
+                            </div>
+                            
+                            <div>
+                                <a href="javascript:void(0);" onclick="showCouponDiv(this)"><span>使用优惠券抵消部分总额</span></a> （<a href="${base}/coupon.jspx">领取优惠券</a>）
+                            </div>
+                            
+                            <div style="display:none;" id="coupon_div">
+                                <input type="hidden" id="memberCouponId" name="memberCouponId"/>
+                                [#list memberCouponlist as memberCoupon]
+                                <p>
+                                    <input type="radio" name="memberCoupon" id="memberCoupon" value="${memberCoupon.id},${memberCoupon.coupon.couponPrice!}" />${memberCoupon.coupon.couponName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面值:${memberCoupon.coupon.couponPrice!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有效期：${memberCoupon.coupon.couponTime}--${memberCoupon.coupon.couponEndTime!}
+                                </p>
+                                [/#list]
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="line-height:28px; padding:0 10px;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="18" height="40"><input type="checkbox" id="remark_chk" onclick="showRemark(this)" /></td>
+                        <td>订单备注</td>
+                        <td><input type="text" name="comments" id="remark" style="display:none;" class="ss_input" /></td>
+                      </tr>
+                    </table>
+                    </div>
+                    <p style="width:100%; text-align:center; border-top:1px solid #eee; padding:10px 0;">
+                    <input class="menu_submit" type="button" id="confirm_delivery" value="提交订单" onclick="checkSubmit1();" style="width:200px;" />
+           			</p>
+                </div>
+            </div>
+        
+            <div class="delivery_box" id="inputUI_delivery">
+            	<p>&nbsp;</p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

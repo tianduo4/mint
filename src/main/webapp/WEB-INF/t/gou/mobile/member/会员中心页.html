@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户中心欢迎页  - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/member.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">		
+    <div id="main">
+        <div class="warp clearfloat">
+            <div class="h-top clearfloat box-s">
+                <div class="tu clearfloat fl">
+                	<div style="width: 60px;height: 60px;border-radius: 100%; background:#fff; border:1px solid #fff;">
+                    <a href="${base}/shopMember/portrait.jspx">
+                    [#if member.avatar??]
+                    <img src="${baseUrl!}${member.avatar!}" />[#else]<img src="/r/gou/www/mobile/img/member/touxiang.png" />
+                    [/#if]
+                    </a>
+                    </div>
+                </div>
+                <div class="content clearfloat fl">
+                    <p class="hname">${member.username!}</p>
+                    <p class="htel">${member.group.name}</p>
+                </div>
+                <div class="h-bottom clearfloat">
+                    <samp></samp>
+                    <ul>
+                        <li>
+                            <a href="${base}/collect/mycollect.jspx">
+                                <p>[@collect_page pageNo=pageNo count='1']${tag_pagination.totalCount}[/@collect_page]</p>
+                                <span>我的收藏</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${base}/shopScore/myscore.jspx">
+                                <p>${member.score!0}</p>
+                                <span>我的积分</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${base}/myCoupon.jspx">
+                                <p>3</p>
+                                <span>我的优惠券</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cash clearfloat">
+                <div class="cash-tit clearfloat box-s">
+                    我的订单<a class="fr" style="color:#666; font-size:14px;" href="${base}/order/myorder.jspx">查看全部订单 ></a>
+                </div>
+                <div class="shang clearfloat">
+                    <ul>
+                        <li>
+                            <a href="${base}/order/myorder.jspx?status=5">
+                                <img src="/r/gou/www/mobile/img/member/daifukuan.png"/>
+                                <span>待付款</span>
+                                <div class="tag">[@order_page status='5' count='3']${tag_pagination.totalCount}[/@order_page]</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${base}/order/myorder.jspx?status=1&shippingStatus=1&paymentStatus=2">
+                                <img src="/r/gou/www/mobile/img/member/daifahuo.png"/>
+                                <span>待发货</span>
+                               <div class="tag">[@order_page shippingStatus='1' paymentStatus='2' count='3']${tag_pagination.totalCount}[/@order_page]</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${base}/order/myorder.jspx?status=2&shippingStatus=2&paymentStatus=2">
+                                <img src="/r/gou/www/mobile/img/member/daishouhuo.png"/>
+                                <span>待收货</span>
+                              <div class="tag">[@order_page  shippingStatus='2' paymentStatus='2' status='2' count='3']${tag_pagination.totalCount}[/@order_page]</div> 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${base}/order/myReturnOrder.jspx">
+                                <img src="/r/gou/www/mobile/img/member/tuikuan.png"/>
+                                <span>退款售后</span>
+                         
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            <div class="cashlist clearfloat">
+                <ul>
+                    <li class="box-s">
+                        <a href="${base}/shopMember/profile.jspx">
+                            <p class="fl">个人资料</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/shopMember/pwd.jspx">
+                            <p class="fl">密码管理</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/member/message_mng.jspx?cl=tbg_144">
+                            <p class="fl">站内信息</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/shopMemberAddress/address_list.jspx">
+                            <p class="fl">收货地址</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/shopScore/exchange.jspx">
+                            <p class="fl">积分兑换</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/my_discuss.jspx">
+                            <p class="fl">商品评论</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/my_cousult.jspx">
+                            <p class="fl">购买咨询</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                    <li class="box-s">
+                        <a href="${base}/logout.jspx" class="menu_submit" onclick="return confirm('确定要注销登录吗?');">
+                        	<p class="fl">退出登录</p>
+                            <i class="iconfont icon-jiantou1 fr"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>			    	
+            
+        </div>
+    </div>
+</div>
+
+<!--footer star-->
+<footer id="footer">
+    <div>
+        <a href="${base}/">
+            <div class="icon i-1"></div>
+            <p>首页</p>
+        </a>
+    </div>
+    <div>
+        <a href="${base!}/allProductCategory.jspx">
+            <div class="icon i-2"></div>
+            <p>商品分类</p>
+        </a>
+    </div>
+    <div>
+        <a href="${base}/cart/shopping_cart.jspx">
+            <div class="icon i-3"></div>
+            <p>购物车</p>
+        </a>
+    </div>
+    <div>
+        <a href="${base}/shopMember/index.jspx">
+            <div class="icon i-4 on"></div>
+            <p>我的</p>
+        </a>
+    </div>			
+</footer>
+<!--footer end-->
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿﻿﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>错误提示页面  - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+</head>
+
+<body style="background:#fff;">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">错误提示</h1>
+</header>
+<div class="member-content" style="margin:0px 20px 20px 20px;">
+
+[#list errors as error]
+<p style="line-height:30px;">${error}</p>
+[/#list]
+
+<p style="text-align:center; margin-top:20px;">
+<a href="javascript:history.back();" style="border:1px solid #cc0000; width:100px; line-height:24px; text-align:center; padding:5px 20px; color:#cc0000;">返回上一页</a>
+</p>
+</div>
+</body>
+</html>

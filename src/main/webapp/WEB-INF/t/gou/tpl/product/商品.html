@@ -1,0 +1,763 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${product.name}${web.additionalTitle!}</title>
+<meta http-equiv="keywords" content="JSPGOU演示站"/>
+<meta http-equiv="description" content="JSPGOU演示站"/>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/product.css" type="text/css" rel="stylesheet" />
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    jQuery.jqtab = function(tabtit,tabcon) {
+        $(tabcon).hide();
+        $(tabtit+" li:first").addClass("thistab").show();
+        $(tabcon+":first").show();
+    
+        $(tabtit+" li").click(function() {
+            $(tabtit+" li").removeClass("thistab");
+            $(this).addClass("thistab");
+            $(tabcon).hide();
+            var activeTab = $(this).find("a").attr("tab");
+            $("#"+activeTab).fadeIn();
+            return false;
+        });
+        
+    };
+    /*调用方法如下：*/
+    $.jqtab("#tabs",".tab_con");
+    
+});
+
+[#if category.colorsize]
+ function addToCart(productId,count,fashId) {
+ 	$.post('${base}/cart/add_orderItem.jspx', {
+ 		'productId' : productId,
+ 		'productAmount' : count,
+ 		'fashId': fashId
+ 	}, function(data) {
+ 		if(data.status==1) {
+ 			location.href='${base}/cart/shopping_cart.jspx?backUrl=${location}';
+ 		} else if(data.status==0) {
+ 			location.href='${loginUrl}';
+ 		} else {
+ 			alert(data.error);
+ 		}
+ 	},'json');
+ }
+ [#else]
+  function addToCart(productId,count) {
+ 	$.post('${base}/cart/add_orderItem.jspx', {
+ 		'productId' : productId,
+ 		'productAmount' : count
+ 	}, function(data) {
+ 		if(data.status==1) {
+ 			location.href='${base}/cart/shopping_cart.jspx?backUrl=${location}';
+ 		} else if(data.status==0) {	
+ 			location.href='${loginUrl}';
+ 		} else {
+ 			alert(data.error);
+ 		}
+ 	},'json');
+ }
+ [/#if]
+
+ function addToCollect(productId){
+		$.post('${base}/collect/add_to_collect.jspx',{
+			'productId':productId
+			}, function(data){
+	            if(data.status == 1){
+	            	 alert('收藏成功!');
+	            }else if(data.status== 2){
+	                    alert('收藏过该商品');
+	            }else{
+	            	location.href='${base}/login.jspx';
+	            }
+		   },'json');
+	}
+</script>
+</head>
+
+<body>
+[#include "../include/页头顶栏.html"/]
+[#include "../include/页头搜索栏.html"/]
+[#include "../include/内页导航栏.html"/]
+<div class="weizhi">
+	您现在的位置：<a href="${base}/">首页</a> > <a href="${category.url!}">${category.name!}</a>
+</div>
+<div class="view Page-detail">
+            
+    <div class="Detail">
+        
+        <div class="Detail-meta cf">
+          <div class="Detail-ml fl">
+                <div class="Detail-main-images">
+                    [#if product.pictures?? && product.pictures?size gt 0]
+                    [#list product.pictures as pic]
+                    [#if pic_index==0]
+                    <a id="productImgA" class="jqzoom" href="${pic.appPicturePath!}"  style="height:350px;">
+                    <img id="productImg" src="${baseUrl!}${pic.appPicturePath!}" alt="${product.name!}" height="350" style="margin:auto; display:block;"/>
+                    </a>
+                    [/#if]
+                    [/#list]
+                    [/#if]  
+                </div>
+                
+                <div class="pic_slide">
+						<span class="prev" id="prevBtn"></span>
+							<div class="pic_slide_box" id="sliderImgs">
+								<ul id="detailPictureSlider">
+									[#if product.pictures?? && product.pictures?size gt 0]
+				                    	[#list product.pictures as pic]
+				                        	[#if pic_index==0]
+				                           	<li><img  class="selected" src="${baseUrl!}${pic.picturePath!}" onmouseover="initCurrPicture(jQuery(this),'${pic.bigPicturePath!}','${pic.appPicturePath!}')" width="58" height="58" /></li>
+				                         	[#else]
+				                            <li><img src="${baseUrl!}${pic.picturePath!}" onmouseover="initCurrPicture(jQuery(this),'${pic.bigPicturePath!}','${pic.bigPicturePath!}')" width="58" height="58" /></li>
+				                        	[/#if]
+				                    	[/#list]
+									[/#if]
+								</ul>
+							</div>
+					   <span class="next" id="nextBtn"></span>
+	           </div>
+            </div>
+            
+            <div class="Detail-mm fl">
+               <!--  <h1 class="Detail-name">${product.name!}</h1> -->
+               
+               <h1 class="Detail-name" style="margin-bottom:15px;">${product.name!}</h1>
+                <div style="width: 520px; height: 38px; background-image: url(${root}/images/category/xxbg.jpg)">
+                    <div style="float: left; font-size: 13px; color: #fff; font-family:'Microsoft Yahei'; margin-top: 10px; margin-left: 15px">春季新品大促，<span style="color: #fec40b">万人疯抢中</span>，尽快选购吧！</div>
+                </div>
+          
+                <div class="Detail-price p10">
+                 [#if category.colorsize]
+	                 <input type="hidden" id="current_merchantId" value="[#if product.productFashion??]${product.productFashion.id}[/#if]"/>	
+                   [#if product.productFashion??]
+                    <dl class="promo cf" >
+                        <dt>销售价</dt>
+                        <dd>
+                            <span style="float: left;">¥&nbsp;</span>
+                            <em id="product_price" style="float: left;">${product.productFashion.salePrice!}</em>
+                        </dd>
+                    </dl>
+                    
+                    <dl class="original cf">
+                        <dt>价格</dt>
+                        <dd>¥&nbsp;<del id="product_oprice">${product.productFashion.marketPrice!}</del></dd>
+                    </dl>
+                    [/#if]
+                    [#else]
+                     <dl class="promo cf" >
+                        <dt>销售价</dt>
+                        <dd>
+                            <span style="float: left;">¥&nbsp;</span>
+                            <em id="product_price" style="float: left;">${product.salePrice!}</em>
+                        </dd>
+                    </dl>
+                    
+                    <dl class="original cf">
+                        <dt>价格</dt>
+                        <dd>¥&nbsp;<del id="product_oprice">${product.marketPrice!}</del></dd>
+                    </dl>
+                        
+                    [/#if]	
+                    
+                    
+                    
+                    <span class="favour"><span class="icon"></span><a class="text"  href="javascript:void(0);" onclick="javascript:addToCollect(${product.id});">收藏</a></span>
+                </div>
+                
+                  [#if category.colorsize]
+			     	<div class="sys_item_spec" style="padding:7px 10px 0 10px;">
+			     	[#list standardTypeList as standardType]
+			     		[#if standardType.dataType]
+			     			<dl class="sys_item_specpara clearfix" data-sid="${standardType_index+1}" [#if arr??]data-attrval="${arr[standardType_index]}"[/#if]>
+								<dt>${standardType.name}</dt>
+								<dd>
+									<ul class="sys_spec_img">
+									      [#list psList as ps]
+					               	        [#if standardType.id=ps.type.id]
+					                    		<li data-aid="${ps.standard.id!}" [#if product.productFashion.standards?seq_contains(ps.standard)]class="selected"[#else]class=""[/#if]><a href="javascript:;" title="${ps.standard.name}"><img src="${baseUrl!}${ps.imgPath!}" alt="${ps.standard.name}" /></a><i></i></li>
+									  		[/#if]
+					                      [/#list]
+									</ul>
+								</dd>
+						   </dl>
+					   [#else]
+							<dl class="sys_item_specpara clearfix" data-sid="${standardType_index+1}" [#if arr??]data-attrval="${arr[standardType_index]}"[/#if]>
+								<dt>${standardType.name}</dt>
+								<dd>
+									<ul class="sys_spec_text">
+									 [#list psList as ps]
+					               	        [#if standardType.id=ps.type.id]
+												<li data-aid="${ps.standard.id!}" [#if product.productFashion.standards?seq_contains(ps.standard)]class="selected"[#else]class=""[/#if]><a href="javascript:;" title="${ps.standard.name}">${ps.standard.name}</a><i></i></li>
+											[/#if]
+					                 [/#list]
+									</ul>
+								</dd>
+							</dl>
+						[/#if]
+					[/#list]
+					</div>
+                  [/#if]	
+                <div class="Detail-spec p10">
+                    [#if product.status == 1]
+                    	  <dl class="amount cf">
+	                        <dt>数量</dt>
+	                        
+	                        <!-- <dd>
+								<div class="computing">
+									<input type="button" class="less" value="一" onclick="decrementAll();"/>
+									<input type="text" id="product_amount" name="productAmount" onchange ="buyButtonNumChange('product_amount')" class="num" onkeyup="inputOnlyNum(this, 1, 999);" value="1"/>
+									<input type="button" class="more"  value="+" style="font-size: 14px;" onclick="incrementAll();"/>
+								</div>
+				            </dd> -->
+				            <dd>
+								<div class="computing">
+									<input type="button" class="less shuliang" value="一" style="font-size: 10px;" onclick="decrementAll();"/>
+									<input type="text" id="product_amount" name="productAmount" onchange ="buyButtonNumChange('product_amount')" class="num" onkeyup="inputOnlyNum(this, 1, 999);" value="1"/>
+									<input type="button" class="more shuliang" value="+" style="font-size: 16px;" onclick="incrementAll();"/>
+								</div>
+				          </dd>
+				          
+	                    </dl>
+	                    <dl class="buy cf">
+	                        <dt></dt>
+	                        <dd>
+	                          <!--   <span class="now" onclick="addToCart()">立即购买</span> 
+	                      <span class="cart" onclick="addToCart()">
+	                                加入购物车
+	                            </span> -->
+	                          
+	                        <span> 
+	                           <input type="button" class="cart" value="加入购物车" onclick="javascript:addToCart(${product.id},$('#product_amount').val(),$('#current_merchantId').val());"/>   
+	                        </span>   
+	                        </dd>
+	                    </dl>
+                    [#else]
+                    	<dl class="amount cf " >
+                    		<dt  class="not-sale">此商品已下架</dt>
+                    	</dl>
+                     [/#if]
+                    
+                    
+                    <dl class="promise cf">
+                        <dt>商品编号</dt>
+                        <dd><span id="productCode">${product.productExt.code!}</span></dd>
+                    </dl>
+                    
+                    <dl class="promise cf">
+                        <dt>分享到</dt>
+                        <dd>
+                            <span >
+                            [#if category.colorsize]
+			 						<a  style="background:url(${root}/tpl/img/product/r1_c5.png) no-repeat;" href="javascript:(function(){var rul=location.href;if(rul.indexOf('?')>0){rul = rul +'&'}else{rul = rul +'?'};rul = rul +'tarcker_u=9402576';window.open(' http://v.t.sina.com.cn/share/share.php?title=【${product.name!}】,JSPGOU价 ￥[#if product.productFashion??]${product.productFashion.salePrice!}[/#if]&url='+encodeURIComponent(rul),'_blank','width=615,height=505');})()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新浪微博</a>
+			                        <a  style="background:url(${root}/tpl/img/product/1228_r3_c5.png) no-repeat;" href="javascript:void(0)" onclick="posttoWb('http://v.t.qq.com/share/share.php','${product.name!}￥[#if product.productFashion??]${product.productFashion.salePrice!}[/#if]','2fc26c2514bb48ec891170ce68db2683');" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;腾讯微博</a>
+			                [#else]
+	                                <a  style="background:url(${root}/tpl/img/product/r1_c5.png) no-repeat;" href="javascript:(function(){var rul=location.href;if(rul.indexOf('?')>0){rul = rul +'&'}else{rul = rul +'?'};rul = rul +'tarcker_u=9402576';window.open(' http://v.t.sina.com.cn/share/share.php?title=【${product.name!}】,JSPGOU价 ￥${product.salePrice!}&url='+encodeURIComponent(rul),'_blank','width=615,height=505');})()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新浪微博</a>
+			                        <a  style="background:url(${root}/tpl/img/product/1228_r3_c5.png) no-repeat;" href="javascript:void(0)" onclick="posttoWb('http://v.t.qq.com/share/share.php','${product.name!}￥${product.salePrice!}','2fc26c2514bb48ec891170ce68db2683');" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;腾讯微博</a>
+                            [/#if]
+                            
+                            </span>
+                       
+                        </dd>
+                    </dl>
+                </div>
+                
+            </div>
+           
+
+         <div class="Detail-mr fr">
+           <!--  <div class="see-again-tit">
+                    <span class="icon"></span>
+             </div>
+             <ul class="see-again-list">
+                 <li>
+                     <a href="" target="_blank" title="">
+                         <img src="images/category/tj1.jpg" width="140" height="90" />
+                     </a>
+                     <p class="p1">
+                         <a href="" target="_blank" title="">青花瓷全棉活性印花床品四件套（大号）</a>
+                     </p>
+                     <p class="red">¥499</p>
+                 </li>
+                 <li>
+                     <a href="" target="_blank" title="">
+                         <img src="images/category/tj1.jpg" width="140" height="90" />
+                     </a>
+                     <p class="p1">
+                         <a href="" target="_blank" title="">青花瓷全棉活性印花床品四件套（大号）</a>
+                     </p>
+                     <p class="red">¥499</p>
+                 </li>
+                 <li>
+                     <a href="" target="_blank" title="">
+                         <img src="images/category/tj1.jpg" width="140" height="90" />
+                     </a>
+                     <p class="p1">
+                         <a href="" target="_blank" title="">青花瓷全棉活性印花床品四件套（大号）</a>
+                     </p>
+                     <p class="red">¥499</p>
+                 </li>
+             </ul> -->
+            </div>
+        </div>
+
+          
+        <div class="Detail-content cf" id="Detail-content">
+            <div class="aside fl">
+                <div class="b">
+                    <div class="h">看了又看</div>
+                               <div id="liulan"></div>
+                   <!--     [@history_record historyProductIds=historyProductIds count=3]
+                      <ul> 
+                     [#if tag_list?size gt 0]
+                        [#list tag_list as p]
+                       <li>
+                            <div class="face">
+                           
+                                <a href="${p.url}" target="_blank" title="">
+                                    <img src="${p.productExt.coverImg!}" width="195" height="129" alt="">
+                                </a>
+                            </div>
+                            <div class="name">
+                                <a href="${p.url}" target="_blank" title="">
+                               ${p.name!}
+                                </a>
+
+                            </div>
+                            <p class="clearfix">
+                            <a class="red fl" href="${p.url}" target="_blank" title="">￥  ${p.salePrice!}</a>
+                            </p>
+                        </li>
+                        [/#list]
+                        [/#if]
+                      </ul>
+                      [/@history_record]-->
+                </div>
+            </div>
+          
+            <div id="tabbox">   
+                <ul class="tabs" id="tabs">
+                   <li><a href="" tab="tab1">商品详情</a></li>
+                   <li><a href="" tab="tab2">规格参数</a></li>
+                   <li><a href="" tab="tab3">商品评价</a></li>
+                   <li><a href="" tab="tab4">商品咨询</a></li>
+                   <li><a href="" tab="tab5">成交记录</a></li>
+                </ul>
+                <ul class="tab_conbox">
+                    <li id="tab1" class="tab_con">
+                         ${product.text!}
+                    </li>
+                        
+                    <li id="tab2" class="tab_con">
+                        ${product.text1!}
+                        
+                    </li>
+                
+                    <li id="tab3" class="tab_con">
+                    
+                         <!-- [#include "../shop/discussContentPage.html"/] --> 
+                         <script type="text/javascript">
+                        function g(o){
+                            return document.getElementById(o);
+                        }
+                        function HoverLi(x,y,m,n,counter){
+                            for(var i=1;i<=counter;i++){
+                                g(x+m+i).className='normaltab';
+                                g(y+m+i).className='undis';
+                            }
+                            g(y+m+n).className='dis';
+                            g(x+m+n).className='curr';
+                        }
+                        </script>
+						<div class="pingjia">
+                        	<ul>
+                        	 [@discuss_count productId=product.id discussType="1"]
+                                <li onclick="HoverLi('ty_','tyc_',1,1,3);" class="curr" id="ty_11">好评(${discusses?size})</li>
+                             [/@discuss_count]
+                             [@discuss_count productId=product.id discussType="2"]
+                                <li onclick="HoverLi('ty_','tyc_',1,2,3);" class="normaltab" id="ty_12">中评(${discusses?size})</li>
+                             [/@discuss_count]  
+                             [@discuss_count productId=product.id discussType="3"] 
+                                <li onclick="HoverLi('ty_','tyc_',1,3,3);" class="normaltab" id="ty_13">差评(${discusses?size})</li>
+                             [/@discuss_count] 
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="dis" id="tyc_11">
+                            <div class="dt-com">
+                                <ul class="com-ul">
+                              [@discuss_Page count=5 productId=product.id  discussType="1"]
+                                [#if tag_list?size gt 0]
+					              [#list tag_list as discuss]
+                                    <li class="cfix">
+                                        <div class="use-info">
+                                            <p>${discuss.member.username!}</p>
+                                            <p class="client">好评!</p>
+                                        </div>
+                                        <div class="use-msg">
+                                        <p> ${discuss.content!}</p>
+                                        <p class="com-time">${discuss.time!}</p>
+                                        </div>
+                                    </li>
+                                    [/#list]
+									<div class="clear"></div>
+									<div align="center">[@pagination_style sysPage='5'/]</div>
+								    [#else]
+								    <li class="cfix tac">对不起，暂时没有评论。</li>
+								    [/#if] 			
+									[/@discuss_Page]
+                                </ul>
+
+                            </div>
+                        </div> 
+                        <div class="undis" id="tyc_12">
+                        	<div class="dt-com">
+                            	<ul class="com-ul">
+                            	  [@discuss_Page count=5 productId=product.id  discussType="2"]
+                                  [#if tag_list?size gt 0]
+					              [#list tag_list as discuss]
+                                    <li class="cfix">
+                                        <div class="use-info">
+                                            <p>${discuss.member.username!}</p>
+                                        </div>
+                                        <div class="use-msg">
+                                        <p> ${discuss.content!}</p>
+                                        <p class="com-time">${discuss.time!}</p>
+                                        </div>
+                                    </li>
+								    [/#list]
+								    <div class="clear"></div>
+								    <div align="center">[@pagination_style sysPage='5'/]</div>
+								    [#else]
+								    <li class="cfix tac">对不起，暂时没有评论。</li>
+								    [/#if] 			
+							   		[/@discuss_Page]
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="undis" id="tyc_13">
+                        	<div class="dt-com">
+                            	<ul class="com-ul">
+                                    [@discuss_Page count=5 productId=product.id  discussType="3"]
+                                    [#if tag_list?size gt 0]
+                                    [#list tag_list as discuss]
+                                    <li class="cfix">
+                                        <div class="use-info">
+                                        	<p>${discuss.member.username!}</p>
+                                        </div>
+                                        <div class="use-msg">
+                                        	<p> ${discuss.content!}</p>
+                                        	<p class="com-time">${discuss.time!}</p>
+                                        </div>
+                                    </li>
+                                    [/#list]
+                                    <div class="clear"></div>
+                                    <div align="center">[@pagination_style sysPage='5'/]</div>
+                                    [#else]
+                                    <li class="cfix tac">
+                                    对不起，暂时没有评论。
+                                    </li>
+                                    [/#if] 			
+                                    [/@discuss_Page]
+                                </ul>
+                            </div>
+                        </div> 
+                         
+						
+                    </li>
+                    <li id="tab4" class="tab_con">
+                        <iframe width="944" frameborder=0 scrolling=no src="${base}/consultProduct.jspx?productId=${product.id!}" name="rightFrame" noresize="noresize" id="rightFrame" height="400">
+                        </iframe> 
+                    </li>
+                    <li id="tab5" class="tab_con">
+                               <iframe width="944"  frameborder=0 scrolling=no  src="${base}/bargain.jspx?productId=${product.id!}" name="rightFrame" noresize="noresize" id="rightFrame"  height="400">
+         </iframe>
+                       <!-- [@shop_bargain_page productId=product.id count="10"]
+                        [#if tag_pagination.list?size gt 0] 
+                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2" class="shangpin">
+                              <tr>
+                                <td height="30" align="center" bgcolor="#f7f7f7" class="huise">买家</td>
+                                [#if product.fashions?size>0]<td align="center" bgcolor="#f7f7f7" class="huise">款式</td>[/#if]
+                                <td width="150" align="center" bgcolor="#f7f7f7" class="huise">拍下价格</td>
+                                <td width="150" align="center" bgcolor="#f7f7f7" class="huise">数量</td>
+                                <td width="150" align="center" bgcolor="#f7f7f7" class="huise">下单时间</td>
+                              </tr>
+                              [#list tag_pagination.list as c]
+                              <tr>
+                                <td align="center" height="40">[@text_cut s=c.ordeR.member.username! len='2' append='**'/]</td>
+                                [#if c.productFash??]<td align="center">${c.productFash.attitude!}</td>[/#if]
+                                <td align="center" class="red">&yen;${c.salePrice!0}</td>
+                                <td align="center">${c.count!}</td>
+                                <td align="center">${c.ordeR.createTime!}</td>
+                              </tr>
+                              [/#list]
+                        </table>
+                        <div class="clear"></div>
+                        [@pagination_style sysPage='5'/]
+                        [#else]
+                        暂无数据 
+                        [/#if]
+                        [/@shop_bargain_page]-->
+                	</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+[#include "../include/页脚信息栏.html"/]
+
+ [#if category.colorsize]
+ <script language="JavaScript" type="text/JavaScript">
+var sys_item={
+		[#if product.productFashion??]
+				"mktprice":"${product.productFashion.marketPrice!}",
+				"price":"${product.productFashion.salePrice!}",
+				"attitude":"${product.productFashion.attitude!}",
+				"fashId":"${product.productFashion.id!}",
+        [#else]
+     	"mktprice":"",
+		"price":"",
+		"attitude":"",
+		"attitude":"",
+		"fashId":"",
+		[/#if]
+	
+		"sys_attrprice":{
+			[#list product.fashions as fash]
+			 [#if fash_has_next]
+			  "${fash.nature!}":{"price":"${fash.salePrice!}","mktprice":"${fash.marketPrice!}","attitude":"${fash.attitude!}","fashId":"${fash.id!}"},
+             [#else]
+              "${fash.nature!}":{"price":"${fash.salePrice!}","mktprice":"${fash.marketPrice!}","attitude":"${fash.attitude!}","fashId":"${fash.id!}"}
+			 [/#if]
+			[/#list]
+		}
+	};
+
+//商品规格选择
+$(function(){
+	$(".sys_item_spec .sys_item_specpara").each(function(){
+		var i=$(this);
+		var p=i.find("ul>li");
+		p.click(function(){
+			
+			if(!!$(this).hasClass("selected")){
+				$(this).removeClass("selected");
+				i.removeAttr("data-attrval");
+			}else{
+				$(this).addClass("selected").siblings("li").removeClass("selected");
+				i.attr("data-attrval",$(this).attr("data-aid"))
+			}
+			getattrprice() //输出价格
+		})
+	})
+	//获取对应属性的价格
+	function getattrprice(){
+		var defaultstats=true;
+		var _val='';
+		var _resp={
+			mktprice:".sys_item_mktprice",
+			price:".sys_item_price",
+			attitude:".sys_item_attitude"
+		}  //输出对应的class
+		$(".sys_item_spec .sys_item_specpara").each(function(){
+			var i=$(this);
+			var v=i.attr("data-attrval");
+			if(!v){
+				defaultstats=false;
+			}else{
+				_val+=_val!=""?"_":"";
+				_val+=v;
+			}
+		})
+		
+		if(!!defaultstats){
+			if((sys_item['sys_attrprice'][_val])!=undefined){
+				_mktprice=sys_item['sys_attrprice'][_val]['mktprice'];
+				_price=sys_item['sys_attrprice'][_val]['price'];
+				_attitude=sys_item['sys_attrprice'][_val]['attitude'];
+				_fashId=sys_item['sys_attrprice'][_val]['fashId'];
+			}else{
+				alert("您选择的商品已无库存！");
+				_mktprice=sys_item['mktprice'];
+				_price=sys_item['price'];
+				_attitude=sys_item['attitude'];
+				_fashId=sys_item['fashId'];
+			}
+			
+		}else{
+			_mktprice=sys_item['mktprice'];
+			_price=sys_item['price'];
+			_attitude=sys_item['attitude'];
+			_fashId=sys_item['fashId'];
+		}
+		//输出价格
+		$(_resp.mktprice).text(_mktprice);  ///其中的math.round为截取小数点位数
+		$(_resp.price).text(_price);
+		$(_resp.attitude).text(_attitude);
+		$("#current_merchantId").val(_fashId);
+	}
+})
+</script>
+[/#if]
+
+
+<script type="text/javascript">
+		var p_id = "${product.id}";
+		var p_title = "${product.name!}";
+		var p_price = "${product.salePrice!}";
+		var p_url = "${product.url!}";
+		var p_pic = "";
+		[#if product.pictures?? && product.pictures?size gt 0]
+			[#list product.pictures as pic]
+		 		[#if pic_index==0]
+					p_pic ="${base!}${pic.bigPicturePath!}";
+		 		[/#if]
+		  [/#list]
+		[/#if]
+		var id = "product";
+		var price = "price";
+		var title = "title";
+		var pic = "pic";
+		var url = "url";
+
+		
+		//*取出cookie并显示
+		for(i = 0 ;i<5;i++){
+			title = title+i;
+			price = price+i;
+			pic = pic+i;
+			url = url+i;
+			var arr0 = document.cookie.match(new RegExp("(^| )"+title+"=([^;]*)(;|$)"));
+			var arr1 = document.cookie.match(new RegExp("(^| )"+price+"=([^;]*)(;|$)"));
+			var arr2 = document.cookie.match(new RegExp("(^| )"+pic+"=([^;]*)(;|$)"));
+			var arr3 = document.cookie.match(new RegExp("(^| )"+url+"=([^;]*)(;|$)"));
+			if(arr0 != null ){
+				var str = "<ul><li>"+
+					"<div class='p-wrap'>"+
+				"<div class='p-img'>"+
+				"<a target='_blank' href="+unescape(arr3[2])+">"+
+				"<img src='"+unescape(arr2[2])+"'>"+
+				"</a>"+
+				"</div>"+
+				"<div class='p-info'>"+
+				"<div class='p-name'>"+
+				"<a target='_blank' title='"+unescape(arr0[2])+"' href='"+unescape(arr3[2])+"'>"+unescape(arr0[2])+"</a>"+
+				"</div>"+
+				"<div class='p-price'>"+
+				"<s>￥</s>"+unescape(arr1[2])+
+				"</div>"+
+				"</div>"+
+				"</div>"+
+				"</li></ul>";
+				$("#liulan").append(str);
+			}
+			price = "price";
+			title = "title";
+			pic = "pic";
+			url = "url";
+		}
+		
+		var number = 4;
+		SetCookie();
+		function SetCookie()//两个参数，一个是cookie的名子，一个是值
+		{
+			var Days = 30; //此 cookie 将被保存 30 天
+		    var exp  = new Date();    //new Date("December 31, 9998");
+		    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+			for(i = 0 ;i<5;i++){
+				id = id+i;
+				var arr = document.cookie.match(new RegExp("(^| )"+id+"=([^;]*)(;|$)"));
+				if(arr != null && getCookie(id) == p_id){
+					title = title+i;
+					price = price+i;
+					pic = pic+i;
+					url = url+i;
+					delCookie(id);
+					delCookie(title);
+					delCookie(price);
+					delCookie(pic);
+					delCookie(url);
+					number = i;
+				}
+				id = "product";
+				price = "price";
+				title = "title";
+				pic = "pic";
+				url = "url";
+			}
+			for(var i = number ;i>0;i--){
+				id0 = id+(i-1);
+			    price0 = price+(i-1);
+			    title0 = title+(i-1);
+			    pic0 = pic+(i-1);
+			    url0 = url+(i-1);
+			    id = id +i;
+			    price = price+i;
+			    title = title+i;
+			    pic = pic+i;
+			    url = url + i;
+			    if(getCookie(id0) != null){
+			    	document.cookie = id + "="+ escape (getCookie(id0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+				    document.cookie = price + "="+ escape (getCookie(price0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+				    document.cookie = title + "="+ escape (getCookie(title0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+				    document.cookie = pic + "="+ escape (getCookie(pic0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+				    document.cookie = url + "="+ escape (getCookie(url0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+			    }
+			    
+			    id = "product";
+			    price = "price";
+				title = "title";
+				pic = "pic";
+				url = "url";
+			}
+			
+		    
+			//* 让当前商品相关cookie保存为第0个
+		    id = id+"0";
+		    price = price+"0";
+		    title = title+"0"; 
+		    pic = pic+"0";
+		    url = url +"0";
+		    document.cookie = id + "="+ escape (p_id) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+		    document.cookie = price + "="+ escape (p_price) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+		    document.cookie = title + "="+ escape (p_title) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+		    document.cookie = pic + "="+ escape (p_pic) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+		    document.cookie = url + "="+ escape (p_url) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+		    id = "product";
+		    price = "price";
+			title = "title";
+			pic = "pic";
+			url = "url";
+		}
+		
+		
+		
+		function getCookie(name){//取cookies函数 
+				var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+				if(arr != null ){
+					return unescape(arr[2]);
+				}else if(i == 5){
+					return null;
+				}
+		}
+		function delCookie(name)//删除cookie
+		{
+		    var exp = new Date();
+		    exp.setTime(exp.getTime() - 1);
+		    var cval=getCookie(name);
+		    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		}
+		</script>
+
+
+<script src="${root}/js/2017/product.js"  type="text/javascript"></script>
+</body>
+</html>

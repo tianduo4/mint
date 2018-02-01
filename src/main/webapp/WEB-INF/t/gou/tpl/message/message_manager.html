@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的站内信 - ${web.name}${web.additionalTitle!}</title>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/member.css" type="text/css" rel="stylesheet" />
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+function g(o){
+	return document.getElementById(o);
+}
+function HoverLi(m,n,counter){
+	window.frames["framex"+n].location.reload();
+	for(var i=1;i<=counter;i++){
+		g('tb_'+m+i).className='normaltab';
+		g('tbc_'+m+i).className='undis';
+	}
+	g('tbc_'+m+n).className='dis';
+	g('tb_'+m+n).className='cur';
+}
+$(function() {
+	countUnreadMsg();
+});
+function countUnreadMsg(){
+	 $.post("message_countUnreadMsg.jspx", {
+		}, function(data) {
+			if(data.result){
+				 $("#countDiv").html(""+data.count+"");
+			}else{
+				alert("请先登录");
+			}
+		}, "json");
+	 setTimeout( "countUnreadMsg() ",1000*60*10);    
+}
+setTimeout( "countUnreadMsg() ",1000*60*10); 
+</script>
+<style type="text/css">
+.mc_content{width:700px;
+	min-height:400px;  /**ie7版本下支持*/
+	max-height:500px;  /**最大的高度*/
+	—height:300px;   /**ie6下支持*/
+	margin-left:auto;
+	margin-right:auto;
+	padding:3px;
+	outline:0;   /**鼠标点进去，外边框去掉*/
+	border:1px solid #ccc;
+	font-size:12px;
+	word-wrap:break-word;   /**当输入文字，单词超过父容器宽度，会自动转下一行，最后一个单词，不会拆分*/
+	overflow-x:hidden;   /**水平滚动条隐藏*/
+	overflow-y:auto;   /**垂直滚动条，当超出一定高度时出现*/
+}
+
+.odrTabUl{ width:938px;height:30px;_overflow:hidden; margin:auto;}
+.odrTab li{height:30px;line-height:30px;}
+.odrTab li.cur{position:relative;background:#fff;border-bottom:1px solid #fff;color:#666;z-index:1;}
+
+.ul_select {background: none repeat scroll 0 0 #f5f5f5;border: 1px solid #ebebeb;display: block; padding:0;}
+.ul_select li {border-right: 1px solid #ebebeb;cursor: pointer;float: left;position: relative;text-align: center;width:100px;}
+.ul_select li.cur {color: #CC0000;font-weight: bold;}
+.ul_select li.non, .ul_select li.non cite { color: #999999;  cursor: default;}
+
+</style>
+</head>
+<body>
+
+[#include "../include/页头顶栏.html"/]
+[#include "../include/页头搜索栏.html"/]
+[#include "../include/内页导航栏.html"/]
+<div class="user-page-content">
+	<div class="clearfix w">
+		[#include "../member/会员中心_导航.html"/]
+    	<div id="container" class="user_main">
+            <div class="content-one content-hei">
+                <div class="user_title">
+                    <div class="fl">站内信息</div>
+                    <a href="${base}/member/message_mng.jspx?box=0" class="fr">您有 
+                        <strong style="color:#fe6c00;"><span id="countDiv"></span></strong> 条未读信息
+                    </a>
+                </div>
+                
+                <div class="odrTab" style="width:940px; margin:auto;">
+                    <ul class="ul_select odrTabUl">
+                        <li id="tb_11" class="first cur" onclick="HoverLi(1,1,2)">收件箱</li>
+                        <li id="tb_12" onclick="HoverLi(1,2,2)">垃圾箱</li>
+                    </ul>
+                    
+                    <div id="tbc_11" class="dis">
+                        <iframe name="framex1" id="framex" frameborder="0" src="${base}/member/message_list.jspx?box=0" style="height:300px; width:928px; border:1px solid #ebebeb; border-top:0; padding:5px;"></iframe>
+                    </div>
+                    <div id="tbc_12" class="undis">
+                        <iframe id="framex" name="framex2" frameborder="0" src="${base}/member/message_list.jspx?box=3" style="height:300px; width:928px; border:1px solid #ebebeb; border-top:0; padding:5px;"></iframe>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+[#include "../include/页脚信息栏.html"/]
+</body>
+</html>

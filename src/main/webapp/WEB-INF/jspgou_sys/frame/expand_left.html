@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>jeecms-left</title>
+<style>
+.gongzhonghao{
+margin-left: 60px;
+line-height: 25px;
+}
+
+</style>
+
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function(){
+	JCore.lmenu('lmenu');
+});
+
+$(function(){
+	JCore.lmenu('lmenu1');
+});
+
+$(function(){
+	JCore.lmenu('lmenu2');
+});
+function shezhi(){
+	var shezhi=document.getElementById("shezhi");  
+	  if(shezhi.style.display=="none"){
+		  shezhi.style.display="block";
+	  }else{
+		  shezhi.style.display="none";
+	  }
+  }
+</script>
+</head>
+<body  class="lbody">
+    
+	<ul id="lmenu">
+	<@authorize url="/plug/v_list.do"> 
+	<li><a href="../plug/v_list.do" target="rightFrame">插件管理</a></li>
+	</@authorize>
+	</ul>
+	
+	
+	 <ol id="lmenu1">	
+		<@authorize url="/weixin/v_edit.do">
+		<li onclick="shezhi()"><a  target="rightFrame">公众号设置</a></li>
+		</@authorize>
+     </ol>
+     
+     		<div id="shezhi" style="display: none;">
+				<div class="gongzhonghao"><a href="../weixin/v_edit.do" target="rightFrame">公众号设置</a></div>
+				<div class="gongzhonghao"><a href="../weixinMenu/v_list.do" target="rightFrame">自定义菜单</a></div>
+				<div class="gongzhonghao"><a href="../weixinMessage/v_list.do" target="rightFrame">自定义回复</a></div>
+				<div class="gongzhonghao"><a href="../weixinMessage/v_default_set.do" target="rightFrame">默认回复</a></div>
+			</div>
+			
+	<ul id="lmenu2">
+    <@authorize url="/store/v_center.do"> 
+	<li><a href="../store/v_center.do" target="rightFrame">应用中心</a></li>
+    </@authorize>
+	</ul>	
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>购物车</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<script type="text/javascript" src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<!--<script src="/r/gou/www/mobile/js/jquery.js" type="text/javascript"></script>-->
+<script  src="${root}/mobile/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100"></a>
+    <h1 class="mui-title">购物车</h1>
+</header>
+<div class="mui-content mb44" style="background:#fff;">
+    [#if cart??]
+    <form action="${base!}/cart/checkout_shipping.jspx" method="post" id="shopForm">
+                <section class="shop-menu" >
+                    <div class="order-bar">
+                         <div class="mui-input-row shop-checkbox mui-checkbox">
+                                    <label class="shop-label"></label>
+                                    <input name="bar" value="1" type="checkbox" class="group-check">
+                      </div>
+                        <a href="#" class="shop-del">编辑</a>
+                    </div>
+                    [#list cart.items as item]
+    
+                    <table class="shop-box" id="item_tr_${item.product.id}_${item_index}">
+                        <tr    [#if !(item.product.status ==1)] style="background-color: #f0f0f0" [/#if]>
+                            <td class="mui-checkbox">
+                                [#if item.product.status ==1] 
+	                                <div class="mui-input-row shop-checkbox">
+	                                    <label class="shop-label"></label>
+	                                        <input name="cart2Checkbox" value="${item.id}" id="chkMat_${item.product.id}_${item_index}" type="checkbox" class="shop-check" >
+	                                </div>
+                                [#else]
+                                 		<span style="margin-left:-8px;padding:3px 5px;background-color:#ccc;webkit-border-radius: 3px; -moz-border-radius: 3px;  -ms-border-radius: 3px;  border-radius: 3px;font-size:12px">失效</span>
+                               	[/#if] 
+                            </td>
+                            <td class="shop-img">
+                                <img src="[#if item.product.productExt.coverImg??]${baseUrl!}${(item.product.productExt.coverImg)!}[#else]${baseUrl!}${global.defMobileImg!}[/#if]" alt="" />
+                            </td>
+                            <td class="shop-content">
+                                <div class="shop-name">
+                                    [@text_cut s=item.product.name len='20' appent='...'/]
+                                </div>
+                                <div class="shop-property">
+                                    [#if item.productFash??]
+                                        ${(item.productFash.attitude)!}
+                                    [/#if]
+                                </div>
+                                <div class="shop-num">
+                                    [#if item.productFash??]
+                                        <span class="present-price" id="sale_items_${item.product.id}_${item_index}" data-totalsaleitems="${item.count*item.productFash.salePrice!0}">${(item.productFash.salePrice)!}</span>
+                                        <span class="original-price">${(item.productFash.marketPrice)!}</span>
+                                        <input id="total_sale_items_${item.product.id}_${item_index}" type="hidden" value="${item.count*item.productFash.salePrice!0}" /> 
+                                        <input id="items_fash_${item.product.id}_${item_index}" type="hidden" value="${(item.productFash.id)}" /> 
+                                    [#else]
+                                        <span class="present-price" id="sale_items_${item.product.id}_${item_index}" data-totalsaleitems="${item.count*item.product.salePrice!0}">${(item.product.salePrice)!}</span>
+                                        <input id="total_sale_items_${item.product.id}_${item_index}" type="hidden" value="${item.count*item.product.salePrice!0}" /> 
+                                        <span class="original-price">${(item.product.marketPrice)!}</span>										
+                                    [/#if]   
+                                    <div class="mui-numbox shop-numbox" data-numbox-min='0' data-numbox-max='99'>
+                                  		 [#if item.product.status ==1] 
+                                        <button class="mui-btn mui-btn-numbox-minus" data-itemid="${item.id}" data-itemproductindex="items_${item.product.id}_${item_index}" type="button">-</button>
+                                        <input data-itemid="${item.id}" data-itemproductindex="items_${item.product.id}_${item_index}" id="items_${item.product.id}_${item_index}" class="mui-input-numbox shop-num-input" type="number" value="${item.count!}" [#if item.productFash??]oriNum="${(item.productFash.stockCount)!0}"[#else]oriNum="${(item.product.stockCount)!0}"[/#if]/>
+                                        <button class="mui-btn mui-btn-numbox-plus" data-itemid="${item.id}" data-itemproductindex="items_${item.product.id}_${item_index}" type="button">+</button>
+                                        [#else]
+                                	       <span style="font-size:12px;padding-left:35px"> ${item.count!}</span>
+                                        [/#if]
+                                    </div>
+                                </div>
+                                [#if !(item.product.status == 1)]  <span style="font-size:12px;color:red">此商品已下架</span>[/#if]
+                            </td>
+                            <td class="dd-del" data-delitemid="${item.id!}">删除</td>
+                        </tr>
+                    </table>
+        
+                    [/#list]
+                </section>	
+
+        
+
+        <!--支付栏-->
+        <div class="shop-fix">
+            <table>
+                <tr>
+                    <td class="mui-checkbox w70">
+                        <div class="mui-input-row shop-checkbox">
+                            <label class="shop-label pl35">全选</label>
+                            <input name="all" value="1" type="checkbox" id="allCheck"  class="group-check">
+                        </div>
+                    </td>
+                    <td class="all-count">
+                        <p>
+                            <span class="total">合计：</span>
+                            <span class="total-price" id='allNum'></span>
+                        </p>
+                        <p>(不含运费)</p>
+                    </td>
+                    <td class="settlement-box">
+                        <input type="button" id="checksubmit" value="结算" class="settlement-btn" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    [#else]
+        <div style=" line-height:30px; margin:50px 10px; text-align:center;">
+       	  <img src="/r/gou/www/mobile/img/shopping.png" width="150" height="150" style="margin:auto auto 30px auto;">
+          <p style="font-size:18px; color:#585858;">您的购物车还是空的</p>
+          <p style="font-size:14px;">马上去<a href="${base}/" style="color:#cc0000;">挑选商品</a></p>
+        </div>
+    [/#if]
+<div>
+</body>
+<script src="${root}/mobile/js/mui.min.js"></script>
+<script>
+    //结算
+    $("#checksubmit").on("tap",function(){
+        var sale=0.0;
+        var result=true;
+        $("#[id^='total_sale_items_']").each(function(){
+            var sl=parseFloat(jQuery(this).val());
+            var h=this.id;
+            var e=h.split("_")[3]; 
+            var f=h.split("_")[4]; 
+            if($("#chkMat_"+e+"_"+f).attr("checked")){
+                sale+=sl;
+            }else{
+                sale=sale;
+            }
+        });
+        if(sale==0){
+            alert("请勾选需要结算的商品");
+            result=false;
+        }
+        $("#[id^='item_tr_']").each(function(){
+            var sl=parseFloat(jQuery(this).html());
+            var h=this.id;
+            var e=h.split("_")[2]; 
+            var index=h.split("_")[3]; 
+            var count=$("#items_"+e+"_"+index).val();
+            var fashId=$("#items_fash_"+e+"_"+index).val();
+            if($("#chkMat_"+e+"_"+index).attr("checked")){
+                $.post("${base!}/cart/checkStockCount.jspx", {
+                    'productId' : e,
+                    'productFashionId' :fashId,
+                    'count':count
+                }, function(data) {
+                    if(data.status==0){
+                        location=location;
+                    }
+                    if(data.status==2){
+                        alert(data.error);	
+                    }
+                },'json');
+            }
+        });
+        if(result==true){
+            $("#shopForm").submit();
+        }
+    });
+    /*自动加载方法*/
+    jQuery(function(){
+        loadsale();
+    });
+    /*自动加载总价格*/
+    function loadsale(){	
+        var sale=0.0;
+        $("#[id^='total_sale_items_']").each(function(){
+            var sl=parseFloat(jQuery(this).val());
+            var h=this.id;
+            var e=h.split("_")[3]; 
+            var f=h.split("_")[4]; 
+            if($("#chkMat_"+e+"_"+f).attr("checked")){
+                sale=accAdd(sale,sl);
+            }else{
+                sale=sale;			
+            }
+        });
+        $("#allNum").html(sale);
+    }
+    function accAdd(arg1,arg2){ 
+        var r1,r2,m; 
+        try{r1=arg1.toString().split(".")[1].length;}catch(e){r1=0;} 
+        try{r2=arg2.toString().split(".")[1].length;}catch(e){r2=0;} 
+        m=Math.pow(10,Math.max(r1,r2)); 
+        return (arg1*m+arg2*m)/m; 		 
+    } 
+    function accMul(arg1,arg2) { 
+        var m=0,s1=arg1.toString(),s2=arg2.toString(); 
+        try{m+=s1.split(".")[1].length}catch(e){} 
+        try{m+=s2.split(".")[1].length}catch(e){} 
+        return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
+    }
+    /*减号操作*/
+    $('.shop-num').on('tap','.mui-btn-numbox-minus',function () {
+        var itemId=$(this).data("itemid");
+        var j=$(this).data("itemproductindex");
+        var b=jQuery("#"+j).val();
+        var a=/^[1-9]\d{0,2}$/g;
+        if(!b.match(a)){
+            alert("输入的数量有误,应为[1-99]");
+            j.value="1";b=1;
+       }
+        var c=parseInt(b);
+        if(c<1){c=1;}
+        var q=jQuery("#"+j).attr("oriNum");
+        var d=parseInt(q);
+        if(c>d){alert("该商品库存有限，您最多只能购买"+d+"件");c=d;}
+        jQuery("#"+j).val(c);
+        var h=jQuery("#"+j).attr("id");
+        var e=h.split("_")[1];
+        var index=h.split("_")[2];
+        var sl=$("#sale_items_"+e+"_"+index).html();
+        $("#total_sale_items_"+e+"_"+index).val('');
+        $("#total_sale_items_"+e+"_"+index).val(accMul(sl,c));
+        loadsale();  //加载项
+        $.post("${base!}/cart/ajaxUpdateCartItem.jspx", {
+            'cartItemId':itemId,
+            'count':c
+        }, function(data) {
+            if(data.status==1){
+                /*location.reload();*/
+            }else{
+                alert("更新不成功");
+            }
+        },'json');
+    });
+    /*加号操作*/
+    $('.shop-num').on('tap','.mui-btn-numbox-plus',function () {
+        var itemId=$(this).data("itemid");
+        var j=$(this).data("itemproductindex");
+        var b=jQuery("#"+j).val();
+        var a=/^[1-9]\d{0,2}$/g;
+        if(!b.match(a)){
+            alert("输入的数量有误,应为[1-999]");
+            f.value="1";b=1;
+        }
+        var c=parseInt(b);
+        if(c>999){c=999;}
+        var q=jQuery("#"+j).attr("oriNum");
+        var d=parseInt(q);
+        if(c>d){alert("该商品库存有限，您最多只能购买"+d+"件");c=d;}
+        jQuery("#"+j).val(c);
+        var h=jQuery("#"+j).attr("id");
+        var e=h.split("_")[1];
+        var index=h.split("_")[2];
+        var sl=$("#sale_items_"+e+"_"+index).html();
+        $("#total_sale_items_"+e+"_"+index).val('');
+        $("#total_sale_items_"+e+"_"+index).val(accMul(sl,c));
+        loadsale();  //加载项
+        $.post("${base!}/cart/ajaxUpdateCartItem.jspx", {
+            'cartItemId' : itemId,
+            'count':c
+        }, function(data) {
+            if(data.status==1){
+                /*location.reload();*/
+            }else{
+                alert("更新不成功");
+            }
+        },'json');
+    });
+    
+    /*数量输入框操作*/
+    $('.shop-num').on('tap','.shop-num-input',function () {
+        var itemId=$(this).data("itemid");
+        var i=$(this).data("itemproductindex");
+        var f=jQuery("#"+i).val();
+        var c=/^[1-9]\d{0,2}$/g;
+        if(!f.match(c)){
+            alert("输入的数量有误,应为[1-99]");
+            i.value="1"; f=1;
+        }
+        var a=parseInt(f);
+        if(a<1){a=1;}
+        if(a>99){a=99;}
+        var q=jQuery("#"+i).attr("oriNum");
+        var d=parseInt(q);
+        if(a>d){alert("该商品库存有限，您最多只能购买"+d+"件");a=d;}
+        jQuery("#"+i).val(a);
+        var b=jQuery("#"+i).attr("id");
+        var e=b.split("_")[1];
+        var index=b.split("_")[2];
+        var sl=$("#sale_items_"+e+"_"+index).html();
+        $("#total_sale_items_"+e+"_"+index).val('');
+        $("#total_sale_items_"+e+"_"+index).val(accMul(sl,a));
+        loadsale();  //加载项
+        $.post("${base!}/cart/ajaxUpdateCartItem.jspx", {
+            'cartItemId' : itemId,
+            'count':a
+        }, function(data) {
+            if(data.status==1){
+                /*location.reload();*/
+            }else{
+                alert("更新不成功");
+            }
+        },'json');
+    });
+    
+    /*显示删除操作*/
+    $('.shop-menu').on('tap', '.shop-del', function() {
+        var delBtn = $(this).parent().siblings().find('.dd-del');
+        delBtn.toggle();
+    })
+    /*删除商品操作*/
+    $('body').on('tap', '.dd-del', function() {
+        var cartItemId=$(this).data('delitemid');
+        var rootParent=$(this).parents('.shop-menu');				
+        var self = $(this);
+        var btnArray = ['取消', '删除'];
+        mui.confirm('你确定要删除此项吗？', '购物车项删除', btnArray, function(e) {
+            if(e.index == 1) {//点击删除进行的操作
+                $.post("${base!}/cart/ajaxDeleteCartItem.jspx", {
+                    'cartItemId' : cartItemId
+                }, function(data) {
+                    if(data.status==1){
+                        location.reload();
+                    }else{
+                        alert("删除不成功");
+                    }
+                },'json');
+            } else {
+                console.log('.....');
+            }
+        })
+    })
+
+   /*单个商品选择*/
+    $('#shopForm').on('click', '.shop-check', function() {			
+        var checkParent=$(this).parents('.shop-menu');//店铺列表
+        var groupBox= checkParent.find('.group-check');//每组按钮
+        var checkBox=checkParent.find('.shop-check'); //每组的内容选择按钮
+        var selectCheckBox= checkParent.find('.shop-check:checked');//每组选中的内容选择按钮	
+        var allCheckBox = $(".shop-check");//所有内容按钮
+        var allSelectCheckBox = $(".shop-check:checked");	//所有选中内容按钮	     
+         if($(this).is(':checked')){
+                   if(selectCheckBox.size()==checkBox.size()){
+                      groupBox.prop("checked", true);
+                      loadsale();
+                   }else{
+                      groupBox.prop("checked", false);
+                      loadsale();
+                   }
+         }else{
+            groupBox.prop("checked", false);
+            loadsale();
+         }
+         /*所有选中*/
+          if(allSelectCheckBox.size()==allCheckBox.size()){
+                 $('#allCheck').prop("checked", true);
+                 loadsale();
+          }else{
+             $('#allCheck').prop("checked", false);
+             loadsale();
+          }
+         
+         
+    })
+
+
+/*一组商品选择操作*/
+ $('#shopForm').on('click','.group-check',function () {
+        var gruopCheck=$('.group-check');
+        var selectGruopCheck=$('.group-check:checked');
+         var checkParent=$(this).parents('.shop-menu');//店铺列表
+               var shopList=checkParent.find('.shop-check');
+        if($(this).is(":checked")) {	    	
+            shopList.prop("checked", true);
+            loadsale();
+        } else {
+            shopList.prop("checked", false);
+            loadsale();
+        }
+        
+         if(gruopCheck.size()==selectGruopCheck.size()){
+                 $('#allCheck').prop("checked", true);
+                 loadsale();
+          }else{
+             $('#allCheck').prop("checked", false);
+             loadsale();
+          }
+ })
+    /*全选*/
+    $('#allCheck').on('click', function() {
+        if($(this).is(":checked")) {
+            $("input[type='checkbox']").prop("checked", true);
+            loadsale();
+        } else {
+            $("input[type='checkbox']").prop("checked", false);
+            loadsale();
+        }
+    })
+</script>
+<script type="text/javascript">
+    mui.init();
+    mui('body').on('tap', 'a', function() {
+        document.location.href = this.href;
+    });
+</script>
+</html>

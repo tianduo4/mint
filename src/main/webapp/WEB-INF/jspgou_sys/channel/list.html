@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+
+function optSaveOrder() {
+	var f = getTableForm();
+	f.action="o_priority.do";
+	f.submit();
+}
+
+$(function(){
+	$("#browser").treeview({
+		url: "v_tree.do"
+	});
+	JCore.lmenu('lmenu');
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: <@s.m "shopChannel.function"/> - <@s.m "global.list"/></div>
+	<@authorize url="/channel/v_add.do">
+	<form class="ropt">
+	    <input type="hidden" name="root" value="${root!}"/>
+		<input type="hidden" id="type" name="type" value="1"/>
+		<input type="submit" value="<@s.m "global.add"/><@s.m "shopChannel.type.1"/>" onclick="this.form.action='v_add.do';$('#type').val(1);"/>
+		<input type="submit" value="<@s.m "global.add"/><@s.m "shopChannel.type.2"/>" onclick="this.form.action='v_add.do';$('#type').val(2);"/>
+		<input type="submit" value="<@s.m "global.add"/><@s.m "shopChannel.type.3"/>" onclick="this.form.action='v_add.do';$('#type').val(3);"/>
+	</form>
+	</@authorize>
+	<div class="clear"></div>
+</div>
+
+
+<div style="float:left;margin-right: 30px;width:15%;">
+	<div class="lttop" align="center">
+		<a href="javascript:location.href=location.href"><@s.m "global.refresh"/></a>&nbsp; 
+		<a href="../type/v_list.do" target="rightFrame"><@s.m "productType.function"/></a>
+	</div>
+<hr/>
+<ul id="browser" class="filetree"></ul>
+</div>
+
+<div style="border-left:1px dashed gray;height:100%;line-height:1px;float:left;"></div>
+
+<div id="div1">
+
+
+
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+
+<#if list?? && list?size gt 0>
+
+<@p.table value=list;shopChannel,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${shopChannel.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column title="ID" align="center">${shopChannel.id}</@p.column><#t/>
+	<@p.column code="shopChannel.name" align="center">${shopChannel.name} [<@s.m "shopChannel.type.${shopChannel.type}"/>]</@p.column><#t/>
+	<@p.column code="shopChannel.path" align="center"><#if shopChannel.type==3>${shopChannel.outerUrl}<#else>${shopChannel.path}</#if><input type="hidden" name="wids" value="${shopChannel.id}"/></@p.column><#t/>
+	<@p.column code="shopChannel.tplChannel" align="center">
+		<#if shopChannel.type==1>${shopChannel.tplChannel}
+		<#elseif shopChannel.type==2><#if shopChannel.tplChannel==""><@s.m "global.tplDefault"/><#else>${shopChannel.tplChannel}</#if>
+		<#else><@s.m "global.none"/>
+		</#if>
+	</@p.column><#t/>
+	<@p.column code="shopChannel.tplContent" align="center">
+		<#if shopChannel.type==1>${shopChannel.tplChannel}
+		<#elseif shopChannel.type==2><#if shopChannel.tplContent==""><@s.m "global.tplDefault"/><#else>${shopChannel.tplContent}</#if>
+		<#else><@s.m "global.none"/>
+		</#if>
+	</@p.column><#t/>
+	<@p.column code="shopChannel.display" align="center"><#if shopChannel.display><@s.m "global.true"/><#else><@s.m "global.false"/></#if></@p.column><#t/>
+	<@p.column code="global.priority" align="center"><input type="text" name="priority" value="${shopChannel.priority}" style="width:30px"/></@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+	<@authorize url="/channel/v_edit.do"> 	<a href="v_edit.do?id=${shopChannel.id}&pageNo=${pageNo!}"><@s.m "global.edit"/></a> | <#rt/></@authorize> 
+	<@authorize url="/channel/o_delete.do">	<a href="o_delete.do?ids=${shopChannel.id}&pageNo=${pageNo!}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/></@authorize>
+	</@p.column><#t/>
+</@p.table>
+<@authorize url="/channel/o_delete.do">	<div><input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/></@authorize>
+&nbsp; <input type="button" value="<@s.m "global.saveOrder"/>" onclick="optSaveOrder();"/>
+</div>
+
+<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+</#if>
+
+</div>
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

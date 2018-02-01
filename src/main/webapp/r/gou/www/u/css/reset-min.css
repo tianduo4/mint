@@ -1,0 +1,9 @@
+ul{margin:0;padding:0;}
+.clr { clear:both; }
+
+.demoWrapper #tabNav li { float:left; list-style-image:none; list-style-position:outside; list-style-type:none; width:100px;}
+.demoWrapper #tabNav ul a { background:#faafaf; display:block; margin-right:2px; /*margin:1px 1px 1px 0;*/ padding:5px 8px; text-decoration:none !important; outline-color:invert; outline-style:none; outline-width:medium; color:#fff; text-align:center;}
+.demoWrapper #tabNav ul a:hover { background:#ccc; color:#fff;}
+.demoWrapper #tabNav ul a.selected { background:#cc0000; color:#fff; /*border-bottom:1px solid #1B5790;*/ cursor:default; /*margin-bottom:0;*/ } /*89725B*/
+.demoWrapper #tabs { border:1px solid #cccccc; }
+.demoWrapper .tab { padding:15px; display:none;}

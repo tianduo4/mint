@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无发货申请退款页 - ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+function g(o){
+	return document.getElementById(o);
+}
+
+function clickchange(alipayId){
+	if(alipayId==2){
+        document.getElementById('alipayShow').style.display='block';
+	}
+}
+</script>
+
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">申请退款</h1>
+</header>
+<div id="page" style="padding-top:50px;">
+	<div class="order-menu">
+    	<div id="apply-form">
+            <form id="jvForm" action="orderReturnRefer.jspx" method="post">	
+            <input type="hidden" name="orderId" value="${order.id}"/>
+            <input type="hidden" name="delivery" [#if delivery] value="ture" [#else]value="false"[/#if]/>		
+            <input type="hidden" name="money" value="${order.total!0}"/>
+            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="100" height="35" align="right"><font color="red">*</font><label>需要退款金额</label>：</td>
+                <td><b><font color="red">${order.total!}</font>元</b></td>
+              </tr>
+              <tr>
+                <td height="35" align="right"><font color="red">*</font><label>退款原因</label>：</td>
+                <td>
+                <select class="ss_input required" name="reasonId" style=" border:1px solid #ddd !important;">
+                <option selected="selected" value="">请选择退款原因</option>
+                [#list ndList as sd]
+                <option value="${sd.id}">${sd.name}</option>
+                [/#list]
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td height="35" align="right"><font color="red">*</font><label>退款支付类型</label>：</td>
+                <td>
+                <select class="ss_input required" name="payType" style=" border:1px solid #ddd !important;" onclick="clickchange(this.value);">
+                <option value="1">我的账户</option>
+                <option value="2">支付宝</option>
+                </select>
+                <p id="alipayShow" style="display:none; clear:both">
+                    <label class="fl">支付宝账号</label>：
+                    <input type="text" id="alipayId" name="alipayId" class="ss_input fl" />
+                </p>
+                </td>
+              </tr>
+            </table>
+
+            <div style="margin:10px;">
+                <textarea name="reason" class="ss_input" cols="66" rows="5" style="width:100%; border:1px solid #ddd; margin-top:10px;" placeholder="请填写退款原因0-200个字" ></textarea>
+            </div>
+            <div style="margin:10px; clear:both; overflow:hidden;">
+                <input type="submit" class="menu_submit fr" value="提交退款申请" />
+            </div>
+            </form>
+        </div>
+        <!-- 表单区 END -->
+    </div>
+
+                
+    <div style="margin:10px;">退款的商品信息</div>
+    
+    [#list order.items as item]
+    <div style="border-top:8px solid #eee;"></div>
+    <div class="order-bar">
+    	订单编号：${order.code!}
+        <span class="order-state red"></span>
+    </div>
+    <div class="order-info clearfix">
+    	<div class="order-img">
+        	<img src="${baseUrl!}${item.product.productExt.coverImg!}" alt="${item.product.name}" />
+        </div>
+        <div class="order-other">
+        	<div class="order-inner">
+            	<span class="order-name">
+                	<a href="${item.product.url!}">
+                	[@text_cut s=item.product.name len='30' append='...'/]
+                    </a>
+            	</span>
+				<span class="order-price">${order.productPrice!0}元</span>	
+            </div>
+            <div class="order-outer">
+            	<span class="order-type">运费：${order.freight!0}元</span>
+            	<span class="order-num">数量：x1</span>
+            </div>
+        </div>
+    </div>
+    <div class="order-settle">
+        <span>可获积分：${order.score!0}</span>
+        <span style="color:#cc0000;">合计：${order.total!0}元</span>
+    </div>
+    <div class="order-btn-warp" style="font-size:12px;">
+        <span>成交时间：${order.createTime!}</span>
+    </div>
+    [/#list]
+    <div style="border-top:8px solid #eee; clear:both;"></div>
+    <div class="questions">
+        <h4>常见问题看这里</h4>
+        <p>1、申请退款我要怎么操作？</p>
+        <p>答：在交易还未成功前，您可以再次根据您当前的实际情况申请退款。</p>
+        <p>2、最多可退款金额怎么计算出来的？</p>
+        <p>答：根据交易的形式以及优惠情况，计算略有不同。</p>
+        <p>3、交易退款成功后，在哪里查询退回的钱款？</p>
+        <p>答：退款成功后，交易款项将立即退回到您的支付宝账户，您可以登录支付宝账户查询余额或收支记录具体详情点此了解。</p>
+        <p>4、卖家拒绝退款给我怎么办？</p>
+        <p>答：如果卖家还未发货，卖家在处理退款申请过程中无法操作拒绝退款，只能操作同意退款或确认发货，并且，卖家发货的行为需要得到买家的同意。</p>
+  </div>
+</div>
+</body>
+</html>

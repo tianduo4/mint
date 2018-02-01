@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	if(!confirm("<@s.m 'global.confirm.delete'/>")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 营销 - 礼品兑换- <@s.m "global.list"/></div>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+
+<#if pagination?? && pagination.list?size gt 0>
+
+<@p.table value=pagination;giftExchange,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="20">
+		<input type='checkbox' name='ids' value='${giftExchange.id}'/><#t/>
+	</@p.column><#t/>
+	<@p.column title="ID" align="center">${giftExchange.id}</@p.column><#t/>
+	<@p.column code="礼品名称" align="center">${giftExchange.gift.giftName}</@p.column><#t/>
+	<@p.column code="会员名" align="center">${giftExchange.member.username!}</@p.column><#t/>
+	<@p.column code="数量" align="center">${giftExchange.amount!}</@p.column><#t/>
+	<@p.column code="状态" align="center"><@s.m "exchange.status.${giftExchange.status}"/></@p.column><#t/>
+	<@p.column code="积分" align="center">${giftExchange.totalScore!}</@p.column><#t/>
+	<@p.column code="收货地址" align="center">${giftExchange.detailaddress!}</@p.column><#t/>
+	<@p.column code="日期" align="center">${giftExchange.createTime?string('yyyy-MM-dd HH:mm:ss')}</@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+		<#if giftExchange.status=1><a href="v_edit.do?id=${giftExchange.id}&pageNo=${pageNo!}">发货</a> | <#rt/>
+		<#else>
+		<a href="v_edit.do?id=${giftExchange.id}&pageNo=${pageNo!}">查看</a> | <#rt/>
+		</#if>
+		<a href="o_delete.do?ids=${giftExchange.id}&pageNo=${pageNo!}" onclick="if(!confirm('<@s.m "global.confirm.delete"/>')) {return false;}"><@s.m "global.delete"/></a><#t/>
+	</@p.column><#t/>
+</@p.table>
+<div><input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/></div>
+
+<#else>
+                     <span style="font-size:15px;border:0px solid #000; width:100%; height:50px;line-height:50px;text-align:center; float:left;">暂无数据</span>
+</#if>
+
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

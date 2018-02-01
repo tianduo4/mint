@@ -1,0 +1,92 @@
+<!--商品类目栏 begin  -->
+	<div class="Nav">
+		<ul class="ctr cf pr">
+			<li id="nav_category"
+				class="Nav-item Nav-category fl zi6 ">
+				<!--  <h2 class="tac">全部商品分类</h2>-->
+				<ul class="Nav-catelist">
+					       [@shop_Category]
+                             [#list tag_list as type]
+                               [#if type_index<13]
+					<li class="Nav-catelist-item even">
+						<ul class="Nav-cate-sublist">
+
+						[@shop_Category parentId=type.id]
+						      [#list tag_list as cate]
+						       [#if cate_index<3]
+							 <li><a target="_blank" href="${cate.url!}">${cate.name!}</a></li> 
+							   [/#if]
+								 [/#list]
+					      [/@shop_Category]
+							
+							
+							 [@shop_Category parentId=type.id]
+							<ul class="Nav-cate-detail">
+							        <div class="list">
+								 [#list tag_list as cate]
+									<li class="cf">
+										<h4 class="fl" >   
+										      
+											<a target="_blank" class="nav-menu-subs" href="${cate.url}">${cate.name!}</a>
+										</h4>
+										  [@shop_Category parentId=cate.id]
+											<ul class="Nav-cate-detail-list">
+											    [#list tag_list as ca]
+												<li><a target="_blank" href="${ca.url!}">${ca.name!}</a></li>
+											     [/#list]
+											</ul>	
+											 [/@shop_Category]
+									</li>
+								 [/#list]
+								 </div>
+							</ul>
+					      [/@shop_Category]
+					     	</ul>
+					</li>
+					  [/#if]
+                 [/#list]
+            [/@shop_Category]
+				</ul>
+			</li>
+
+			<!--导航栏 begin -->
+                           <li class="Nav-item fl first active"><a href="${base}/"   id="nav0" onmouseover="jte(this,0)">首页</a></li>
+				 [@shop_Category]
+				  [#list tag_list as ctg]
+			          <input type="hidden" id="hidden${ctg_index+1}" value="${tag_list?size}"></input>
+			<li class="Nav-item fl"> <a href="${ctg.url}"  id="nav${ctg_index+1}" class="white"  onmouseover="jte(this,${tag_list?size})">${ctg.name}</a></li>
+				   [/#list]
+				  [/@shop_Category]
+         
+         
+          <script type="text/javascript">
+				 function jte(obj,n){
+				    obj.className="current";
+				     var t;
+					 var id;
+					 var s;
+					 if(n!=0){
+						 for(var i=0;i<=n;i++){
+						   id ="nav"+i;
+						   t = document.getElementById(id);
+						   if(id != obj.id){
+						   	 t.className="white";
+						   }
+						 }
+					 }else{
+						 n=document.getElementById("hidden1").value;
+						 for(var i=0;i<=n;i++){
+							   id ="nav"+i;
+							   t = document.getElementById(id);
+							   if(id != obj.id){
+							   	 t.className="white";
+							   }
+							 }
+					 }
+				 }
+   </script>
+
+			<!--导航栏 end -->
+		</ul>
+	</div>
+	<!--商品类目栏 end  -->

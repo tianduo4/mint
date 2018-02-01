@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>退货订单- ${web.name}${web.additionalTitle!}</title>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/userCenter.css" />
+<script src="${root}/mobile/js/jquery.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+[#--
+[#include '../shop/develop/inc_head.html'/]
+--]
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-100" href="javascript:history.go(-1)"></a>
+    <h1 class="mui-title">退货订单</h1>
+</header>
+<div class="mb44" style="padding-top:45px;">
+<div id="container" class="user_right clearfix">
+	<div id="demo2" class="s-demo">
+    	<form id="jvForm" action="myscore.jspx" method="post">
+            [#if pagination?? && pagination.list?size gt 0]
+            [#list pagination.list as o]
+            <div class="jifen" id="detailShowtab">
+            <p>订单号：<a href="myOrderView.jspx?orderId=${o.id}">${o.code!}</a></p>
+            <p>退款类型：[@s.m "orderReturn.returnType.${(o.returnOrder.returnType)!}"/]</p>
+            <p>申请时间：${o.returnOrder.createTime?string('yyyy-MM-dd HH:mm:ss')}</p>
+            <p>状态：[@s.m "orderReturn.status.${o.returnOrder.status}"/][#if o.returnOrder.returnType=1][#if o.returnOrder.status=2]&nbsp;&nbsp;<a class="aBlu" href="shipments.jspx?id=${o.returnOrder.id}" target="_blank">发货</a>[#elseif o.returnOrder.status=6]&nbsp;&nbsp;<a class="aBlu" href="accomplish.jspx?id=${o.returnOrder.id}" target="_blank">确认</a>[/#if][#else][#if o.returnOrder.status=6]&nbsp;&nbsp;<a class="aBlu" href="accomplish.jspx?id=${o.returnOrder.id}" target="_blank">确认</a>[/#if][/#if]</p>
+            </div>
+            [/#list]
+            [#else]
+            <div style="line-height:30px; margin:20px auto; text-align:center; font-size:14px;">暂无退货记录</div>
+            [/#if]
+   	   </form>
+	</div>
+</div>
+</div>
+</body>
+</html>

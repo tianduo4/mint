@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<script src="${root}/mobile/js/rem.js"></script>
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/mui.min.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${root}/mobile/css/product-xq.css" />
+<script src="${root}/mobile/js/mui.min.js"></script>
+<script src="${root}/mobile/js/jquery-1.7.1.min.js"></script>
+<!-- <script src="${root}/mobile/js/jquery.js"></script> -->
+<script src="${root}/mobile/js/swiper.jquery.min.js"></script>
+<script src="${root}/mobile/js/product.js" type="text/javascript"></script>
+<title>商品详情页</title>
+
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-red"></a>
+    <div class="mui-title">
+        <div id="sliderSegmentedControl">
+            <a class="mui-active" href="#">商品</a>
+            <a class="" href="#">详情</a>
+            <a class="" href="#">参数</a>
+            <a class="" href="#">评价</a>
+        </div>
+    </div>
+</header>
+<div class="mui-content">
+    <!--商品图片轮播-->
+    <div class="swiper-container" id="swiperBody">
+        <div class="swiper-wrapper">
+            <!--商品-->
+            <div class="swiper-slide auto-height">
+                <!--轮播begin-->
+                <div class="swiper-container" id="sw1">
+                    <div class="swiper-wrapper">
+                        [#if product.pictures?? && product.pictures?size gt 0]
+                        [#list product.pictures as pic]
+                        <div class="swiper-slide">
+                            <img src="${baseUrl!}${pic.appPicturePath!}" alt="${product.name!}" />
+                        </div>
+                        [/#list]
+                        [/#if]
+                        <!--<div class="swiper-slide">
+                        <img src="[#if product.productExt.coverImg??]${base!}${(product.productExt.coverImg)!}[#else]${base!}${global.defMobileImg!}[/#if]" title="${product.name!}"/>
+                       </div>-->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!--轮播end-->
+                <!--商品信息-->
+                <div class="product-box">
+                    <div class="product-name">${product.name!}</div>
+                    <!--价格begin-->
+
+                    [#if product.productFashion??]
+                    <span class="product-price">
+                        <span>￥</span>
+                        <b class="sys_item_price">${(product.productFashion.salePrice)!}</b>
+                    </span>
+                    <span class="product-price">
+                    	<del>￥<b class="sys_item_mktprice">${(product.productFashion.marketPrice)!}</b></del>
+                    </span>
+                    [#else]
+                    <span class="product-price">￥<b class="sys_item_price">${product.salePrice!}</b></span>
+                    <span class="product-price"><del>￥<b class="sys_item_mktprice">${product.marketPrice!}</b>元</del></span> 
+                    [/#if]
+                    
+                
+                    <!--价格end-->
+                    <div class="product-count">
+                        <!--销量begin-->
+                        <span>总销${product.productFashionSaleCount!0}笔</span>
+                        <!--销量end-->
+                        <!--评价量begin-->
+
+                        [@discuss_count productId=product.id start = "1"] <span>评价${discusses?size}个</span>
+                        [/@discuss_count]
+                        <!--评价量end-->
+                        <span>人气${product.viewCount!}</span>
+                    </div>
+                </div>
+
+                <!--选择商品-->
+                <ul class="mui-table-view xzcp">
+                    <li class="mui-table-view-cell"><a class="mui-navigate-right"
+                        href="#bottomPopover"><span>选择：</span></a>
+                        <div class="mui-collapse-content"></div></li>
+                </ul>
+                <!--购买咨询-->
+                <div class="gmzx">
+                    <a href="${base}/consultProduct.jspx?productId=${product.id!}">购买咨询</a>
+                </div>
+                <!--图文详情-评价-->
+                <ul class="mui-table-view xzcp">
+                    <li class="mui-table-view-cell "><a
+                        class="mui-navigate-right" href="#" id="twBtn">图文详情</a></li>
+                    <li class="mui-table-view-cell "><a
+                        class="mui-navigate-right" href="#" id="csBtn">参数</a></li>
+                    <li class="mui-table-view-cell"><a class="mui-navigate-right"
+                        href="#" id="pjBtn">评价</a></li>
+                </ul>
+                <!--看了又看开始-->
+                <div class="more-cp">
+                    <div id="recentlyViewed">
+                        <div class="seemore">看了又看</div>
+                        <div class="swiper-pagination" id="pag2"></div>
+                        <div class="swiper-container" id="sw2">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <ul class="more-items" id="liulan"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--看了又看结束-->
+            </div>
+            <!--详情-->
+            <div class="swiper-slide auto-height">${product.text!}</div>
+            <!--参数-->
+            <div class="swiper-slide auto-height">${product.text1!}</div>
+            <!--评价-->
+            <div class="swiper-slide auto-height">
+                <!-- <iframe width="100%" frameborder=0 scrolling=no
+                    src="${base}/searchDiscussPage.jspx?productId=${product.id!}"
+                    name="rightFrame" noresize="noresize" id="rightFrame" height="400">
+                </iframe> -->
+                  <script type="text/javascript">
+                    function g(o){
+                        return document.getElementById(o);
+                    }
+                    function HoverLi(x,y,m,n,counter){
+                        for(var i=1;i<=counter;i++){
+                            g(x+m+i).className='normaltab';
+                            g(y+m+i).className='undis';
+                        }
+                        g(y+m+n).className='dis';
+                        g(x+m+n).className='curr';
+                    }
+                    </script>
+                    <div class="pingjia">
+                        <ul>
+                         [@discuss_count productId=product.id discussType="1"]
+                            <li onclick="HoverLi('ty_','tyc_',1,1,3);" class="curr" id="ty_11">好评(${discusses?size})</li>
+                         [/@discuss_count]
+                         [@discuss_count productId=product.id discussType="2"]
+                            <li onclick="HoverLi('ty_','tyc_',1,2,3);" class="normaltab" id="ty_12">中评(${discusses?size})</li>
+                         [/@discuss_count]  
+                         [@discuss_count productId=product.id discussType="3"] 
+                            <li onclick="HoverLi('ty_','tyc_',1,3,3);" class="normaltab" id="ty_13">差评(${discusses?size})</li>
+                         [/@discuss_count] 
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="dis" id="tyc_11">
+                        <div class="dt-com">
+							<ul>
+                                [@discuss_Page count=5 productId=product.id  discussType="1"]
+                                [#if tag_list?size gt 0]
+                                [#list tag_list as discuss]
+                                <li>
+                                    <p>
+                                    	<span class="fl">${discuss.member.username!}</span>
+                                    	<span class="fr">好评!</span>
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p>${discuss.content!}</p>
+                                    <p>${discuss.time!}</p>
+                                </li>
+                                [/#list]
+                                [#else]
+                                <li style="text-align:center;">对不起，暂时没有评论。</li>
+                                [/#if] 			
+                                [/@discuss_Page]
+                            </ul>
+                        </div>
+                    </div> 
+                    <div class="undis" id="tyc_12">
+                        <div class="dt-com">
+                            <ul>
+                                [@discuss_Page count=5 productId=product.id  discussType="2"]
+                                [#if tag_list?size gt 0]
+                                [#list tag_list as discuss]
+                                <li>
+                                	<p>
+                                    	<span class="fl">${discuss.member.username!}</span>
+                                    	<span class="fr">好评!</span>
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p>${discuss.content!}</p>
+                                    <p>${discuss.time!}</p>
+                            </li>
+                            [/#list]
+                            <div class="clear"></div>
+                            <div align="center">[@pagination_style sysPage='5'/]</div>
+                            [#else]
+                            <li style="text-align:center;">对不起，暂时没有评论。</li>
+                            [/#if] 			
+                            [/@discuss_Page]
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="undis" id="tyc_13">
+                        <div class="dt-com">
+                            <ul>
+                                [@discuss_Page count=5 productId=product.id  discussType="3"]
+                                [#if tag_list?size gt 0]
+                                [#list tag_list as discuss]
+                                <li>
+                            		<p>
+                                    	<span class="fl">${discuss.member.username!}</span>
+                                    	<span class="fr">好评!</span>
+                                    </p>
+                                    <div class="clear"></div>
+                                    <p>${discuss.content!}</p>
+                                    <p>${discuss.time!}</p>
+                            	</li>
+                            	[/#list]
+                                [#else]
+                                <li style="text-align:center;">对不起，暂时没有评论。</li>
+                                [/#if] 			
+                                [/@discuss_Page]
+                            </ul>
+                        </div>
+                    </div> 
+                
+            </div>
+        </div>
+    </div>
+</div>
+  [#if !(product.status == 1)]
+  <div class="not-stock">
+  	<span style="margin: 0 auto">商品已经下架~要不要瞧瞧别的</span>
+  </div>
+  [/#if]
+<!--固定购物栏-->
+<footer class="footer-gou">
+    <div class="fg-50">
+        <a href="javascript:void(0);" onclick="javascript:addToCollect(${product.id!});" class="fg-sc">
+        <i class="sc-icon"></i> 收藏
+        </a>
+        <a href="${base}/cart/shopping_cart.jspx" class="fg-sc"><i class="gw-icon"></i> 购物车</a>
+    </div>
+    [#if product.status == 1]
+    <div class="fg-50b">
+    	<a href="#bottomPopover" class="jr-gou" > 加入购物车</a>
+    </div>
+    [#else]
+       <div class="fg-50b" >
+	    	<a href="javascript:;" class="jr-gou" style="color:#ccc" > 已下架</a>
+	   </div>
+    [/#if]
+</footer>
+<!--右下角弹出菜单-->
+<div id="bottomPopover"
+    class="mui-popover mui-popover-action mui-popover-bottom">
+    <!--产品显示-->
+    <div class="cp-show" style="height:90px;">
+        <!--产品图片-->
+        <div class="change-img">
+            [#if category.colorsize]
+            [#list standardTypeList as standardType] 
+              
+            [#if psList?size gt 0]
+            [#if standardType.dataType] 
+            [#list psList as ps]
+            [#if standardType.id=ps.type.id]
+               [#if ps_index ==0] <img
+                    src="${baseUrl!}${ps.imgPath!}" alt="${ps.standard.name}" id="psimg" />
+               [/#if] 
+            [/#if]
+            [/#list]
+            [/#if]
+            [/#if]
+ 
+            [/#list]
+            [/#if]
+        </div>
+        <div class="change-price">
+            ￥<b>${product.salePrice!}</b>
+            <del>
+                ￥<b>${product.marketPrice!}</b>
+            </del>
+        </div>
+        <div class="change-bh">
+            （<span>库存：</span><b>${(product.stockCount)!}</b>）
+        </div>
+    
+        <div class="change-bh">产品编号：${(product.productExt.code)!}</div>
+        <!--关闭按钮-->
+        <a class="mui-icon mui-icon-closeempty po-close" href="#" style="color:#000;"></a>
+    </div>
+    <div class="mui-scroll-wrapper" style="top:25px;">
+        <div class="mui-scroll">
+            
+            [#if category.colorsize]
+            <div class="sys_item_spec">
+            [#list standardTypeList as standardType] 
+            
+            [#if standardType.dataType]
+            <dl class="sys_item_specpara clearfix" data-sid="${standardType_index+1}" [#if arr??]data-attrval="${arr[standardType_index]}"
+            [/#if]>
+            	<dt>${standardType.name!}</dt>
+                <dd class="sys_spec_img">
+                    <ul>
+                        [#list psList as ps] 
+                        [#if standardType.id=ps.type.id]
+                        <li data-aid="${(ps.standard.id)!}" [#if product.productFashion.standards?seq_contains(ps.standard)]class="selected" [#else]class=""[/#if]>
+                        <a href="javascript:show('${base!}${ps.imgPath!}');" title="${ps.standard.name}">${ps.standard.name}</a>
+                        </li> 
+                        [/#if]
+                        [/#list]
+                    </ul>
+                </dd>
+            </dl>
+            [#else]
+            <dl class="sys_item_specpara clearfix" data-sid="${standardType_index+1}" [#if arr??]data-attrval="${arr[standardType_index]}" [/#if]>
+            	<dt>${standardType.name}</dt>
+                <dd class="sys_spec_img">
+                	<ul class="sys_spec_text">
+                        [#list psList as ps]
+                        [#if standardType.id=ps.type.id]
+                        	<li data-aid="${(ps.standard.id)!}" [#if product.productFashion.standards?seq_contains(ps.standard)]class="selected" [#else]class=""[/#if]>
+                        		<a href="javascript:;" title="${ps.standard.name}">${ps.standard.name}</a>
+                        	</li> 
+                        [/#if]
+                        [/#list]
+                    </ul>
+                    </dd>
+                </dl>
+                [/#if] 
+                [/#list]
+            </div>
+            [/#if] 
+            <dl>
+                <dt>数量</dt>
+                <dd>
+                    <div class="mui-numbox ml10" data-numbox-step='1'
+                        data-numbox-min='0' data-numbox-max='90'>
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" id="product_amount"
+                            name="productAmount"
+                            onchange="buyButtonNumChange('product_amount')" class="num"
+                            onkeyup="inputOnlyNum(this, 1, 999);" value="1" />
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <div class="pop-box">
+            <div class="pop-gm jr-gou" style="width:100%;">
+            [#if product.status == 1]
+                <a href="javascript:addToCart(${product.id},$('#product_amount').val(),$('#current_merchantId').val());">
+                加入购物车
+                </a>
+           [#else]
+        	     <a href="javascript:;" style="color:#ccc" >
+                	已下架
+                </a>
+           [/#if]
+            </div>
+        </div>
+    </div>
+</div>
+<!--结束-->
+</body>
+</html>
+<script>
+mui.init();
+mui('.mui-scroll-wrapper').scroll({
+deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+scrollY: true,//是否竖向滚动
+bounce: true //是否启用回弹
+});
+$('.po-close').on('tap',function (e) {
+e.preventDefault();
+mui('#bottomPopover').popover('toggle');
+});
+var HIGHT=$(window).height()-95;
+$(".auto-height").css("minHeight",HIGHT+"px");
+var mySwiper = new Swiper('#swiperBody', {
+loop: false,
+autoHeight: true, //高度随内容变化
+onSlideChangeStart: function(){
+ if($(window).scrollTop()>0){
+    $(window).scrollTop(0);
+ }   
+ $("#sliderSegmentedControl a.mui-active").removeClass('mui-active');
+ $("#sliderSegmentedControl a").eq(mySwiper.activeIndex).addClass("mui-active");
+}
+
+});
+
+$("#sliderSegmentedControl a").on('touchstart mousedown',function(e){
+e.preventDefault();
+$("#sliderSegmentedControl a.mui-active").removeClass('mui-active');
+$(this).addClass('mui-active');
+mySwiper.slideTo($(this).index());
+});
+
+$("#twBtn").click(function (e) {
+e.preventDefault();
+mySwiper.slideTo(1);
+})
+$("#csBtn").click(function (e) {
+e.preventDefault();
+mySwiper.slideTo(2);
+})
+$("#pjBtn").click(function (e) {
+e.preventDefault();
+mySwiper.slideTo(3);
+})
+
+var sw1=new Swiper('#sw1', {
+loop: false,
+pagination: '.swiper-pagination'
+})
+
+
+
+</script>
+<script type="text/javascript">
+function g(o){
+return document.getElementById(o);
+}
+
+function show(img){
+document.getElementById("psimg").src=img;
+}
+//加入购物车js
+
+[#if category.colorsize]
+function addToCart(productId,count,fashId) {
+$.post('${base}/cart/add_orderItem.jspx', {
+'productId' : productId,
+'productAmount' : count,
+'fashId': fashId,
+'isCart':true
+}, function(data) {
+if(data.status==1) {
+    alert("已加入购物车");
+} else if(data.status==0) {
+    location.href='${base!}/login.jspx';
+} else if(data.status==4){
+    alert(data.error);
+    location.href='${product.url}';
+}else {
+    $('#input1').css("display","block");
+    alert(data.error);
+}	
+},'json');
+}
+
+[#else]
+function addToCart(productId,count) {
+$.post('${base}/cart/add_orderItem.jspx', {
+'productId' : productId,
+'productAmount' : count,
+'isCart':true
+}, function(data) {
+if(data.status==1) {
+    alert("已加入购物车");
+} else if(data.status==0) {
+    location.href='${base!}/login.jspx';
+}else if(data.status==4){	
+    alert(data.error);
+    location.herf='${product.url}'; 		
+}else if(data.status==3){
+    alert(data.error);
+    location.href='${product.url}';
+}else {
+    $('#input1').css("display","block");
+    alert(data.error);
+}
+},'json');
+}
+
+[/#if]
+
+
+//收藏功能js
+function addToCollect(productId){
+$.post('${base}/collect/add_to_collect.jspx',{
+'productId':productId
+}, function(data){
+if(data.status == 1){
+     alert('收藏成功!');
+}else if(data.status== 2){
+        alert('收藏过该商品');
+}else{
+    location.href='${base}/login.jspx';
+}
+},'json');
+}
+function addTocombinations( ) {
+var f =  document.getElementById('combinations');
+var ids = document.getElementsByName("ids");
+var productIds = "";
+for (var i = 0; i < ids.length; i++) {
+if (ids[i].checked) {
+ productIds += ids[i].value;
+}
+}
+$("#productIds").val(productIds);
+
+f.action="${base}/cart/add_combinations.jspx";
+f.submit();
+}		
+</script>
+<script type="text/javascript">
+var p_id = "${product.id}";
+var p_title = "${product.name!}";
+var p_price = "${product.salePrice!}";
+var p_url = "${product.url!}";
+var p_pic = "${product.productExt.coverImg!}";
+
+var id = "product";
+var price = "price";
+var title = "title";
+var pic = "pic";
+var url = "url";
+
+
+//*取出cookie并显示
+for(i = 0 ;i<6;i++){
+title = title+i;
+price = price+i;
+pic = pic+i;
+url = url+i;
+var arr0 = document.cookie.match(new RegExp("(^| )"+title+"=([^;]*)(;|$)"));
+var arr1 = document.cookie.match(new RegExp("(^| )"+price+"=([^;]*)(;|$)"));
+var arr2 = document.cookie.match(new RegExp("(^| )"+pic+"=([^;]*)(;|$)"));
+var arr3 = document.cookie.match(new RegExp("(^| )"+url+"=([^;]*)(;|$)"));
+if(arr0 != null ){
+    var str = "<li>"+
+        "<a href='"+unescape(arr3[2])+"'>"+
+            "<div class='more-img-box'>"+
+                "<img src='"+unescape(arr2[2])+"' alt='' />"+
+            "</div>"+
+            "<div class='see-name'>"+
+                unescape(arr0[2])
+            +"</div>"+
+            "<div class='see-price'><span>￥</span>"+unescape(arr1[2])+"</div>"+
+      "</a>"+
+    "</li>";
+    $("#liulan").append(str);
+}
+price = "price";
+title = "title";
+pic = "pic";
+url = "url";
+}
+
+var number = 6;
+SetCookie();
+function SetCookie()//两个参数，一个是cookie的名子，一个是值
+{
+var Days = 30; //此 cookie 将被保存 30 天
+var exp  = new Date();    //new Date("December 31, 9998");
+exp.setTime(exp.getTime() + Days*24*60*60*1000);
+for(i = 0 ;i<5;i++){
+    id = id+i;
+    var arr = document.cookie.match(new RegExp("(^| )"+id+"=([^;]*)(;|$)"));
+    if(arr != null && getCookie(id) == p_id){
+        title = title+i;
+        price = price+i;
+        pic = pic+i;
+        url = url+i;
+        delCookie(id);
+        delCookie(title);
+        delCookie(price);
+        delCookie(pic);
+        delCookie(url);
+        number = i;
+    }
+    id = "product";
+    price = "price";
+    title = "title";
+    pic = "pic";
+    url = "url";
+}
+for(var i = number ;i>0;i--){
+    id0 = id+(i-1);
+    price0 = price+(i-1);
+    title0 = title+(i-1);
+    pic0 = pic+(i-1);
+    url0 = url+(i-1);
+    id = id +i;
+    price = price+i;
+    title = title+i;
+    pic = pic+i;
+    url = url + i;
+    if(getCookie(id0) != null){
+        document.cookie = id + "="+ escape (getCookie(id0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+        document.cookie = price + "="+ escape (getCookie(price0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+        document.cookie = title + "="+ escape (getCookie(title0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+        document.cookie = pic + "="+ escape (getCookie(pic0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+        document.cookie = url + "="+ escape (getCookie(url0)) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+    }
+    
+    id = "product";
+    price = "price";
+    title = "title";
+    pic = "pic";
+    url = "url";
+}
+
+
+//* 让当前商品相关cookie保存为第0个
+id = id+"0";
+price = price+"0";
+title = title+"0";
+pic = pic+"0";
+url = url +"0";
+document.cookie = id + "="+ escape (p_id) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+document.cookie = price + "="+ escape (p_price) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+document.cookie = title + "="+ escape (p_title) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+document.cookie = pic + "="+ escape (p_pic) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+document.cookie = url + "="+ escape (p_url) + ";expires=" + exp.toGMTString()+";path=/;domain=${web.domain!}";
+id = "product";
+price = "price";
+title = "title";
+pic = "pic";
+url = "url";
+}
+
+
+
+function getCookie(name){//取cookies函数 
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+    if(arr != null ){
+        return unescape(arr[2]);
+    }else if(i == 5){
+        return null;
+    }
+}
+function delCookie(name)//删除cookie
+{
+var exp = new Date();
+exp.setTime(exp.getTime() - 1);
+var cval=getCookie(name);
+if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+</script>
+
+
+
+[#if category.colorsize]
+<script language="JavaScript" type="text/JavaScript">
+var sys_item={
+[#if product.productFashion??]
+    "mktprice":"${product.productFashion.marketPrice!}",
+    "price":"${product.productFashion.salePrice!}",
+    "attitude":"${product.productFashion.attitude!}",
+    "fashId":"${product.productFashion.id!}",
+    "stockCount":"${product.productFashion.stockCount!}",
+    "saleCount":"${product.productFashion.saleCount!}",
+[#else]
+"mktprice":"",
+"price":"",
+"attitude":"",
+"fashId":"",
+"stockCount":"",
+"saleCount":"",
+[/#if]
+
+"sys_attrprice":{
+[#list product.fashions as fash]
+ [#if fash_has_next]
+  "${fash.nature!}":{"price":"${fash.salePrice!}","mktprice":"${fash.marketPrice!}","attitude":"${fash.attitude!}","stockCount":"${fash.stockCount!}","saleCount":"${fash.saleCount!}","fashId":"${fash.id!}"},
+ [#else]
+  "${fash.nature!}":{"price":"${fash.salePrice!}","mktprice":"${fash.marketPrice!}","attitude":"${fash.attitude!}","stockCount":"${fash.stockCount!}","saleCount":"${fash.saleCount!}","fashId":"${fash.id!}"}
+ [/#if]
+[/#list]
+}
+};
+
+//商品规格选择
+$(function(){
+$(".sys_item_spec .sys_item_specpara").each(function(){
+var i=$(this);
+var p=i.find("ul>li");
+p.click(function(){
+if(!!$(this).hasClass("selected")){
+    $(this).removeClass("selected");
+    i.removeAttr("data-attrval");
+}else{
+    $(this).addClass("selected").siblings("li").removeClass("selected");
+    i.attr("data-attrval",$(this).attr("data-aid"))
+}
+getattrprice() //输出价格和库存
+})
+})
+//获取对应属性的价格/库存/销量
+function getattrprice(){
+var defaultstats=true;
+var _val='';
+var _resp={
+mktprice:".sys_item_mktprice",
+price:".sys_item_price",
+stockCount:".sys_item_stockCount",
+saleCount:".sys_item_saleCount",
+attitude:".sys_item_attitude",
+}  //输出对应的class
+$(".sys_item_spec .sys_item_specpara").each(function(){
+var i=$(this);
+var v=i.attr("data-attrval");
+if(!v){
+    defaultstats=false;
+}else{
+    _val+=_val!=""?"_":"";
+    _val+=v;
+}
+})
+
+if(!!defaultstats){
+if((sys_item['sys_attrprice'][_val])!=undefined){
+    _mktprice=sys_item['sys_attrprice'][_val]['mktprice'];
+    _price=sys_item['sys_attrprice'][_val]['price'];
+    _attitude=sys_item['sys_attrprice'][_val]['attitude'];
+    _stockCount=sys_item['sys_attrprice'][_val]['stockCount'];
+    _saleCount=sys_item['sys_attrprice'][_val]['saleCount'];
+    _fashId=sys_item['sys_attrprice'][_val]['fashId'];
+}else{
+
+    alert("您选择的商品已无库存！");
+    _mktprice=sys_item['mktprice'];
+    _price=sys_item['price'];
+    _stockCount=sys_item['stockCount'];
+    _saleCount=sys_item['saleCount'];
+    _fashId=sys_item['fashId'];
+}
+
+}else{
+_mktprice=sys_item['mktprice'];
+_price=sys_item['price'];
+_stockCount=sys_item['stockCount'];
+_saleCount=sys_item['saleCount'];
+_attitude=sys_item['attitude'];
+_fashId=sys_item['fashId'];
+}
+//输出价格
+$(_resp.mktprice).text(_mktprice);  ///其中的math.round为截取小数点位数
+$(_resp.price).text(_price);
+$(_resp.stockCount).text(_stockCount);
+$(_resp.saleCount).text(_saleCount);
+$(_resp.attitude).text(_attitude);
+$("#current_merchantId").val(_fashId);
+}
+})
+</script>
+[/#if]
+<style>
+.change-price del{font-size:12px; color:#ccc;}
+#sliderSegmentedControl a{ width:20%;}
+.dis{
+	display:block;
+	margin:0px;
+	padding:0;
+}
+.undis{
+	display:none;
+	margin:0px;
+	padding:0;
+}
+.pingjia{
+	margin: auto;
+    width: 100%;
+	background:#fff;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+.pingjia ul li.curr{
+    width: 33.33%;
+    text-align: center;
+    color: #c40000;
+    border-bottom: 1px solid #c40000;
+}
+.pingjia ul li{
+    width: 33.33%;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    cursor: pointer;
+}
+.dt-com{
+	margin:10px 0;
+}
+.dt-com ul li{
+	border-bottom:1px solid #ddd;
+	padding:0 5px;
+}
+.dt-com p{
+	clear:both;
+	padding:0 8px;
+	line-height:24px;
+}
+.auto-height img { width:100%; height:auto;}
+</style>

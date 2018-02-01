@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${category.name!} - ${web.name}${web.additionalTitle!}</title>
+<meta http-equiv="keywords" content="JSPGOU演示站"/>
+<meta http-equiv="description" content="JSPGOU演示站"/>
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/list.css" type="text/css" rel="stylesheet" />
+<script src="${root}/js/2017/jquery1.42.min.js" type="text/javascript"></script>
+<script>
+$(function(){
+    $('#nav_category').mouseenter(function(){
+        $(this).addClass('active');
+    }).mouseleave(function(){
+        $(this).removeClass('active');
+    });
+});
+
+function getJvForm(){
+	return document.getElementById("jvForm");
+}
+
+
+$(function(){
+    $('#nav_category').mouseenter(function(){
+        $(this).addClass('active');
+    }).mouseleave(function(){
+        $(this).removeClass('active');
+    });
+});
+
+
+//品牌确认控制
+function smallChange(obj) {
+	var smObj = document.getElementsByName("brand");
+	var bigObj = document.getElementById("bigclassauthorize");
+	if (obj.checked == true){
+		bigObj.style.display='block';
+	}else {
+		b = true;
+		for (var i = 0; i < smObj.length; i++) {
+			if (smObj[i].checked == true){
+				b = false;
+			}				
+		}
+		if (b == true){
+			bigObj.style.display='none';
+		}
+	}
+}
+
+
+//更多选项按钮
+function clickOrderBy(a){
+	$("#orderBy").val(a);
+	var jvForm = getJvForm();
+	jvForm.onsubmit=null;
+	jvForm.submit();
+}
+
+
+
+//品牌多选
+function MultiBrand() {  
+    var bb = "";  
+    var temp = "";  
+    var a = document.getElementsByName("brand");  
+	    for ( var i = 0; i < a.length; i++) {  
+		    if (a[i].checked) {  
+			    temp = a[i].value;  
+			    bb = bb + "," +temp;  
+		    }  
+	    }  
+    document.getElementById("brandId").value = bb.substring(1, bb.length); 
+    var jvForm = getJvForm();
+	jvForm.onsubmit=null;
+	jvForm.submit();
+}
+
+//品牌确认控制
+function smallChange(obj) {
+	var smObj = document.getElementsByName("brand");
+	var bigObj = document.getElementById("bigclassauthorize");
+	if (obj.checked == true){
+		bigObj.style.display='block';
+	}else {
+		b = true;
+		for (var i = 0; i < smObj.length; i++) {
+			if (smObj[i].checked == true){
+				b = false;
+			}				
+		}
+		if (b == true){
+			bigObj.style.display='none';
+		}
+	}
+}
+
+//品牌全部
+function AllBrand(b){
+	$("#brandId").val(b);
+    var jvForm = getJvForm();
+	jvForm.onsubmit=null;
+	jvForm.submit();
+} 
+
+//品牌更多，收起
+function showMoreq(a,d){
+	if(jQuery("#FacetBrandsMoreBtnq")[0]&&jQuery("#FacetBrandsBackBtnq")[0]){
+		if(d&&d=="more"){
+			jQuery("#FacetBrandsMoreBtnq")[0].style.display="none";
+            jQuery("#FacetBrandsBackBtnq")[0].style.display="block";
+        }else{
+        	jQuery("#FacetBrandsMoreBtnq")[0].style.display="block";
+        	jQuery("#FacetBrandsBackBtnq")[0].style.display="none";
+        }
+    }
+	var c=9;
+	if(typeof(cateType)!="undefined"&&cateType==1){c=9;}
+	var b=$("#"+a).children();
+	if(d&&d=="more"){
+		b.each(function(e){$(this).show()})
+	}else{
+		b.each(function(e){if(e>c){$(this).hide()}})
+	}
+}
+
+
+//价格确认按钮
+function searchPriceRange(){
+	var d=$("#startPrice").val();
+	var a=$("#endPrice").val();
+   if((d.value=="")&&(a.value=="")){
+	   alert("请输入价格区间");d.focus();return;
+   }
+   if((d.value!="")&&(a.value!="")){
+	   if(Number(a.value)<Number(d.value)){
+		   alert("输入价格区间 右值必须大于或等于左值");
+		   a.focus();return;
+		}
+	}
+	var jvForm = getJvForm();
+	jvForm.onsubmit=null;
+	jvForm.submit();
+}
+//价格清除按钮
+function cleanPrice(){
+	 document.getElementById("startPrice").value="￥";
+	 document.getElementById("endPrice").value="￥";
+}
+</script>
+</head>
+
+<body>
+[#include "../include/页头顶栏.html"/]
+[#include "../include/页头搜索栏.html"/]
+[#include "../include/内页导航栏.html"/]
+
+
+<div class="category-filter">
+    <div class="w">
+        <div id="JS_category_filter" class="filter">
+            
+            <dl class="cat clearfix">
+            <dt><a href="">${category.name!}</a></dt>
+            <dd>
+            <table>
+            <tr>
+            <td height="21" id="JS_filter_cats">
+            [#if category.parent??]
+            [#else]
+            [@shop_Category parentId=category.id]
+            [#list tag_list as ca]
+            <a href="${ca.url!}"><strong>${ca.name!}</strong></a>
+            [/#list]
+            [/@shop_Category]
+            [/#if]	
+            </td>
+            </tr>
+            </table>
+            </dd>
+            </dl>
+            <form id="jvForm" action="${urlPrefix}${urlSuffix}"> 
+            <!--品牌start  -->
+            <dl class="brand clearfix" is-brand="true">
+            <dt>品牌</dt>
+            <input type="hidden" name="brandId" id="brandId" value="${brandId!}"/>
+            <input type="hidden" name="isShow" id="isShow" value="${isShow!}"/>
+            <dd>
+            [@cate_brand categoryId=category.id]
+            <table style="table-layout:fixed;word-break:break-all;">
+            <tr>
+            <td>
+            <div id="FacetBrandsAllq" class="shell" style="position: relative;max-height:53px;overflow:hidden" data-total="12" data-line="2">
+            
+            
+            <span><a [#if !(brandId??)]style="color:#ff0000; cursor:pointer;"[/#if] onclick="AllBrand('');">全部</a></span>
+            [#list tag_list as brd]
+            [#if brd_index lt 10]				                    
+            <label>
+            <input [#if brandId??][#if brandId?index_of('${brd.id!}')!=-1]checked="checked"[/#if][/#if] name="brand" type="checkbox" value="${brd.id!}" autocomplete="off" onclick="smallChange(this)"/>
+            <span [#if brandId??][#if brandId?index_of('${brd.id!}')!=-1]style="color:red"[/#if][/#if] values2="" values1="" attrval="${brd.name!}">${brd.name!}</span>
+            </label>
+            [#else]
+            
+            <label [#if isShow==0] style="display:none"[/#if]>
+            <input [#if brandId??][#if brandId?index_of('${brd.id!}')!=-1]checked="checked"[/#if][/#if] name="brand" type="checkbox" value="${brd.id!}" autocomplete="off" onclick="smallChange(this)"/>
+            <span [#if brandId??][#if brandId?index_of('${brd.id!}')!=-1]style="color:red"[/#if][/#if] values2="" values1="" attrval="${brd.name!}">${brd.name!}</span>
+            </label>
+            [/#if]
+            [/#list]
+            
+            </div>
+            </td>
+            
+            
+            <td class="Multiselect">
+            <input type="button" name="bigclassauthorize" id="bigclassauthorize" onclick="MultiBrand()" value="确定" style="display:none; padding:0 7px; border:1px solid #ddd; background:#fff; line-height:20px;"/>
+            <!--    <a href="" class="JS_Multiselect"><span>+更多</span></a> -->
+            [#if !(tag_list?size lt 10)]
+            <a [#if isShow==1]class="menu_gd" style="display:none"[/#if] id="FacetBrandsMoreBtnq" onclick="showMoreq('FacetBrandsAllq','more')" href="javascript:void(0)" >更多</a>
+            <a [#if isShow==0]class="menu_sq" style="display:none"[/#if] id="FacetBrandsBackBtnq" onclick="showMoreq('FacetBrandsAllq','back')" href="javascript:void(0)" >收起</a>
+            [/#if]
+            
+            </td>
+            
+            </tr>
+            [/@cate_brand]  
+            </table>
+            
+            </dd>
+            </dl>
+            <!--品牌end  -->
+            
+            
+            </div>
+            </div>
+            </div>
+            
+            
+            <div class="w self-panel">
+            <div class="self-wrap clearfix"> 
+            <ul class="s-attrs clearfix" style="margin-right:10px;">
+           <input type="hidden" name="orderBy" id="orderBy" value="${orderBy!}"/>
+            <li [#if orderBy==0]class="normal"[/#if]><a  onclick="clickOrderBy(0);" title="默认排序">综合</a></li>
+            <li [#if orderBy==4]class="down"[/#if]><a onclick="clickOrderBy(4);"><span>销量</span></a></li>
+            [#if orderBy==7]
+                 <li class="priceUp"><a onclick="clickOrderBy(6);"><span>价格</span></a></li>
+            [#elseif orderBy==6]
+                 <li class="priceDown"><a onclick="clickOrderBy(7);"><span>价格</span></a></li>
+            [#else]
+                 <li class="defaultPrice"><a onclick="clickOrderBy(7);" > <span>价格</span></a></li>
+            [/#if]
+            <li [#if orderBy==2]class="down"[/#if]><a onclick="clickOrderBy(2);"><span>上架时间</span></a></li>
+            </ul>
+            <span style="margin-left:10px;">
+            <input class="ip1" name="startPrice" id="startPrice" [#if startPrice==0]value="￥"[#else]value="${startPrice}"[/#if] onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" class="number"   
+            onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" type="text" style=" font-family:微软雅黑; font-size:12px; color:#666666; float:left; width:50px; height:21px; border:1px solid #dfdfdf;"><span style=" font-family:微软雅黑; font-size:12px; color:#666666; float:left;"> - </span>
+            <input class="ip2" name="endPrice" id="endPrice" [#if endPrice==0]value="￥"[#else]value="${endPrice}"[/#if] onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  
+            onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" type="text" style=" font-family:微软雅黑; font-size:12px; color:#666666; float:left; width:50px; height:21px; border:1px solid #dfdfdf">
+            <a  style="text-decoration: none;" onclick="searchPriceRange();" id="JS_filter_price_btn" class="price-btn"><input type="button" value="确定" style="border:1px solid #dfdfdf; padding:0 5px; line-height:21px; background:#dddddd;"></a>
+            <a style="text-decoration: none;" onclick="cleanPrice()" ><input type="button" value="清除" style="border:1px solid #dfdfdf; padding:0 5px; line-height:21px; background:#dddddd;"></a>
+            </span>
+            </div>
+            </div>
+            </form>
+
+
+
+            <form id="tableForm" action="${category.url!}" method="get">
+            [@shop_ProductPageChannel categoryId=category.id brandId=brandId  names=names values=values count=pageSize  pageNo=pageNo orderBy=orderBy startPrice=startPrice endPrice=endPrice]
+            <div id="JS_list_panel" class="list-panel">
+            <div class="list-wrap"> 
+            <ul class="list-goods clearfix" style="width:1220px;"> 
+            [#list tag_pagination.list as product]
+            <li class="g-item">
+            <div class="g-dtl">
+            <a href="${product.url!}" target="_blank"  >
+            <!-- [#if product.productExt.coverImg??]
+            <img  style="width: 240;height: 150px;" src="${product.productExt.coverImg!global.defImg}" />
+            [#else]
+            <img  class="d-img"   src="${global.defImg}"/>
+            [/#if]-->
+            [#if product.pictures?? && product.pictures?size gt 0]
+            [#list product.pictures as pic]
+            [#if pic_index==0]
+            <img  class="d-img" src="${baseUrl!}${pic.bigPicturePath!}" />
+            [/#if]
+            [/#list]    
+            [/#if] 
+            
+            
+            </a>
+            <div class="d-price clearfix">
+            <strong class="fl p-money"><sub class="m-mark">￥</sub>
+            <span class="m-count JS_async_price">
+            [#if product.category.colorsize] 
+            [#list product.fashions as fashion]
+            [#if fashion.isDefault]
+            ${fashion.salePrice!0}
+            [/#if]
+            [/#list]     
+            [#else]
+            ${product.salePrice!0}
+            [/#if]
+            
+            </span></strong>
+            <del class="fl p-del" style="margin-right: 0px;">
+            <sub class="d-mark">￥</sub><del>
+            [#if product.category.colorsize] 
+            [#list product.fashions as fashion]
+            [#if fashion.isDefault]
+            ${fashion.marketPrice!0}
+            [/#if]
+            [/#list]     
+            [#else]
+            ${product.marketPrice!0}
+            [/#if]
+            </del>
+            </del>							
+            </div>
+            <a href="" target="_blank" title="" class="d-name">
+            <span>[@text_cut s=product.name len='35' append=''/]</span>
+            </a>
+            </div>
+            </li>
+            [/#list]
+            </ul>
+            </div>
+            </div>
+            [@pagination_style sysPage='5'/]
+            [/@shop_ProductPageChannel] 
+            
+            <div id="hisAssociated" style="clear:both;"></div>
+            </form> 
+
+[#include "../include/页脚信息栏.html"/]
+</body>
+</html>

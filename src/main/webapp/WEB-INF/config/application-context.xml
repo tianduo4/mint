@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-lazy-init="true"> 
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/config/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/config/jdbc.properties</value>
+				<value>/WEB-INF/config/plug/**/*.properties</value>	
+			</list>
+		</property>
+		<qualifier value="main"/>
+	</bean>
+	<bean id="propertyUtils" class="com.jspgou.common.util.PropertyUtils">
+		<property name="properties" ref="properties"/>
+	</bean>
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean> -->
+	
+	
+	 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}"/>
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="autoCommitOnClose" value="true"/>
+		<property name="checkoutTimeout" value="${cpool.checkoutTimeout}"/>
+		<property name="initialPoolSize" value="${cpool.minPoolSize}"/>
+		<property name="minPoolSize" value="${cpool.minPoolSize}"/>
+		<property name="maxPoolSize" value="${cpool.maxPoolSize}"/>
+		<property name="maxIdleTime" value="${cpool.maxIdleTime}"/>
+		<property name="acquireIncrement" value="${cpool.acquireIncrement}"/>
+		<property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}"/>
+	</bean> 
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>	
+		<property name="mappingLocations" value="#{propertyUtils.getList('hibernate.hbm')}"/>
+		<property name="hibernateProperties">
+			<value>
+			hibernate.dialect=${hibernate.dialect}
+			hibernate.show_sql=false
+			hibernate.format_sql=false
+			hibernate.query.substitutions=true 1, false 0
+			hibernate.jdbc.fetch_size=20
+            hibernate.connection.autocommit=true
+            hibernate.connection.release_mode=auto
+			hibernate.cache.use_query_cache=true
+			hibernate.cache.use_second_level_cache=true
+			</value>
+		</property>
+		<property name="cacheRegionFactory">   
+			<ref bean="cacheRegionFactory"/>
+		</property>
+		<property name="entityInterceptor">   
+			<ref bean="treeInterceptor"/>
+		</property>
+	</bean>
+	
+	<bean id="cacheRegionFactory" class="com.jspgou.common.web.WebSingletonEhCacheRegionFactory"/>
+
+	
+	<!--定时begin -->
+	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"> 
+	<property name="corePoolSize" value="10" /> 
+	<property name="maxPoolSize" value="100" /> 
+	<property name="queueCapacity" value="500" />
+	</bean>
+	<bean id="smsJob" class="com.jspgou.cms.action.admin.SmsJob"></bean>
+	<bean id="smsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="smsJob" />
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="smsTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="smsJobDetail" />
+		<property name="cronExpression" value="0 0 2 * * ?" /><!--每天两点执行 -->
+	</bean>
+	<bean id="taskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+	<property name="jobDetail" ref="smsJobDetail" /> 
+	<property name="startDelay" value="10000" /> 
+	<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+	<property name="triggers">  
+		<list>   
+			<ref bean="smsTrigger" />  
+		</list> 
+	</property> <property name="taskExecutor" ref="executor" />
+	</bean>
+	<!--定时end -->
+	
+	<bean id="treeInterceptor" class="com.jspgou.common.hibernate4.TreeIntercptor"/>
+	<!-- 事务配置 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<context:annotation-config/>
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<style type="text/css">
+@charset "utf-8";
+/**Style Reset**/
+body, div, span, h1, h2, h3, h4, h5, h6, p, pre, sup, sub, ul, ol, li, dl, dt, dd, form, fieldset, input, button, textarea, select, iframe, img, a, header, footer, section, article, aside, details, figcaption, figure, hgroup, nav, menu, canvas { padding: 0; margin: 0; }
+body { background-color: #fff; color: #000; font: 12px/20px "Microsoft Yahei", Tahoma, Arial, "Helvetica Neue", "Hiragino Sans GB", Simsun, sans-self; }
+ul, ol { list-style-type: none; }
+b, strong { font-weight: normal; }
+i, em { font-style: normal; }
+a { text-decoration: none; color: #333; }
+/*清除浮动*/
+.clearfix:after { clear: both; display: block; height: 0; content: ""; }
+/*主体部分*/
+.contains { width: 1000px; margin: 0 auto; }
+/*面包屑导航*/
+.crumbNav { padding: 18px 0; color: #323232; }
+.crumbNav a { color: #ed7f5a; }
+.crumbNav a:hover { color: #d95459; }
+.crumbNav font { padding: 0 2px; font-family: simsun; }
+/**选择商品分类**/
+.wareSort { padding: 16px 22px; background-color: #f6f6f6; }
+.wareSort ul { float: left; width: 290px; padding: 10px; border: 1px solid #ddd; margin-right: 7px; margin-left: 8px; background-color: #fff; }
+.wareSort ul li a { display: block; padding-right: 25px; padding-left: 10px; border: 1px solid #fff; line-height: 28px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.wareSort ul li a:hover { color: #52bea6; }
+.wareSort ul li.active a { border-color: #52bea6; background: #cefff4 url(${base}/res/jspgou/img/admin/arrow.png) no-repeat right center; color: #52bea6; }
+.wareSort ul li.active1 a { border-color: #52bea6;background: #cefff4; color: #52bea6; }
+.selectedSort { padding: 10px 15px; border: 1px solid #ed7f5a; margin-top: 10px; margin-bottom: 10px; background-color: #fff4f0; color: #ed7f5a; }
+.selectedSort b { font-weight: bold; }
+.selectedSort i font { font-family: simsun; }
+.wareSortBtn { padding-bottom: 50px; text-align: center; }
+.wareSortBtn input { width: 200px; height: 36px; border: 1px solid #ed7f5a; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; background-color: #ed7f5a; color: #fff; }
+.wareSortBtn input:hover { border-color: #d95459; background-color: #d95459; }
+.wareSortBtn input:disabled { border-color: #ddd; background-color: #f6f6f6; color: #9a9a9a; cursor: default; }
+</style>
+</head>
+<body>
+<div class="body-box">
+	<div class="rhead">
+        <div class="rpos">
+        	当前位置：发布商品 > 选择商品所在分类
+        </div>
+        <div class="clear"></div>
+    </div>
+		
+		<!--商品分类-->
+	    <div class="wareSort clearfix">
+			<ul id="sort1">
+			<#if clist?size gt 0>
+				<#list clist as category>
+	          	<li onClick="selectP(${category.id!},'${category.name!}');" id="${category.id!}"><a href="javascript:void(0)">${category.name!}</a></li>
+	         	</#list>
+			</#if>
+			</ul>
+			<ul id="sort2" style="display: none;"></ul>
+			<ul id="sort3" style="display: none;"></ul>
+		</div>
+        <div class="web-con">
+		<div class="selectedSort"><b>您当前选择的商品类别是：</b><i id="selectedSort">请选择分类类目</i></div>
+		<form action="v_add.do" method="post">
+		<div class="wareSortBtn">
+			<input type="hidden" name="ctgId" id="ctgId"/>
+			<input id="releaseBtn" type="submit" value="发布正式商品" onclick="this.form.action='v_add.do'" disabled="disabled"/>
+<!--             <input id="saleBtn" type="submit" value="发布预售商品" onclick="this.form.action='v_addSaleGoodsIssued.do'" disabled="disabled"/>
+ -->		</div>
+		</form>
+        </div>
+		<script type="text/javascript">
+var expressP, expressC, expressD, expressArea, areaCont;
+var arrow = " <font>&gt;</font> ";
+
+function selectP(parentId,parentName){
+	$.post("../product/v_product_categorychild.do", {
+		parentId:parentId
+	}, function(data) {
+		areaCont = "";
+		for (var i=0; i<data.length; i++) {
+			areaCont += "<li onClick=selectC(" + data[i].id+ ",'"+data[i].name+"'); id='"+data[i].id+"'><a href='javascript:void(0)'>" + data[i].name + "</a></li>";
+		}
+		if(areaCont != ""){
+			$("#sort2").html(areaCont).show();	
+			$("#releaseBtn").attr("disabled", true);
+			$("#saleBtn").attr("disabled", true);
+			$("#"+parentId).addClass("active").siblings("li").removeClass("active");
+			$("#"+parentId).addClass("active").siblings("li").removeClass("active1");
+		}else{
+			$("#sort2").hide();	
+			$("#releaseBtn").removeAttr("disabled");
+			$("#saleBtn").removeAttr("disabled"); 
+			$("#"+parentId).addClass("active1").siblings("li").removeClass("active1");
+			$("#"+parentId).addClass("active1").siblings("li").removeClass("active");
+		}
+    }, "json");
+	$("#sort3").hide();
+	$("#ctgId").val(parentId);
+	expressP = parentName;
+	$("#selectedSort").html(expressP);
+	$("#selectedSort").css("color","green");	
+}
+
+function selectC(parentId,parentName){
+	$.post("../product/v_product_categorychild.do", {
+		parentId:parentId
+	}, function(data) {
+		areaCont = "";
+		for (var i=0; i<data.length; i++) {
+			areaCont += "<li onClick=selectD(" + data[i].id+ ",'"+data[i].name+"'); id='"+data[i].id+"'><a href='javascript:void(0)'>" + data[i].name + "</a></li>";
+		}
+		if(areaCont != ""){
+			$("#sort3").html(areaCont).show();
+			$("#releaseBtn").attr("disabled", true);
+			$("#saleBtn").attr("disabled", true);
+			$("#"+parentId).addClass("active").siblings("li").removeClass("active");
+			$("#"+parentId).addClass("active").siblings("li").removeClass("active1");
+		}else{
+			$("#sort3").hide();
+			$("#releaseBtn").removeAttr("disabled");
+			$("#saleBtn").removeAttr("disabled"); 
+			$("#"+parentId).addClass("active1").siblings("li").removeClass("active1");
+			$("#"+parentId).addClass("active1").siblings("li").removeClass("active");
+		}
+    }, "json");
+	$("#ctgId").val(parentId);
+	$("#"+parentId).addClass("active").siblings("li").removeClass("active");
+	expressC = expressP + arrow + parentName;
+	$("#selectedSort").html(expressC);
+	$("#selectedSort").css("color","green");	
+}
+
+/*选择三级目录*/
+function selectD(parentId,parentName) {	
+	$("#releaseBtn").removeAttr("disabled");
+	$("#saleBtn").removeAttr("disabled"); 
+	$("#"+parentId).addClass("active1").siblings("li").removeClass("active1");
+	$("#"+parentId).addClass("active1").siblings("li").removeClass("active");
+	$("#ctgId").val(parentId);
+	expressD = expressC + arrow + parentName;
+	$("#selectedSort").html(expressD);
+	$("#selectedSort").css("color","green");	
+}
+
+</script>
+</div>
+</body>
+</html>

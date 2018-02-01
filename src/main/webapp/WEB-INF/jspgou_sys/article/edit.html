@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "shopArticle.function"/> - <@s.m "global.edit"/></div>
+	<form class="ropt">
+		<input type="button" value="<@s.m "global.backToList"/>" onclick="history.back();"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<@p.form id="jvForm" action="o_update.do" labelWidth="12">
+<@p.select colspan="2" label="shopArticle.channel" name="channelId" value=shopArticle.channel.id list=articleChannelList listKey="id" listValue="name"/><@p.tr/>
+<@p.td colspan="2" width="100"  label="shopArticle.title" required="true" >
+<@p.text name="title" value=shopArticle.title  size="70" required="true" class="required"  maxlength="255"/>
+<label><input type="checkbox" onclick="$('#linkDiv').toggle(this.checked);if(!this.checked){$('#link').val('');}" <#if shopArticle.link??><#if shopArticle.link!="">checked="checked"</#if></#if>/><@s.m "global.link"/></label>
+<div id="linkDiv" <#if shopArticle.link??><#if shopArticle.link="">style="display:none"</#if><#else>style="display:none"</#if>>url: <input type="text" id="link" name="link" value="${shopArticle.link!}" size="35" maxlength="255"/></div>
+</@p.td><@p.tr/>
+<@p.text colspan="1" width="50" label="shopArticle.publishTime" name="publishTime" value=shopArticle.publishTime?string('yyyy-MM-dd HH:mm:ss') readonly="readonly" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+<@p.radio colspan="1" width="50" label="shopArticle.disabled" name="disabled" value=shopArticle.disabled list={"true":"global.true","false":"global.false"}/><@p.tr/>
+<@p.editor colspan="2" label="shopArticle.content" name="content" value=shopArticle.content height="300"/><@p.tr/>
+<@p.td colspan="2" label="shopArticle.extendData">
+<@s.m "shopArticle.data"/>1: <@p.text name="param1" value=shopArticle.param1!/> &nbsp;
+<@s.m "shopArticle.data"/>2: <@p.text name="param2" value=shopArticle.param2!/> &nbsp;
+<@s.m "shopArticle.data"/>3: <@p.text name="param3" value=shopArticle.param3!/>
+</@p.td><@p.tr/>
+<@p.td colspan="2"><@p.hidden name="id" value=shopArticle.id/><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+</@p.form>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>我的评论  - ${web.name}${web.additionalTitle!}</title>
+<link href="${root}/tpl/css/global.css" type="text/css" rel="stylesheet" />
+<link href="${root}/tpl/css/layout.css" type="text/css" rel="stylesheet" />
+<link href="${root}/tpl/css/member.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/index.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/2017/member.css" type="text/css" rel="stylesheet" />
+<link href="${root}/tpl/css/buy.css" type="text/css" rel="stylesheet" />
+<script src="${root}/tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+
+<body>
+[#include "../include/页头顶栏.html"/]
+[#include "../include/页头搜索栏.html"/]
+[#include "../include/内页导航栏.html"/]
+<div class="user-page-content">
+	<div class="clearfix w">
+  	[#include "会员中心_导航.html"/]
+    <div id="container" class="user_main">
+    	<div class="content-one content-hei">
+            <div class="user_title">商品评论</div>
+            <div class="ks-switchable-content">
+            <table cellspacing="0" cellpadding="3" width="100%" border="0">
+            <tr>
+            <td width="100" height="32" align="center" bgcolor="#f0f0f0">评价</td>
+            <td align="center" bgcolor="#f0f0f0">你的评论</td>
+            
+            <td width="150" align="center" bgcolor="#f0f0f0">商品名</td>
+            <td width="350" align="center" bgcolor="#f0f0f0">卖家回复</td>
+            </tr>
+            [@discuss_Page memberId=member.id count=5 pageNo=pageNo]
+            [#if tag_list?size gt 0]
+            [#list tag_list as c]
+            
+            <tr>
+            <td height="50" align="center">[#if c.discussType="1"]好评[#elseif c.discussType="2"]中评[#else]差评[/#if]</td>						
+            <td align="center">
+            <p style="color:black;font-weight:bolder;">${c.content!}</p>
+            <p>[${c.time!}]</p>
+            </td>
+            <td align="center"><a href="${c.product.url}">${c.product.name!}</a></td>
+            <td align="center">${c.replay!}</td>
+            </tr>
+            <tr>
+            <td height="1" colspan="5" bgcolor="#e7e7e7"></td>
+            </tr>
+            [/#list]
+            [/#if]
+            </table>
+            </div>
+            <div class="clear"></div>
+            <div style="line-height:50px; text-align:center;">[@pagination_style sysPage='5'/]</div>	
+            [/@discuss_Page]
+        </div>
+    </div>
+</div>
+</div>
+[#include "../include/页脚信息栏.html"/]
+</body>
+</html>

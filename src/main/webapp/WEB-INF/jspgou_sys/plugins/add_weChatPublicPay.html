@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jspgou_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body>
+<div class="body-box">
+   <div class="rhead">
+	<div class="rpos"><@s.m "global.position"/>: 配置 - 支付插件 - <@s.m "global.add"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';"/>
+	</form>
+	<div class="clear"></div>
+</div>
+        <@p.form id="jvForm" action="o_save.do" labelWidth="13">
+        <@p.text label="名称" name="name" required="true" class="required" maxlength="150"/>
+        <@p.text label="排列顺序" name="priority" size="7" value="10" required="true" class="required digits" maxlength="10"/>
+        <@p.password label="合作身份者appid" name="partner" required="true" class="required" maxlength="150"/>
+        <@p.password label="微信商户号" name="sellerEmail" required="true" class="required" maxlength="150"/>
+        <@p.password label="商户支付密钥" name="sellerKey" required="true" class="required" maxlength="150"/>
+        <@p.password label="公众号密钥" name="publicKey" required="true" class="required" maxlength="150"/>
+        <@p.radio label="payment.disabled" name="disabled" list={"true":"global.true","false":"global.false"} value="false" required="true" class="required"/>
+        <@p.radio label="是否默认" name="isDefault" list={"true":"global.true","false":"global.false"} value="false" required="true" class="required"/>
+        <@p.editor label="payment.description" name="description" toolbarSet="Simple" maxlength="1024"/>
+        <@p.td>
+            <input type="hidden" name="code" value="weChatPublicPay"/>
+            <input type="hidden" name="platform" value="mobile"/>
+            <@p.submit code="global.submit" class="tijiao_menu mtb20"/> &nbsp; <@p.reset code="global.reset" class="chongzhi_menu mtb20"/>
+        </@p.td>
+        </@p.form>
+    </div>
+</div>
+</body>
+</html>
