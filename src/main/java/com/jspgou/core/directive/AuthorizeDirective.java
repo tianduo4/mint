@@ -44,7 +44,6 @@
 /*     */     }
 /*  45 */     TemplateSequenceModel templatesequencemodel = getPerms(env);
 /*     */     boolean flag;
-/*     */     boolean flag;
 /*  47 */     if (admin.getAdmin().isSuper())
 /*  48 */       flag = true;
 /*     */     else {
@@ -59,9 +58,12 @@
 /*     */   {
 /*  59 */     int i = 0;
 /*     */ 
-/*  61 */     for (int j = s.lastIndexOf("/"); s1.startsWith("../", i); j = s.lastIndexOf("/", j - 1)) {
+/*  61 */     for (int j = s.lastIndexOf("/"); s1.startsWith("../", i);
+                   j = s.lastIndexOf("/", j - 1)
+              ) {
 /*  62 */       i += 3;
 /*     */     }
+              int j=0; //TODO
 /*  64 */     return s.substring(0, j + 1) + s1.substring(i);
 /*     */   }
 /*     */ 

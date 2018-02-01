@@ -169,7 +169,7 @@
 /* 186 */       parent.addToChild(entity);
 /*     */     }
 /*     */ 
-/* 189 */     Set brands = entity.getBrands();
+/* 189 */     Set<Brand> brands = entity.getBrands();
 /* 190 */     for (Brand brand : brands) {
 /* 191 */       brand.removeFromCategorys(entity);
 /*     */     }
@@ -181,7 +181,7 @@
 /*     */     else {
 /* 199 */       entity.setBrands(new HashSet());
 /*     */     }
-/* 201 */     Set standardTypes = entity.getStandardType();
+/* 201 */     Set<StandardType> standardTypes = entity.getStandardType();
 /* 202 */     for (StandardType t : standardTypes) {
 /* 203 */       t.removeFromCategorys(entity);
 /*     */     }

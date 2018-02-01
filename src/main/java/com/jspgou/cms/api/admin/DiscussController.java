@@ -174,7 +174,7 @@
 /* 207 */           productName = this.product_name;
 /*     */         }
 /* 209 */         Pagination pagination = this.manager.getPage(null, null, null, userName, productName, startTime, endTime, pageNo.intValue(), pageSize.intValue(), true);
-/* 210 */         List discussList = pagination.getList();
+/* 210 */         List<Discuss> discussList = (List<Discuss>)pagination.getList();
 /* 211 */         JSONArray jsons = new JSONArray();
 /* 212 */         for (Discuss discuss : discussList) {
 /* 213 */           jsons.add(discuss.converToJson());

@@ -59,7 +59,7 @@
 /*     */       {
 /*  62 */         String hql = "select bean." + tree.getRgtName() + " from " + 
 /*  63 */           beanName + " bean where bean.id=:pid";
-/*  64 */         Integer myPosition = 
+/*  64 */          myPosition =
 /*  65 */           Integer.valueOf(((Number)session.createQuery(hql).setParameter(
 /*  65 */           "pid", parentId).uniqueResult()).intValue());
 /*  66 */         String hql1 = "update " + beanName + " bean set bean." + 
@@ -87,7 +87,6 @@
 /*     */         }
 /*  89 */         Number myPositionNumber = (Number)session.createQuery(hql)
 /*  90 */           .uniqueResult();
-/*     */         Integer myPosition;
 /*  92 */         if (myPositionNumber == null)
 /*  93 */           myPosition = Integer.valueOf(1);
 /*     */         else {
@@ -160,7 +159,7 @@
 /* 165 */       Object[] currPosition = (Object[])session.createQuery(hql)
 /* 166 */         .setParameter("id", currParent.getId()).uniqueResult();
 /* 167 */       int currParentLft = ((Number)currPosition[0]).intValue();
-/* 168 */       Integer currParentRgt = Integer.valueOf(((Number)currPosition[1]).intValue());
+/* 168 */        currParentRgt = Integer.valueOf(((Number)currPosition[1]).intValue());
 /* 169 */       log.debug("current parent lft={} rgt={}", Integer.valueOf(currParentLft), 
 /* 170 */         currParentRgt);
 /*     */ 

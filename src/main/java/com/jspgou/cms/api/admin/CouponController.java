@@ -47,7 +47,7 @@
 /*  58 */         message = "\"param error\"";
 /*     */       } else {
 /*  60 */         Pagination pagination = this.couponMng.getPage(pageNo.intValue(), pageSize.intValue(), categoryId);
-/*  61 */         List coupons = pagination.getList();
+/*  61 */         List<Coupon> coupons = (List<Coupon>)pagination.getList();
 /*  62 */         JSONArray jsons = new JSONArray();
 /*  63 */         for (Coupon coupon : coupons) {
 /*  64 */           jsons.add(coupon.converToJson());

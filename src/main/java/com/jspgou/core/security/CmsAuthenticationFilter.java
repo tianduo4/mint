@@ -101,9 +101,10 @@
 /*     */     {
 /* 105 */       Subject subject = getSubject(request, response);
 /* 106 */       subject.login(token);
-/* 107 */       return onLoginSuccess(token, adminLogin, subject, request, response); } catch (AuthenticationException e) {
-/*     */     }
+/* 107 */       return onLoginSuccess(token, adminLogin, subject, request, response); }
+             catch (AuthenticationException e) {
 /* 109 */     return onLoginFailure(token, failureUrl, adminLogin, e, request, response);
+              }
 /*     */   }
 /*     */ 
 /*     */   public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue)

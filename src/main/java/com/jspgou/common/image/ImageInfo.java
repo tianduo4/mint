@@ -195,7 +195,6 @@
 /*      */       case 33:
 /*  425 */         int extensionType = read();
 /*  426 */         if ((this.collectComments) && (extensionType == 254)) { StringBuffer sb = new StringBuffer();
-/*      */           int n;
 /*      */           do {
 /*  431 */             n = read();
 /*  432 */             if (n == -1) {
@@ -213,7 +212,6 @@
 /*  429 */           while (
 /*  445 */             n > 0);
 /*      */         } else {
-/*      */           int n;
 /*      */           do {
 /*  450 */             n = read();
 /*  451 */             if (n > 0) {
@@ -446,17 +444,16 @@
 /*      */       }
 /*  690 */       hasPixelResolution = true;
 /*      */     }
-/*      */ 
+/*      */ /*      */     int maxSample;
 /*      */     try
 /*      */     {
 /*  696 */       maxSample = Integer.parseInt(s);
 /*      */     }
 /*      */     catch (NumberFormatException nfe)
 /*      */     {
-/*      */       int maxSample;
 /*  698 */       return false;
 /*      */     }
-/*      */     int maxSample;
+
 /*  700 */     if (maxSample < 0) {
 /*  701 */       return false;
 /*      */     }
@@ -844,7 +841,6 @@
 /*      */   private void skip(int num) throws IOException {
 /* 1209 */     while (num > 0)
 /*      */     {
-/*      */       long result;
 /*      */       long result;
 /* 1211 */       if (this.in != null)
 /* 1212 */         result = this.in.skip(num);

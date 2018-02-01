@@ -77,7 +77,7 @@
 /*     */     try {
 /*  97 */       if ((pageSize != null) && (pageNo != null)) {
 /*  98 */         Pagination page = this.orderItemMng.getPageProductSaleRank(CmsThreadVariable.getSite().getId(), null, categoryId, SimplePage.cpn(pageNo), pageSize.intValue(), startTime, endTime);
-/*  99 */         List orderItems = page.getList();
+/*  99 */         List<Object[]> orderItems = (List<Object[]>)page.getList();
 /* 100 */         JSONArray jsons = new JSONArray();
 /* 101 */         for (Object[] obj : orderItems) {
 /* 102 */           JSONObject json = new JSONObject();

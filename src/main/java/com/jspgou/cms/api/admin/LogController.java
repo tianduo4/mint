@@ -38,7 +38,7 @@
 /* 50 */         message = "\"param error\"";
 /*    */       } else {
 /* 52 */         Pagination pagination = this.logMng.getPage(SimplePage.cpn(pageNo), pageSize.intValue());
-/* 53 */         List logs = pagination.getList();
+/* 53 */         List<Log> logs = (List<Log>)pagination.getList();
 /* 54 */         JSONArray jsons = new JSONArray();
 /* 55 */         for (Log log : logs) {
 /* 56 */           jsons.add(log.converToJson());

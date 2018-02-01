@@ -40,11 +40,12 @@
 /*     */     {
 /*  61 */       return 
 /*  62 */         (FreeMarkerConfig)BeanFactoryUtils.beanOfTypeIncludingAncestors(getApplicationContext(), 
-/*  63 */         FreeMarkerConfig.class, true, false); } catch (NoSuchBeanDefinitionException ex) {
-/*     */     }
-/*  65 */     throw new ApplicationContextException(
+/*  63 */         FreeMarkerConfig.class, true, false); }
+               catch (NoSuchBeanDefinitionException ex) {
+    /*  65 */     throw new ApplicationContextException(
 /*  66 */       "Must define a single FreeMarkerConfig bean in this web application context (may be inherited): FreeMarkerConfigurer is the usual implementation. This bean may be given any name.",
 /*  68 */       ex);
+/*     */     }
 /*     */   }
 /*     */ 
 /*     */   protected void initApplicationContext()

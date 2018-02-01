@@ -44,7 +44,7 @@
 /*  57 */         message = "\"param error\"";
 /*     */       } else {
 /*  59 */         Pagination pagination = this.manager.getPage(SiteUtils.getWebId(request), SimplePage.cpn(pageNo), pageSize.intValue());
-/*  60 */         List messages = pagination.getList();
+/*  60 */         List<WeixinMessage> messages = (List<WeixinMessage>)pagination.getList();
 /*  61 */         JSONArray jsons = new JSONArray();
 /*  62 */         for (WeixinMessage msg : messages) {
 /*  63 */           jsons.add(msg.converToJson());

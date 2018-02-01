@@ -609,8 +609,9 @@
 /* 613 */     List list = this.manager.getList(typeId, brandId, productName);
 /* 614 */     JSONObject json = new JSONObject();
 /*     */     try {
-/* 616 */       int i = 0; for (int j = list.size(); i < j; i++)
-/* 617 */         json.append(((Product)list.get(i)).getId(), ((Product)list.get(i)).getName());
+/* 616 */       int i = 0;
+              for (int j = list.size(); i < j; i++)
+/* 617 */         json.append(((Product)list.get(i)).getId()+"", ((Product)list.get(i)).getName());
 /*     */     }
 /*     */     catch (JSONException e) {
 /* 620 */       e.printStackTrace();

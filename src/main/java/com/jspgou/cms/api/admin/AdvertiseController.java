@@ -73,9 +73,9 @@
 /*  79 */       WebErrors errors = WebErrors.create(request);
 /*  80 */       errors = ApiValidate.validateRequiredParams(errors, new Object[] { bean.getName(), adspaceId, bean.getClickCount(), bean.getDisplayCount(), bean.getWeight() });
 /*  81 */       if (!errors.hasErrors()) {
-/*  82 */         Map attr = RequestUtils1.getRequestMap(request, "attr_");
+/*  82 */         Map<String, String> attr = RequestUtils1.getRequestMap(request, "attr_");
 /*     */ 
-/*  84 */         Set toRemove = new HashSet();
+/*  84 */         Set<String> toRemove = new HashSet();
 /*  85 */         for (Map.Entry entry : attr.entrySet()) {
 /*  86 */           if (StringUtils.isBlank((String)entry.getValue())) {
 /*  87 */             toRemove.add((String)entry.getKey());
@@ -143,9 +143,9 @@
 /* 156 */       WebErrors errors = WebErrors.create(request);
 /* 157 */       errors = ApiValidate.validateRequiredParams(errors, new Object[] { bean.getName(), adspaceId, bean.getClickCount(), bean.getDisplayCount(), bean.getWeight() });
 /* 158 */       if (!errors.hasErrors()) {
-/* 159 */         Map attr = RequestUtils1.getRequestMap(request, "attr_");
+/* 159 */         Map<String,String> attr = RequestUtils1.getRequestMap(request, "attr_");
 /*     */ 
-/* 161 */         Set toRemove = new HashSet();
+/* 161 */         Set<String> toRemove = new HashSet();
 /* 162 */         for (Map.Entry entry : attr.entrySet()) {
 /* 163 */           if (StringUtils.isBlank((String)entry.getValue())) {
 /* 164 */             toRemove.add((String)entry.getKey());

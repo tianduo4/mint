@@ -109,7 +109,7 @@
 /* 111 */         if (member == null) {
 /* 112 */           return "redirect:../login.jspx";
 /*     */         }
-/* 114 */         wechatOppenId = member.getWechatOppenid();
+/* 114 */        String wechatOppenId = member.getWechatOppenid();
 /* 115 */         if (StringUtils.isNotEmpty(wechatOppenId)) {
 /* 116 */           return weChatPublicPay(paymentPlugins, web, pay, order, wechatOppenId, 
 /* 117 */             request, model);
@@ -371,7 +371,9 @@
 /*     */         {
 /*     */           try {
 /* 389 */             noticeWeChatSuccess();
-/* 390 */             if (result_map == null) break label551; String return_code = (String)result_map.get("return_code");
+///* 390 */             if (result_map == null)
+//                          break label551; //TODO
+                      String return_code = (String)result_map.get("return_code");
 /* 392 */             if (("SUCCESS".equals(return_code)) && ("SUCCESS".equals(result_map.get("result_code"))))
 /*     */             {
 /* 394 */               String transaction_id = (String)result_map.get("transaction_id");
@@ -384,7 +386,11 @@
 /* 401 */               this.manager.updateByUpdater(order);
 /* 402 */               json.put("status", 0);
 /* 403 */               json.put("error", "支付成功,点击确定，跳转到我的订单");
-/* 404 */               break label551; } if ((!"SUCCESS".equals(return_code)) || (result_map.get("err_code") == null)) break label551; String message = (String)result_map.get("err_code_des");
+///* 404 */               break label551;  //TODO
+                      }
+//                      if ((!"SUCCESS".equals(return_code)) || (result_map.get("err_code") == null))
+//                          break label551; //TODO
+                     String message = (String)result_map.get("err_code_des");
 /* 406 */             json.put("status", 2);
 /* 407 */             json.put("error", message);
 /*     */           }
@@ -837,7 +843,6 @@
 /*     */ 
 /*     */   public String getLogisticsType(Order order)
 /*     */   {
-/*     */     String logistics_type;
 /*     */     String logistics_type;
 /* 900 */     if (!StringUtils.isBlank(order.getShipping().getLogisticsType()))
 /* 901 */       logistics_type = order.getShipping().getLogisticsType();

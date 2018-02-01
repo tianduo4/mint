@@ -161,7 +161,7 @@
 /* 116 */       Website website = UpdateMngImpl.this.websiteMng.findById(Long.valueOf(1L));
 /* 117 */       String url = "http://update.jeecms.com/update.jhtml?version=" + getVersion() + "&domain=" + website.getDomain() + "&name=" + website.getName();
 /* 118 */       HttpClient client = new DefaultHttpClient();
-/* 119 */       UpdateMngImpl.CharsetHandler handler = new UpdateMngImpl.CharsetHandler(UpdateMngImpl.this, "UTF-8");
+/* 119 */       UpdateMngImpl.CharsetHandler handler = new UpdateMngImpl.CharsetHandler("UTF-8");
 /*     */       try
 /*     */       {
 /* 122 */         HttpGet httpget = new HttpGet(new URI(url));

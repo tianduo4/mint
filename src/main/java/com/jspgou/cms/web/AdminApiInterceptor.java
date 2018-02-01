@@ -358,7 +358,7 @@
 /*     */   }
 /*     */ 
 /*     */   private Set<String> getUserPermission(Website site, ShopAdmin user) {
-/* 373 */     Set perms = user.getPerms();
+/* 373 */     Set<String> perms = user.getPerms();
 /* 374 */     Set userPermission = new HashSet();
 /* 375 */     if (perms != null) {
 /* 376 */       for (String perm : perms) {

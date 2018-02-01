@@ -78,7 +78,7 @@
 /*  83 */     Iterator ite = getSession().createQuery(hql).setInteger("count", count.intValue()).setInteger("status", status.intValue()).iterate();
 /*  84 */     Integer result = Integer.valueOf(0);
 /*  85 */     if (ite.hasNext()) {
-/*  86 */       result = Integer.valueOf(Integer.parseInt(ite.next()));
+/*  86 */       result = Integer.valueOf(Integer.parseInt((String)ite.next()));
 /*     */     }
 /*  88 */     return result;
 /*     */   }

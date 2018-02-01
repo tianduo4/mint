@@ -82,7 +82,7 @@
 /*     */ 
 /*     */   public static boolean isThisWeek(Date date)
 /*     */   {
-/* 118 */     List dates = dateToWeek(date);
+/* 118 */     List<Date> dates = dateToWeek(date);
 /* 119 */     Boolean flag = Boolean.valueOf(false);
 /* 120 */     for (Date d : dates) {
 /* 121 */       if (isToday(d)) {
@@ -319,7 +319,7 @@
 /* 395 */       System.out.print(i + "----" + getFinallyDate(new Date()));
 /*     */     }
 /*     */ 
-/* 398 */     List list = dateToWeek(new Date());
+/* 398 */     List<Date> list = dateToWeek(new Date());
 /* 399 */     for (Date s : list)
 /* 400 */       System.out.println(s);
 /*     */   }

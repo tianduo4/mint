@@ -26,7 +26,7 @@
 /*  35 */     if (params.size() <= 0) {
 /*  36 */       return origMap;
 /*     */     }
-/*  38 */     Set entrySet = params.entrySet();
+/*  38 */     Set<Map.Entry<String, TemplateModel>> entrySet = params.entrySet();
 /*     */ 
 /*  41 */     for (Map.Entry entry : entrySet) {
 /*  42 */       String key = (String)entry.getKey();

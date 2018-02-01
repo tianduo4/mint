@@ -33,7 +33,7 @@
 /*  37 */     int code = 200;
 /*     */     try
 /*     */     {
-/*  40 */       List list = this.manager.getList();
+/*  40 */       List<PaymentPlugins> list = this.manager.getList();
 /*  41 */       JSONArray jsons = new JSONArray();
 /*  42 */       for (PaymentPlugins p : list) {
 /*  43 */         jsons.add(p.converToJson());

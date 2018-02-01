@@ -159,8 +159,8 @@
 /* 168 */       if (reader != null)
 /*     */         try {
 /* 170 */           reader.close();
-/*     */         } catch (IOException e) {
-/* 172 */           e.printStackTrace();
+/*     */         } catch (IOException ex) {
+/* 172 */           ex.printStackTrace();
 /*     */         }
 /*     */     }
 /*     */     finally

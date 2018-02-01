@@ -95,9 +95,10 @@
 /*     */ 
 /*     */   private ShopMember getMemberFromCookie(HttpServletRequest request, HttpServletResponse response, Website web)
 /*     */   {
+    /*     */     Member coreMember;
 /*     */     try
 /*     */     {
-/* 102 */       Member coreMember = (Member)this.rememberMeService
+/* 102 */        coreMember = (Member)this.rememberMeService
 /* 103 */         .autoLogin(request, response);
 /* 104 */       if (coreMember == null)
 /* 105 */         return null;
@@ -106,7 +107,6 @@
 /* 108 */       log.warn("remember me cookie theft: {}", e.getMessage());
 /* 109 */       return null;
 /*     */     }
-/*     */     Member coreMember;
 /* 112 */     if (coreMember == null) {
 /* 113 */       return null;
 /*     */     }

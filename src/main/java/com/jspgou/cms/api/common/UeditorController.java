@@ -140,7 +140,7 @@
 /*     */       String fileUrl;
 /* 161 */       if (site.getUploadFtp() != null) {
 /* 162 */         Ftp ftp = site.getUploadFtp();
-/* 163 */         String fileUrl = ftp.storeByExt("/u", ext, uplFile
+/* 163 */          fileUrl = ftp.storeByExt("/u", ext, uplFile
 /* 164 */           .getInputStream());
 /*     */ 
 /* 166 */         fileUrl = ftp.getUrl() + fileUrl;

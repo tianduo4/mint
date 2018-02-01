@@ -348,7 +348,7 @@
 /* 363 */     Integer maxResults = Apputil.getmaxResults(request
 /* 364 */       .getParameter("maxResults"));
 /* 365 */     if (user != null) {
-/* 366 */       List list = this.collectMng.getList(user.getId(), firstResult.intValue(), 
+/* 366 */       List<Collect> list = this.collectMng.getList(user.getId(), firstResult.intValue(),
 /* 367 */         maxResults.intValue());
 /* 368 */       for (Collect collect : list) {
 /* 369 */         o.put("id", collect.getId());
@@ -420,7 +420,7 @@
 /*     */ 
 /* 443 */             pd = Integer.valueOf(1);
 /*     */ 
-/* 445 */             break label208;
+///* 445 */             break label208; //TODO
 /*     */           }
 /*     */         }
 /* 447 */         pd = Integer.valueOf(2);

@@ -34,6 +34,8 @@
 /*     */   {
 /*  31 */     Integer count = this.coreCacheSvc.getWebsiteCount();
 /*     */     int i;
+/*     */     Website website;
+/*     */     Long id;
 /*  33 */     if (count == null) {
 /*  34 */       i = this.dao.countWebsite();
 /*  35 */       this.coreCacheSvc.putWebsiteCount(new Integer(i).intValue());
@@ -42,8 +44,7 @@
 /*     */     }
 /*     */ 
 /*  41 */     if (i == 1) {
-/*  42 */       Long id = this.coreCacheSvc.getWebsiteId();
-/*     */       Website website;
+/*  42 */        id = this.coreCacheSvc.getWebsiteId();
 /*  43 */       if (id != null) {
 /*  44 */         website = findById(id);
 /*     */       } else {
@@ -51,8 +52,7 @@
 /*  47 */         this.coreCacheSvc.putWebsiteId(website.getId());
 /*     */       }
 /*  49 */     } else if (i > 1) {
-/*  50 */       Long id = this.domainCacheSvc.get(s);
-/*     */       Website website;
+/*  50 */        id = this.domainCacheSvc.get(s);
 /*  51 */       if (id != null) {
 /*  52 */         website = findById(id);
 /*     */       } else {
@@ -64,8 +64,6 @@
 /*     */     else {
 /*  60 */       throw new IllegalStateException("no website data in database, please init database!");
 /*     */     }
-/*     */     Website website;
-/*     */     Long id;
 /*  62 */     return website;
 /*     */   }
 /*     */ 

@@ -30,7 +30,6 @@
 /*    */   {
 /* 40 */     Long webId = getWebId(params);
 /*    */     Website web;
-/*    */     Website web;
 /* 42 */     if (webId == null)
 /* 43 */       web = getWeb(env, params, this.websiteMng);
 /*    */     else {

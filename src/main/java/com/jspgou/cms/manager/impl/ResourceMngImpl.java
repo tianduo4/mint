@@ -198,14 +198,13 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /* 204 */         File outFile = new File(this.realPathResolver.get(filename));
 /* 205 */         File pfile = outFile.getParentFile();
 /* 206 */         if (!pfile.exists())
-/* 207 */           pfile.mkdirs(); int len;
+/* 207 */           pfile.mkdirs();
+                  int len;
 /*     */         try {
 /* 210 */           is = zip.getInputStream(entry);
 /* 211 */           os = new FileOutputStream(outFile);
-/*     */           int len;
 /* 212 */           while ((len = is.read(buf)) != -1)
 /*     */           {
-/*     */             int len;
 /* 213 */             os.write(buf, 0, len);
 /*     */           }
 /*     */         } finally {
@@ -349,11 +348,12 @@ import com.jspgou.common.util.Zipper.FileEntry;
 /* 380 */       if (!entry.isDirectory()) {
 /* 381 */         name = entry.getName();
 /* 382 */         String filename = name;
-/* 383 */         if (!filename.endsWith(readFileName)) continue; String line;
+/* 383 */         if (!filename.endsWith(readFileName)) continue;
+                  String line;
 /*     */         try { is = zip.getInputStream(entry);
 /* 386 */           reader = new InputStreamReader(is);
 /* 387 */           in = new BufferedReader(reader);
-/* 388 */           String line = in.readLine();
+/* 388 */            line = in.readLine();
 /* 389 */           while (StringUtils.isNotBlank(line)) {
 /* 390 */             buff.append(line);
 /* 391 */             line = in.readLine();

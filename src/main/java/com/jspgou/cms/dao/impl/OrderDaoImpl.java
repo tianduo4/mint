@@ -339,8 +339,8 @@
 /* 356 */       "select count(*) from Order bean where bean.status between 1 and 2 and  bean.delStatus=true ")
 /* 357 */       .uniqueResult();
 /* 358 */     Calendar c = Calendar.getInstance();
-/* 359 */     String month = c.get(2) + 1;
-/* 360 */     String year = c.get(1);
+/* 359 */     String month = c.get(2) + "1";
+/* 360 */     String year = c.get(1)+"";
 /* 361 */     if (month.length() == 1)
 /* 362 */       month = "0" + month;
 /*     */     else {
@@ -422,7 +422,7 @@
 /*     */   public BigDecimal getMemberMoneyByYear(Long memberId)
 /*     */   {
 /* 442 */     Calendar c = Calendar.getInstance();
-/* 443 */     String year = c.get(1);
+/* 443 */     String year = c.get(1)+"";
 /* 444 */     Query q = 
 /* 445 */       getSession()
 /* 446 */       .createQuery(

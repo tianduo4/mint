@@ -55,7 +55,7 @@
 /*  60 */         ShopAdmin admin = CmsThreadVariable.getAdminUser();
 /*  61 */         ShopMember member = this.shopMemberMng.findUsername(admin.getUsername());
 /*  62 */         Pagination pagination = this.receiverMessageMng.getPage(member.getId(), SimplePage.cpn(pageNo), Integer.valueOf(0), CookieUtils.getPageSize(request));
-/*  63 */         List remess = pagination.getList();
+/*  63 */         List<ReceiverMessage> remess =(List<ReceiverMessage>)pagination.getList();
 /*  64 */         JSONArray jsons = new JSONArray();
 /*  65 */         for (ReceiverMessage remes : remess) {
 /*  66 */           jsons.add(remes.converToJson());

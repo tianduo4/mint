@@ -44,6 +44,7 @@
 /*  49 */     for (int i = 0; i < 26; i++)
 /*  50 */       if (match(i, gb))
 /*     */         break;
+              int i=0; //TODO
 /*  52 */     if (i >= 26) {
 /*  53 */       return '0';
 /*     */     }

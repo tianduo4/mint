@@ -41,7 +41,7 @@
 /*  50 */         message = "\"param error\"";
 /*     */       } else {
 /*  52 */         Pagination pagination = this.addressMng.getPageByParentId(parentId, pageNo.intValue(), pageSize.intValue());
-/*  53 */         List areas = pagination.getList();
+/*  53 */         List<Address> areas = (List<Address>)pagination.getList();
 /*  54 */         JSONArray jsons = new JSONArray();
 /*  55 */         for (Address area : areas) {
 /*  56 */           jsons.add(area.converToJson());

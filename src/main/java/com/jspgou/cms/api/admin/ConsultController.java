@@ -181,7 +181,7 @@
 /* 216 */           productName = this.product_name;
 /*     */         }
 /* 218 */         Pagination pagination = this.manager.getPage(null, userName, productName, startTime, endTime, pageNo.intValue(), pageSize.intValue(), Boolean.valueOf(true));
-/* 219 */         List<Consult> consults =List<Consult> pagination.getList();
+/* 219 */         List<Consult> consults =(List<Consult>) pagination.getList();
 /* 220 */         JSONArray jsons = new JSONArray();
 /* 221 */         for (Consult consult : consults) {
 /* 222 */           jsons.add(consult.converToJson());

@@ -35,37 +35,32 @@
 /*  67 */     if ((p < 1) || (p > 5))
 /*  68 */       p = (int)(Math.random() * 5.0D) + 1;
 /*     */     int y;
-/*     */     int y;
-/*     */     int y;
-/*     */     int y;
-/*     */     int y;
+              int x;
 /*  71 */     switch (p)
 /*     */     {
 /*     */     case 1:
-/*  74 */       int x = offsetx;
+/*  74 */        x = offsetx;
 /*  75 */       y = offsety;
 /*  76 */       break;
 /*     */     case 2:
-/*  79 */       int x = width + offsetx;
+/*  79 */        x = width + offsetx;
 /*  80 */       y = offsety;
 /*  81 */       break;
 /*     */     case 3:
-/*  84 */       int x = offsetx;
+/*  84 */        x = offsetx;
 /*  85 */       y = height + offsety;
 /*  86 */       break;
 /*     */     case 4:
-/*  89 */       int x = width + offsetx;
+/*  89 */        x = width + offsetx;
 /*  90 */       y = height + offsety;
 /*  91 */       break;
 /*     */     case 5:
-/*  94 */       int x = width / 2 + offsetx;
+/*  94 */        x = width / 2 + offsetx;
 /*  95 */       y = height / 2 + offsety;
 /*  96 */       break;
 /*     */     default:
 /*  98 */       throw new RuntimeException("never reach ...");
 /*     */     }
-/*     */     int y;
-/*     */     int x;
 /* 100 */     return new Position(x, y);
 /*     */   }
 /*     */ 

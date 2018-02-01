@@ -33,7 +33,7 @@
 /*  40 */     int code = 200;
 /*     */     try
 /*     */     {
-/*  43 */       List ftps = this.manager.getList();
+/*  43 */       List<Ftp> ftps = this.manager.getList();
 /*  44 */       JSONArray jsons = new JSONArray();
 /*  45 */       for (Ftp ftp : ftps) {
 /*  46 */         jsons.add(ftp.converToJson());

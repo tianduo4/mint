@@ -277,7 +277,7 @@
 /* 373 */           fashionSwitchPics, pictures, colorImgs, characters, natures, isDefault, stockCount, salePrice, marketPrice, costPrice);
 /*     */         try
 /*     */         {
-/* 377 */           if (bean.getStatus().intValue() != Product.ON_SALE_STATUS) break label973;
+///* 377 */           if (bean.getStatus().intValue() != Product.ON_SALE_STATUS)  break;  //TODO
                         this.luceneProductSvc.createIndex(bean);
 /*     */         } catch (IOException e) {
 /* 381 */           e.printStackTrace();

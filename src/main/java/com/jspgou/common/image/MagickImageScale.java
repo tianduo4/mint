@@ -26,9 +26,8 @@
 /*  42 */     int height = (int)dim.getHeight();
 /*     */     int zoomHeight;
 /*     */     int zoomWidth;
-/*     */     int zoomHeight;
 /*  45 */     if (width / height > boxWidth / boxHeight) {
-/*  46 */       int zoomWidth = boxWidth;
+/*  46 */        zoomWidth = boxWidth;
 /*  47 */       zoomHeight = Math.round(boxWidth * height / width);
 /*     */     } else {
 /*  49 */       zoomWidth = Math.round(boxHeight * width / height);
@@ -54,11 +53,10 @@
 /*  91 */     Dimension dim = cropped.getDimension();
 /*  92 */     int width = (int)dim.getWidth();
 /*  93 */     int height = (int)dim.getHeight();
-/*     */     int zoomHeight;
 /*     */     int zoomWidth;
 /*     */     int zoomHeight;
 /*  96 */     if (width / height > boxWidth / boxHeight) {
-/*  97 */       int zoomWidth = boxWidth;
+/*  97 */        zoomWidth = boxWidth;
 /*  98 */       zoomHeight = Math.round(boxWidth * height / width);
 /*     */     } else {
 /* 100 */       zoomWidth = Math.round(boxHeight * width / height);
