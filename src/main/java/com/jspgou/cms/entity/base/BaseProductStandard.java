@@ -1,146 +1,123 @@
-/*     */ package com.jspgou.cms.entity.base;
-/*     */ 
-/*     */ import com.jspgou.cms.entity.Product;
-/*     */ import com.jspgou.cms.entity.ProductStandard;
-/*     */ import com.jspgou.cms.entity.Standard;
-/*     */ import com.jspgou.cms.entity.StandardType;
-/*     */ import java.io.Serializable;
-/*     */ 
-/*     */ public abstract class BaseProductStandard
-/*     */   implements Serializable
-/*     */ {
-/*  19 */   public static String REF = "ProductStandard";
-/*  20 */   public static String PROP_STANDARD = "standard";
-/*  21 */   public static String PROP_DATA_TYPE = "dataType";
-/*  22 */   public static String PROP_PRODUCT = "product";
-/*  23 */   public static String PROP_TYPE = "type";
-/*  24 */   public static String PROP_ID = "id";
-/*  25 */   public static String PROP_IMG_PATH = "imgPath";
-/*     */ 
-/*  65 */   private int hashCode = -2147483648;
-/*     */   private Long id;
-/*     */   private String imgPath;
-/*     */   private boolean dataType;
-/*     */   private Product product;
-/*     */   private Standard standard;
-/*     */   private StandardType type;
-/*     */ 
-/*     */   public BaseProductStandard()
-/*     */   {
-/*  30 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseProductStandard(Long id)
-/*     */   {
-/*  37 */     setId(id);
-/*  38 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseProductStandard(Long id, Product product, Standard standard, StandardType type, String imgPath, boolean dataType)
-/*     */   {
-/*  52 */     setId(id);
-/*  53 */     setProduct(product);
-/*  54 */     setStandard(standard);
-/*  55 */     setType(type);
-/*  56 */     setImgPath(imgPath);
-/*  57 */     setDataType(dataType);
-/*  58 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   protected void initialize()
-/*     */   {
-/*     */   }
-/*     */ 
-/*     */   public Long getId()
-/*     */   {
-/*  88 */     return this.id;
-/*     */   }
-/*     */ 
-/*     */   public void setId(Long id)
-/*     */   {
-/*  96 */     this.id = id;
-/*  97 */     this.hashCode = -2147483648;
-/*     */   }
-/*     */ 
-/*     */   public String getImgPath()
-/*     */   {
-/* 107 */     return this.imgPath;
-/*     */   }
-/*     */ 
-/*     */   public void setImgPath(String imgPath)
-/*     */   {
-/* 115 */     this.imgPath = imgPath;
-/*     */   }
-/*     */ 
-/*     */   public boolean isDataType()
-/*     */   {
-/* 123 */     return this.dataType;
-/*     */   }
-/*     */ 
-/*     */   public void setDataType(boolean dataType)
-/*     */   {
-/* 131 */     this.dataType = dataType;
-/*     */   }
-/*     */ 
-/*     */   public Product getProduct()
-/*     */   {
-/* 139 */     return this.product;
-/*     */   }
-/*     */ 
-/*     */   public void setProduct(Product product)
-/*     */   {
-/* 147 */     this.product = product;
-/*     */   }
-/*     */ 
-/*     */   public Standard getStandard()
-/*     */   {
-/* 155 */     return this.standard;
-/*     */   }
-/*     */ 
-/*     */   public void setStandard(Standard standard)
-/*     */   {
-/* 163 */     this.standard = standard;
-/*     */   }
-/*     */ 
-/*     */   public StandardType getType()
-/*     */   {
-/* 171 */     return this.type;
-/*     */   }
-/*     */ 
-/*     */   public void setType(StandardType type)
-/*     */   {
-/* 179 */     this.type = type;
-/*     */   }
-/*     */ 
-/*     */   public boolean equals(Object obj)
-/*     */   {
-/* 186 */     if (obj == null) return false;
-/* 187 */     if (!(obj instanceof ProductStandard)) return false;
-/*     */ 
-/* 189 */     ProductStandard productStandard = (ProductStandard)obj;
-/* 190 */     if ((getId() == null) || (productStandard.getId() == null)) return false;
-/* 191 */     return getId().equals(productStandard.getId());
-/*     */   }
-/*     */ 
-/*     */   public int hashCode()
-/*     */   {
-/* 197 */     if (-2147483648 == this.hashCode) {
-/* 198 */       if (getId() == null) return super.hashCode();
-/*     */ 
-/* 200 */       String hashStr = getClass().getName() + ":" + getId().hashCode();
-/* 201 */       this.hashCode = hashStr.hashCode();
-/*     */     }
-/*     */ 
-/* 204 */     return this.hashCode;
-/*     */   }
-/*     */ 
-/*     */   public String toString()
-/*     */   {
-/* 210 */     return super.toString();
-/*     */   }
-/*     */ }
+package com.jspgou.cms.entity.base;
 
-/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
- * Qualified Name:     com.jspgou.cms.entity.base.BaseProductStandard
- * JD-Core Version:    0.6.0
- */
+import com.jspgou.cms.entity.Product;
+import com.jspgou.cms.entity.ProductStandard;
+import com.jspgou.cms.entity.Standard;
+import com.jspgou.cms.entity.StandardType;
+
+import java.io.Serializable;
+
+public abstract class BaseProductStandard
+        implements Serializable {
+    public static String REF = "ProductStandard";
+    public static String PROP_STANDARD = "standard";
+    public static String PROP_DATA_TYPE = "dataType";
+    public static String PROP_PRODUCT = "product";
+    public static String PROP_TYPE = "type";
+    public static String PROP_ID = "id";
+    public static String PROP_IMG_PATH = "imgPath";
+
+    private int hashCode = -2147483648;
+    private Long id;
+    private String imgPath;
+    private boolean dataType;
+    private Product product;
+    private Standard standard;
+    private StandardType type;
+
+    public BaseProductStandard() {
+        initialize();
+    }
+
+    public BaseProductStandard(Long id) {
+        setId(id);
+        initialize();
+    }
+
+    public BaseProductStandard(Long id, Product product, Standard standard, StandardType type, String imgPath, boolean dataType) {
+        setId(id);
+        setProduct(product);
+        setStandard(standard);
+        setType(type);
+        setImgPath(imgPath);
+        setDataType(dataType);
+        initialize();
+    }
+
+    protected void initialize() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+        this.hashCode = -2147483648;
+    }
+
+    public String getImgPath() {
+        return this.imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    public boolean isDataType() {
+        return this.dataType;
+    }
+
+    public void setDataType(boolean dataType) {
+        this.dataType = dataType;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Standard getStandard() {
+        return this.standard;
+    }
+
+    public void setStandard(Standard standard) {
+        this.standard = standard;
+    }
+
+    public StandardType getType() {
+        return this.type;
+    }
+
+    public void setType(StandardType type) {
+        this.type = type;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof ProductStandard)) return false;
+
+        ProductStandard productStandard = (ProductStandard) obj;
+        if ((getId() == null) || (productStandard.getId() == null)) return false;
+        return getId().equals(productStandard.getId());
+    }
+
+    public int hashCode() {
+        if (-2147483648 == this.hashCode) {
+            if (getId() == null) return super.hashCode();
+
+            String hashStr = getClass().getName() + ":" + getId().hashCode();
+            this.hashCode = hashStr.hashCode();
+        }
+
+        return this.hashCode;
+    }
+
+    public String toString() {
+        return super.toString();
+    }
+}
+

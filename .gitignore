@@ -1,0 +1,11 @@
+target
+.settings
+.classpath
+.project
+.DS_Store
+.gitignore
+coverage-report
+test-output
+log4j.properties
+log4j.xml
+*.iml

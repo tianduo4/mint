@@ -1,193 +1,162 @@
-/*     */ package com.jspgou.cms.entity.base;
-/*     */ 
-/*     */ import com.jspgou.cms.entity.Gift;
-/*     */ import com.jspgou.cms.entity.GiftExchange;
-/*     */ import com.jspgou.cms.entity.ShopMember;
-/*     */ import java.io.Serializable;
-/*     */ import java.util.Date;
-/*     */ 
-/*     */ public abstract class BaseGiftExchange
-/*     */   implements Serializable
-/*     */ {
-/*  17 */   public static String REF = "GiftExchange";
-/*  18 */   public static String PROP_STATUS = "status";
-/*  19 */   public static String PROP_MEMBER = "member";
-/*  20 */   public static String PROP_AMOUNT = "amount";
-/*  21 */   public static String PROP_DETAILADDRESS = "detailaddress";
-/*  22 */   public static String PROP_GIFT = "gift";
-/*  23 */   public static String PROP_CREATE_TIME = "createTime";
-/*  24 */   public static String PROP_WAYBILL = "waybill";
-/*  25 */   public static String PROP_TOTAL_SCORE = "totalScore";
-/*  26 */   public static String PROP_ID = "id";
-/*  27 */   public static String PROP_SCORE = "score";
-/*     */ 
-/*  65 */   private int hashCode = -2147483648;
-/*     */   private Long id;
-/*     */   private Integer score;
-/*     */   private Integer amount;
-/*     */   private Date createTime;
-/*     */   private Integer totalScore;
-/*     */   private String detailaddress;
-/*     */   private Integer status;
-/*     */   private String waybill;
-/*     */   private ShopMember member;
-/*     */   private Gift gift;
-/*     */ 
-/*     */   public BaseGiftExchange()
-/*     */   {
-/*  32 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseGiftExchange(Long id)
-/*     */   {
-/*  39 */     setId(id);
-/*  40 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseGiftExchange(Long id, ShopMember member, Gift gift, Date createTime, Integer status)
-/*     */   {
-/*  53 */     setId(id);
-/*  54 */     setMember(member);
-/*  55 */     setGift(gift);
-/*  56 */     setCreateTime(createTime);
-/*  57 */     setStatus(status);
-/*  58 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   protected void initialize()
-/*     */   {
-/*     */   }
-/*     */ 
-/*     */   public Long getId()
-/*     */   {
-/*  92 */     return this.id;
-/*     */   }
-/*     */ 
-/*     */   public void setId(Long id)
-/*     */   {
-/* 100 */     this.id = id;
-/* 101 */     this.hashCode = -2147483648;
-/*     */   }
-/*     */ 
-/*     */   public Integer getScore()
-/*     */   {
-/* 111 */     return this.score;
-/*     */   }
-/*     */ 
-/*     */   public void setScore(Integer score)
-/*     */   {
-/* 119 */     this.score = score;
-/*     */   }
-/*     */ 
-/*     */   public Integer getAmount()
-/*     */   {
-/* 127 */     return this.amount;
-/*     */   }
-/*     */ 
-/*     */   public void setAmount(Integer amount)
-/*     */   {
-/* 135 */     this.amount = amount;
-/*     */   }
-/*     */ 
-/*     */   public Date getCreateTime()
-/*     */   {
-/* 143 */     return this.createTime;
-/*     */   }
-/*     */ 
-/*     */   public void setCreateTime(Date createTime)
-/*     */   {
-/* 151 */     this.createTime = createTime;
-/*     */   }
-/*     */ 
-/*     */   public Integer getTotalScore()
-/*     */   {
-/* 159 */     return this.totalScore;
-/*     */   }
-/*     */ 
-/*     */   public void setTotalScore(Integer totalScore)
-/*     */   {
-/* 167 */     this.totalScore = totalScore;
-/*     */   }
-/*     */ 
-/*     */   public String getDetailaddress()
-/*     */   {
-/* 175 */     return this.detailaddress;
-/*     */   }
-/*     */ 
-/*     */   public void setDetailaddress(String detailaddress)
-/*     */   {
-/* 183 */     this.detailaddress = detailaddress;
-/*     */   }
-/*     */ 
-/*     */   public Integer getStatus()
-/*     */   {
-/* 191 */     return this.status;
-/*     */   }
-/*     */ 
-/*     */   public void setStatus(Integer status)
-/*     */   {
-/* 199 */     this.status = status;
-/*     */   }
-/*     */ 
-/*     */   public String getWaybill()
-/*     */   {
-/* 207 */     return this.waybill;
-/*     */   }
-/*     */ 
-/*     */   public void setWaybill(String waybill)
-/*     */   {
-/* 215 */     this.waybill = waybill;
-/*     */   }
-/*     */ 
-/*     */   public ShopMember getMember()
-/*     */   {
-/* 223 */     return this.member;
-/*     */   }
-/*     */ 
-/*     */   public void setMember(ShopMember member)
-/*     */   {
-/* 231 */     this.member = member;
-/*     */   }
-/*     */ 
-/*     */   public Gift getGift()
-/*     */   {
-/* 239 */     return this.gift;
-/*     */   }
-/*     */ 
-/*     */   public void setGift(Gift gift)
-/*     */   {
-/* 247 */     this.gift = gift;
-/*     */   }
-/*     */ 
-/*     */   public boolean equals(Object obj)
-/*     */   {
-/* 254 */     if (obj == null) return false;
-/* 255 */     if (!(obj instanceof GiftExchange)) return false;
-/*     */ 
-/* 257 */     GiftExchange giftExchange = (GiftExchange)obj;
-/* 258 */     if ((getId() == null) || (giftExchange.getId() == null)) return false;
-/* 259 */     return getId().equals(giftExchange.getId());
-/*     */   }
-/*     */ 
-/*     */   public int hashCode()
-/*     */   {
-/* 265 */     if (-2147483648 == this.hashCode) {
-/* 266 */       if (getId() == null) return super.hashCode();
-/*     */ 
-/* 268 */       String hashStr = getClass().getName() + ":" + getId().hashCode();
-/* 269 */       this.hashCode = hashStr.hashCode();
-/*     */     }
-/*     */ 
-/* 272 */     return this.hashCode;
-/*     */   }
-/*     */ 
-/*     */   public String toString()
-/*     */   {
-/* 278 */     return super.toString();
-/*     */   }
-/*     */ }
+package com.jspgou.cms.entity.base;
 
-/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
- * Qualified Name:     com.jspgou.cms.entity.base.BaseGiftExchange
- * JD-Core Version:    0.6.0
- */
+import com.jspgou.cms.entity.Gift;
+import com.jspgou.cms.entity.GiftExchange;
+import com.jspgou.cms.entity.ShopMember;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public abstract class BaseGiftExchange
+        implements Serializable {
+    public static String REF = "GiftExchange";
+    public static String PROP_STATUS = "status";
+    public static String PROP_MEMBER = "member";
+    public static String PROP_AMOUNT = "amount";
+    public static String PROP_DETAILADDRESS = "detailaddress";
+    public static String PROP_GIFT = "gift";
+    public static String PROP_CREATE_TIME = "createTime";
+    public static String PROP_WAYBILL = "waybill";
+    public static String PROP_TOTAL_SCORE = "totalScore";
+    public static String PROP_ID = "id";
+    public static String PROP_SCORE = "score";
+
+    private int hashCode = -2147483648;
+    private Long id;
+    private Integer score;
+    private Integer amount;
+    private Date createTime;
+    private Integer totalScore;
+    private String detailaddress;
+    private Integer status;
+    private String waybill;
+    private ShopMember member;
+    private Gift gift;
+
+    public BaseGiftExchange() {
+        initialize();
+    }
+
+    public BaseGiftExchange(Long id) {
+        setId(id);
+        initialize();
+    }
+
+    public BaseGiftExchange(Long id, ShopMember member, Gift gift, Date createTime, Integer status) {
+        setId(id);
+        setMember(member);
+        setGift(gift);
+        setCreateTime(createTime);
+        setStatus(status);
+        initialize();
+    }
+
+    protected void initialize() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+        this.hashCode = -2147483648;
+    }
+
+    public Integer getScore() {
+        return this.score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getTotalScore() {
+        return this.totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public String getDetailaddress() {
+        return this.detailaddress;
+    }
+
+    public void setDetailaddress(String detailaddress) {
+        this.detailaddress = detailaddress;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getWaybill() {
+        return this.waybill;
+    }
+
+    public void setWaybill(String waybill) {
+        this.waybill = waybill;
+    }
+
+    public ShopMember getMember() {
+        return this.member;
+    }
+
+    public void setMember(ShopMember member) {
+        this.member = member;
+    }
+
+    public Gift getGift() {
+        return this.gift;
+    }
+
+    public void setGift(Gift gift) {
+        this.gift = gift;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof GiftExchange)) return false;
+
+        GiftExchange giftExchange = (GiftExchange) obj;
+        if ((getId() == null) || (giftExchange.getId() == null)) return false;
+        return getId().equals(giftExchange.getId());
+    }
+
+    public int hashCode() {
+        if (-2147483648 == this.hashCode) {
+            if (getId() == null) return super.hashCode();
+
+            String hashStr = getClass().getName() + ":" + getId().hashCode();
+            this.hashCode = hashStr.hashCode();
+        }
+
+        return this.hashCode;
+    }
+
+    public String toString() {
+        return super.toString();
+    }
+}
+

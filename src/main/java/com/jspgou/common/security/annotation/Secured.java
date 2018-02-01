@@ -11,11 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface Secured
-{
+public @interface Secured {
 }
 
-/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
- * Qualified Name:     com.jspgou.common.security.annotation.Secured
- * JD-Core Version:    0.6.0
- */

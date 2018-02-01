@@ -1,40 +1,31 @@
-/*    */ package com.jspgou.cms.entity;
-/*    */ 
-/*    */ import com.jspgou.cms.api.CommonUtils;
-/*    */ import com.jspgou.cms.entity.base.BaseAddress;
-/*    */ import net.sf.json.JSONObject;
-/*    */ 
-/*    */ public class Address extends BaseAddress
-/*    */ {
-/*    */   private static final long serialVersionUID = 1L;
-/*    */ 
-/*    */   public Address()
-/*    */   {
-/*    */   }
-/*    */ 
-/*    */   public Address(Long id)
-/*    */   {
-/* 25 */     super(id);
-/*    */   }
-/*    */ 
-/*    */   public Address(Long id, String name)
-/*    */   {
-/* 37 */     super(id, 
-/* 37 */       name);
-/*    */   }
-/*    */ 
-/*    */   public JSONObject converToJson()
-/*    */   {
-/* 43 */     JSONObject json = new JSONObject();
-/* 44 */     json.put("id", CommonUtils.parseId(getId()));
-/* 45 */     json.put("parentId", getParent() != null ? CommonUtils.parseLong(getParent().getId()) : "");
-/* 46 */     json.put("name", CommonUtils.parseStr(getName()));
-/* 47 */     json.put("priority", Integer.valueOf(CommonUtils.parseInteger(getPriority())));
-/* 48 */     return json;
-/*    */   }
-/*    */ }
+package com.jspgou.cms.entity;
 
-/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
- * Qualified Name:     com.jspgou.cms.entity.Address
- * JD-Core Version:    0.6.0
- */
+import com.jspgou.cms.api.CommonUtils;
+import com.jspgou.cms.entity.base.BaseAddress;
+import net.sf.json.JSONObject;
+
+public class Address extends BaseAddress {
+    private static final long serialVersionUID = 1L;
+
+    public Address() {
+    }
+
+    public Address(Long id) {
+        super(id);
+    }
+
+    public Address(Long id, String name) {
+        super(id,
+                name);
+    }
+
+    public JSONObject converToJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", CommonUtils.parseId(getId()));
+        json.put("parentId", getParent() != null ? CommonUtils.parseLong(getParent().getId()) : "");
+        json.put("name", CommonUtils.parseStr(getName()));
+        json.put("priority", Integer.valueOf(CommonUtils.parseInteger(getPriority())));
+        return json;
+    }
+}
+

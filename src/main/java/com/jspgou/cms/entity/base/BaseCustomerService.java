@@ -1,143 +1,120 @@
-/*     */ package com.jspgou.cms.entity.base;
-/*     */ 
-/*     */ import com.jspgou.cms.entity.CustomerService;
-/*     */ import java.io.Serializable;
-/*     */ 
-/*     */ public abstract class BaseCustomerService
-/*     */   implements Serializable
-/*     */ {
-/*  17 */   public static String REF = "CustomerService";
-/*  18 */   public static String PROP_NAME = "name";
-/*  19 */   public static String PROP_DISABLE = "disable";
-/*  20 */   public static String PROP_TYPE = "type";
-/*  21 */   public static String PROP_ID = "id";
-/*  22 */   public static String PROP_CONTENT = "content";
-/*  23 */   public static String PROP_PRIORITY = "priority";
-/*     */ 
-/*  63 */   private int hashCode = -2147483648;
-/*     */   private Long id;
-/*     */   private String name;
-/*     */   private String type;
-/*     */   private String content;
-/*     */   private Integer priority;
-/*     */   private Boolean disable;
-/*     */ 
-/*     */   public BaseCustomerService()
-/*     */   {
-/*  28 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseCustomerService(Long id)
-/*     */   {
-/*  35 */     setId(id);
-/*  36 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   public BaseCustomerService(Long id, String name, String type, String content, Integer priority, Boolean disable)
-/*     */   {
-/*  50 */     setId(id);
-/*  51 */     setName(name);
-/*  52 */     setType(type);
-/*  53 */     setContent(content);
-/*  54 */     setPriority(priority);
-/*  55 */     setDisable(disable);
-/*  56 */     initialize();
-/*     */   }
-/*     */ 
-/*     */   protected void initialize()
-/*     */   {
-/*     */   }
-/*     */ 
-/*     */   public Long getId()
-/*     */   {
-/*  84 */     return this.id;
-/*     */   }
-/*     */ 
-/*     */   public void setId(Long id)
-/*     */   {
-/*  92 */     this.id = id;
-/*  93 */     this.hashCode = -2147483648;
-/*     */   }
-/*     */ 
-/*     */   public String getName()
-/*     */   {
-/* 103 */     return this.name;
-/*     */   }
-/*     */ 
-/*     */   public void setName(String name)
-/*     */   {
-/* 111 */     this.name = name;
-/*     */   }
-/*     */ 
-/*     */   public String getType()
-/*     */   {
-/* 119 */     return this.type;
-/*     */   }
-/*     */ 
-/*     */   public void setType(String type)
-/*     */   {
-/* 127 */     this.type = type;
-/*     */   }
-/*     */ 
-/*     */   public String getContent()
-/*     */   {
-/* 135 */     return this.content;
-/*     */   }
-/*     */ 
-/*     */   public void setContent(String content)
-/*     */   {
-/* 143 */     this.content = content;
-/*     */   }
-/*     */ 
-/*     */   public Integer getPriority()
-/*     */   {
-/* 151 */     return this.priority;
-/*     */   }
-/*     */ 
-/*     */   public void setPriority(Integer priority)
-/*     */   {
-/* 159 */     this.priority = priority;
-/*     */   }
-/*     */ 
-/*     */   public Boolean getDisable()
-/*     */   {
-/* 167 */     return this.disable;
-/*     */   }
-/*     */ 
-/*     */   public void setDisable(Boolean disable)
-/*     */   {
-/* 175 */     this.disable = disable;
-/*     */   }
-/*     */ 
-/*     */   public boolean equals(Object obj)
-/*     */   {
-/* 182 */     if (obj == null) return false;
-/* 183 */     if (!(obj instanceof CustomerService)) return false;
-/*     */ 
-/* 185 */     CustomerService customerService = (CustomerService)obj;
-/* 186 */     if ((getId() == null) || (customerService.getId() == null)) return false;
-/* 187 */     return getId().equals(customerService.getId());
-/*     */   }
-/*     */ 
-/*     */   public int hashCode()
-/*     */   {
-/* 193 */     if (-2147483648 == this.hashCode) {
-/* 194 */       if (getId() == null) return super.hashCode();
-/*     */ 
-/* 196 */       String hashStr = getClass().getName() + ":" + getId().hashCode();
-/* 197 */       this.hashCode = hashStr.hashCode();
-/*     */     }
-/*     */ 
-/* 200 */     return this.hashCode;
-/*     */   }
-/*     */ 
-/*     */   public String toString()
-/*     */   {
-/* 206 */     return super.toString();
-/*     */   }
-/*     */ }
+package com.jspgou.cms.entity.base;
 
-/* Location:           G:\jee系统\jspgou\jspgouV6-ROOT\ROOT\WEB-INF\classes\
- * Qualified Name:     com.jspgou.cms.entity.base.BaseCustomerService
- * JD-Core Version:    0.6.0
- */
+import com.jspgou.cms.entity.CustomerService;
+
+import java.io.Serializable;
+
+public abstract class BaseCustomerService
+        implements Serializable {
+    public static String REF = "CustomerService";
+    public static String PROP_NAME = "name";
+    public static String PROP_DISABLE = "disable";
+    public static String PROP_TYPE = "type";
+    public static String PROP_ID = "id";
+    public static String PROP_CONTENT = "content";
+    public static String PROP_PRIORITY = "priority";
+
+    private int hashCode = -2147483648;
+    private Long id;
+    private String name;
+    private String type;
+    private String content;
+    private Integer priority;
+    private Boolean disable;
+
+    public BaseCustomerService() {
+        initialize();
+    }
+
+    public BaseCustomerService(Long id) {
+        setId(id);
+        initialize();
+    }
+
+    public BaseCustomerService(Long id, String name, String type, String content, Integer priority, Boolean disable) {
+        setId(id);
+        setName(name);
+        setType(type);
+        setContent(content);
+        setPriority(priority);
+        setDisable(disable);
+        initialize();
+    }
+
+    protected void initialize() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+        this.hashCode = -2147483648;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getPriority() {
+        return this.priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public Boolean getDisable() {
+        return this.disable;
+    }
+
+    public void setDisable(Boolean disable) {
+        this.disable = disable;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof CustomerService)) return false;
+
+        CustomerService customerService = (CustomerService) obj;
+        if ((getId() == null) || (customerService.getId() == null)) return false;
+        return getId().equals(customerService.getId());
+    }
+
+    public int hashCode() {
+        if (-2147483648 == this.hashCode) {
+            if (getId() == null) return super.hashCode();
+
+            String hashStr = getClass().getName() + ":" + getId().hashCode();
+            this.hashCode = hashStr.hashCode();
+        }
+
+        return this.hashCode;
+    }
+
+    public String toString() {
+        return super.toString();
+    }
+}
+
