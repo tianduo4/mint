@@ -23,7 +23,7 @@
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="webBindingInitializer">
-			<bean class=" com.jspgou.common.web.springmvc.BindingInitializer"/>
+			<bean class=" com.mint.common.web.springmvc.BindingInitializer"/>
 		</property>
 	</bean>
 	
@@ -36,12 +36,12 @@
 			</list>
 		</property>
 	</bean>	
-	<bean id="frontContextIntercept" class="com.jspgou.cms.web.FrontContextInterceptor"/>
+	<bean id="frontContextIntercept" class="com.mint.cms.web.FrontContextInterceptor"/>
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="cookieName" value="clientlanguage"/>
 		<property name="cookieMaxAge" value="-1"/>
 	</bean>
-	<bean id="frontSecureInterceptor" class="com.jspgou.cms.web.FrontSecureInterceptor">
+	<bean id="frontSecureInterceptor" class="com.mint.cms.web.FrontSecureInterceptor">
 		<property name="loginUrl" value="/login.jspx"/>
 	</bean>
 
@@ -55,7 +55,7 @@
 		</property>
 	</bean>
 	<!--
-		<bean id="freemarkerViewResolver" class="com.jspgou.common.web.springmvc.RichFreeMarkerViewResolver">
+		<bean id="freemarkerViewResolver" clacom.mintou.common.web.springmvc.RichFreeMarkerViewResolver">
 			<property name="suffix" value=".html"/>
 			<property name="contentType" value="text/html; charset=UTF-8"/>
 			<property name="exposeRequestAttributes" value="false"/>
@@ -63,7 +63,7 @@
 			<property name="exposeSpringMacroHelpers" value="true"/>
 		</bean>
 		-->
-	<bean id="freemarkerViewResolver" class="com.jspgou.common.web.springmvc.SimpleFreeMarkerViewResolver">
+	<bean id="freemarkerViewResolver" class="com.mint.common.web.springmvc.SimpleFreeMarkerViewResolver">
 		<property name="contentType" value="text/html; charset=UTF-8"/>
 		<property name="exposeRequestAttributes" value="false"/>
 		<property name="exposeSessionAttributes" value="false"/>
@@ -131,49 +131,49 @@
 		</property>
 	</bean>
 	<!--
-		<context:component-scan base-package="com.jspgou.cms.action.front" use-default-filters="false">
+		<context:component-scan base-packacom.mintou.cms.action.front" use-default-filters="false">
 			<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		</context:component-scan>
 		-->
 	<!--Controller-->
 	<context:annotation-config/>
-	<bean id="dynamicPageAct" class="com.jspgou.cms.action.front.DynamicPageAct"/>
-	<bean id="searchAct" class="com.jspgou.cms.action.front.SearchAct"/>
-	<bean id="cartAct" class="com.jspgou.cms.action.front.CartAct"/>
-	<bean id="orderAct" class="com.jspgou.cms.action.front.OrderAct"/>
-	<bean id="myInfomationAct" class="com.jspgou.cms.action.front.MyInfomationAct"/>
-	<bean id="productFormAct" class="com.jspgou.cms.action.front.ProductFormAct"/>
-	<bean id="memberCouponAct" class="com.jspgou.cms.action.front.MemberCouponAct"/>
-	<bean id="collectAct" class="com.jspgou.cms.action.front.CollectAct"/>
-	<bean id="advertiseAct" class="com.jspgou.cms.action.front.AdvertiseAct"/>
-    <bean id="giftAct" class="com.jspgou.cms.action.front.GiftAct"/>
-	<bean id="shopScoreAct" class="com.jspgou.cms.action.front.ShopScoreAct"/>
-	<bean id="orderReturnAct" class="com.jspgou.cms.action.front.OrderReturnAct"/>
-	<bean id="shopMoneyAct" class="com.jspgou.cms.action.front.ShopMoneyAct"/>
-	<bean id="couponAct" class="com.jspgou.cms.action.front.CouponAct"/>
-    <bean id="alipayAct" class="com.jspgou.cms.action.front.AlipayAct"/>
+	<bean id="dynamicPageAct" class="com.mint.cms.action.front.DynamicPageAct"/>
+	<bean id="searchAct" class="com.mint.cms.action.front.SearchAct"/>
+	<bean id="cartAct" class="com.mint.cms.action.front.CartAct"/>
+	<bean id="orderAct" class="com.mint.cms.action.front.OrderAct"/>
+	<bean id="myInfomationAct" class="com.mint.cms.action.front.MyInfomationAct"/>
+	<bean id="productFormAct" class="com.mint.cms.action.front.ProductFormAct"/>
+	<bean id="memberCouponAct" class="com.mint.cms.action.front.MemberCouponAct"/>
+	<bean id="collectAct" class="com.mint.cms.action.front.CollectAct"/>
+	<bean id="advertiseAct" class="com.mint.cms.action.front.AdvertiseAct"/>
+    <bean id="giftAct" class="com.mint.cms.action.front.GiftAct"/>
+	<bean id="shopScoreAct" class="com.mint.cms.action.front.ShopScoreAct"/>
+	<bean id="orderReturnAct" class="com.mint.cms.action.front.OrderReturnAct"/>
+	<bean id="shopMoneyAct" class="com.mint.cms.action.front.ShopMoneyAct"/>
+	<bean id="couponAct" class="com.mint.cms.action.front.CouponAct"/>
+    <bean id="alipayAct" class="com.mint.cms.action.front.AlipayAct"/>
 		
-    <bean id="forgotPasswordAct" class="com.jspgou.cms.action.member.ForgotPasswordAct"/>
-	<bean id="imageCutAct" class="com.jspgou.cms.action.member.ImageCutAct"/>
-	<bean id="imageUploadAct" class="com.jspgou.cms.action.member.ImageUploadAct"/>
+    <bean id="forgotPasswordAct" class="com.mint.cms.action.member.ForgotPasswordAct"/>
+	<bean id="imageCutAct" class="com.mint.cms.action.member.ImageCutAct"/>
+	<bean id="imageUploadAct" class="com.mint.cms.action.member.ImageUploadAct"/>
 	
-	<bean id="loginJspgouAct" class="com.jspgou.cms.action.member.LoginAct"/>
-	<bean id="registerAct" class="com.jspgou.cms.action.member.RegisterAct"/>
-	<bean id="shopMemberAct" class="com.jspgou.cms.action.member.ShopMemberAct"/>
-	<bean id="shopMenberAddressAct" class="com.jspgou.cms.action.member.ShopMenberAddressAct"/>
-	<bean id="thirdLoginAct" class="com.jspgou.cms.action.front.ThirdLoginAct"/>
+	<bean id="loginJspgouAct" class="com.mint.cms.action.member.LoginAct"/>
+	<bean id="registerAct" class="com.mint.cms.action.member.RegisterAct"/>
+	<bean id="shopMemberAct" class="com.mint.cms.action.member.ShopMemberAct"/>
+	<bean id="shopMenberAddressAct" class="com.mint.cms.action.member.ShopMenberAddressAct"/>
+	<bean id="thirdLoginAct" class="com.mint.cms.action.front.ThirdLoginAct"/>
 	<!-- 站内信 -->
- 	<bean id="messageAct" class="com.jspgou.cms.action.member.MessageAct" />
+ 	<bean id="messageAct" class="com.mint.cms.action.member.MessageAct" />
 
-    <bean id="userAppAct" class="com.jspgou.cms.app.UserAppAct"/>
-    <bean id="productAppAct" class="com.jspgou.cms.app.ProductAppAct"/>
-    <bean id="cartAppAct" class="com.jspgou.cms.app.CartAppAct"/>
-    <bean id="articleAppAct" class="com.jspgou.cms.app.ArticleAppAct"/>
-    <bean id="brandAppAct" class="com.jspgou.cms.app.BrandAppAct"/>
-    <bean id="categoryAppAct" class="com.jspgou.cms.app.CategoryAppAct"/>
-    <bean id="channelAppAct" class="com.jspgou.cms.app.ChannelAppAct"/>
-    <bean id="imageUploadAppAct" class="com.jspgou.cms.app.ImageUploadAct"/>
-    <bean id="orderAppAct" class="com.jspgou.cms.app.OrderAppAct"/>
-    <bean id="paymentAppAct" class="com.jspgou.cms.app.PaymentAppAct"/>
-    <bean id="searchAppAct" class="com.jspgou.cms.app.SearchAppAct"/>
+    <bean id="userAppAct" class="com.mint.cms.app.UserAppAct"/>
+    <bean id="productAppAct" class="com.mint.cms.app.ProductAppAct"/>
+    <bean id="cartAppAct" class="com.mint.cms.app.CartAppAct"/>
+    <bean id="articleAppAct" class="com.mint.cms.app.ArticleAppAct"/>
+    <bean id="brandAppAct" class="com.mint.cms.app.BrandAppAct"/>
+    <bean id="categoryAppAct" class="com.mint.cms.app.CategoryAppAct"/>
+    <bean id="channelAppAct" class="com.mint.cms.app.ChannelAppAct"/>
+    <bean id="imageUploadAppAct" class="com.mint.cms.app.ImageUploadAct"/>
+    <bean id="orderAppAct" class="com.mint.cms.app.OrderAppAct"/>
+    <bean id="paymentAppAct" class="com.mint.cms.app.PaymentAppAct"/>
+    <bean id="searchAppAct" class="com.mint.cms.app.SearchAppAct"/>
 </beans>

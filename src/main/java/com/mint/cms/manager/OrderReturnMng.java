@@ -1,0 +1,24 @@
+package com.mint.cms.manager;
+
+import com.mint.cms.entity.Order;
+import com.mint.cms.entity.OrderReturn;
+import com.mint.common.page.Pagination;
+
+public abstract interface OrderReturnMng {
+    public abstract Pagination getPage(Integer paramInteger, int paramInt1, int paramInt2);
+
+    public abstract OrderReturn findById(Long paramLong);
+
+    public abstract OrderReturn findByOrderId(Long paramLong);
+
+    public abstract OrderReturn save(OrderReturn paramOrderReturn);
+
+    public abstract OrderReturn save(OrderReturn paramOrderReturn, Order paramOrder, Long paramLong, Boolean paramBoolean, String[] paramArrayOfString1, String[] paramArrayOfString2);
+
+    public abstract OrderReturn update(OrderReturn paramOrderReturn);
+
+    public abstract OrderReturn deleteById(Long paramLong);
+
+    public abstract OrderReturn[] deleteByIds(Long[] paramArrayOfLong);
+}
+

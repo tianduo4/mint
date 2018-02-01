@@ -4,14 +4,14 @@
 	default-lazy-init="true">
 	
 	
-	<bean id="weixinMng" class="com.jspgou.plug.weixin.manager.impl.WeixinMngImpl"/>
-	<bean id="weixinDao" class="com.jspgou.plug.weixin.dao.impl.WeixinDaoImpl"/>
+	<bean id="weixinMng" class="com.mint.plug.weixin.manager.impl.WeixinMngImpl"/>
+	<bean id="weixinDao" class="com.mint.plug.weixin.dao.impl.WeixinDaoImpl"/>
 	
-	<bean id="weixinMenuDao" class="com.jspgou.plug.weixin.dao.impl.WeixinMenuDaoImpl"/>
-	<bean id="weixinMenuMng" class="com.jspgou.plug.weixin.manager.impl.WeixinMenuMngImpl"/>
+	<bean id="weixinMenuDao" class="com.mint.plug.weixin.dao.impl.WeixinMenuDaoImpl"/>
+	<bean id="weixinMenuMng" class="com.mint.plug.weixin.manager.impl.WeixinMenuMngImpl"/>
 	
-	<bean id="weixinMessageDao" class="com.jspgou.plug.weixin.dao.impl.WeixinMessageDaoImpl"/>
-	<bean id="weixinMessageMng"  class="com.jspgou.plug.weixin.manager.impl.WeixinMessageMngImpl"/>
+	<bean id="weixinMessageDao" class="com.mint.plug.weixin.dao.impl.WeixinMessageDaoImpl"/>
+	<bean id="weixinMessageMng"  class="com.mint.plug.weixin.manager.impl.WeixinMessageMngImpl"/>
 	
 
 	

@@ -30,21 +30,21 @@
 		</property>
 	</bean>
 	<!-- Shiro Filter -->	
-	<bean id="adminUrlBean" class="com.jspgou.core.security.CmsAdminUrl">
+	<bean id="adminUrlBean" class="com.mint.core.security.CmsAdminUrl">
 		<property name="adminLogin" value="/jeeadmin/jspgou/login.do"/>
 		<property name="adminPrefix" value="/jeeadmin/jspgou/"/>
 	</bean>
-	<bean id="authcFilter" class="com.jspgou.core.security.CmsAuthenticationFilter" parent="adminUrlBean">
+	<bean id="authcFilter" class="com.mint.core.security.CmsAuthenticationFilter" parent="adminUrlBean">
 		<property name="adminIndex" value="/jeeadmin/jspgou/index.do"/>
 	</bean>
-	<bean id="userFilter" class="com.jspgou.core.security.CmsUserFilter" parent="adminUrlBean"/>
-	<bean id="logoutFilter" class="com.jspgou.core.security.CmsLogoutFilter" parent="adminUrlBean"/>
+	<bean id="userFilter" class="com.mint.core.security.CmsUserFilter" parent="adminUrlBean"/>
+	<bean id="logoutFilter" class="com.mint.core.security.CmsLogoutFilter" parent="adminUrlBean"/>
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="cacheManager" ref="shiroEhcacheManager"/>
 		<property name="rememberMeManager" ref="rememberMeManager"/> 
 		<property name="realm" ref="authorizingRealm" />
 	</bean>
-	<bean id="authorizingRealm" class="com.jspgou.core.security.CmsAuthorizingRealm">
+	<bean id="authorizingRealm" class="com.mint.core.security.CmsAuthorizingRealm">
 		<property name="credentialsMatcher">
            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                <property name="hashAlgorithmName" value="MD5"/>

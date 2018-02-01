@@ -7,73 +7,73 @@
 		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"/>
 		
 		
-	<cache name="com.jspgou.common.web.session.Session" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
+	<cache name="com.mint.common.web.session.Session" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
 
-	<cache name="com.jspgou.core.Global" maxElementsInMemory="100" eternal="true" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.Domain" maxElementsInMemory="20" eternal="true" overflowToDisk="true"/>
+	<cache name="com.mint.core.Global" maxElementsInMemory="100" eternal="true" overflowToDisk="true"/>
+	<cache name="com.mint.core.Domain" maxElementsInMemory="20" eternal="true" overflowToDisk="true"/>
 	
 	<cache name="org.hibernate.cache.StandardQueryCache" maxElementsInMemory="50" eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true"/>
 	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="5000" eternal="true"  overflowToDisk="true"/>
 
-	<cache name="com.jspgou.core.entity.Global" maxElementsInMemory="1" eternal="true" overflowToDisk="false"/>
-	<cache name="com.jspgou.core.entity.Website" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.Website.solutions" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.Website.messages" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.User" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.Admin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.Admin.perms" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.entity.Member" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Global" maxElementsInMemory="1" eternal="true" overflowToDisk="false"/>
+	<cache name="com.mint.core.entity.Website" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Website.solutions" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Website.messages" maxElementsInMemory="20" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.User" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Admin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Admin.perms" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.core.entity.Member" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
 		
-	<cache name="com.jspgou.cms.entity.ShopConfig" maxElementsInMemory="5" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopAdmin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopMember" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopMember.favorites" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Brand" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Brand.types" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.BrandText" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Category" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Category.child" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Product" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Product.keywords" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Product.tags" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ProductText" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopMemberGroup" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ProductType" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ProductType.brands" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ProductTag" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Order" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Order.items" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.OrderItem" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopConfig" maxElementsInMemory="5" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopAdmin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopMember" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopMember.favorites" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Brand" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Brand.types" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.BrandText" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Category" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Category.child" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Product" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Product.keywords" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Product.tags" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ProductText" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopMemberGroup" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ProductType" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ProductType.brands" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ProductTag" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Order" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Order.items" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.OrderItem" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
 	
 	
-	<cache name="com.jspgou.cms.entity.ShopAddress" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Shipping" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopAddress" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Shipping" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
 	
-	<cache name="com.jspgou.cms.entity.Cart" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.Cart.items" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.CartItem" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopArticle" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopArticleContent" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopChannel" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopChannel.child" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.entity.ShopChannelContent" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Cart" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.Cart.items" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.CartItem" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopArticle" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopArticleContent" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopChannel" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopChannel.child" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.entity.ShopChannelContent" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
 
 
    
-   <cache name="com.jspgou.core.entity.EmailSender" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-   <cache name="com.jspgou.core.entity.Ftp" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-   <cache name="com.jspgou.core.entity.Role" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-   <cache name="com.jspgou.cms.entity.Address" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-   <cache name="com.jspgou.cms.entity.Adspace" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+   <cache name="com.mint.core.entity.EmailSender" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+   <cache name="com.mint.core.entity.Ftp" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+   <cache name="com.mint.core.entity.Role" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+   <cache name="com.mint.cms.entity.Address" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+   <cache name="com.mint.cms.entity.Adspace" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
    <cache name="com.spgou.cms.entity.Advertise" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
   
-    <cache name="com.jspgou.core.entity.ConfigAttr" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-    <cache name="com.jspgou.core.entity.ThirdAccount" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-    <cache  name="com.jspgou.plug.weixin.entity.Weixin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-    <cache name="com.jspgou.plug.weixin.entity.WeixinMenu" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-    <cache name="com.jspgou.plug.weixin.entity.WeixinMessage" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+    <cache name="com.mint.core.entity.ConfigAttr" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+    <cache name="com.mint.core.entity.ThirdAccount" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+    <cache name="com.mint.plug.weixin.entity.Weixin" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+    <cache name="com.mint.plug.weixin.entity.WeixinMenu" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+    <cache name="com.mint.plug.weixin.entity.WeixinMessage" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
 
-    <cache name="com.jspgou.plug.store.entity.PlugStoreConfig" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
-	<cache name="com.jspgou.cms.shiro.shiroCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
+    <cache name="com.mint.plug.store.entity.PlugStoreConfig" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" overflowToDisk="true"/>
+	<cache name="com.mint.cms.shiro.shiroCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
 	
 </ehcache>

@@ -7,7 +7,7 @@
 	default-lazy-init="true">
 	
 	
-	<bean id="plugStoreAct" class="com.jspgou.plug.store.action.admin.PlugStoreAct"/>
+	<bean id="plugStoreAct" class="com.mint.plug.store.action.admin.PlugStoreAct"/>
 	
 
 

@@ -1,0 +1,24 @@
+package com.mint.cms.dao;
+
+import com.mint.cms.entity.ProductStandard;
+import com.mint.common.hibernate4.Updater;
+import com.mint.common.page.Pagination;
+
+import java.util.List;
+
+public abstract interface ProductStandardDao {
+    public abstract Pagination getPage(int paramInt1, int paramInt2);
+
+    public abstract ProductStandard findById(Long paramLong);
+
+    public abstract List<ProductStandard> findByProductIdAndStandardId(Long paramLong1, Long paramLong2);
+
+    public abstract List<ProductStandard> findByProductId(Long paramLong);
+
+    public abstract ProductStandard save(ProductStandard paramProductStandard);
+
+    public abstract ProductStandard updateByUpdater(Updater<ProductStandard> paramUpdater);
+
+    public abstract ProductStandard deleteById(Long paramLong);
+}
+

@@ -19,7 +19,7 @@
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>
-      /WEB-INF/config/jspgou-admin-servlet.xml
+      /WEB-INF/conmintpgou-admin-servlet.xml
       /WEB-INF/config/plug/**/*-servlet-admin-action.xml
       </param-value>
     
@@ -55,11 +55,11 @@
   
   <servlet>
     <servlet-name>Jcaptcha</servlet-name>
-    <servlet-class>com.jspgou.common.checkcode.CaptchaServlet</servlet-class>
+    <servlet-class>com.mint.common.checkcode.CaptchaServlet</servlet-class>
   </servlet>
 <!--   <servlet-mapping>
     <servlet-name>JspGouAdmin</servlet-name>
-    <url-pattern>/jeeadmin/jspgou/*</url-pattern>
+    <url-pattern>/jeeadmintpgou/*</url-pattern>
   </servlet-mapping> -->
   <servlet-mapping>
  	<servlet-name>JspGouAdminApi</servlet-name>
@@ -87,7 +87,7 @@
   </servlet-mapping>
   <filter>
     <filter-name>processTime</filter-name>
-    <filter-class>com.jspgou.common.web.ProcessTimeFilter</filter-class>
+    <filter-class>com.mint.common.web.ProcessTimeFilter</filter-class>
   </filter>
   <filter>
     <filter-name>encoding</filter-name>
@@ -103,12 +103,12 @@
   </filter>
   <filter>
     <filter-name>websiteFilter</filter-name>
-    <filter-class>com.jspgou.core.web.WebsiteFilter</filter-class>
+    <filter-class>com.mint.core.web.WebsiteFilter</filter-class>
   </filter>
 
 <!-- 	<filter>
 		<filter-name>cors</filter-name>
-		<filter-class>com.jspgou.common.web.springmvc.CorsFilter</filter-class>
+		<filter-clcom.mintou.common.web.springmvc.CorsFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>cors</filter-name>
@@ -222,7 +222,7 @@
   </filter>
   <filter>
     <filter-name>XssFilter</filter-name>
-    <filter-class>com.jspgou.common.web.XssFilter</filter-class>
+    <filter-class>com.mint.common.web.XssFilter</filter-class>
     <init-param>
       <param-name>SplitChar</param-name>
       <param-value>@</param-value>

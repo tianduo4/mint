@@ -4,7 +4,7 @@
 	default-lazy-init="true">
 	<!--缓存--><!-- 引用ehCache的配置 -->
 	
-	 <bean id="cacheManager" class="com.jspgou.common.web.WebEhCacheManagerFacotryBean">
+	 <bean id="cacheManager" class="com.mint.common.web.WebEhCacheManagerFacotryBean">
 		<property name="cacheManagerName" value="cacheManager"/> 
 		<property name="configLocation">
 			<value>classpath:ehcache.xml</value>
@@ -21,7 +21,7 @@
 			<ref bean="cacheManager"/>
 		</property>
 		<property name="cacheName">
-			<value>com.jspgou.core.Global</value>
+			<value>com.mint.core.Global</value>
 		</property>
 	</bean>
 	<!--域名缓存-->
@@ -31,7 +31,7 @@
 			<ref bean="cacheManager"/>
 		</property>
 		<property name="cacheName">
-			<value>com.jspgou.core.Domain</value>
+			<value>com.mint.core.Domain</value>
 		</property>
 	</bean>
 	<!--SESSION缓存-->
@@ -41,7 +41,7 @@
 			<ref bean="cacheManager"/>
 		</property>
 		<property name="cacheName">
-			<value>com.jspgou.common.web.session.Session</value>
+			<value>com.mint.common.web.session.Session</value>
 		</property>
 	</bean>
 	
@@ -53,7 +53,7 @@
 			<ref bean="cacheManager"/>
 		</property>
 		<property name="cacheName">
-			<value>com.jspgou.cms.weixin.token</value>
+			<value>com.mint.cms.weixin.token</value>
 		</property>		
 		<qualifier value="tokenCache"/>
 	</bean>

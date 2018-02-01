@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-lazy-init="true">
 		
-	<bean id="plugStoreConfigMng" class="com.jspgou.plug.store.manager.impl.PlugStoreConfigMngImpl"/>
-	<bean id="plugStoreConfigDao" class="com.jspgou.plug.store.dao.impl.PlugStoreConfigDaoImpl"/>
+	<bean id="plugStoreConfigMng" class="com.mint.plug.store.manager.impl.PlugStoreConfigMngImpl"/>
+	<bean id="plugStoreConfigDao" class="com.mint.plug.store.dao.impl.PlugStoreConfigDaoImpl"/>
 	 
 </beans>

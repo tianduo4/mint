@@ -24,7 +24,7 @@
 		</property>
 		<qualifier value="main"/>
 	</bean>
-	<bean id="propertyUtils" class="com.jspgou.common.util.PropertyUtils">
+	<bean id="propertyUtils" class="com.mint.common.util.PropertyUtils">
 		<property name="properties" ref="properties"/>
 	</bean>
 	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -74,7 +74,7 @@
 		</property>
 	</bean>
 	
-	<bean id="cacheRegionFactory" class="com.jspgou.common.web.WebSingletonEhCacheRegionFactory"/>
+	<bean id="cacheRegionFactory" class="com.mint.common.web.WebSingletonEhCacheRegionFactory"/>
 
 	
 	<!--定时begin -->
@@ -83,7 +83,7 @@
 	<property name="maxPoolSize" value="100" /> 
 	<property name="queueCapacity" value="500" />
 	</bean>
-	<bean id="smsJob" class="com.jspgou.cms.action.admin.SmsJob"></bean>
+	<bean id="smsJob" class="com.mint.cms.action.admin.SmsJob"></bean>
 	<bean id="smsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="smsJob" />
 		<property name="targetMethod" value="execute" />
@@ -106,7 +106,7 @@
 	</bean>
 	<!--定时end -->
 	
-	<bean id="treeInterceptor" class="com.jspgou.common.hibernate4.TreeIntercptor"/>
+	<bean id="treeInterceptor" class="com.mint.common.hibernate4.TreeIntercptor"/>
 	<!-- 事务配置 -->
 	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />

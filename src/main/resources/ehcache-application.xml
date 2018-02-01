@@ -5,9 +5,9 @@
 		overflowToDisk="true" diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000" 
 		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"/>
 		
-	<cache name="com.jspgou.common.web.session.Session" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
+	<cache name="com.mint.common.web.session.Session" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="1200" overflowToDisk="true" diskPersistent="true"/>
 
-	<cache name="com.jspgou.core.Global" maxElementsInMemory="100" eternal="true" overflowToDisk="true"/>
-	<cache name="com.jspgou.core.Domain" maxElementsInMemory="20" eternal="true" overflowToDisk="true"/>
+	<cache name="com.mint.core.Global" maxElementsInMemory="100" eternal="true" overflowToDisk="true"/>
+	<cache name="com.mint.core.Domain" maxElementsInMemory="20" eternal="true" overflowToDisk="true"/>
 	
 </ehcache>

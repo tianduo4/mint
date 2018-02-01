@@ -10,7 +10,7 @@
 
     <parameter name="allowedMethods" value="addUser,delUser,updateUser"/>
 
-    <parameter name="className" value="com.jspgou.cms.webservice.UserService"/>
+    <parameter name="className" value="com.mint.cms.webservice.UserService"/>
 
 </service>
 <transport name="http">

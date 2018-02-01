@@ -13,7 +13,7 @@
 		<property name="basenames" value="#{propertyUtils.getList('messages.admin.')}"/>
 	</bean>
 	
-	<bean id="freemarkerViewResolver" class="com.jspgou.common.web.springmvc.ApiFreeMarkerViewResolver">
+	<bean id="freemarkerViewResolver" class="com.mint.common.web.springmvc.ApiFreeMarkerViewResolver">
 		<property name="prefix" value="/jspgou_api_sys/"/>
 		<property name="suffix" value=".html"/>
 		<property name="contentType" value="text/html; charset=UTF-8"/>
@@ -49,13 +49,13 @@
 		</property>
 	</bean>
 
-	<bean id="corsConfigurerAdapter" class="com.jspgou.common.web.springmvc.CorsConfigurerAdapter"/>
+	<bean id="corsConfigurerAdapter" class="com.mint.common.web.springmvc.CorsConfigurerAdapter"/>
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="webBindingInitializer">
-			<bean class="com.jspgou.common.web.springmvc.BindingInitializer"/>
+			<bean class="com.mint.common.web.springmvc.BindingInitializer"/>
 		</property>
 	</bean>
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
@@ -65,7 +65,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="adminApiInterceptor" class="com.jspgou.cms.web.AdminApiInterceptor">
+	<bean id="adminApiInterceptor" class="com.mint.cms.web.AdminApiInterceptor">
 		<property name="excludeUrls">
 			<list>
 				<value>/user/login</value>
@@ -79,6 +79,6 @@
 		</property>
 	</bean> 
 	<context:annotation-config/>
-	<bean class="com.jspgou.common.web.springmvc.HandlerApiExceptionResolver"></bean>
+	<bean class="com.mint.common.web.springmvc.HandlerApiExceptionResolver"></bean>
     <import resource="jspgou/jspgou-servlet-adminapi-action.xml"/>
 </beans>

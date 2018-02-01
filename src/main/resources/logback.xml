@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<!--
-	<property name="log.base" value="${jeecms.root}/WEB-INF/logs/jspgou"/>
+	<property name="log.base" value="${jeecms.root}/WEB-INF/lmintpgou"/>
 	-->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -28,19 +28,19 @@
 	-->
 	<!--
 	-->
-	<logger name="com.jspgou">
+	<logger name="com.mint">
 		<level value="INFO" />
 	</logger>
-	<logger name="com.jspgou.common.web.ProcessTimeFilter">
+	<logger name="com.mint.common.web.ProcessTimeFilter">
 		<level value="INFO" />
 	</logger>
-	<logger name="com.jspgou.common.developer">
+	<logger name="com.mint.common.developer">
 		<level value="INFO" />
 	</logger>
-	<logger name="com.jspgou.common">
+	<logger name="com.mint.common">
 		<level value="INFO" />
 	</logger>
-	<logger name="com.jspgou.common.hibernate4.TreeIntercptor">
+	<logger name="com.mint.common.hibernate4.TreeIntercptor">
 		<level value="INFO" />
 	</logger>
 	<logger name="org.springframework">
