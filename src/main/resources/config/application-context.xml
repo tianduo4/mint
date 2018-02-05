@@ -11,15 +11,15 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/WEB-INF/config/jdbc.properties</value>
+				<value>classpath*:config/jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
 	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
-				<value>/WEB-INF/config/jdbc.properties</value>
-				<value>/WEB-INF/config/plug/**/*.properties</value>	
+				<value>classpath*:config/jdbc.properties</value>
+				<value>classpath*:config/plug/**/*.properties</value>
 			</list>
 		</property>
 		<qualifier value="main"/>

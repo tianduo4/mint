@@ -4,14 +4,14 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-			/WEB-INF/config/application-context.xml
-			/WEB-INF/config/cache-context.xml
-			/WEB-INF/config/checkcode-context.xml
-			/WEB-INF/config/jeecore-context.xml
-			/WEB-INF/config/jspgou-context.xml
-			/WEB-INF/config/shiro-context.xml
-			/WEB-INF/config/plug/**/*-context.xml
-		</param-value>
+          classpath*:config/application-context.xml
+          classpath*:config/cache-context.xml
+          classpath*:config/checkcode-context.xml
+          classpath*:config/jeecore-context.xml
+          classpath*:config/jspgou-context.xml
+          classpath*:config/shiro-context.xml
+          classpath*:config/plug/**/*-context.xml
+    </param-value>
   </context-param>
 <!--   <servlet>
     <servlet-name>JspGouAdmin</servlet-name>
@@ -32,8 +32,8 @@
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>
-        /WEB-INF/config/jspgou-front-servlet.xml
-      	/WEB-INF/config/plug/**/*-servlet-front-action.xml
+        classpath*:config/jspgou-front-servlet.xml
+        classpath*:config/plug/**/*-servlet-front-action.xml
       </param-value>
     </init-param>
     <load-on-startup>2</load-on-startup>
@@ -46,7 +46,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				/WEB-INF/config/jspgou-servlet-admin-api.xml
+              classpath*:config/jspgou-servlet-admin-api.xml
 			</param-value>
 		</init-param> 
 		<load-on-startup>3</load-on-startup>

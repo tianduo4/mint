@@ -10,9 +10,9 @@
 		<property name="cacheSeconds" value="0"/>
 		<property name="basenames">
 			<list>
-				<value>/WEB-INF/languages/jeecore_admin/messages</value>
-				<value>/WEB-INF/languages/jspgou_admin/messages</value>
-				<value>/WEB-INF/languages/fck/messages</value>
+				<value>classpath*:languages/jeecore_admin/messages</value>
+				<value>classpath*:languages/jspgou_admin/messages</value>
+				<value>classpath*:languages/fck/messages</value>
 			</list>
 		</property>
 	</bean>
