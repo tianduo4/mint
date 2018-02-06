@@ -66,7 +66,7 @@ public class Website extends BaseWebsite {
         if (!StringUtils.isBlank(s2)) {
             stringbuilder.append("_").append(s2);
         }
-        return ".html";
+        return stringbuilder.toString()+".html";
     }
 
     public String getUrl() {
