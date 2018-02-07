@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 public class Website extends BaseWebsite {
     private static final long serialVersionUID = 1L;
+    public static final String BASE_PATH="/mint-1.0-SNAPSHOT";
     public static final String RES_BASE = "r/gou/www";
     public static final String USER_BASE = "t";
     public static final String FRONT_RES = "/res/front";
@@ -74,7 +75,7 @@ public class Website extends BaseWebsite {
     }
 
     public String getUploadRel(String s) {
-        StringBuilder stringbuilder = new StringBuilder("/").append("/u");
+        StringBuilder stringbuilder = new StringBuilder(BASE_PATH).append("/").append("/u");
         if (!StringUtils.isBlank(s)) {
             if (!s.startsWith("/")) {
                 stringbuilder.append("/");
@@ -85,7 +86,7 @@ public class Website extends BaseWebsite {
     }
 
     public String getUploadUrls(String s) {
-        StringBuilder stringbuilder = getResBaseUrlBuff().append("/").append("/u");
+        StringBuilder stringbuilder = getResBaseUrlBuff().append(BASE_PATH).append("/").append("/u");
         if (!StringUtils.isBlank(s)) {
             if (!s.startsWith("/")) {
                 stringbuilder.append("/");
@@ -222,13 +223,13 @@ public class Website extends BaseWebsite {
             if (s.indexOf("/") < 0)
                 s = "/" + s;
         } else {
-            s = "";
+            s = "/mint-1.0-SNAPSHOT";
         }
         return s;
     }
 
     public String getResBaseUrl() {
-        return getResBaseUrlBuff().toString();
+        return BASE_PATH+getResBaseUrlBuff().toString();
     }
 
     public String getTemplateRel(HttpServletRequest request) {
