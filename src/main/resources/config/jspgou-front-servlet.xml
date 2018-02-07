@@ -165,15 +165,15 @@
 	<!-- 站内信 -->
  	<bean id="messageAct" class="com.mint.cms.action.member.MessageAct" />
 
-    <bean id="userAppAct" class="com.mint.cms.app.UserAppAct"/>
-    <bean id="productAppAct" class="com.mint.cms.app.ProductAppAct"/>
-    <bean id="cartAppAct" class="com.mint.cms.app.CartAppAct"/>
-    <bean id="articleAppAct" class="com.mint.cms.app.ArticleAppAct"/>
-    <bean id="brandAppAct" class="com.mint.cms.app.BrandAppAct"/>
-    <bean id="categoryAppAct" class="com.mint.cms.app.CategoryAppAct"/>
-    <bean id="channelAppAct" class="com.mint.cms.app.ChannelAppAct"/>
-    <bean id="imageUploadAppAct" class="com.mint.cms.app.ImageUploadAct"/>
-    <bean id="orderAppAct" class="com.mint.cms.app.OrderAppAct"/>
-    <bean id="paymentAppAct" class="com.mint.cms.app.PaymentAppAct"/>
-    <bean id="searchAppAct" class="com.mint.cms.app.SearchAppAct"/>
+    <bean id="userAppAct" class="com.mint.cms.app.UserAppController"/>
+    <bean id="productAppAct" class="com.mint.cms.app.ProductAppController"/>
+    <bean id="cartAppAct" class="com.mint.cms.app.CartAppController"/>
+    <bean id="articleAppAct" class="com.mint.cms.app.ArticleAppController"/>
+    <bean id="brandAppAct" class="com.mint.cms.app.BrandAppController"/>
+    <bean id="categoryAppAct" class="com.mint.cms.app.CategoryAppController"/>
+    <bean id="channelAppAct" class="com.mint.cms.app.ChannelAppController"/>
+    <bean id="imageUploadAppAct" class="com.mint.cms.app.ImageUploadAppController"/>
+    <bean id="orderAppAct" class="com.mint.cms.app.OrderAppController"/>
+    <bean id="paymentAppAct" class="com.mint.cms.app.PaymentAppController"/>
+    <bean id="searchAppAct" class="com.mint.cms.app.SearchAppController"/>
 </beans>

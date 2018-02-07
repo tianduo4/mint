@@ -11,56 +11,56 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"	
 default-lazy-init="true">	
-	<bean id="loginController" class="com.mint.cms.api.admin.LoginController"/>
+	<bean id="loginController" class="com.mint.cms.api.admin.LoginApiController"/>
 	<bean id="uploadController" class="com.mint.cms.api.common.UploadController"/>
-	<bean id="adminController" class="com.mint.cms.api.admin.AdminController"/>
-	<bean id="roleController" class="com.mint.cms.api.admin.RoleController"/>
-	<bean id="logController" class="com.mint.cms.api.admin.LogController"/>
-	<bean id="productTypeController" class="com.mint.cms.api.admin.ProductTypeController"/>
-	<bean id="standardTypeController" class="com.mint.cms.api.admin.StandardTypeController" />
-	<bean id="brandController" class="com.mint.cms.api.admin.BrandController" />
-	<bean id="categoryController" class="com.mint.cms.api.admin.CategoryController" />
-	<bean id="productController" class="com.mint.cms.api.admin.ProductController" />
-	<bean id="orderController" class="com.mint.cms.api.admin.OrderController"/>
-	<bean id="memberController" class="com.mint.cms.api.admin.MemberController"/>
-	<bean id="dictController" class="com.mint.cms.api.admin.DictController"/>
-	<bean id="memberGroupController" class="com.mint.cms.api.admin.MemberGroupController"/>
-	<bean id="dictTypeController" class="com.mint.cms.api.admin.DictTypeController"/>
-	<bean id="areaController" class="com.mint.cms.api.admin.AreaController"/>
-	<bean id="messageController" class="com.mint.cms.api.admin.MessageController"/>
-	<bean id="receiveMessageController" class="com.mint.cms.api.admin.ReceiveMessageController"/>
-	<bean id="aipRecordController" class="com.mint.cms.api.admin.AipRecordController"/>
-	<bean id="apiInfoController" class="com.mint.cms.api.admin.ApiInfoController"/>
-	<bean id="apiAccountController" class="com.mint.cms.api.admin.ApiAccountController"/>
-	<bean id="ftpController" class="com.mint.cms.api.admin.FtpController"/>
-	<bean id="couponController" class="com.mint.cms.api.admin.CouponController"/>
-	<bean id="paymentPluginsController" class="com.mint.cms.api.admin.PaymentPluginsController"/>
-	<bean id="customerServiceController" class="com.mint.cms.api.admin.CustomerServiceController"/>
-	<bean id="weixinController" class="com.mint.cms.api.admin.WeixinController"/>
-	<bean id="shipmentsController" class="com.mint.cms.api.admin.ShipmentsController"/>
-	<bean id="orderReturnController" class="com.mint.cms.api.admin.OrderReturnController"/>
-	<bean id="weixinMenuController" class="com.mint.cms.api.admin.WeixinMenuController"/>
-	<bean id="weixinMessageController" class="com.mint.cms.api.admin.WeixinMessageController"/>
-	<bean id="configController" class="com.mint.cms.api.admin.ConfigController"/>
-	<bean id="webServiceAuthController" class="com.mint.cms.api.admin.WebServiceAuthController"/>
-	<bean id="webserviceCallRecordController" class="com.mint.cms.api.admin.WebserviceCallRecordController"/>
-	 <bean id="discussController" class="com.mint.cms.api.admin.DiscussController"/>
-	<bean id="consultController" class="com.mint.cms.api.admin.ConsultController"/>
-	<bean id="resourceController" class="com.mint.cms.api.admin.ResourceController"/>
-	<bean id="templateController" class="com.mint.cms.api.admin.TemplateController"/>
-	<bean id="logisticsController" class="com.mint.cms.api.admin.LogisticsController"/>
-	<bean id="adsapceController" class="com.mint.cms.api.admin.AdsapceController"/>
-	<bean id="advertiseController" class="com.mint.cms.api.admin.AdvertiseController"/>
-	<bean id="globalSettingController" class="com.mint.cms.api.admin.GlobalSettingController"/>
-	<bean id="shippingController" class="com.mint.cms.api.admin.ShippingController"/>
-	<bean id="paymentController" class="com.mint.cms.api.admin.PaymentController"/>
-	<bean id="webserviceController" class="com.mint.cms.api.admin.WebserviceController"/>
-	<bean id="channelController" class="com.mint.cms.api.admin.ChannelController"/>
-	<bean id="articleController" class="com.mint.cms.api.admin.ArticleController"/>
-	<bean id="posterController" class="com.mint.cms.api.admin.PosterController"/>
+	<bean id="adminController" class="com.mint.cms.api.admin.AdminApiController"/>
+	<bean id="roleController" class="com.mint.cms.api.admin.RoleApiController"/>
+	<bean id="logController" class="com.mint.cms.api.admin.LogApiController"/>
+	<bean id="productTypeController" class="com.mint.cms.api.admin.ProductTypeApiController"/>
+	<bean id="standardTypeController" class="com.mint.cms.api.admin.StandardTypeApiController" />
+	<bean id="brandController" class="com.mint.cms.api.admin.BrandApiController" />
+	<bean id="categoryController" class="com.mint.cms.api.admin.CategoryApiController" />
+	<bean id="productController" class="com.mint.cms.api.admin.ProductApiController" />
+	<bean id="orderController" class="com.mint.cms.api.admin.OrderApiController"/>
+	<bean id="memberController" class="com.mint.cms.api.admin.MemberApiController"/>
+	<bean id="dictController" class="com.mint.cms.api.admin.DictApiController"/>
+	<bean id="memberGroupController" class="com.mint.cms.api.admin.MemberGroupApiController"/>
+	<bean id="dictTypeController" class="com.mint.cms.api.admin.DictTypeApiController"/>
+	<bean id="areaController" class="com.mint.cms.api.admin.AreaApiController"/>
+	<bean id="messageController" class="com.mint.cms.api.admin.MessageApiController"/>
+	<bean id="receiveMessageController" class="com.mint.cms.api.admin.ReceiveMessageApiController"/>
+	<bean id="aipRecordController" class="com.mint.cms.api.admin.ApiRecordApiController"/>
+	<bean id="apiInfoController" class="com.mint.cms.api.admin.ApiInfoApiController"/>
+	<bean id="apiAccountController" class="com.mint.cms.api.admin.ApiAccountApiController"/>
+	<bean id="ftpController" class="com.mint.cms.api.admin.FtpApiController"/>
+	<bean id="couponController" class="com.mint.cms.api.admin.CouponApiController"/>
+	<bean id="paymentPluginsController" class="com.mint.cms.api.admin.PaymentPluginsApiController"/>
+	<bean id="customerServiceController" class="com.mint.cms.api.admin.CustomerServiceApiController"/>
+	<bean id="weixinController" class="com.mint.cms.api.admin.WeixinApiController"/>
+	<bean id="shipmentsController" class="com.mint.cms.api.admin.ShipmentsApiController"/>
+	<bean id="orderReturnController" class="com.mint.cms.api.admin.OrderReturnApiController"/>
+	<bean id="weixinMenuController" class="com.mint.cms.api.admin.WeixinMenuApiController"/>
+	<bean id="weixinMessageController" class="com.mint.cms.api.admin.WeixinMessageApiController"/>
+	<bean id="configController" class="com.mint.cms.api.admin.ConfigApiController"/>
+	<bean id="webServiceAuthController" class="com.mint.cms.api.admin.WebServiceAuthApiController"/>
+	<bean id="webserviceCallRecordController" class="com.mint.cms.api.admin.WebserviceCallRecordApiController"/>
+	 <bean id="discussController" class="com.mint.cms.api.admin.DiscussApiController"/>
+	<bean id="consultController" class="com.mint.cms.api.admin.ConsultApiController"/>
+	<bean id="resourceController" class="com.mint.cms.api.admin.ResourceApiController"/>
+	<bean id="templateController" class="com.mint.cms.api.admin.TemplateApiController"/>
+	<bean id="logisticsController" class="com.mint.cms.api.admin.LogisticsApiController"/>
+	<bean id="adsapceController" class="com.mint.cms.api.admin.AdsapceApiController"/>
+	<bean id="advertiseController" class="com.mint.cms.api.admin.AdvertiseApiController"/>
+	<bean id="globalSettingController" class="com.mint.cms.api.admin.GlobalSettingApiController"/>
+	<bean id="shippingController" class="com.mint.cms.api.admin.ShippingApiController"/>
+	<bean id="paymentController" class="com.mint.cms.api.admin.PaymentApiController"/>
+	<bean id="webserviceController" class="com.mint.cms.api.admin.WebserviceApiController"/>
+	<bean id="channelController" class="com.mint.cms.api.admin.ChannelApiController"/>
+	<bean id="articleController" class="com.mint.cms.api.admin.ArticleApiController"/>
+	<bean id="posterController" class="com.mint.cms.api.admin.PosterApiController"/>
 	<bean id="ueditorController" class="com.mint.cms.api.common.UeditorController"/>
-	<bean id="indexController" class="com.mint.cms.api.admin.IndexController"/>
-	<bean id="saleChatStatisticsController" class="com.mint.cms.api.admin.SaleChatStatisticsController"/>
-	<bean id="logisticsPrintSetController" class="com.mint.cms.api.admin.LogisticsPrintSetController"/>
+	<bean id="indexController" class="com.mint.cms.api.admin.IndexApiController"/>
+	<bean id="saleChatStatisticsController" class="com.mint.cms.api.admin.SaleChatStatisticsApiController"/>
+	<bean id="logisticsPrintSetController" class="com.mint.cms.api.admin.LogisticsPrintSetApiController"/>
 	
 </beans>

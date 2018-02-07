@@ -114,74 +114,74 @@
 	<!--Controller
 		-->
 	<context:annotation-config/>
-	<bean id="fckAct" class="com.mint.cms.action.admin.FckAct"/>
-	<bean id="loginAct" class="com.mint.cms.action.admin.LoginAct"/>
-	<bean id="frameAct" class="com.mint.cms.action.admin.FrameAct"/>
-	<bean id="imageCutAct" class="com.mint.cms.action.admin.ImageCutAct"/>
-    <bean id="imageUploadAct" class="com.mint.cms.action.admin.ImageUploadAct"/>
-	<bean id="welcomeAct" class="com.mint.cms.action.admin.WelcomeAct"/>
+	<bean id="fckAct" class="com.mint.cms.action.admin.FckController"/>
+	<bean id="loginAct" class="com.mint.cms.action.admin.LoginController"/>
+	<bean id="frameAct" class="com.mint.cms.action.admin.FrameController"/>
+	<bean id="imageCutAct" class="com.mint.cms.action.admin.ImageCutController"/>
+    <bean id="imageUploadAct" class="com.mint.cms.action.admin.ImageUploadController"/>
+	<bean id="welcomeAct" class="com.mint.cms.action.admin.WelcomeController"/>
 	
-	<bean id="logAct" class="com.mint.cms.action.admin.main.LogAct"/>
-    <bean id="alipayAct" class="com.mint.cms.action.admin.main.AlipayAct"/>
-    <bean id="addressAct" class="com.mint.cms.action.admin.main.AddressAct"/>
-	<bean id="shopAdminAct" class="com.mint.cms.action.admin.main.ShopAdminAct"/>
-	<bean id="resourceAct" class="com.mint.cms.action.admin.main.ResourceAct"/>
-	<bean id="shopMemberAct" class="com.mint.cms.action.admin.main.ShopMemberAct"/>
-	<bean id="productTypeAct" class="com.mint.cms.action.admin.main.ProductTypeAct"/>
-	<bean id="productAct" class="com.mint.cms.action.admin.main.ProductAct"/>
-	<bean id="productTagAct" class="com.mint.cms.action.admin.main.ProductTagAct"/>
-	<bean id="configAct" class="com.mint.cms.action.admin.main.ConfigAct"/>
-	<bean id="categoryAct" class="com.mint.cms.action.admin.main.CategoryAct"/>
-	<bean id="brandAct" class="com.mint.cms.action.admin.main.BrandAct"/>
-	<bean id="logisticsAct" class="com.mint.cms.action.admin.main.LogisticsAct"/>
-	<bean id="shopMemberGroupAct" class="com.mint.cms.action.admin.main.ShopMemberGroupAct"/>
-	<bean id="templateAct" class="com.mint.cms.action.admin.main.TemplateAct">
+	<bean id="logAct" class="com.mint.cms.action.admin.main.LogController"/>
+    <bean id="alipayAct" class="com.mint.cms.action.admin.main.AlipayController"/>
+    <bean id="addressAct" class="com.mint.cms.action.admin.main.AddressController"/>
+	<bean id="shopAdminAct" class="com.mint.cms.action.admin.main.ShopAdminController"/>
+	<bean id="resourceAct" class="com.mint.cms.action.admin.main.ResourceController"/>
+	<bean id="shopMemberAct" class="com.mint.cms.action.admin.main.ShopMemberController"/>
+	<bean id="productTypeAct" class="com.mint.cms.action.admin.main.ProductTypeController"/>
+	<bean id="productAct" class="com.mint.cms.action.admin.main.ProductController"/>
+	<bean id="productTagAct" class="com.mint.cms.action.admin.main.ProductTagController"/>
+	<bean id="configAct" class="com.mint.cms.action.admin.main.ConfigController"/>
+	<bean id="categoryAct" class="com.mint.cms.action.admin.main.CategoryController"/>
+	<bean id="brandAct" class="com.mint.cms.action.admin.main.BrandController"/>
+	<bean id="logisticsAct" class="com.mint.cms.action.admin.main.LogisticsController"/>
+	<bean id="shopMemberGroupAct" class="com.mint.cms.action.admin.main.ShopMemberGroupController"/>
+	<bean id="templateAct" class="com.mint.cms.action.admin.main.TemplateController">
 	  <property name="tplManager" ref="tplManager"/>
     </bean>
-	<bean id="shippingAct" class="com.mint.cms.action.admin.main.ShippingAct"/>
-	<bean id="paymentAct" class="com.mint.cms.action.admin.main.PaymentAct"/>
-	<bean id="orderAct" class="com.mint.cms.action.admin.main.OrderAct"/>
-	<bean id="shopChannelAct" class="com.mint.cms.action.admin.main.ShopChannelAct"/>
-	<bean id="shopArticleAct" class="com.mint.cms.action.admin.main.ShopArticleAct"/>
-	<bean id="messageAct" class="com.mint.cms.action.admin.main.MessageAct"/>
-	<bean id="receiverMessageAct" class="com.mint.cms.action.admin.main.ReceiverMessageAct"/>
-	<bean id="discussAct" class="com.mint.cms.action.admin.main.DiscussAct"/>
-	<bean id="consultAct" class="com.mint.cms.action.admin.main.ConsultAct"/>
-	<bean id="giftAct" class="com.mint.cms.action.admin.main.GiftAct"/>
-	<bean id="giftExchangeAct" class="com.mint.cms.action.admin.main.GiftExchangeAct"/>
+	<bean id="shippingAct" class="com.mint.cms.action.admin.main.ShippingController"/>
+	<bean id="paymentAct" class="com.mint.cms.action.admin.main.PaymentController"/>
+	<bean id="orderAct" class="com.mint.cms.action.admin.main.OrderController"/>
+	<bean id="shopChannelAct" class="com.mint.cms.action.admin.main.ShopChannelController"/>
+	<bean id="shopArticleAct" class="com.mint.cms.action.admin.main.ShopArticleController"/>
+	<bean id="messageAct" class="com.mint.cms.action.admin.main.MessageController"/>
+	<bean id="receiverMessageAct" class="com.mint.cms.action.admin.main.ReceiverMessageController"/>
+	<bean id="discussAct" class="com.mint.cms.action.admin.main.DiscussController"/>
+	<bean id="consultAct" class="com.mint.cms.action.admin.main.ConsultController"/>
+	<bean id="giftAct" class="com.mint.cms.action.admin.main.GiftController"/>
+	<bean id="giftExchangeAct" class="com.mint.cms.action.admin.main.GiftExchangeController"/>
 		
-	<bean id="couponAct" class="com.mint.cms.action.admin.main.CouponAct"/>
-	<bean id="uploadAdminAct" class="com.mint.cms.action.admin.main.UnLoadAdminAct"/>
-	<bean id="productTypePropertyAct" class="com.mint.cms.action.admin.main.ProductTypePropertyAct"/>
-	<bean id="productStatisticsAct" class="com.mint.cms.action.admin.main.ProductStatisticsAct"/>
-	<bean id="posterAct" class="com.mint.cms.action.admin.main.PosterAct"/>
-	<bean id="adspaceAct" class="com.mint.cms.action.admin.main.AdspaceAct"/>
-	<bean id="advertiseAct" class="com.mint.cms.action.admin.main.AdvertiseAct"/>
-	<bean id="pluginsAct" class="com.mint.cms.action.admin.main.PaymentPluginsAct"/>
+	<bean id="couponAct" class="com.mint.cms.action.admin.main.CouponController"/>
+	<bean id="uploadAdminAct" class="com.mint.cms.action.admin.main.UnLoadAdminController"/>
+	<bean id="productTypePropertyAct" class="com.mint.cms.action.admin.main.ProductTypePropertyController"/>
+	<bean id="productStatisticsAct" class="com.mint.cms.action.admin.main.ProductStatisticsController"/>
+	<bean id="posterAct" class="com.mint.cms.action.admin.main.PosterController"/>
+	<bean id="adspaceAct" class="com.mint.cms.action.admin.main.AdspaceController"/>
+	<bean id="advertiseAct" class="com.mint.cms.action.admin.main.AdvertiseController"/>
+	<bean id="pluginsAct" class="com.mint.cms.action.admin.main.PaymentPluginsController"/>
 
-	<bean id="shopDictionaryAct" class="com.mint.cms.action.admin.main.ShopDictionaryAct"/>
-	<bean id="shopDictionaryTypeAct" class="com.mint.cms.action.admin.main.ShopDictionaryTypeAct"/>
-	<bean id="orderReturnAct" class="com.mint.cms.action.admin.main.OrderReturnAct"/>
-	<bean id="shopMoneyAct" class="com.mint.cms.action.admin.main.ShopMoneyAct"/>
-	<bean id="customerServiceAct" class="com.mint.cms.action.admin.main.CustomerServiceAct"/>
-	<bean id="roleAct" class="com.mint.cms.action.admin.main.RoleAct"/>
+	<bean id="shopDictionaryAct" class="com.mint.cms.action.admin.main.ShopDictionaryController"/>
+	<bean id="shopDictionaryTypeAct" class="com.mint.cms.action.admin.main.ShopDictionaryTypeController"/>
+	<bean id="orderReturnAct" class="com.mint.cms.action.admin.main.OrderReturnController"/>
+	<bean id="shopMoneyAct" class="com.mint.cms.action.admin.main.ShopMoneyController"/>
+	<bean id="customerServiceAct" class="com.mint.cms.action.admin.main.CustomerServiceController"/>
+	<bean id="roleAct" class="com.mint.cms.action.admin.main.RoleController"/>
 
-	<bean id="exendedAct" class="com.mint.cms.action.admin.main.ExendedAct"/>
-	<bean id="standardTypeAct" class="com.mint.cms.action.admin.main.StandardTypeAct"/>
-	<bean id="gatheringAct" class="com.mint.cms.action.admin.main.GatheringAct"/>
-	<bean id="shipmentsAct" class="com.mint.cms.action.admin.main.ShipmentsAct"/>
-	<bean id="popularityGroupAct" class="com.mint.cms.action.admin.main.PopularityGroupAct"/>
+	<bean id="exendedAct" class="com.mint.cms.action.admin.main.ExendedController"/>
+	<bean id="standardTypeAct" class="com.mint.cms.action.admin.main.StandardTypeController"/>
+	<bean id="gatheringAct" class="com.mint.cms.action.admin.main.GatheringController"/>
+	<bean id="shipmentsAct" class="com.mint.cms.action.admin.main.ShipmentsController"/>
+	<bean id="popularityGroupAct" class="com.mint.cms.action.admin.main.PopularityGroupController"/>
 	
-	<bean id="webserviceAct" class="com.mint.cms.action.admin.main.WebserviceAct"/>
-	<bean id="webserviceAuthAct" class="com.mint.cms.action.admin.main.WebserviceAuthAct"/>
-	<bean id="webserviceCallRecordAct" class="com.mint.cms.action.admin.main.WebserviceCallRecordAct"/>
+	<bean id="webserviceAct" class="com.mint.cms.action.admin.main.WebserviceController"/>
+	<bean id="webserviceAuthAct" class="com.mint.cms.action.admin.main.WebserviceAuthController"/>
+	<bean id="webserviceCallRecordAct" class="com.mint.cms.action.admin.main.WebserviceCallRecordController"/>
 	
-	<bean id="salesStatisticAct" class="com.mint.cms.action.admin.main.SalesStatisticAct"/>
-	<bean id="ftpAct" class="com.mint.cms.action.admin.main.FtpAct"/>
+	<bean id="salesStatisticAct" class="com.mint.cms.action.admin.main.SalesStatisticController"/>
+	<bean id="ftpAct" class="com.mint.cms.action.admin.main.FtpController"/>
 	
 	<bean id="plugAct" class="com.mint.cms.action.admin.assist.PlugAct"/>
-	<bean id="apiAccountAct" class="com.mint.cms.action.admin.main.ApiAccountAct"/>
-	<bean id="apiInfoAct" class="com.mint.cms.action.admin.main.ApiInfoAct"/>
-	<bean id="apiRecordAct" class="com.mint.cms.action.admin.main.ApiRecordAct"/>
-	<bean id="shopShipmentsAct" class="com.mint.cms.action.admin.main.ShopShipmentsAct"/>
+	<bean id="apiAccountAct" class="com.mint.cms.action.admin.main.ApiAccountController"/>
+	<bean id="apiInfoAct" class="com.mint.cms.action.admin.main.ApiInfoController"/>
+	<bean id="apiRecordAct" class="com.mint.cms.action.admin.main.ApiRecordController"/>
+	<bean id="shopShipmentsAct" class="com.mint.cms.action.admin.main.ShopShipmentsController"/>
 </beans>

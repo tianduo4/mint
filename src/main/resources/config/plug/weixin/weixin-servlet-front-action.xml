@@ -6,5 +6,5 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 	default-lazy-init="true">
 	
-	<bean id="messageAct" class="com.mint.plug.weixin.action.front.MessageAct"/>
+	<bean id="messageAct" class="com.mint.plug.weixin.action.front.WeiXinMessageController"/>
 </beans>
